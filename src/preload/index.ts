@@ -1,8 +1,9 @@
 import { contextBridge, ipcRenderer } from 'electron'
 import { electronAPI } from '@electron-toolkit/preload'
+import type { Api } from './index.d'
 
 // Custom APIs for renderer
-const api = {
+const api: Api = {
   getStaffList: () => ipcRenderer.invoke('get-staff-list')
 }
 

@@ -34,6 +34,12 @@ function createWindow(): void {
   } else {
     mainWindow.loadFile(join(__dirname, '../renderer/index.html'))
   }
+
+  if(process.platform === 'linux') {
+  	app.commandLine.appendSwitch('no-sandbox')
+	app.commandLine.appendSwitch('disable-gpu')
+	app.commandLine.appendSwitch('disable-software-rasterizer')
+  }
 }
 
 // This method will be called when Electron has finished
