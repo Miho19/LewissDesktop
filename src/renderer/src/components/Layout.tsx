@@ -10,10 +10,9 @@ function Layout(props: Props) {
   const location = useLocation()
 
   return (
-    <div className="h-screen dark bg-background flex flex-col">
-      <nav></nav>
+    <div className="h-screen dark bg-background flex flex-col text-foreground">
       <main className="flex-1 overflow-auto">
-        <div className="container mx-auto p-4 h-full">{children}</div>
+        <div className="container p-6 h-full">{children}</div>
       </main>
     </div>
   )

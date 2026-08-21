@@ -18,6 +18,8 @@ function createWindow(): void {
     }
   })
 
+  mainWindow.webContents.openDevTools()
+
   mainWindow.on('ready-to-show', () => {
     mainWindow.show()
   })
@@ -34,13 +36,9 @@ function createWindow(): void {
   } else {
     mainWindow.loadFile(join(__dirname, '../renderer/index.html'))
   }
-
-  if(process.platform === 'linux') {
-  	app.commandLine.appendSwitch('no-sandbox')
-	app.commandLine.appendSwitch('disable-gpu')
-	app.commandLine.appendSwitch('disable-software-rasterizer')
-  }
 }
+
+app.disableHardwareAcceleration()
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
