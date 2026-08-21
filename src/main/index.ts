@@ -2,6 +2,7 @@ import { app, shell, BrowserWindow, ipcMain } from 'electron'
 import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
+import { GETStaff } from './http/GETStaff'
 
 function createWindow(): void {
   // Create the browser window.
@@ -72,3 +73,13 @@ app.on('window-all-closed', () => {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
+
+ipcMain.handle('get-staff-list', async () => {
+  try {
+    const response = await GETStaff()
+    return response
+  } catch (error) {
+    if (error instanceof Error) throw new Error(error.message)
+    throw new Error('Failed to fetch staff list')
+  }
+})
