@@ -9,10 +9,6 @@ export type Consultant = {
   accessAll: string
 }
 
-export type ConsultantFolder = {
-  folderId: string
-} & Consultant
-
 export type GETStaffResponseBody = {
   ok: boolean
   measurers: string[]

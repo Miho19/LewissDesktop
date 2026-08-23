@@ -3,6 +3,7 @@ import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
 import { GETStaff } from './http/GETStaff'
+import { GETFolder } from './http/GETFolder'
 
 function createWindow(): void {
   // Create the browser window.
@@ -85,5 +86,14 @@ ipcMain.handle('get-staff-list', async () => {
   } catch (error) {
     if (error instanceof Error) throw new Error(error.message)
     throw new Error('Failed to fetch staff list')
+  }
+})
+
+ipcMain.handle('get-folder', async (_event, folderId: string) => {
+  try {
+    const response = await GETFolder(folderId)
+    return response
+  } catch (error) {
+    throw new Error('failed to fetch folder')
   }
 })
