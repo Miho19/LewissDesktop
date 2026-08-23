@@ -1,5 +1,5 @@
 import { AlertTriangleIcon } from 'lucide-react'
-import { Alert, AlertDescription, AlertTitle } from '../ui/alert'
+import { Alert, AlertDescription, AlertTitle } from '../../ui/alert'
 
 type Props = {
   error: Error

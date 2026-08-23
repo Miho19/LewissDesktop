@@ -17,7 +17,12 @@ function MainNavigation() {
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton tooltip="home">
-              <Link to="/" className="flex gap-2 items-center w-full">
+              <Link
+                to="/"
+                className="flex gap-2 items-center w-full"
+                activeOptions={{ exact: true }}
+                activeProps={{ className: 'font-bold' }}
+              >
                 <Home />
                 <span>Home</span>
               </Link>

@@ -20,7 +20,13 @@ function ConsultantList() {
   const navigationList = filteredList.map((c) => (
     <SidebarMenuItem key={c.name}>
       <SidebarMenuButton>
-        <Link to={`/$param`} params={{ param: c.name }} className="flex w-full">
+        <Link
+          to={`/$param`}
+          params={{ param: c.name }}
+          className="flex w-full"
+          activeOptions={{ exact: true }}
+          activeProps={{ className: 'font-bold' }}
+        >
           {c.name}
         </Link>
       </SidebarMenuButton>

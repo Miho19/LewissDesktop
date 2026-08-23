@@ -5,16 +5,16 @@ import {
   CommandItem,
   CommandList
 } from '@/components/ui/command'
-import { Spinner } from '../ui/spinner'
 
 import ConsultantErrorAlert from './ConsultantErrorAlert'
 import useStaffList from '@/hook/useStaffList'
 import { useNavigate } from '@tanstack/react-router'
+import { Skeleton } from '../../ui/skeleton'
 
 function ConsultantCommand() {
   const navigate = useNavigate()
   const { data, isLoading, isPending, isError, error } = useStaffList()
-  if (isLoading || isPending) return <Spinner />
+  if (isLoading || isPending) return <ConsultantCommandSkeleton />
   if (isError) return <ConsultantErrorAlert error={error} />
 
   const filteredList = data.consultants.filter((c) => c.functions.includes('Consultant'))
@@ -40,6 +40,16 @@ function ConsultantCommand() {
           {consultantList}
         </CommandList>
       </Command>
+    </div>
+  )
+}
+
+function ConsultantCommandSkeleton() {
+  return (
+    <div className="flex flex-col w-full max-w-md gap-2 p-4">
+      <Skeleton className="h-4 w-full" />
+      <Skeleton className="h-4 w-full" />
+      <Skeleton className="h-4 w-full" />
     </div>
   )
 }
