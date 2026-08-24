@@ -1,6 +1,9 @@
-import { useNavigate, useParams, useRouterState } from '@tanstack/react-router'
+import { useParams, useRouterState } from '@tanstack/react-router'
 import { Skeleton } from '@/components/ui/skeleton'
 import useFolder from '../hook/useFolder'
+import ConsultantHeader from '../components/consultant/ConsultantHeader'
+import { FolderItem } from 'shared/types/Folder.types'
+import FolderList from '../components/consultant/FolderList'
 
 function Consultant() {
   const { param } = useParams({ from: '/$param' })
@@ -12,13 +15,12 @@ function Consultant() {
   if (isPending || isLoading) return <RootFolderLoadingSkeleton />
   if (isError) return <div>{error.message}</div>
 
-  const items = data.map((i) => <p key={i.id}>{i.name}</p>)
+  const filtered = data.filter((i) => i.isFile)
 
   return (
-    <div className="h-full flex flex-col justify-between items-start">
-      <h1>{param}</h1>
-      <h2>folder: {folderId}</h2>
-      <div className="flex flex-col gap-2">{items}</div>
+    <div className="w-full h-full flex flex-col rounded-md p-6 gap-8">
+      <ConsultantHeader name={param} />
+      <FolderList folder={filtered} />
     </div>
   )
 }
@@ -34,3 +36,5 @@ function RootFolderLoadingSkeleton() {
     </div>
   )
 }
+
+function getFileList(folder: FolderItem[]) {}
