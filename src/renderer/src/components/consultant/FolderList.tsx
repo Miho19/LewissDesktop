@@ -78,6 +78,7 @@ function getNavigationLinks(folder: FolderItem[], consultant: string) {
 
       return (
         <Link
+          from="/consultant/$consultantName/"
           to="/consultant/$consultantName/project/$projectId"
           params={{ consultantName: consultant, projectId: f.id }}
           className="flex flex-col w-full items-center justify-between border-b pb-3 last:pb-6 transition-all hover:border-primary hover:pl-4 cursor-pointer"

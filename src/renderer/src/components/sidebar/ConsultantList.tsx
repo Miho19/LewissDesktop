@@ -75,12 +75,16 @@ function getSidebarNavigationLink(consultantList: Consultant[], root: FolderItem
 function getSidebarNavigationComponent(consultantName: string, folderId: string) {
   const payload = { name: consultantName, folderId }
 
+  if (typeof payload === 'undefined') {
+    console.log(`${consultantName} ${folderId}`)
+  }
+
   return (
     <SidebarMenuItem key={consultantName}>
       <SidebarMenuButton>
         <Link
-          to={`/consultant/$consultant`}
-          params={{ consultant: consultantName }}
+          to={`/consultant/$consultantName`}
+          params={{ consultantName: consultantName }}
           className="flex w-full"
           activeOptions={{ exact: true }}
           activeProps={{ className: 'font-bold' }}

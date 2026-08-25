@@ -5,7 +5,8 @@ import type { Api } from './index.d'
 // Custom APIs for renderer
 const api: Api = {
   getStaffList: () => ipcRenderer.invoke('get-staff-list'),
-  getFolder: (folderId) => ipcRenderer.invoke('get-folder', folderId)
+  getFolder: (folderId) => ipcRenderer.invoke('get-folder', folderId),
+  getProjectFile: (fileId) => ipcRenderer.invoke('get-project-file', fileId)
 }
 
 // Use `contextBridge` APIs to expose Electron APIs to

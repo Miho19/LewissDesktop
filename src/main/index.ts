@@ -4,6 +4,7 @@ import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
 import { GETStaff } from './http/GETStaff'
 import { GETFolder } from './http/GETFolder'
+import GETProjectfile from './http/GETProjectFile'
 
 function createWindow(): void {
   // Create the browser window.
@@ -93,5 +94,14 @@ ipcMain.handle('get-folder', async (_event, folderId: string) => {
     return response
   } catch (error) {
     throw new Error('failed to fetch folder')
+  }
+})
+
+ipcMain.handle('get-project-file', async (_event, fileId: string) => {
+  try {
+    const response = await GETProjectfile(fileId)
+    return response
+  } catch (error) {
+    throw new Error('failed to fetch project file')
   }
 })
