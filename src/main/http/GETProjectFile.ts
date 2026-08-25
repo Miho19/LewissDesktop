@@ -14,10 +14,7 @@ function GETProjectFileFetchOptions(fileId: string) {
   return fetchOptions
 }
 
-async function GETProjectfile(
-  fileId: string,
-  endpoint: URL = GETProjectFileEndpoint()
-): Promise<ProjectFile> {
+async function GETProjectfile(fileId: string, endpoint: URL = GETProjectFileEndpoint()) {
   try {
     if (typeof fileId === 'undefined' || fileId.trim().length === 0)
       throw new Error('Missing file id')
@@ -31,7 +28,6 @@ async function GETProjectfile(
 
     if (!jsonBody.ok) throw new Error(response.statusText)
 
-    // console.log(jsonBody.content)
     const projectFile: ProjectFile = await JSON.parse(jsonBody.content)
 
     return projectFile
