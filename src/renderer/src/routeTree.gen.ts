@@ -10,43 +10,65 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as ParamRouteImport } from './routes/$param'
+import { Route as ConsultantConsultantNameIndexRouteImport } from './routes/consultant/$consultantName/index'
+import { Route as ConsultantConsultantNameProjectProjectIdRouteImport } from './routes/consultant/$consultantName/project/$projectId'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ParamRoute = ParamRouteImport.update({
-  id: '/$param',
-  path: '/$param',
-  getParentRoute: () => rootRouteImport,
-} as any)
+const ConsultantConsultantNameIndexRoute =
+  ConsultantConsultantNameIndexRouteImport.update({
+    id: '/consultant/$consultantName/',
+    path: '/consultant/$consultantName/',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ConsultantConsultantNameProjectProjectIdRoute =
+  ConsultantConsultantNameProjectProjectIdRouteImport.update({
+    id: '/consultant/$consultantName/project/$projectId',
+    path: '/consultant/$consultantName/project/$projectId',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/$param': typeof ParamRoute
+  '/consultant/$consultantName/': typeof ConsultantConsultantNameIndexRoute
+  '/consultant/$consultantName/project/$projectId': typeof ConsultantConsultantNameProjectProjectIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/$param': typeof ParamRoute
+  '/consultant/$consultantName': typeof ConsultantConsultantNameIndexRoute
+  '/consultant/$consultantName/project/$projectId': typeof ConsultantConsultantNameProjectProjectIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/$param': typeof ParamRoute
+  '/consultant/$consultantName/': typeof ConsultantConsultantNameIndexRoute
+  '/consultant/$consultantName/project/$projectId': typeof ConsultantConsultantNameProjectProjectIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/$param'
+  fullPaths:
+    | '/'
+    | '/consultant/$consultantName/'
+    | '/consultant/$consultantName/project/$projectId'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/$param'
-  id: '__root__' | '/' | '/$param'
+  to:
+    | '/'
+    | '/consultant/$consultantName'
+    | '/consultant/$consultantName/project/$projectId'
+  id:
+    | '__root__'
+    | '/'
+    | '/consultant/$consultantName/'
+    | '/consultant/$consultantName/project/$projectId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  ParamRoute: typeof ParamRoute
+  ConsultantConsultantNameIndexRoute: typeof ConsultantConsultantNameIndexRoute
+  ConsultantConsultantNameProjectProjectIdRoute: typeof ConsultantConsultantNameProjectProjectIdRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -58,11 +80,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/$param': {
-      id: '/$param'
-      path: '/$param'
-      fullPath: '/$param'
-      preLoaderRoute: typeof ParamRouteImport
+    '/consultant/$consultantName/': {
+      id: '/consultant/$consultantName/'
+      path: '/consultant/$consultantName'
+      fullPath: '/consultant/$consultantName/'
+      preLoaderRoute: typeof ConsultantConsultantNameIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/consultant/$consultantName/project/$projectId': {
+      id: '/consultant/$consultantName/project/$projectId'
+      path: '/consultant/$consultantName/project/$projectId'
+      fullPath: '/consultant/$consultantName/project/$projectId'
+      preLoaderRoute: typeof ConsultantConsultantNameProjectProjectIdRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -70,7 +99,9 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  ParamRoute: ParamRoute,
+  ConsultantConsultantNameIndexRoute: ConsultantConsultantNameIndexRoute,
+  ConsultantConsultantNameProjectProjectIdRoute:
+    ConsultantConsultantNameProjectProjectIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

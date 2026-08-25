@@ -79,8 +79,8 @@ function getSidebarNavigationComponent(consultantName: string, folderId: string)
     <SidebarMenuItem key={consultantName}>
       <SidebarMenuButton>
         <Link
-          to={`/$param`}
-          params={{ param: consultantName }}
+          to={`/consultant/$consultant`}
+          params={{ consultant: consultantName }}
           className="flex w-full"
           activeOptions={{ exact: true }}
           activeProps={{ className: 'font-bold' }}

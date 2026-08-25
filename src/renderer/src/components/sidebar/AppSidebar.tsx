@@ -6,7 +6,7 @@ import ConsultantList from './ConsultantList'
 
 function AppSidebar() {
   return (
-    <Sidebar collapsible="none">
+    <Sidebar variant="inset">
       <SidebarContent>
         <MainNavigation />
         <ConsultantList />

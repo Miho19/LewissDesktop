@@ -1,4 +1,4 @@
-import { Link } from '@tanstack/react-router'
+import { Link, useParams } from '@tanstack/react-router'
 import { FolderItem } from 'shared/types/Folder.types'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area'
@@ -9,10 +9,11 @@ type Props = {
 
 function FolderList(props: Props) {
   const { folder } = props
+  const { consultantName } = useParams({ from: '/consultant/$consultantName/' })
 
   const projectFiles = filterProjectFile(folder)
   const sorted = sortProjectFileByLastModifiedDescending(projectFiles)
-  const navigationLinkList = getNavigationLinks(sorted)
+  const navigationLinkList = getNavigationLinks(sorted, consultantName)
 
   let description = ''
   if (navigationLinkList.length === 0) {
@@ -68,7 +69,7 @@ function getProjectName(
   }
 }
 
-function getNavigationLinks(folder: FolderItem[]) {
+function getNavigationLinks(folder: FolderItem[], consultant: string) {
   return folder
     .map((f) => {
       const project = getProjectName(f.name)
@@ -77,8 +78,10 @@ function getNavigationLinks(folder: FolderItem[]) {
 
       return (
         <Link
-          to="/"
+          to="/consultant/$consultantName/project/$projectId"
+          params={{ consultantName: consultant, projectId: f.id }}
           className="flex flex-col w-full items-center justify-between border-b pb-3 last:pb-6 transition-all hover:border-primary hover:pl-4 cursor-pointer"
+          key={f.id}
         >
           <div className="flex items-center justify-between w-full">
             <span className="text-md font-medium">{customer}</span>

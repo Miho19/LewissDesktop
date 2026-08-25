@@ -1,6 +1,5 @@
-import { useLocation } from '@tanstack/react-router'
 import { ReactNode } from 'react'
-import { SidebarProvider } from './ui/sidebar'
+import { SidebarInset, SidebarProvider, SidebarTrigger } from './ui/sidebar'
 import AppSidebar from './sidebar/AppSidebar'
 
 type Props = {
@@ -9,16 +8,16 @@ type Props = {
 
 function Layout(props: Props) {
   const { children } = props
-  const location = useLocation()
 
   return (
-    <SidebarProvider>
-      <div className="h-screen w-screen dark bg-background font-sans text-foreground flex">
-        <AppSidebar />
-        <main className="flex-1 w-full h-full">
-          <div className="p-6 h-full w-full">{children}</div>
-        </main>
-      </div>
+    <SidebarProvider className="dark bg-background text-foreground font-sans">
+      <AppSidebar />
+      <SidebarInset className="flex flex-col flex-1 bg-background">
+        <header className="flex h-16 shrink-0 items-center gap-2 border-b px-4">
+          <SidebarTrigger />
+        </header>
+        <main className="flex-1 p-6 overflow-auto">{children}</main>
+      </SidebarInset>
     </SidebarProvider>
   )
 }
