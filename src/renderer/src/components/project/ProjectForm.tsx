@@ -4,6 +4,7 @@ import { getWindowDisplayList } from '@/utility/windowDisplay/getWindowDisplayLi
 import { ProjectFile } from 'shared/types/Project.types'
 import { WindowDisplay } from 'shared/types/Window.types'
 import { Item, ItemContent, ItemDescription, ItemGroup, ItemTitle } from '@/components/ui/item'
+import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area'
 
 type Props = {
   file: ProjectFile
@@ -18,17 +19,35 @@ function ProjectForm(props: Props) {
   const outputList = getOutputList(windowDisplayList)
 
   return (
-    <form className="flex-1 h-full flex flex-col -mt-(--card-spacing)">
-      <CardContent className="flex-1 bg-muted py-4">
-        <ul className="flex flex-col space-y-4">
-          <ItemGroup>{outputList}</ItemGroup>
-        </ul>
+    <form className="bg-muted">
+      <CardContent className="py-4">
+        <ScrollArea className="h-[518px] pr-4">
+          <ul className="">
+            <ItemGroup>{outputList}</ItemGroup>
+          </ul>
+        </ScrollArea>
       </CardContent>
       <CardFooter className="p-6 flex justify-end">
         <Button variant="default">Submit</Button>
       </CardFooter>
     </form>
   )
+}
+
+{
+  /* <form className="flex-1 h-full flex flex-col -mt-(--card-spacing)">
+      <CardContent className="flex-1 bg-muted p-0">
+        <ScrollArea className="h-96">
+          <ul className="flex flex-col space-y-4">
+            <ItemGroup>{outputList}</ItemGroup>
+          </ul>
+          <ScrollBar orientation="vertical" />
+        </ScrollArea>
+      </CardContent>
+      <CardFooter className="p-6 flex justify-end">
+        <Button variant="default">Submit</Button>
+      </CardFooter>
+    </form> */
 }
 
 function ProjectFormEmpty() {

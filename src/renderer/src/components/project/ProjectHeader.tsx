@@ -11,7 +11,7 @@ type Props = {
 function ProjectHeader(props: Props) {
   const { name, reference, service, pricingType } = props
   return (
-    <CardHeader className="flex flex-col h-full max-h-16 ">
+    <CardHeader className="flex flex-col h-full">
       <CardTitle className="flex w-full text-lg space-x-4 items-center justify-between">
         <span>{name}</span>
         <span>{reference}</span>

@@ -12,14 +12,14 @@ function ProjectCard(props: Props) {
   const { file } = props
 
   return (
-    <Card className="h-full flex flex-col justify-between">
+    <Card className="bg-card">
       <ProjectHeader
         name={file.name}
         reference={file.reference}
         service={file.service}
         pricingType={file.pricingType}
       />
-      <Separator orientation="horizontal" />
+
       <ProjectForm file={file} />
     </Card>
   )

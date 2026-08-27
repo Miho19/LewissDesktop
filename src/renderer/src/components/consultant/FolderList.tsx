@@ -23,7 +23,7 @@ function FolderList(props: Props) {
   }
 
   return (
-    <Card className="w-full max-w-lg h-96 max-h-120">
+    <Card className="w-full max-w-lg h-96 max-h-120 bg-card">
       <CardHeader>
         <CardTitle>Project Files</CardTitle>
         <CardDescription>{description}</CardDescription>
@@ -31,7 +31,6 @@ function FolderList(props: Props) {
       <CardContent className="flex-1 min-h-0 p-0">
         <ScrollArea className="h-full w-full p-6">
           <ol className="flex flex-col space-y-4">{navigationLinkList}</ol>
-          <ScrollBar orientation="vertical" />
         </ScrollArea>
       </CardContent>
     </Card>
