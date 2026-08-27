@@ -3,7 +3,7 @@ import {
   SantaFeVenetianBlindOptions,
   Venetian,
   VenetianSubType
-} from 'shared/blind/venetian.types'
+} from 'shared/types/blind/venetian.types'
 import { Fabric } from '../Project.types'
 import { Spec } from './Spec.types'
 

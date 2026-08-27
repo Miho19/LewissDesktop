@@ -77,7 +77,7 @@ type Brief = {
   notes: string
 }
 
-type Treatment = {
+export type Treatment = {
   insideLayer: Layer
   outsideLayer: Layer
   notes: string
@@ -100,7 +100,7 @@ export type Fabric = {
   premium?: boolean
 }
 
-type WindowMeasurement = {
+export type WindowMeasurement = {
   id: string
   number: number
   name: string

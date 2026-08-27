@@ -1,4 +1,4 @@
-import { Blind } from 'shared/blind/blind.types'
+import { Blind } from 'shared/types/blind/blind.types'
 import { Fabric } from '../Project.types'
 
 export type KineticsCellularSpec = {
