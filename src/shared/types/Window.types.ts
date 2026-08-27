@@ -1,4 +1,4 @@
-import { Spec } from './spec/Spec.types'
+import { Treatment } from './Project.types'
 
 export const FitOption = ['inside', 'outside'] as const
 
@@ -14,5 +14,5 @@ export type WindowDisplay = {
   blindCount: BlindCount
   width: number[]
   height: number
-  spec: Spec
+  treatment: Treatment
 }

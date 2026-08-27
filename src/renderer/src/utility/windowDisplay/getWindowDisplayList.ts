@@ -25,6 +25,8 @@ function getWindowDisplay(
   window: WindowMeasurement,
   treatment: Treatment
 ): WindowDisplay[] {
+  if (typeof treatment === 'undefined') return []
+
   const insideBlindCount = getBlindCountDisplay(window.blindCount) ?? 'single'
   const insideWidth = getWindowWidth(window, 'inside') ?? [0]
   const insideHeight = getWindowHeight(window, 'inside') ?? 0
@@ -36,7 +38,7 @@ function getWindowDisplay(
     blindCount: insideBlindCount,
     width: insideWidth,
     height: insideHeight,
-    spec: treatment.insideLayer.spec
+    treatment: treatment
   }
 
   const outsideBlindCount = getBlindCountDisplay(window.outsideBlindCount) ?? 'single'
@@ -50,7 +52,7 @@ function getWindowDisplay(
     blindCount: outsideBlindCount,
     width: outsideWidth,
     height: outsideHeight,
-    spec: treatment.outsideLayer.spec
+    treatment: treatment
   }
 
   return [inside, outside]
