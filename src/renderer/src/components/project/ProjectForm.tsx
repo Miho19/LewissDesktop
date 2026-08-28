@@ -27,16 +27,22 @@ function ProjectForm(props: Props) {
 
   async function onSubmitHandler(event: SubmitEvent<HTMLFormElement>) {
     event.preventDefault()
-    const errorMap: Map<string, string> = new Map()
+    let errorMap: Map<string, string> = new Map()
 
     try {
       setIsSubmitPending(true)
       if (typeof windowDisplayList === 'undefined') return
 
-      const worksheetList = await getWorksheetListAsync(windowDisplayList, file)
+      const { worksheetList, rejectedReasons } = await getWorksheetListAsync(
+        windowDisplayList,
+        file
+      )
+
+      errorMap = handleGetWorksheetListError(rejectedReasons, errorMap)
 
       return
     } catch (error) {
+      if (error instanceof Error) errorMap.set(`${error.name}`, error.message)
     } finally {
       setIsSubmitPending(false)
       setFormError([...errorMap])
@@ -72,6 +78,23 @@ function ProjectForm(props: Props) {
       </CardFooter>
     </form>
   )
+}
+
+function handleGetWorksheetListError(
+  rejectedReason: any[],
+  errorMap: Map<string, string>
+): Map<string, string> {
+  const map: Map<string, string> = new Map()
+
+  if (rejectedReason.length === 0) return new Map([...errorMap])
+
+  for (const reason of rejectedReason) {
+    if (reason instanceof Error) {
+      map.set(reason.name, reason.message)
+    }
+  }
+
+  return new Map([...errorMap, ...map])
 }
 
 function getWindowDisplayMap(windowDisplayList: WindowDisplay[]) {

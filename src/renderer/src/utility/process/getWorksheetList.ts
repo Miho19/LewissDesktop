@@ -5,16 +5,19 @@ import { WindowDisplay } from '@shared/types/Window.types'
 import { getBlindTypeFromSpec } from './getBlindTypeFromSpec'
 import { CreateWorksheetFn, Worksheet } from '@shared/types/worksheet/Worksheet.types'
 
-export async function getWorksheetListAsync(windowDisplayList: WindowDisplay[], file: ProjectFile) {
+export async function getWorksheetListAsync(
+  windowDisplayList: WindowDisplay[],
+  file: ProjectFile
+): Promise<{ worksheetList: Worksheet[]; rejectedReasons: any[] }> {
   try {
     errorCheck(windowDisplayList, file)
 
     const map = getWindowDisplayMap(windowDisplayList)
     if (map.size === 0) throw new Error('Failed to map window display list')
 
-    const worksheetList = await createWorksheetAsync(map, file)
+    const [fulfilled, rejected] = await createWorksheetAsync(map, file)
 
-    return worksheetList
+    return { worksheetList: fulfilled, rejectedReasons: rejected }
   } catch (error) {
     throw new Error('getWorksheetListAsync', { cause: error })
   }
@@ -58,19 +61,30 @@ async function createWorksheetAsync(map: Map<Blind, WindowDisplay[]>, file: Proj
   const entries = Array.from(map.entries())
 
   const jobList = entries.map(async ([key, value]) => {
-    if (value.length === 0) return undefined
-    const createFunction = createWorksheetFunction[key]
-    if (typeof createFunction === 'undefined') return undefined
-
-    return await createFunction(key, value, file)
+    try {
+      if (value.length === 0) return undefined
+      const createFunction = createWorksheetFunction[key]
+      if (typeof createFunction === 'undefined') return undefined
+      return await createFunction(key, value, file)
+    } catch (error) {
+      const newError = new Error()
+      newError.name = `${key}`
+      newError.message = error instanceof Error ? error.message : 'Something went wrong.'
+      newError.cause = error
+      throw newError
+    }
   })
 
-  const result = (await Promise.allSettled(jobList))
+  const result = await Promise.allSettled(jobList)
+
+  const fulfilled = result
     .filter((j) => j.status === 'fulfilled')
     .map((j) => j.value)
     .filter((worksheet) => typeof worksheet !== 'undefined')
 
-  return result
+  const rejected = result.filter((j) => j.status === 'rejected').map((j) => j.reason)
+
+  return [fulfilled, rejected]
 }
 
 const createWorksheetFunction: Record<Blind, CreateWorksheetFn> = {
