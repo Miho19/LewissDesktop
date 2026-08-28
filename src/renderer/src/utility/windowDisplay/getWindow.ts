@@ -1,4 +1,4 @@
-import { ProjectFile, WindowMeasurement } from 'shared/types/Project.types'
+import { ProjectFile, WindowMeasurement } from '@shared/types/Project.types'
 
 export function getWindow(windowId: string, file: ProjectFile) {
   if (typeof file === 'undefined') return undefined

@@ -1,4 +1,4 @@
-import { BlindCount } from 'shared/types/Window.types'
+import { BlindCount } from '@shared/types/Window.types'
 
 export function getBlindCountDisplay(blindCount: string | number): BlindCount | undefined {
   if (typeof blindCount === 'string') {

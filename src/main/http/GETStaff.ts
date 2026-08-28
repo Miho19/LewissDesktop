@@ -1,4 +1,4 @@
-import type { GETStaffResponse, GETStaffResponseBody } from '../../shared/types/Consultant.types'
+import type { GETStaffResponse, GETStaffResponseBody } from '@shared/types/Consultant.types'
 
 function GETStaffEndpoint() {
   return new URL(``, 'https://lewiss-measure-pro.netlify.app/.netlify/functions/staff')

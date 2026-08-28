@@ -1,13 +1,14 @@
 import {
-  KineticsVenetianBlindOptions,
-  SantaFeVenetianBlindOptions,
-  Venetian,
+  VenetianBlindOptions,
+  VenetianBlind,
   VenetianSubType
-} from 'shared/types/blind/venetian.types'
+} from '@shared/types/blind/venetian.types'
 import { Fabric } from '../Project.types'
 import { Spec } from './Spec.types'
+import { Blind } from '../blind/blind.types'
 
 export type VenetianSpec = {
+  blindType: Blind
   fabric?: Fabric
   bracketColour: string
   controlSide: string
@@ -18,7 +19,7 @@ export type VenetianSpec = {
   smartLinkHubQty: number
 
   subtypeId: VenetianSubType
-  baseType: Venetian
+  baseType: VenetianBlind
   operation: any
   spacerBlock?: boolean
   cutout?: boolean
@@ -38,11 +39,7 @@ export function isVenetianSpec(spec: Spec): spec is VenetianSpec {
   const { baseType } = spec
   if (typeof baseType !== 'string') return false
 
-  if (
-    !SantaFeVenetianBlindOptions.includes(baseType as any) &&
-    !KineticsVenetianBlindOptions.includes(baseType as any)
-  )
-    return false
+  if (!(VenetianBlindOptions as readonly string[]).includes(baseType)) return false
 
   return true
 }

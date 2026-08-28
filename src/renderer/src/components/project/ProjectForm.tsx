@@ -1,14 +1,15 @@
 import { Button } from '@/components/ui/button'
 import { CardContent, CardFooter } from '@/components/ui/card'
 import { getWindowDisplayList } from '@/utility/windowDisplay/getWindowDisplayList'
-import { ProjectFile } from 'shared/types/Project.types'
-import { WindowDisplay } from 'shared/types/Window.types'
+import { ProjectFile } from '@shared/types/Project.types'
+import { WindowDisplay } from '@shared/types/Window.types'
 import { Item, ItemContent, ItemDescription, ItemGroup, ItemTitle } from '@/components/ui/item'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { getRoom } from '@/utility/windowDisplay/getRoom'
 import { JSX, useState, SubmitEvent } from 'react'
 import { Spinner } from '@/components/ui/spinner'
 import { toast } from 'sonner'
+import { getWorksheetListAsync } from '@/utility/process/getWorksheetList'
 
 type Props = {
   file: ProjectFile
@@ -24,12 +25,15 @@ function ProjectForm(props: Props) {
 
   const outputList = getItemGroup(windowDisplayList, file)
 
-  function onSubmitHandler(event: SubmitEvent<HTMLFormElement>) {
+  async function onSubmitHandler(event: SubmitEvent<HTMLFormElement>) {
     event.preventDefault()
     const errorMap: Map<string, string> = new Map()
 
     try {
       setIsSubmitPending(true)
+      if (typeof windowDisplayList === 'undefined') return
+
+      const worksheetList = await getWorksheetListAsync(windowDisplayList, file)
 
       return
     } catch (error) {

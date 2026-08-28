@@ -1,7 +1,7 @@
 import { Link, useParams } from '@tanstack/react-router'
-import { FolderItem } from 'shared/types/Folder.types'
+import { FolderItem } from '@shared/types/Folder.types'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area'
+import { ScrollArea } from '@/components/ui/scroll-area'
 
 type Props = {
   folder: FolderItem[]

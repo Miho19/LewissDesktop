@@ -1,4 +1,4 @@
-import { ProjectFile } from 'shared/types/Project.types'
+import { ProjectFile } from '@shared/types/Project.types'
 
 export function getRoom(roomId: string, file: ProjectFile) {
   if (typeof file === 'undefined') return undefined

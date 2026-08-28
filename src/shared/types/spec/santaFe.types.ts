@@ -1,4 +1,4 @@
-import { Blind } from 'shared/types/blind/blind.types'
+import { Blind } from '@shared/types/blind/blind.types'
 import { Fabric } from '../Project.types'
 import { Spec } from './Spec.types'
 
@@ -16,8 +16,8 @@ export type SantaFeShutterSpec = {
 }
 
 export function isSantaFeShutterSpec(spec: Spec): spec is SantaFeShutterSpec {
+  if (typeof spec === 'undefined') return false
   if (!('blindType' in spec)) return false
-  if (typeof spec.blindType !== 'string') return false
 
   if (!('subtypeId' in spec)) return false
   if (typeof spec.subtypeId !== 'string') return false

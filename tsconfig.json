@@ -4,11 +4,12 @@
   "compilerOptions": {
     "composite": true,
     "types": ["electron-vite/node"],
-    "include": ["./src/preload/**/*.d.ts"],
+    
     "paths": {
       "*": ["./src/*"],
       "@/*": ["./src/renderer/src/*"],
-      "@renderer/*": ["./src/renderer/src/*"]
+      "@renderer/*": ["./src/renderer/src/*"],
+      "@shared/*": ["./src/shared/*"]
     }
   }
 }

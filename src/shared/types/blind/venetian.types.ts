@@ -7,7 +7,14 @@ export const SantaFeVenetianBlindOptions = [
   "Lewis's 63mm Phoenixwood Venetian"
 ] as const
 
-export type SantaFeVenetianBlind = (typeof SantaFeVenetianBlindOptions)[number]
+export const KineticsVenetianBlindOptions = ['Kinetics Mikronwood 50mm Venetian'] as const
+
+export const VenetianBlindOptions = [
+  ...SantaFeVenetianBlindOptions,
+  ...KineticsVenetianBlindOptions
+]
+
+export type VenetianBlind = (typeof VenetianBlindOptions)[number]
 
 export const venetianSubTypeOptions = [
   'mikronwood-50',
@@ -20,8 +27,3 @@ export const venetianSubTypeOptions = [
 ] as const
 
 export type VenetianSubType = (typeof venetianSubTypeOptions)[number]
-
-export const KineticsVenetianBlindOptions = ['Kinetics Mikronwood 50mm Venetian'] as const
-export type KineticsVenetian = (typeof KineticsVenetianBlindOptions)[number]
-
-export type Venetian = KineticsVenetian | SantaFeVenetianBlind

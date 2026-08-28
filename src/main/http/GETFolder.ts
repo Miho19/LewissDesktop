@@ -1,4 +1,4 @@
-import { FolderItem, GETFolderResponse } from 'shared/types/Folder.types'
+import { FolderItem, GETFolderResponse } from '@shared/types/Folder.types'
 
 function GETFolderEndpoint() {
   return new URL('', 'https://lewiss-measure-pro.netlify.app/.netlify/functions/graph')

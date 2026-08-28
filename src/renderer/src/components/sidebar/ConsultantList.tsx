@@ -9,8 +9,8 @@ import {
 import { Link } from '@tanstack/react-router'
 import { Skeleton } from '@/components/ui/skeleton'
 import useFolder from '@/hook/useFolder'
-import { FolderItem } from 'shared/types/Folder.types'
-import { Consultant } from 'shared/types/Consultant.types'
+import { FolderItem } from '@shared/types/Folder.types'
+import { Consultant } from '@shared/types/Consultant.types'
 
 function ConsultantList() {
   const {

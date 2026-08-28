@@ -1,4 +1,4 @@
-import { GETProjectFileResponse, ProjectFile } from 'shared/types/Project.types'
+import { GETProjectFileResponse, ProjectFile } from '@shared/types/Project.types'
 
 function GETProjectFileEndpoint() {
   return new URL(``, 'https://lewiss-measure-pro.netlify.app/.netlify/functions/graph')

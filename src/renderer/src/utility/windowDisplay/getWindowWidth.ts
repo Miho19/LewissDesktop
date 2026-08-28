@@ -1,5 +1,5 @@
-import { WindowMeasurement } from 'shared/types/Project.types'
-import { Fit } from 'shared/types/Window.types'
+import { WindowMeasurement } from '@shared/types/Project.types'
+import { Fit } from '@shared/types/Window.types'
 import { getBlindCountDisplay } from './getBlindCountDisplay'
 
 export function getWindowWidth(window: WindowMeasurement, fit: Fit): number[] | undefined {
