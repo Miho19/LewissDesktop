@@ -8,7 +8,7 @@ import { ScrollArea } from '@/components/ui/scroll-area'
 import { getRoom } from '@/utility/windowDisplay/getRoom'
 import { JSX, useState, SubmitEvent } from 'react'
 import { Spinner } from '@/components/ui/spinner'
-import { toast } from '@/components/ui/toast'
+import { toast } from 'sonner'
 
 type Props = {
   file: ProjectFile
@@ -30,21 +30,22 @@ function ProjectForm(props: Props) {
 
     try {
       setIsSubmitPending(true)
-      errorMap.set('test 1', 'this is a test error')
-      setFormError([...errorMap])
+
       return
     } catch (error) {
     } finally {
       setIsSubmitPending(false)
-      console.log(errorMap)
+      setFormError([...errorMap])
       if (errorMap.size === 0) return
 
       for (const [key, value] of errorMap) {
-        toast.add({
-          type: 'error',
-          title: key,
-          description: value,
-          priority: 'high'
+        toast.error('Error', {
+          description: (
+            <>
+              <p>{key}</p>
+              <p>{value}</p>
+            </>
+          )
         })
       }
     }

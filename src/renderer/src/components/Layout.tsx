@@ -1,7 +1,7 @@
 import { ReactNode } from 'react'
 import { SidebarInset, SidebarProvider, SidebarTrigger } from './ui/sidebar'
 import AppSidebar from './sidebar/AppSidebar'
-import { Toaster } from '@/components/ui/toast'
+import { Toaster } from '@/components/ui/sonner'
 
 type Props = {
   children: ReactNode
@@ -18,7 +18,13 @@ function Layout(props: Props) {
           <SidebarTrigger />
         </header>
         <main className="flex-1 p-6 overflow-auto">{children}</main>
-        <Toaster limit={5} timeout={10} />
+        <Toaster
+          position="bottom-right"
+          visibleToasts={3}
+          theme="dark"
+          duration={10000}
+          closeButton
+        />
       </SidebarInset>
     </SidebarProvider>
   )
