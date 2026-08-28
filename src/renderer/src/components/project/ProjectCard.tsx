@@ -1,7 +1,5 @@
 import { ProjectFile } from 'shared/types/Project.types'
 import { Card } from '@/components/ui/card'
-import { Separator } from '@/components/ui/separator'
-
 import ProjectHeader from './ProjectHeader'
 import ProjectForm from './ProjectForm'
 

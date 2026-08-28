@@ -6,13 +6,17 @@ import { WindowDisplay } from 'shared/types/Window.types'
 import { Item, ItemContent, ItemDescription, ItemGroup, ItemTitle } from '@/components/ui/item'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { getRoom } from '@/utility/windowDisplay/getRoom'
-import { JSX } from 'react'
+import { JSX, useState, SubmitEvent } from 'react'
+import { Spinner } from '@/components/ui/spinner'
+import { toast } from '@/components/ui/toast'
 
 type Props = {
   file: ProjectFile
 }
 function ProjectForm(props: Props) {
   const { file } = props
+  const [isSubmitPending, setIsSubmitPending] = useState(false)
+  const [formError, setFormError] = useState<[string, string][]>([])
 
   const windowDisplayList = getWindowDisplayList(file)
   if (typeof windowDisplayList === 'undefined' || windowDisplayList.length === 0)
@@ -20,8 +24,34 @@ function ProjectForm(props: Props) {
 
   const outputList = getItemGroup(windowDisplayList, file)
 
+  function onSubmitHandler(event: SubmitEvent<HTMLFormElement>) {
+    event.preventDefault()
+    const errorMap: Map<string, string> = new Map()
+
+    try {
+      setIsSubmitPending(true)
+      errorMap.set('test 1', 'this is a test error')
+      setFormError([...errorMap])
+      return
+    } catch (error) {
+    } finally {
+      setIsSubmitPending(false)
+      console.log(errorMap)
+      if (errorMap.size === 0) return
+
+      for (const [key, value] of errorMap) {
+        toast.add({
+          type: 'error',
+          title: key,
+          description: value,
+          priority: 'high'
+        })
+      }
+    }
+  }
+
   return (
-    <form className="bg-muted">
+    <form onSubmit={onSubmitHandler}>
       <CardContent className="py-4">
         <ScrollArea className="h-[518px] pr-4">
           <ul className="">
@@ -30,7 +60,10 @@ function ProjectForm(props: Props) {
         </ScrollArea>
       </CardContent>
       <CardFooter className="p-6 flex justify-end bg-card">
-        <Button variant="default">Submit</Button>
+        <Button variant="default" type="submit" disabled={isSubmitPending}>
+          {isSubmitPending && <Spinner />}
+          Submit
+        </Button>
       </CardFooter>
     </form>
   )
@@ -71,7 +104,7 @@ function getItemGroup(windowDisplayList: WindowDisplay[], file: ProjectFile) {
 
 function RoomSeparator(roomName: string) {
   return (
-    <div className="flex w-full py-4 px-4 items-center">
+    <div className="flex w-full py-4 px-4 items-center" key={roomName}>
       <div className="grow border-t border" />
       <span className="shrink mx-2 text-[10px] uppercase tracking-wider text-foreground">
         {roomName}
@@ -94,7 +127,7 @@ function ProjectFormEmpty() {
 function getOutputList(windowDisplayList: WindowDisplay[]) {
   return windowDisplayList.map((w) => (
     <li key={`${w.windowId}-${w.fit}`}>
-      <Item variant="outline" className="bg-background">
+      <Item variant="muted" className="bg-muted">
         <ItemContent>
           <ItemTitle>{w.windowId}</ItemTitle>
           <ItemDescription>{w.fit}</ItemDescription>
