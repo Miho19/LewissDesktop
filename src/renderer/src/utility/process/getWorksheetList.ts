@@ -4,6 +4,9 @@ import { Spec } from '@shared/types/spec/Spec.types'
 import { WindowDisplay } from '@shared/types/Window.types'
 import { getBlindTypeFromSpec } from './getBlindTypeFromSpec'
 import { CreateWorksheetFn, Worksheet } from '@shared/types/worksheet/Worksheet.types'
+import { TableEntry } from 'shared/types/tableEntry/TableEntry.types'
+import { Customer } from 'shared/types/worksheet/Customer.types'
+import { Cost } from 'shared/types/worksheet/Cost.types'
 
 export async function getWorksheetListAsync(
   windowDisplayList: WindowDisplay[],
@@ -200,4 +203,35 @@ const createWorksheetFunction: Record<Blind, CreateWorksheetFn> = {
   ): Promise<Worksheet | undefined> {
     throw new Error('Function not implemented.')
   }
+}
+
+async function create(
+  blindType: Blind,
+  windowDisplayList: WindowDisplay[],
+  file: ProjectFile,
+  getTableEntryList: () => Promise<TableEntry[]>
+) {
+  const customer: Customer = {
+    customerName: file.name,
+    reference: file.reference,
+    salesConsultant: file.salesConsultant
+  }
+
+  const worksheetCost: Cost = {
+    blindTotal: 0,
+    gst: 0,
+    total: 0,
+    extra: []
+  }
+
+  const tableEntryList = await getTableEntryList()
+
+  const worksheet: Worksheet = {
+    blindType,
+    customer,
+    worksheetCost,
+    tableEntryList: tableEntryList
+  }
+
+  return worksheet
 }
