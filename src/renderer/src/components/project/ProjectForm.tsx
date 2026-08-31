@@ -9,7 +9,7 @@ import { getRoom } from '@/utility/windowDisplay/getRoom'
 import { JSX, useState, SubmitEvent } from 'react'
 import { Spinner } from '@/components/ui/spinner'
 import { toast } from 'sonner'
-import { getWorksheetListAsync } from '@/utility/process/getWorksheetList'
+import { getWorksheetListAsync } from 'renderer/src/utility/process/worksheet/getWorksheetList'
 
 type Props = {
   file: ProjectFile

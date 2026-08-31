@@ -61,7 +61,7 @@ type Project = {
   rooms: Room[]
 }
 
-type Room = {
+export type Room = {
   id: string
   name: string
   createdAt: string
