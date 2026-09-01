@@ -4,6 +4,7 @@ import { createTableEntryFn, TableEntry } from 'shared/types/tableEntry/TableEnt
 import { WindowDisplay } from 'shared/types/Window.types'
 import { getRoom } from '../../windowDisplay/getRoom'
 import { getWindow } from '../../windowDisplay/getWindow'
+import { getKineticsCellularTableEntryAsync } from './kineticsCellular/getKineticsCellularTableEntryList'
 
 export async function getTableEntryListAsync(
   blindType: Blind,
@@ -24,7 +25,7 @@ export async function getTableEntryListAsync(
     if (typeof windowMeasurement === 'undefined')
       throw new Error('Window Display window Id did not return a valid window measurement')
     const index = getCurrentTableEntryIndex(entries)
-    const result = await createFn(index, w, room, windowMeasurement, entries, file)
+    const result = await createFn(blindType, index, w, room, windowMeasurement, entries, file)
 
     for (const newEntry of result) {
       if (typeof newEntry === 'undefined') continue
@@ -41,164 +42,6 @@ function getCurrentTableEntryIndex(tableEntryList: TableEntry[]) {
 }
 
 const getTableEntryFunctionMap: Record<Blind, createTableEntryFn> = {
-  'Kinetics 10mm Cellular Blind': function (
-    index: number,
-    windowDisplay: WindowDisplay,
-    room: Room,
-    windowMeasurement: WindowMeasurement,
-    entries?: TableEntry[],
-    file?: ProjectFile
-  ): Promise<TableEntry[]> {
-    throw new Error('Function not implemented.')
-  },
-  'Kinetics 20mm Cellular Blind': function (
-    index: number,
-    windowDisplay: WindowDisplay,
-    room: Room,
-    windowMeasurement: WindowMeasurement,
-    entries?: TableEntry[],
-    file?: ProjectFile
-  ): Promise<TableEntry[]> {
-    throw new Error('Function not implemented.')
-  },
-  'Kinetics Sunscreen Roller Blind': function (
-    index: number,
-    windowDisplay: WindowDisplay,
-    room: Room,
-    windowMeasurement: WindowMeasurement,
-    entries?: TableEntry[],
-    file?: ProjectFile
-  ): Promise<TableEntry[]> {
-    throw new Error('Function not implemented.')
-  },
-  'Kinetics Blockout Roller Blind': function (
-    index: number,
-    windowDisplay: WindowDisplay,
-    room: Room,
-    windowMeasurement: WindowMeasurement,
-    entries?: TableEntry[],
-    file?: ProjectFile
-  ): Promise<TableEntry[]> {
-    throw new Error('Function not implemented.')
-  },
-  'Kinetics Light Filtering Roller Blind': function (
-    index: number,
-    windowDisplay: WindowDisplay,
-    room: Room,
-    windowMeasurement: WindowMeasurement,
-    entries?: TableEntry[],
-    file?: ProjectFile
-  ): Promise<TableEntry[]> {
-    throw new Error('Function not implemented.')
-  },
-  "Lewis's 25mm Aluminium Venetian": function (
-    index: number,
-    windowDisplay: WindowDisplay,
-    room: Room,
-    windowMeasurement: WindowMeasurement,
-    entries?: TableEntry[],
-    file?: ProjectFile
-  ): Promise<TableEntry[]> {
-    throw new Error('Function not implemented.')
-  },
-  "Lewis's 50mm Aluminium Venetian": function (
-    index: number,
-    windowDisplay: WindowDisplay,
-    room: Room,
-    windowMeasurement: WindowMeasurement,
-    entries?: TableEntry[],
-    file?: ProjectFile
-  ): Promise<TableEntry[]> {
-    throw new Error('Function not implemented.')
-  },
-  "Lewis's 50mm Fauxwood Venetian": function (
-    index: number,
-    windowDisplay: WindowDisplay,
-    room: Room,
-    windowMeasurement: WindowMeasurement,
-    entries?: TableEntry[],
-    file?: ProjectFile
-  ): Promise<TableEntry[]> {
-    throw new Error('Function not implemented.')
-  },
-  "Lewis's 63mm Fauxwood Venetian": function (
-    index: number,
-    windowDisplay: WindowDisplay,
-    room: Room,
-    windowMeasurement: WindowMeasurement,
-    entries?: TableEntry[],
-    file?: ProjectFile
-  ): Promise<TableEntry[]> {
-    throw new Error('Function not implemented.')
-  },
-  "Lewis's 50mm Phoenixwood Venetian": function (
-    index: number,
-    windowDisplay: WindowDisplay,
-    room: Room,
-    windowMeasurement: WindowMeasurement,
-    entries?: TableEntry[],
-    file?: ProjectFile
-  ): Promise<TableEntry[]> {
-    throw new Error('Function not implemented.')
-  },
-  "Lewis's 63mm Phoenixwood Venetian": function (
-    index: number,
-    windowDisplay: WindowDisplay,
-    room: Room,
-    windowMeasurement: WindowMeasurement,
-    entries?: TableEntry[],
-    file?: ProjectFile
-  ): Promise<TableEntry[]> {
-    throw new Error('Function not implemented.')
-  },
-  'Kinetics Mikronwood 50mm Venetian': function (
-    index: number,
-    windowDisplay: WindowDisplay,
-    room: Room,
-    windowMeasurement: WindowMeasurement,
-    entries?: TableEntry[],
-    file?: ProjectFile
-  ): Promise<TableEntry[]> {
-    throw new Error('Function not implemented.')
-  },
-  'Santa Fe Woodlore Shutter': function (
-    index: number,
-    windowDisplay: WindowDisplay,
-    room: Room,
-    windowMeasurement: WindowMeasurement,
-    entries?: TableEntry[],
-    file?: ProjectFile
-  ): Promise<TableEntry[]> {
-    throw new Error('Function not implemented.')
-  },
-  'Santa Fe Woodlore Plus Shutter': function (
-    index: number,
-    windowDisplay: WindowDisplay,
-    room: Room,
-    windowMeasurement: WindowMeasurement,
-    entries?: TableEntry[],
-    file?: ProjectFile
-  ): Promise<TableEntry[]> {
-    throw new Error('Function not implemented.')
-  },
-  'Santa Fe Waterproof Woodlore Plus Shutter': function (
-    index: number,
-    windowDisplay: WindowDisplay,
-    room: Room,
-    windowMeasurement: WindowMeasurement,
-    entries?: TableEntry[],
-    file?: ProjectFile
-  ): Promise<TableEntry[]> {
-    throw new Error('Function not implemented.')
-  },
-  'Santa Fe Normandy Shutter': function (
-    index: number,
-    windowDisplay: WindowDisplay,
-    room: Room,
-    windowMeasurement: WindowMeasurement,
-    entries?: TableEntry[],
-    file?: ProjectFile
-  ): Promise<TableEntry[]> {
-    throw new Error('Function not implemented.')
-  }
+  'Kinetics 10mm Cellular Blind': getKineticsCellularTableEntryAsync,
+  'Kinetics 20mm Cellular Blind': getKineticsCellularTableEntryAsync
 }

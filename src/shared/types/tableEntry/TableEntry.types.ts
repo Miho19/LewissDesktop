@@ -1,3 +1,4 @@
+import { Blind } from '../blind/blind.types'
 import { ProjectFile, Room, WindowMeasurement } from '../Project.types'
 import { WindowDisplay } from '../Window.types'
 import { KineticsCellularTableEntry } from './kineticsCellular.types'
@@ -21,10 +22,11 @@ export type VenetianTableEntry =
 export type TableEntry = KineticsTableEntry | VenetianTableEntry | SantaFeShutterTableEntry
 
 export type createTableEntryFn = (
+  blindType: Blind,
   index: number,
   windowDisplay: WindowDisplay,
   room: Room,
   windowMeasurement: WindowMeasurement,
-  entries?: TableEntry[],
-  file?: ProjectFile
+  entries: TableEntry[],
+  file: ProjectFile
 ) => Promise<TableEntry[]>
