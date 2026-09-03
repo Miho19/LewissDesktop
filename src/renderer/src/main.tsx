@@ -17,6 +17,8 @@ const queryClient = new QueryClient({
   }
 })
 
+export { queryClient }
+
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>

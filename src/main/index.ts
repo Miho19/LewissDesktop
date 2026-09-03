@@ -5,6 +5,8 @@ import icon from '../../resources/icon.png?asset'
 import { GETStaff } from './http/GETStaff'
 import { GETFolder } from './http/GETFolder'
 import GETProjectfile from './http/GETProjectFile'
+import type { Blind } from '@shared/types/blind/blind.types'
+import { GETPricingSchedule } from './http/GETPricingSchedule'
 
 function createWindow(): void {
   // Create the browser window.
@@ -103,5 +105,14 @@ ipcMain.handle('get-project-file', async (_event, fileId: string) => {
     return response
   } catch (error) {
     throw new Error('failed to fetch project file')
+  }
+})
+
+ipcMain.handle('get-pricing-schedule', async (_event, blindType: Blind) => {
+  try {
+    const response = await GETPricingSchedule(blindType)
+    return response
+  } catch (error) {
+    throw new Error('failed to fetch pricing schedule')
   }
 })

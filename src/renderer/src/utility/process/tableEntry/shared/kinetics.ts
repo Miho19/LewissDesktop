@@ -1,5 +1,5 @@
-import { isKineticsTableEntryList } from 'shared/types/tableEntry/kinetics'
-import { KineticsTableEntry, TableEntry } from 'shared/types/tableEntry/TableEntry.types'
+import { isKineticsTableEntryList } from '@shared/types/tableEntry/kinetics'
+import { KineticsTableEntry, TableEntry } from '@shared/types/tableEntry/TableEntry.types'
 
 function getMaxRemote(entries: KineticsTableEntry[]) {
   const max = entries.reduce((max, curr) => (curr.remote > max ? curr.remote : max), 0)

@@ -1,14 +1,15 @@
-import { capitalise } from 'renderer/src/utility/general/capitalise'
-import { Blind } from 'shared/types/blind/blind.types'
-import { ProjectFile, Room, WindowMeasurement } from 'shared/types/Project.types'
+import { capitalise } from '@renderer/utility/general/capitalise'
+import { Blind } from '@shared/types/blind/blind.types'
+import { ProjectFile, Room, WindowMeasurement } from '@shared/types/Project.types'
 import {
   isKineticsCellularSpec,
   KineticsCellularSpec
-} from 'shared/types/spec/kineticsCellular.types'
-import { KineticsCellularTableEntry } from 'shared/types/tableEntry/kineticsCellular.types'
-import { TableEntry } from 'shared/types/tableEntry/TableEntry.types'
-import { BlindCount, Fit, WindowDisplay } from 'shared/types/Window.types'
+} from '@shared/types/spec/kineticsCellular.types'
+import { KineticsCellularTableEntry } from '@shared/types/tableEntry/kineticsCellular.types'
+import { TableEntry } from '@shared/types/tableEntry/TableEntry.types'
+import { BlindCount, Fit, WindowDisplay } from '@shared/types/Window.types'
 import { getRemoteAndChannel } from '../shared/kinetics'
+import { getKineticsCellularCost } from './getKineticsCellularCost'
 
 export async function getKineticsCellularTableEntryAsync(
   blindType: Blind,
@@ -31,8 +32,10 @@ export async function getKineticsCellularTableEntryAsync(
 
   const comb = getCombSize(blindType)
 
-  const fabric = spec.fabric?.name
-  if (typeof fabric === 'undefined') throw new Error('Fabric missing')
+  const { fabric } = spec
+  if (typeof fabric === 'undefined') throw new Error('Fabric information missing')
+
+  const fabricName = fabric.name
 
   const control = getControlString(spec)
 
@@ -43,6 +46,17 @@ export async function getKineticsCellularTableEntryAsync(
   const butting = getButtingString(windowDisplay.blindCount, index, 'LHS')
 
   const { remote, channel } = getRemoteAndChannel(location, control, entries)
+
+  const leftBlindCost = await getKineticsCellularCost(
+    blindType,
+    width[0],
+    height,
+    fabricName,
+    control,
+    'white',
+    sideChannelColour
+  )
+
   const leftEntry: KineticsCellularTableEntry = {
     index,
     location,
@@ -50,7 +64,7 @@ export async function getKineticsCellularTableEntryAsync(
     height: height,
     fit: fitCapitalised,
     comb,
-    fabric,
+    fabric: fabricName,
     control,
     'control side': controlSide,
     'headrail colour': 'White',
@@ -58,10 +72,20 @@ export async function getKineticsCellularTableEntryAsync(
     butting,
     remote: remote,
     channel: channel,
-    price: ''
+    price: leftBlindCost.toFixed(2)
   }
 
   if (blindCount !== 'butting') return [leftEntry]
+
+  const rightSideCost = await getKineticsCellularCost(
+    blindType,
+    width[1],
+    height,
+    fabricName,
+    control,
+    'white',
+    sideChannelColour
+  )
 
   const rightSideButtingString = getButtingString(blindCount, index, 'RHS')
   const rightSideChannel = leftEntry.channel > 0 ? leftEntry.channel + 1 : 0
@@ -70,7 +94,8 @@ export async function getKineticsCellularTableEntryAsync(
     ...leftEntry,
     width: width[1],
     butting: rightSideButtingString,
-    channel: rightSideChannel
+    channel: rightSideChannel,
+    price: rightSideCost.toFixed(2)
   }
 
   return [leftEntry, rightEntry]
