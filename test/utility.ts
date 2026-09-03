@@ -5,6 +5,15 @@ import { getWindowDisplayList } from '@renderer/utility/windowDisplay/getWindowD
 import { getBlindTypeFromSpec } from '@renderer/utility/process/worksheet/getBlindTypeFromSpec'
 import { WindowDisplay } from '@shared/types/Window.types'
 import kineticsCellularPricingSchedule from './fixtures/kinetics-cellular-pricing-schedule.json'
+import kineticsRollerBlockoutLightFilteringPricingSchedule from './fixtures/kinetics-roller-blockout-lightfiltering-pricing-schedule.json'
+import kineticsRollerSunscreenPricingSchedule from './fixtures/kinetics-roller-sunscreen-pricing-schedule.json'
+import kineticsMikronwoodPricingSchedule from './fixtures/kinetics-mikronwood-pricing-schedule.json'
+import lewissAluminiumPricingSchedule from './fixtures/lewiss-aluminium-venetian-pricing-schedule.json'
+import lewissFauxwoodPricingSchedule from './fixtures/lewiss-fauxwood-pricing-schedule.json'
+import lewissPhoenixwoodPricingSchedule from './fixtures/lewiss-phoenixwood-pricing-schedule.json'
+import santaFeShutterPricingSchedule from './fixtures/santaFeShutterPricingSchedule.json'
+import kineticsAccessorySchedule from './fixtures/kinetics-accessories.json'
+import venetianAccessorySchedule from './fixtures/venetian-accessories.json'
 
 export function getWindowDisplayAndProjectFile(blindType: Blind) {
   const projectFile = getProjectFile()
@@ -41,8 +50,55 @@ function getExamplePricingSchedule(blindType: Blind) {
     case 'Kinetics 10mm Cellular Blind':
     case 'Kinetics 20mm Cellular Blind':
       return kineticsCellularPricingSchedule
+    case 'Kinetics Blockout Roller Blind':
+    case 'Kinetics Light Filtering Roller Blind':
+      return kineticsRollerBlockoutLightFilteringPricingSchedule
+    case 'Kinetics Sunscreen Roller Blind':
+      return kineticsRollerSunscreenPricingSchedule
+    case 'Kinetics Mikronwood 50mm Venetian':
+      return kineticsMikronwoodPricingSchedule
+    case "Lewis's 25mm Aluminium Venetian":
+    case "Lewis's 50mm Aluminium Venetian":
+      return lewissAluminiumPricingSchedule
+    case "Lewis's 50mm Fauxwood Venetian":
+    case "Lewis's 63mm Fauxwood Venetian":
+      return lewissFauxwoodPricingSchedule
+    case "Lewis's 50mm Phoenixwood Venetian":
+    case "Lewis's 63mm Phoenixwood Venetian":
+      return lewissPhoenixwoodPricingSchedule
+    case 'Santa Fe Normandy Shutter':
+    case 'Santa Fe Waterproof Woodlore Plus Shutter':
+    case 'Santa Fe Woodlore Plus Shutter':
+    case 'Santa Fe Woodlore Shutter':
+      return santaFeShutterPricingSchedule
 
     default:
       throw new Error(`${blindType} does not have a pricing schedule`)
+  }
+}
+
+function getExampleAccessorySchedule(blindType: Blind) {
+  switch (blindType) {
+    case 'Kinetics 10mm Cellular Blind':
+    case 'Kinetics 20mm Cellular Blind':
+    case 'Kinetics Blockout Roller Blind':
+    case 'Kinetics Light Filtering Roller Blind':
+    case 'Kinetics Sunscreen Roller Blind':
+    case 'Kinetics Mikronwood 50mm Venetian':
+      return kineticsAccessorySchedule
+    case "Lewis's 25mm Aluminium Venetian":
+    case "Lewis's 50mm Aluminium Venetian":
+    case "Lewis's 50mm Fauxwood Venetian":
+    case "Lewis's 63mm Fauxwood Venetian":
+    case "Lewis's 50mm Phoenixwood Venetian":
+    case "Lewis's 63mm Phoenixwood Venetian":
+      return venetianAccessorySchedule
+    case 'Santa Fe Normandy Shutter':
+    case 'Santa Fe Waterproof Woodlore Plus Shutter':
+    case 'Santa Fe Woodlore Plus Shutter':
+    case 'Santa Fe Woodlore Shutter':
+      return santaFeShutterPricingSchedule
+    default:
+      throw new Error(`${blindType} does not have a accessory schedule`)
   }
 }
