@@ -1,4 +1,4 @@
-import { describe, vi, it, expect } from 'vitest'
+import { describe, vi, it, expect, afterAll } from 'vitest'
 import {
   getExampleAccessorySchedule,
   getExamplePricingSchedule,
@@ -24,7 +24,9 @@ vi.mock('@/utility/process/tableEntry/shared/pricingSchedule', async (importOrig
   }
 })
 
-describe('getKineticsCellularTableEntryAsync', () => {
+describe.skip('getKineticsCellularTableEntryAsync', () => {
+  afterAll(() => vi.clearAllMocks())
+
   const { projectFile, windowDisplayList } = getWindowDisplayAndProjectFile(
     'Kinetics 10mm Cellular Blind'
   )

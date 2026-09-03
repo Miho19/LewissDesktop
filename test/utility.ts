@@ -14,6 +14,7 @@ import lewissPhoenixwoodPricingSchedule from './fixtures/lewiss-phoenixwood-pric
 import santaFeShutterPricingSchedule from './fixtures/santaFeShutterPricingSchedule.json'
 import kineticsAccessorySchedule from './fixtures/kinetics-accessories.json'
 import venetianAccessorySchedule from './fixtures/venetian-accessories.json'
+import { PricingSchedule } from '@shared/types/pricing/pricingSchedule.types'
 
 export function getWindowDisplayAndProjectFile(blindType: Blind) {
   const projectFile = getProjectFile()
@@ -45,7 +46,7 @@ function getFilterWindowDisplay(blindType: Blind, file: ProjectFile) {
   return output
 }
 
-export function getExamplePricingSchedule(blindType: Blind) {
+export function getExamplePricingSchedule(blindType: Blind): PricingSchedule {
   switch (blindType) {
     case 'Kinetics 10mm Cellular Blind':
     case 'Kinetics 20mm Cellular Blind':
