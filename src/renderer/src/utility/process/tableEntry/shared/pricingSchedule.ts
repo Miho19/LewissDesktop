@@ -15,3 +15,10 @@ export async function retrievePricingScheduleAsync(blindType: Blind) {
     throw new Error(`Failed to fetch ${blindType} pricing schedule`, { cause: error })
   }
 }
+
+export async function retrieveAccessorySchedule(blindType: Blind) {
+  try {
+  } catch (error) {
+    throw new Error(`Failed to fetch ${blindType} accessory schedule`, { cause: error })
+  }
+}

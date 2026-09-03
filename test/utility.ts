@@ -45,7 +45,7 @@ function getFilterWindowDisplay(blindType: Blind, file: ProjectFile) {
   return output
 }
 
-function getExamplePricingSchedule(blindType: Blind) {
+export function getExamplePricingSchedule(blindType: Blind) {
   switch (blindType) {
     case 'Kinetics 10mm Cellular Blind':
     case 'Kinetics 20mm Cellular Blind':
@@ -77,7 +77,7 @@ function getExamplePricingSchedule(blindType: Blind) {
   }
 }
 
-function getExampleAccessorySchedule(blindType: Blind) {
+export function getExampleAccessorySchedule(blindType: Blind) {
   switch (blindType) {
     case 'Kinetics 10mm Cellular Blind':
     case 'Kinetics 20mm Cellular Blind':

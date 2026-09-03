@@ -1,14 +1,27 @@
 import { describe, vi, it, expect } from 'vitest'
-import { getWindowDisplayAndProjectFile } from '../utility'
+import {
+  getExampleAccessorySchedule,
+  getExamplePricingSchedule,
+  getWindowDisplayAndProjectFile
+} from '../utility'
 import { getKineticsCellularTableEntryAsync } from '@renderer/utility/process/tableEntry/kineticsCellular/getKineticsCellularTableEntryList'
 import { getRoom } from '@renderer/utility/windowDisplay/getRoom'
 import { getWindow } from '@renderer/utility/windowDisplay/getWindow'
 import { isKineticsCellularTableEntry } from '@shared/types/tableEntry/kineticsCellular.types'
+import type { Blind } from '@shared/types/blind/blind.types'
 
 vi.mock('@/utility/process/tableEntry/shared/pricingSchedule', async (importOriginal) => {
   const actual =
     await importOriginal<typeof import('@/utility/process/tableEntry/shared/pricingSchedule')>()
-  return { ...actual }
+  return {
+    ...actual,
+    retrievePricingScheduleAsync: vi
+      .fn()
+      .mockImplementation((blindType: Blind) => getExamplePricingSchedule(blindType)),
+    retrieveAccessorySchedule: vi
+      .fn()
+      .mockImplementation((blindType: Blind) => getExampleAccessorySchedule(blindType))
+  }
 })
 
 describe('getKineticsCellularTableEntryAsync', () => {
