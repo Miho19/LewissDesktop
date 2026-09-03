@@ -5,6 +5,12 @@ import { getRoom } from '@renderer/utility/windowDisplay/getRoom'
 import { getWindow } from '@renderer/utility/windowDisplay/getWindow'
 import { isKineticsCellularTableEntry } from '@shared/types/tableEntry/kineticsCellular.types'
 
+vi.mock('@/utility/process/tableEntry/shared/pricingSchedule', async (importOriginal) => {
+  const actual =
+    await importOriginal<typeof import('@/utility/process/tableEntry/shared/pricingSchedule')>()
+  return { ...actual }
+})
+
 describe('getKineticsCellularTableEntryAsync', () => {
   const { projectFile, windowDisplayList } = getWindowDisplayAndProjectFile(
     'Kinetics 10mm Cellular Blind'
