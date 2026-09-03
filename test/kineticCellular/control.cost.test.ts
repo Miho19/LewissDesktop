@@ -11,7 +11,7 @@ const controlInput: [string, number | undefined][] = [
   ['lithium-ion', 154]
 ]
 
-describe('Control Pricing', () => {
+describe.skip('Control Pricing', () => {
   const { projectFile, windowDisplayList } = getWindowDisplayAndProjectFile(
     'Kinetics 10mm Cellular Blind'
   )

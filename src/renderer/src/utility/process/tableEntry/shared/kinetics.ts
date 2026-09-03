@@ -27,6 +27,7 @@ function filterForRoomName(location: string, entries: KineticsTableEntry[]) {
 
 export function getRemoteAndChannel(location: string, control: string, entries: TableEntry[]) {
   if (!isKineticsTableEntryList(entries)) throw new Error('Incorrect table entry type')
+
   const result = { remote: 0, channel: 0 }
   if (control !== 'Lithium-ion') return result
 

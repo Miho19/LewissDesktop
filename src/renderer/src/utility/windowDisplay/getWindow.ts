@@ -8,9 +8,10 @@ export function getWindow(windowId: string, file: ProjectFile) {
 
   let windowFound: WindowMeasurement | undefined = undefined
 
-  rooms.forEach((r) => {
-    windowFound = r.windows.find((w) => w.id === windowId)
-  })
+  for (const room of rooms) {
+    windowFound = room.windows.find((w) => w.id === windowId)
+    if (typeof windowFound !== 'undefined') break
+  }
 
   return windowFound
 }
