@@ -9,10 +9,10 @@ export type KineticsCellularPricingSchedule = {
   sideChannelCostPerMetreHeight: number
   headRailCustomColourSurcharge: number
   control: Control
-  fabric: FabricCost
+  dimension: Dimension
 }
 
-type FabricCost = {
+type Dimension = {
   heightHeader: number[]
   widthHeader: number[]
   data: number[][]

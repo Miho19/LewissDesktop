@@ -3,7 +3,8 @@ import { Blind } from '@shared/types/blind/blind.types'
 import { ProjectFile, Room, WindowMeasurement } from '@shared/types/Project.types'
 import {
   isKineticsCellularSpec,
-  KineticsCellularSpec
+  KineticsCellularSpec,
+  opacityOptions
 } from '@shared/types/spec/kineticsCellular.types'
 import { KineticsCellularTableEntry } from '@shared/types/tableEntry/kineticsCellular.types'
 import { TableEntry } from '@shared/types/tableEntry/TableEntry.types'
@@ -23,8 +24,7 @@ export async function getKineticsCellularTableEntryAsync(
   const { width, height, fit, treatment, blindCount } = windowDisplay
   const spec = fit === 'inside' ? treatment.insideLayer.spec : treatment.outsideLayer.spec
 
-  if (!isKineticsCellularSpec(spec))
-    throw new Error('Spec does not match table entry creation method')
+  if (!isKineticsCellularSpec(spec)) return []
 
   const location = `${room.name} - ${windowMeasurement.name}`
 
@@ -33,7 +33,7 @@ export async function getKineticsCellularTableEntryAsync(
   const comb = getCombSize(blindType)
 
   const { fabric } = spec
-  if (typeof fabric === 'undefined') throw new Error('Fabric information missing')
+  if (typeof fabric === 'undefined') return []
 
   const fabricName = fabric.name
 
@@ -132,14 +132,15 @@ function getButtingString(blindCountString: BlindCount, index: number, side: 'LH
   return `${side} of #${index}`
 }
 
-function getFabricOpacity(fabric: string) {
-  if (!fabric) throw new Error('Fabric information missing')
-  const fabricStringArray = fabric.split(' ')
+export function getFabricOpacity(fabricName: string) {
+  if (!fabricName) return undefined
+  const fabricStringArray = fabricName.split(' ')
 
-  const translucentWord = fabricStringArray.find(
-    (word) => word.localeCompare('translucent', undefined, { sensitivity: 'base' }) === 0
+  const opacityFound = fabricStringArray.find((word) =>
+    (opacityOptions as readonly string[]).includes(word.toLocaleLowerCase())
   )
-  if (typeof translucentWord === 'undefined') return 'Blockout'
 
-  return 'Translucent'
+  if (typeof opacityFound === 'undefined') return undefined
+
+  return capitalise(opacityFound)
 }

@@ -1,5 +1,3 @@
-// @vitest-environment happy-dom
-
 import { describe, it, expect } from 'vitest'
 import { getExamplePricingSchedule } from '../utility'
 import { getKineticsCellularControlCost } from '@renderer/utility/process/tableEntry/kineticsCellular'

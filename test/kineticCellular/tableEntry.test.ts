@@ -10,9 +10,11 @@ import { getWindow } from '@renderer/utility/windowDisplay/getWindow'
 import { isKineticsCellularTableEntry } from '@shared/types/tableEntry/kineticsCellular.types'
 import type { Blind } from '@shared/types/blind/blind.types'
 
-vi.mock('@/utility/process/tableEntry/shared/pricingSchedule', async (importOriginal) => {
+vi.mock('@/utility/process/tableEntry/shared/retrievePricingSchedule', async (importOriginal) => {
   const actual =
-    await importOriginal<typeof import('@/utility/process/tableEntry/shared/pricingSchedule')>()
+    await importOriginal<
+      typeof import('renderer/src/utility/process/tableEntry/shared/retrievePricingSchedule')
+    >()
   return {
     ...actual,
     retrievePricingScheduleAsync: vi
