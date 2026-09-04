@@ -8,6 +8,7 @@ import {
   isKineticsCellularTableEntryList,
   KineticsCellularTableEntry
 } from '@shared/types/tableEntry/kineticsCellular.types'
+import { retrieveAccessorySchedule } from 'renderer/src/utility/process/tableEntry/shared/retrievePricingSchedule'
 
 export async function getKineticsCellularWorksheetCostAsync(
   blindType: Blind,
@@ -46,6 +47,9 @@ async function getExtraMotorProducts(
   tableEntryList: KineticsCellularTableEntry[],
   windowDisplayList: WindowDisplay[],
   file: ProjectFile
-): Promise<Extra[]> {
+): Promise<Extra[] | undefined> {
+  const accessorySchedule = await retrieveAccessorySchedule(blindType)
+  if (typeof accessorySchedule === 'undefined') return undefined
+
   return []
 }
