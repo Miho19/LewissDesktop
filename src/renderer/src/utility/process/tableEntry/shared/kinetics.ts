@@ -1,7 +1,8 @@
 import { isKineticsTableEntryList } from '@shared/types/tableEntry/kinetics'
 import { KineticsTableEntry, TableEntry } from '@shared/types/tableEntry/TableEntry.types'
 
-function getMaxRemote(entries: KineticsTableEntry[]) {
+export function getMaxRemote(entries: KineticsTableEntry[]) {
+  if (!isKineticsTableEntryList(entries)) throw new Error(`Type error`)
   const max = entries.reduce((max, curr) => (curr.remote > max ? curr.remote : max), 0)
   return max
 }
