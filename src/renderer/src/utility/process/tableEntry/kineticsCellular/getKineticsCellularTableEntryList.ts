@@ -57,6 +57,8 @@ export async function getKineticsCellularTableEntryAsync(
     sideChannelColour
   )
 
+  if (typeof leftBlindCost === 'undefined') return []
+
   const leftEntry: KineticsCellularTableEntry = {
     index,
     location,
@@ -86,6 +88,8 @@ export async function getKineticsCellularTableEntryAsync(
     'white',
     sideChannelColour
   )
+
+  if (typeof rightSideCost === 'undefined') return []
 
   const rightSideButtingString = getButtingString(blindCount, index, 'RHS')
   const rightSideChannel = leftEntry.channel > 0 ? leftEntry.channel + 1 : 0

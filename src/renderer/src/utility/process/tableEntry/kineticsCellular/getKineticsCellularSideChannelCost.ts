@@ -45,7 +45,8 @@ function isSideChannelColourOptionValid(sideChannelColour: string) {
   const found = sideChannelColourOptions.find(
     (c) => c.localeCompare(sideChannelColourAdjusted, undefined, { sensitivity: 'base' }) === 0
   )
-  return typeof found === 'undefined'
+
+  return typeof found !== 'undefined'
 }
 
 function getColourSurcharge(

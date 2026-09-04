@@ -3,14 +3,15 @@ import { getExamplePricingSchedule } from '../utility'
 import { getKineticsCellularSideChannelCost } from '@renderer/utility/process/tableEntry/kineticsCellular'
 
 const sideChannelInput: [number, string, number | undefined][] = [
-  // [0, 'None', undefined],
-  // [1200, ' ', undefined],
-  // [1200, '', undefined],
-  // [-1, 'Custom', undefined],
-  [1200, 'anything', undefined]
-  // [1200, 'WhIte', 150],
-  // [1200, 'custom', 150],
-  // [1200, 'None', 0]
+  [0, 'None', undefined],
+  [1200, ' ', undefined],
+  [1200, '', undefined],
+  [-1, 'Custom', undefined],
+  [1200, 'anything', undefined],
+  [1200, 'WhIte', 150],
+  [1200, 'custom', 150 + 103],
+  [1200, 'None', 0],
+  [1200, 'cUsTom', 150 + 103]
 ]
 
 describe('getKineticsCellularSideChannelCost', () => {

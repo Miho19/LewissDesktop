@@ -1,32 +1,37 @@
 import { describe, vi, it, expect, afterAll } from 'vitest'
+
 import {
   getExampleAccessorySchedule,
   getExamplePricingSchedule,
   getWindowDisplayAndProjectFile
 } from '../utility'
+
 import { getKineticsCellularTableEntryAsync } from '@renderer/utility/process/tableEntry/kineticsCellular/getKineticsCellularTableEntryList'
 import { getRoom } from '@renderer/utility/windowDisplay/getRoom'
 import { getWindow } from '@renderer/utility/windowDisplay/getWindow'
 import { isKineticsCellularTableEntry } from '@shared/types/tableEntry/kineticsCellular.types'
 import type { Blind } from '@shared/types/blind/blind.types'
 
-vi.mock('@/utility/process/tableEntry/shared/retrievePricingSchedule', async (importOriginal) => {
-  const actual =
-    await importOriginal<
-      typeof import('renderer/src/utility/process/tableEntry/shared/retrievePricingSchedule')
-    >()
-  return {
-    ...actual,
-    retrievePricingScheduleAsync: vi
-      .fn()
-      .mockImplementation((blindType: Blind) => getExamplePricingSchedule(blindType)),
-    retrieveAccessorySchedule: vi
-      .fn()
-      .mockImplementation((blindType: Blind) => getExampleAccessorySchedule(blindType))
+vi.mock(
+  '@renderer/utility/process/tableEntry/shared/retrievePricingSchedule',
+  async (importOriginal) => {
+    const actual =
+      await importOriginal<
+        typeof import('@renderer/utility/process/tableEntry/shared/retrievePricingSchedule')
+      >()
+    return {
+      ...actual,
+      retrievePricingScheduleAsync: vi
+        .fn()
+        .mockImplementation((blindType: Blind) => getExamplePricingSchedule(blindType)),
+      retrieveAccessorySchedule: vi
+        .fn()
+        .mockImplementation((blindType: Blind) => getExampleAccessorySchedule(blindType))
+    }
   }
-})
+)
 
-describe.skip('getKineticsCellularTableEntryAsync', () => {
+describe('getKineticsCellularTableEntryAsync', () => {
   afterAll(() => vi.clearAllMocks())
 
   const { projectFile, windowDisplayList } = getWindowDisplayAndProjectFile(
@@ -61,3 +66,12 @@ describe.skip('getKineticsCellularTableEntryAsync', () => {
     expect(parseInt(tableEntry.price)).toBeGreaterThan(0)
   })
 })
+
+/**
+ * tests to do
+ * bad room
+ * bad window measurement
+ * incorrect width, height, fit
+ * etc
+ *
+ */

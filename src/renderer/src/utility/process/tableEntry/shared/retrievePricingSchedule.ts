@@ -1,5 +1,5 @@
 import type { Blind } from '@shared/types/blind/blind.types'
-import { queryClient } from '@renderer/main'
+import { queryClient } from '@renderer/utility/general/queryClient'
 
 // need to setup ipc for this
 
