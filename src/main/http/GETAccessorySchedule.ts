@@ -1,4 +1,46 @@
 import type { Blind } from '@shared/types/blind/blind.types'
+import { AccessorySchedule } from '@shared/types/pricing/pricingSchedule.types'
+import { GETProjectFileResponse } from '@shared/types/Project.types'
+
+function getAccessoryScheduleEndpoint() {
+  return new URL('', 'https://lewiss-measure-pro.netlify.app/.netlify/functions/graph')
+}
+
+function getAccessoryScheduleFetchOptions(fileId: string) {
+  const fetchOptions: RequestInit = {
+    method: 'POST',
+    headers: {
+      'content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      action: 'downloadJson',
+      itemId: fileId
+    })
+  }
+
+  return fetchOptions
+}
+
+export async function GETAccessorySchedule(
+  blindType: Blind,
+  endpoint: URL = getAccessoryScheduleEndpoint()
+) {
+  try {
+    const fileId = blindTypeToAccessoryScheduleId[blindType]
+    if (typeof fileId === 'undefined') throw new Error(`${blindType} is an invalid blind type`)
+
+    const fetchOptions = getAccessoryScheduleFetchOptions(fileId)
+
+    const response = await fetch(endpoint, fetchOptions)
+    if (!response.ok) throw new Error(response.statusText)
+
+    const json: GETProjectFileResponse = await response.json()
+    const jsonContent: AccessorySchedule = JSON.parse(json.content)
+    return jsonContent
+  } catch (error) {
+    throw new Error(`fetch error accessory schedule ${blindType}`, { cause: error })
+  }
+}
 
 const blindTypeToAccessoryScheduleId: Record<Blind, string> = {
   'Kinetics 10mm Cellular Blind': '01VFVMOADECMGAUDSXGVC2RRRUE62FC5XM',
