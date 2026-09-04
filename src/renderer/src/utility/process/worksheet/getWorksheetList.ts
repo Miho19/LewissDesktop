@@ -7,6 +7,7 @@ import { Worksheet } from '@shared/types/worksheet/Worksheet.types'
 import { Customer } from '@shared/types/worksheet/Customer.types'
 import { Cost } from '@shared/types/worksheet/Cost.types'
 import { getTableEntryListAsync } from '../tableEntry'
+import { getWorksheetCostAsync } from 'renderer/src/utility/process/worksheet/cost/getWorksheetCost'
 
 export async function getWorksheetListAsync(
   windowDisplayList: WindowDisplay[],
@@ -98,14 +99,16 @@ async function create(blindType: Blind, windowDisplayList: WindowDisplay[], file
     salesConsultant: file.salesConsultant
   }
 
-  const worksheetCost: Cost = {
-    blindTotal: 0,
-    gst: 0,
-    total: 0,
-    extra: []
-  }
-
   const tableEntryList = await getTableEntryListAsync(blindType, windowDisplayList, file)
+
+  const worksheetCost = await getWorksheetCostAsync(
+    blindType,
+    tableEntryList,
+    windowDisplayList,
+    file
+  )
+
+  if (typeof worksheetCost === 'undefined') throw new Error('failed to calculate worksheet cost')
 
   const worksheet: Worksheet = {
     blindType,

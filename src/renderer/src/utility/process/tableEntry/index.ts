@@ -25,6 +25,7 @@ export async function getTableEntryListAsync(
     if (typeof windowMeasurement === 'undefined')
       throw new Error('Window Display window Id did not return a valid window measurement')
     const index = getCurrentTableEntryIndex(entries)
+
     const result = await createFn(blindType, index, w, room, windowMeasurement, entries, file)
 
     for (const newEntry of result) {
