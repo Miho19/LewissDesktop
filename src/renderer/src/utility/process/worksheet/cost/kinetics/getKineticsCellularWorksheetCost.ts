@@ -26,11 +26,16 @@ export async function getKineticsCellularWorksheetCostAsync(
   const blindTotal = getTableEntryCost(tableEntryList)
   if (typeof blindTotal === 'undefined') return undefined
 
+  const extraList =
+    (await getExtraMotorProducts(blindType, tableEntryList, windowDisplayList, file)) ?? []
+
+  const gst = getGST(blindTotal, extraList)
+
   const worksheetCost: Cost = {
     blindTotal: blindTotal,
-    gst: 0,
-    total: 0,
-    extra: []
+    gst: gst,
+    total: blindTotal + gst,
+    extra: extraList
   }
 
   return worksheetCost
@@ -60,7 +65,14 @@ async function getExtraMotorProducts(
   const output: Extra[] = []
 
   const remoteExtra = getRemoteExtra(tableEntryList, accessorySchedule)
-  if (typeof remoteExtra !== 'undefined') output.push(remoteExtra)
+  if (typeof remoteExtra === 'undefined') return undefined
+
+  output.push(remoteExtra)
+
+  const chargerExtra = getChargerExtra(remoteExtra, accessorySchedule)
+  if (typeof chargerExtra === 'undefined') return undefined
+
+  output.push(chargerExtra)
 
   return output
 }
@@ -87,13 +99,26 @@ function getRemoteExtra(
 
 function getChargerExtra(remoteExtra: Extra, accessorySchedule: KineticsAccessorySchedule) {
   if (typeof remoteExtra === 'undefined') return undefined
-  if (remoteExtra.quantity === 0) return undefined
+  const { quantity } = remoteExtra
+  if (quantity === 0) return undefined
+
+  const chargerQuantity = quantity > 6 ? 2 : 1
+
+  const chargerCostObject = accessorySchedule.motorisation.find((m) => m.name === 'usbCharger')
+  if (typeof chargerCostObject === 'undefined') return undefined
+
+  const cost = chargerCostObject.cost
 
   const chargerExtra: Extra = {
-    name: '',
-    quantity: 0,
-    cost: 0
+    name: 'USB Charger Cable',
+    quantity: chargerQuantity,
+    cost: cost
   }
 
   return chargerExtra
+}
+
+function getGST(blindTotal: number, extraList: Extra[], GST: number = 0.15) {
+  const extraSum = extraList.reduce((acc, curr) => curr.cost * curr.quantity + acc, 0)
+  return (blindTotal + extraSum) * GST
 }

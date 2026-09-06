@@ -3,7 +3,7 @@ import { ProjectFile } from '@shared/types/Project.types'
 import { TableEntry } from '@shared/types/tableEntry/TableEntry.types'
 import { WindowDisplay } from '@shared/types/Window.types'
 import { GetWorksheetCostFn } from '@shared/types/worksheet/Worksheet.types'
-import { getKineticsCellularWorksheetCostAsync } from '@renderer/utility/process/worksheet/cost/getKineticsCellularWorksheetCost'
+import { getKineticsCellularWorksheetCostAsync } from '@renderer/utility/process/worksheet/cost/kinetics/getKineticsCellularWorksheetCost'
 
 export async function getWorksheetCostAsync(
   blindType: Blind,

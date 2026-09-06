@@ -1,2 +1,2 @@
 export * from './getWorksheetCost'
-export * from './getKineticsCellularWorksheetCost'
+export * from './kinetics/getKineticsCellularWorksheetCost'

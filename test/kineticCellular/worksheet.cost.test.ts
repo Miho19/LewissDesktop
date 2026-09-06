@@ -44,8 +44,6 @@ describe('getKineticsCellularWorksheetCostAsync', () => {
 
     expect(result).toBeDefined()
 
-    console.log(result)
-
     if (typeof result === 'undefined') expect.fail('result is undefined')
 
     expect('blindTotal' in result).toBeTruthy()
