@@ -63,6 +63,35 @@ const controlInput: {
     control: 'Chain FastRise',
     length: 'a',
     expected: undefined
+  },
+
+  {
+    control: 'Lithium-ion',
+    length: '1000',
+    expected: 170
+  },
+  {
+    control: 'Lithium-ion',
+    length: '',
+    expected: 170
+  },
+
+  {
+    control: 'Lithium-ion',
+    length: '  ',
+    expected: 170
+  },
+
+  {
+    control: 'Hardwired Smart Home',
+    length: '1000',
+    expected: 202
+  },
+
+  {
+    control: 'Hardwired WiFi Remote Control',
+    length: '1000',
+    expected: 202
   }
 ]
 

@@ -3,6 +3,7 @@ import {
   KineticsRollerPricingSchedule
 } from '@shared/types/pricing/kineticsRoller.types'
 import { PricingSchedule } from '@shared/types/pricing/pricingSchedule.types'
+import { KineticsRollerSpec } from '@shared/types/spec/kineticsRoller.types'
 
 export function getKineticsRollerControlCost(
   control: string,
@@ -11,11 +12,10 @@ export function getKineticsRollerControlCost(
 ) {
   if (!isKineticsRollerPricingSchedule(pricingSchedule)) return undefined
   if (!control || control.trim().length === 0) return undefined
-  if (!isControlLengthValid(controlLength)) return undefined
 
   if (isChain(control)) return getChainCost(control, controlLength, pricingSchedule)
 
-  return 999
+  return getMotorisationCost(control, pricingSchedule)
 }
 
 // magic values currently
@@ -40,6 +40,8 @@ function getChainCost(
   controlLength: string,
   pricingSchedule: KineticsRollerPricingSchedule
 ) {
+  if (!isControlLengthValid(controlLength)) return undefined
+
   const baseCost = pricingSchedule.control.chain.cost
 
   const controlSplit = control.split(' ')
@@ -55,4 +57,27 @@ function getChainCost(
   const lengthParsed = Number(controlLength)
 
   return foundColour.cost * (lengthParsed / 1000) + baseCost
+}
+
+function getMotorisationCost(control: string, pricingSchedule: KineticsRollerPricingSchedule) {
+  const foundMotor = Object.entries(pricingSchedule.control).find(
+    ([_, value]) => value.name.localeCompare(control, undefined, { sensitivity: 'base' }) === 0
+  )
+
+  if (typeof foundMotor === 'undefined') return undefined
+
+  const [_, motor] = foundMotor
+
+  return motor.cost
+}
+
+export function getKineticsRollerControl(spec: KineticsRollerSpec) {
+  if (spec.motorisation == null) {
+    return `Chain FastRise ${spec.chainColour}`
+  }
+
+  const motorisation = spec.motorisation
+  if (motorisation.includes('lithium')) return 'Lithium-ion'
+
+  return motorisation
 }

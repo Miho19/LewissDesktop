@@ -5,6 +5,8 @@ export type KineticsRollerPricingSchedule = {
   blindType: string[]
   dimension: Dimension
   control: Control
+  bottomRail: BottomRail
+  pelmet: Pelmet
 }
 
 type Control = {
@@ -24,10 +26,27 @@ type Base = {
   cost: number
 }
 
+type BottomRail = {
+  cost: Base[]
+  customColour: Base
+}
+
 type Dimension = {
   heightHeader: number[]
   widthHeader: number[]
   data: number[][]
+}
+
+type Pelmet = {
+  customColour: Base
+  widthHeader: number[]
+  cost: PelmetPricing[]
+}
+
+type PelmetPricing = {
+  size: string
+  inside: number[]
+  outside: number[]
 }
 
 export function isKineticsRollerPricingSchedule(
