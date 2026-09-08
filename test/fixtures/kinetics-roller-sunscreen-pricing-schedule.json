@@ -2,31 +2,30 @@
   "blindType": ["Kinetics Sunscreen Roller Blind"],
   "control": {
     "chain": {
-      "fastRise": {
-        "base": 21,
-        "colours": [
-          { "name": "White Metal", "perM": 17 },
-          { "name": "Black Metal", "perM": 17 },
-          { "name": "Stainless Steel", "perM": 17 }
-        ]
-      }
+      "id": "",
+      "name": "chain",
+      "cost": 21,
+      "colours": [
+        { "id": "", "name": "White Metal", "cost": 17 },
+        { "id": "", "name": "Black Metal", "cost": 17 },
+        { "id": "", "name": "Stainless Steel", "cost": 17 }
+      ]
     },
-    "motorisation": {
-      "Lithium-ion": {
-        "base": 170,
-        "id": "103171",
-        "name": "Lithium-ion"
-      },
-      "Hardwired Smart Home": {
-        "base": 202,
-        "id": "103189",
-        "name": "Hardwired Smart Home"
-      },
-      "Hardwired WiFi Remote Control": {
-        "base": 202,
-        "id": "103186",
-        "name": "Hardwired WiFi Remote Control"
-      }
+
+    "Lithium-ion": {
+      "cost": 170,
+      "id": "103171",
+      "name": "Lithium-ion"
+    },
+    "Hardwired Smart Home": {
+      "cost": 202,
+      "id": "103189",
+      "name": "Hardwired Smart Home"
+    },
+    "Hardwired WiFi Remote Control": {
+      "cost": 202,
+      "id": "103186",
+      "name": "Hardwired WiFi Remote Control"
     }
   },
 
