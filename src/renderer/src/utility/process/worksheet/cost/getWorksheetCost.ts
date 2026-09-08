@@ -16,8 +16,6 @@ export async function getWorksheetCostAsync(
   const blindTotal = getTableEntryCost(tableEntryList)
   if (typeof blindTotal === 'undefined') return undefined
 
-  // get extra cost
-
   const getWorksheetExtraCostFn = blindTypeMappedToGetWorksheetExtraCostFn[blindType]
   if (typeof getWorksheetExtraCostFn === 'undefined')
     throw new Error(`${blindType} does not have a get worksheet extra cost function`)
