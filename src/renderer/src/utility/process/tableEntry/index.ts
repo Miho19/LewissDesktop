@@ -5,6 +5,7 @@ import { WindowDisplay } from '@shared/types/Window.types'
 import { getRoom } from '../../windowDisplay/getRoom'
 import { getWindow } from '../../windowDisplay/getWindow'
 import { getKineticsCellularTableEntryAsync } from './kineticsCellular/getKineticsCellularTableEntryList'
+import { getKineticsRollerTableEntryAsync } from '@renderer/utility/process/tableEntry/kineticsRoller'
 
 export async function getTableEntryListAsync(
   blindType: Blind,
@@ -44,5 +45,8 @@ function getCurrentTableEntryIndex(tableEntryList: TableEntry[]) {
 
 const getTableEntryFunctionMap: Record<Blind, createTableEntryFn> = {
   'Kinetics 10mm Cellular Blind': getKineticsCellularTableEntryAsync,
-  'Kinetics 20mm Cellular Blind': getKineticsCellularTableEntryAsync
+  'Kinetics 20mm Cellular Blind': getKineticsCellularTableEntryAsync,
+  'Kinetics Blockout Roller Blind': getKineticsRollerTableEntryAsync,
+  'Kinetics Light Filtering Roller Blind': getKineticsRollerTableEntryAsync,
+  'Kinetics Sunscreen Roller Blind': getKineticsRollerTableEntryAsync
 }

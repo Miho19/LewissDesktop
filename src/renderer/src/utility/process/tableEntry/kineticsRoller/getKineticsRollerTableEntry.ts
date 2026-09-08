@@ -19,7 +19,7 @@ export async function getKineticsRollerTableEntryAsync(
   entries: TableEntry[],
   file: ProjectFile
 ) {
-  const { width, height, fit, treatment, blindCount } = windowDisplay
+  const { width, height, fit, treatment } = windowDisplay
   const spec = fit === 'inside' ? treatment.insideLayer.spec : treatment.outsideLayer.spec
 
   if (!isKineticsRollerSpec(spec)) return []
@@ -44,12 +44,12 @@ export async function getKineticsRollerTableEntryAsync(
 
   const controlSide = spec.controlSide ?? windowMeasurement.controlSide
 
-  const { bottomRailType, bottomRailColour } = spec
+  const { bottomRailType, bottomRailColour, pelmetType } = spec
   const bottomRail = `${bottomRailType} ${bottomRailColour}`
 
   const bracket = spec.bracketColour
 
-  const pelmet = getKineticsRollerPelmet(spec)
+  const pelmet = getKineticsRollerPelmet(pelmetType)
 
   const { remote, channel } = getRemoteAndChannel(location, control, entries)
 
@@ -61,8 +61,10 @@ export async function getKineticsRollerTableEntryAsync(
     control,
     controlLength,
     bottomRailType,
-    bottomRailColour
+    bottomRailColour,
+    pelmetType ?? ''
   )
+
   if (typeof price === 'undefined') return []
 
   const leftEntry: KineticsRollerTableEntry = {

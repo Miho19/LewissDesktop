@@ -5,6 +5,7 @@ import { retrievePricingScheduleAsync } from '@renderer/utility/process/tableEnt
 import { getKineticsRollerDimensionCost } from '@renderer/utility/process/tableEntry/kineticsRoller/getKineticsRollerDimensionCost'
 import { getKineticsRollerControlCost } from '@renderer/utility/process/tableEntry/kineticsRoller/getKineticsRollerControlCost'
 import { getKineticsRollerBottomRailCost } from '@renderer/utility/process/tableEntry/kineticsRoller/getKineticsRollerBottomRailCost'
+import { getKineticsRollerPelmetCost } from '@renderer/utility/process/tableEntry/kineticsRoller/getKineticsRollerPelmetCost'
 
 export async function getKineticsRollerCostAsync(
   blindType: Blind,
@@ -14,7 +15,8 @@ export async function getKineticsRollerCostAsync(
   control: string,
   controlLength: string,
   bottomRailType: string,
-  bottomRailColour: string
+  bottomRailColour: string,
+  pelmet: string
 ) {
   const pricingSchedule = await retrievePricingScheduleAsync(blindType)
   if (typeof pricingSchedule === 'undefined') return undefined
@@ -34,5 +36,8 @@ export async function getKineticsRollerCostAsync(
   )
   if (typeof bottomRailCost === 'undefined') return undefined
 
-  return dimensionCost + controlCost + bottomRailCost
+  const pelmetCost = getKineticsRollerPelmetCost(width, pelmet, pricingSchedule)
+  if (typeof pelmetCost === 'undefined') return undefined
+
+  return dimensionCost + controlCost + bottomRailCost + pelmetCost
 }

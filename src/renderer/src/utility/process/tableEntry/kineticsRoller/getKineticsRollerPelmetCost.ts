@@ -3,7 +3,6 @@ import {
   KineticsRollerPricingSchedule
 } from '@shared/types/pricing/kineticsRoller.types'
 import { PricingSchedule } from '@shared/types/pricing/pricingSchedule.types'
-import { KineticsRollerSpec } from '@shared/types/spec/kineticsRoller.types'
 
 const VALID_PELMET_SIZE = [110, 160] as const
 
@@ -14,7 +13,7 @@ export function getKineticsRollerPelmetCost(
 ) {
   if (!isKineticsRollerPricingSchedule(pricingSchedule)) return undefined
   if (!isWidthValid(width)) return undefined
-  if (!isPelmetValid(pelmet)) return undefined
+  if (!isPelmetValid(pelmet)) return 0 // if pelmet is not specified we assume it is not needed
 
   let size: number, fit: 'inside' | 'outside'
 
@@ -51,8 +50,7 @@ function isPelmetValid(pelmet: string) {
   return true
 }
 
-export function getKineticsRollerPelmet(spec: KineticsRollerSpec) {
-  const { pelmetType } = spec
+export function getKineticsRollerPelmet(pelmetType?: string) {
   if (pelmetType == null) return ''
   if (pelmetType.trim().length === 0) return ''
 

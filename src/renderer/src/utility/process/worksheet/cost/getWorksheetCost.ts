@@ -5,6 +5,7 @@ import { WindowDisplay } from '@shared/types/Window.types'
 import { GetWorksheetExtraCostFn } from '@shared/types/worksheet/Worksheet.types'
 import { getKineticsCellularWorksheetExtraCostAsync } from '@renderer/utility/process/worksheet/cost/kinetics/getKineticsCellularWorksheetExtraCost'
 import { Cost, Extra } from 'shared/types/worksheet/Cost.types'
+import { getKineticsRollerWorksheetExtraCostAsync } from '@renderer/utility/process/worksheet/cost/kinetics/getKineticsRollerWorksheetExtraCost'
 
 export async function getWorksheetCostAsync(
   blindType: Blind,
@@ -47,7 +48,10 @@ export async function getWorksheetCostAsync(
 
 const blindTypeMappedToGetWorksheetExtraCostFn: Record<Blind, GetWorksheetExtraCostFn> = {
   'Kinetics 10mm Cellular Blind': getKineticsCellularWorksheetExtraCostAsync,
-  'Kinetics 20mm Cellular Blind': getKineticsCellularWorksheetExtraCostAsync
+  'Kinetics 20mm Cellular Blind': getKineticsCellularWorksheetExtraCostAsync,
+  'Kinetics Blockout Roller Blind': getKineticsRollerWorksheetExtraCostAsync,
+  'Kinetics Light Filtering Roller Blind': getKineticsRollerWorksheetExtraCostAsync,
+  'Kinetics Sunscreen Roller Blind': getKineticsRollerWorksheetExtraCostAsync
 }
 
 export function getTableEntryCost(tableEntryList: TableEntry[]) {

@@ -1,19 +1,17 @@
 import { Blind } from '@shared/types/blind/blind.types'
 import { ProjectFile } from '@shared/types/Project.types'
+import { isKineticsRollerTableEntryList } from '@shared/types/tableEntry/kineticsRoller.types'
 import { TableEntry } from '@shared/types/tableEntry/TableEntry.types'
 import { WindowDisplay } from '@shared/types/Window.types'
-
-import { isKineticsCellularTableEntryList } from '@shared/types/tableEntry/kineticsCellular.types'
-
 import { getExtraMotorProductsAsync } from '@renderer/utility/process/worksheet/cost/kinetics/shared'
 
-export async function getKineticsCellularWorksheetExtraCostAsync(
+export async function getKineticsRollerWorksheetExtraCostAsync(
   blindType: Blind,
   tableEntryList: TableEntry[],
   windowDisplayList: WindowDisplay[],
   file: ProjectFile
 ) {
-  if (!isKineticsCellularTableEntryList(tableEntryList)) return undefined
+  if (!isKineticsRollerTableEntryList(tableEntryList)) return undefined
 
   const extraList =
     (await getExtraMotorProductsAsync(blindType, tableEntryList, windowDisplayList, file)) ?? []

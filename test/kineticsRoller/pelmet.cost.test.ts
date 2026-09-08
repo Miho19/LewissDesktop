@@ -53,13 +53,13 @@ const petlmetInput: {
   {
     width: 1200,
     pelmet: '',
-    expected: undefined
+    expected: 0
   },
 
   {
     width: 1200,
     pelmet: '  ',
-    expected: undefined
+    expected: 0
   },
 
   {
