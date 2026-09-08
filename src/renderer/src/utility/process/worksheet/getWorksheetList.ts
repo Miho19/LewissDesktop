@@ -5,9 +5,8 @@ import { WindowDisplay } from '@shared/types/Window.types'
 import { getBlindTypeFromSpec } from './getBlindTypeFromSpec'
 import { Worksheet } from '@shared/types/worksheet/Worksheet.types'
 import { Customer } from '@shared/types/worksheet/Customer.types'
-import { Cost } from '@shared/types/worksheet/Cost.types'
 import { getTableEntryListAsync } from '../tableEntry'
-import { getWorksheetCostAsync } from 'renderer/src/utility/process/worksheet/cost/getWorksheetCost'
+import { getWorksheetCostAsync } from '@renderer/utility/process/worksheet/cost/getWorksheetCost'
 
 export async function getWorksheetListAsync(
   windowDisplayList: WindowDisplay[],

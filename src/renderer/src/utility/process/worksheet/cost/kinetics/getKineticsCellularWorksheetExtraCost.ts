@@ -2,8 +2,7 @@ import { Blind } from '@shared/types/blind/blind.types'
 import { ProjectFile } from '@shared/types/Project.types'
 import { TableEntry } from '@shared/types/tableEntry/TableEntry.types'
 import { WindowDisplay } from '@shared/types/Window.types'
-import { Cost, Extra } from '@shared/types/worksheet/Cost.types'
-import { getTableEntryCost } from '@renderer/utility/process/worksheet/cost/getWorksheetCost'
+import { Extra } from '@shared/types/worksheet/Cost.types'
 import {
   isKineticsCellularTableEntryList,
   KineticsCellularTableEntry
@@ -15,7 +14,7 @@ import {
 } from '@shared/types/pricing/kineticsAccessories.types'
 import { getMaxRemote } from '@renderer/utility/process/tableEntry/shared/kinetics'
 
-export async function getKineticsCellularWorksheetCostAsync(
+export async function getKineticsCellularWorksheetExtraCostAsync(
   blindType: Blind,
   tableEntryList: TableEntry[],
   windowDisplayList: WindowDisplay[],
@@ -23,30 +22,13 @@ export async function getKineticsCellularWorksheetCostAsync(
 ) {
   if (!isKineticsCellularTableEntryList(tableEntryList)) return undefined
 
-  const blindTotal = getTableEntryCost(tableEntryList)
-  if (typeof blindTotal === 'undefined') return undefined
-
   const extraList =
     (await getExtraMotorProducts(blindType, tableEntryList, windowDisplayList, file)) ?? []
 
-  const gst = getGST(blindTotal, extraList)
-
-  const worksheetCost: Cost = {
-    blindTotal: blindTotal,
-    gst: gst,
-    total: blindTotal + gst,
-    extra: extraList
-  }
-
-  return worksheetCost
+  return extraList
 }
 
 /**
- *
- * @param blindType
- * @param tableEntryList
- * @param windowDisplayList
- * @param file
  *
  * we are going to use the legacy version of this --- likely we need to prompt the user to
  * select the additional products
@@ -116,9 +98,4 @@ function getChargerExtra(remoteExtra: Extra, accessorySchedule: KineticsAccessor
   }
 
   return chargerExtra
-}
-
-function getGST(blindTotal: number, extraList: Extra[], GST: number = 0.15) {
-  const extraSum = extraList.reduce((acc, curr) => curr.cost * curr.quantity + acc, 0)
-  return (blindTotal + extraSum) * GST
 }

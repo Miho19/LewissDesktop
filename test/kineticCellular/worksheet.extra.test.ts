@@ -1,12 +1,12 @@
-import { Blind } from '@shared/types/blind/blind.types'
 import { describe, vi, it, expect } from 'vitest'
 import {
-  getExamplePricingSchedule,
   getExampleAccessorySchedule,
+  getExamplePricingSchedule,
   getWindowDisplayAndProjectFile
 } from '../utility'
-import { getWorksheetCostAsync } from '@renderer/utility/process/worksheet/cost'
+import { Blind } from '@shared/types/blind/blind.types'
 import { getTableEntryListAsync } from '@renderer/utility/process/tableEntry'
+import { getKineticsCellularWorksheetExtraCostAsync } from '@renderer/utility/process/worksheet/cost'
 
 vi.mock(
   '@renderer/utility/process/tableEntry/shared/retrievePricingSchedule',
@@ -27,32 +27,28 @@ vi.mock(
   }
 )
 
-describe('getWorksheetCostAsync', () => {
+describe('getKineticsCellularWorksheetExtraCostAsync', () => {
   const blindType: Blind = 'Kinetics 10mm Cellular Blind'
 
   const { windowDisplayList, projectFile } = getWindowDisplayAndProjectFile(blindType)
 
-  it('should a worksheet cost object', async () => {
+  it('should return a list of extras', async () => {
     const tableEntryList = await getTableEntryListAsync(blindType, windowDisplayList, projectFile)
 
-    const result = await getWorksheetCostAsync(
+    const extraList = await getKineticsCellularWorksheetExtraCostAsync(
       blindType,
       tableEntryList,
       windowDisplayList,
       projectFile
     )
 
-    expect(result).toBeDefined()
+    expect(extraList).toBeDefined()
+    expect(Array.isArray(extraList)).toBeTruthy()
 
-    if (typeof result === 'undefined') expect.fail('result is undefined')
+    if (typeof extraList === 'undefined') expect.fail('extra list is undefined')
 
-    expect('blindTotal' in result).toBeTruthy()
-    expect(result.blindTotal).toBeGreaterThan(0)
-
-    expect('gst' in result).toBeTruthy()
-    expect(result.gst).toBeGreaterThan(0)
-
-    expect('total' in result).toBeTruthy()
-    expect(result.total).toBeGreaterThan(0)
+    expect(extraList.length).toBeGreaterThan(0)
+    expect(extraList.find((e) => e.name === '15 Channel Remote')).toBeDefined()
+    expect(extraList.find((e) => e.name === 'USB Charger Cable')).toBeDefined()
   })
 })

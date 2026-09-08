@@ -7,7 +7,7 @@ import { GETFolder } from './http/GETFolder'
 import GETProjectfile from './http/GETProjectFile'
 import type { Blind } from '@shared/types/blind/blind.types'
 import { GETPricingSchedule } from './http/GETPricingSchedule'
-import { GETAccessorySchedule } from 'main/http/GETAccessorySchedule'
+import { GETAccessorySchedule } from './http/GETAccessorySchedule'
 
 function createWindow(): void {
   // Create the browser window.
@@ -86,7 +86,7 @@ ipcMain.handle('get-staff-list', async () => {
     const response = await GETStaff()
     return response
   } catch (error) {
-    if (error instanceof Error) throw new Error(error.message)
+    if (error instanceof Error) console.error(error.message)
     throw new Error('Failed to fetch staff list', { cause: error })
   }
 })
@@ -96,6 +96,7 @@ ipcMain.handle('get-folder', async (_event, folderId: string) => {
     const response = await GETFolder(folderId)
     return response
   } catch (error) {
+    if (error instanceof Error) console.error(error.message)
     throw new Error('failed to fetch folder', { cause: error })
   }
 })
@@ -105,6 +106,7 @@ ipcMain.handle('get-project-file', async (_event, fileId: string) => {
     const response = await GETProjectfile(fileId)
     return response
   } catch (error) {
+    if (error instanceof Error) console.error(error.message)
     throw new Error('failed to fetch project file', { cause: error })
   }
 })
@@ -114,6 +116,7 @@ ipcMain.handle('get-pricing-schedule', async (_event, blindType: Blind) => {
     const response = await GETPricingSchedule(blindType)
     return response
   } catch (error) {
+    if (error instanceof Error) console.error(error.message)
     throw new Error('failed to fetch pricing schedule', { cause: error })
   }
 })
@@ -123,6 +126,7 @@ ipcMain.handle('get-accessory-schedule', async (_event, blindType: Blind) => {
     const response = await GETAccessorySchedule(blindType)
     return response
   } catch (error) {
-    throw new Error()
+    if (error instanceof Error) console.error(error.message)
+    throw new Error('failed to fetch accessory schedule', { cause: error })
   }
 })

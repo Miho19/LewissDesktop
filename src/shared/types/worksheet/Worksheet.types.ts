@@ -1,7 +1,7 @@
 import { WindowDisplay } from '@shared/types/Window.types'
 import { Blind } from '@shared/types/blind/blind.types'
 import { TableEntry } from '../tableEntry/TableEntry.types'
-import { Cost } from './Cost.types'
+import { Cost, Extra } from './Cost.types'
 import { Customer } from './Customer.types'
 import { ProjectFile } from '@shared/types/Project.types'
 
@@ -12,9 +12,9 @@ export type Worksheet = {
   tableEntryList: TableEntry[]
 }
 
-export type GetWorksheetCostFn = (
+export type GetWorksheetExtraCostFn = (
   blindType: Blind,
   tableEntryList: TableEntry[],
   windowDisplayList: WindowDisplay[],
   file: ProjectFile
-) => Promise<Cost | undefined>
+) => Promise<Extra[] | undefined>
