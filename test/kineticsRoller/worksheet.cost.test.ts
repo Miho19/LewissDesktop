@@ -9,11 +9,11 @@ import { getWorksheetCostAsync } from '@renderer/utility/process/worksheet/cost'
 import { getTableEntryListAsync } from '@renderer/utility/process/tableEntry'
 
 vi.mock(
-  '@renderer/utility/process/tableEntry/shared/retrievePricingSchedule',
+  '@renderer/utility/process/pricingSchedule/retrievePricingSchedule',
   async (importOriginal) => {
     const actual =
       await importOriginal<
-        typeof import('renderer/src/utility/process/pricingSchedule/retrievePricingSchedule')
+        typeof import('@renderer/utility/process/pricingSchedule/retrievePricingSchedule')
       >()
     return {
       ...actual,

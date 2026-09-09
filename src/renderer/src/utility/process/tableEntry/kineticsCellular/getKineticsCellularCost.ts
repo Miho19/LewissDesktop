@@ -1,4 +1,4 @@
-import { retrievePricingScheduleAsync } from 'renderer/src/utility/process/pricingSchedule/retrievePricingSchedule'
+import { retrievePricingScheduleAsync } from '@renderer/utility/process/pricingSchedule/retrievePricingSchedule'
 import { Blind } from '@shared/types/blind/blind.types'
 import { getKineticsCellularControlCost } from '@renderer/utility/process/tableEntry/kineticsCellular/getKineticsCellularControlCost'
 import { getKineticsCellularDimensionCost } from '@renderer/utility/process/tableEntry/kineticsCellular/getKineticsCellularDimensionCost'

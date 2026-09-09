@@ -1,7 +1,7 @@
 import { Blind } from '@shared/types/blind/blind.types'
 import { isKineticsRollerPricingSchedule } from '@shared/types/pricing/kineticsRoller.types'
 import { Fabric } from '@shared/types/Project.types'
-import { retrievePricingScheduleAsync } from 'renderer/src/utility/process/pricingSchedule/retrievePricingSchedule'
+import { retrievePricingScheduleAsync } from '@renderer/utility/process/pricingSchedule/retrievePricingSchedule'
 import { getKineticsRollerDimensionCost } from '@renderer/utility/process/tableEntry/kineticsRoller/getKineticsRollerDimensionCost'
 import { getKineticsRollerControlCost } from '@renderer/utility/process/tableEntry/kineticsRoller/getKineticsRollerControlCost'
 import { getKineticsRollerBottomRailCost } from '@renderer/utility/process/tableEntry/kineticsRoller/getKineticsRollerBottomRailCost'

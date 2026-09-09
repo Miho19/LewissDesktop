@@ -5,7 +5,7 @@ import {
 } from '@shared/types/pricing/kineticsAccessories.types'
 import { KineticsTableEntry } from '@shared/types/tableEntry/TableEntry.types'
 import { Extra } from '@shared/types/worksheet/Cost.types'
-import { retrieveAccessorySchedule } from 'renderer/src/utility/process/pricingSchedule/retrievePricingSchedule'
+import { retrieveAccessorySchedule } from '@renderer/utility/process/pricingSchedule/retrievePricingSchedule'
 import { Blind } from '@shared/types/blind/blind.types'
 import { ProjectFile } from '@shared/types/Project.types'
 import { WindowDisplay } from '@shared/types/Window.types'

@@ -9,11 +9,11 @@ import { getTableEntryListAsync } from '@renderer/utility/process/tableEntry'
 import { getKineticsCellularWorksheetExtraCostAsync } from '@renderer/utility/process/worksheet/cost'
 
 vi.mock(
-  '@renderer/utility/process/tableEntry/shared/retrievePricingSchedule',
+  '@renderer/utility/process/pricingSchedule/retrievePricingSchedule',
   async (importOriginal) => {
     const actual =
       await importOriginal<
-        typeof import('renderer/src/utility/process/pricingSchedule/retrievePricingSchedule')
+        typeof import('@renderer/utility/process/pricingSchedule/retrievePricingSchedule')
       >()
     return {
       ...actual,
@@ -26,7 +26,6 @@ vi.mock(
     }
   }
 )
-
 describe('getKineticsCellularWorksheetExtraCostAsync', () => {
   const blindType: Blind = 'Kinetics 10mm Cellular Blind'
 

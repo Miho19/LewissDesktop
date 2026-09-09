@@ -13,11 +13,11 @@ import { isKineticsCellularTableEntry } from '@shared/types/tableEntry/kineticsC
 import type { Blind } from '@shared/types/blind/blind.types'
 
 vi.mock(
-  '@renderer/utility/process/tableEntry/shared/retrievePricingSchedule',
+  '@renderer/utility/process/pricingSchedule/retrievePricingSchedule',
   async (importOriginal) => {
     const actual =
       await importOriginal<
-        typeof import('renderer/src/utility/process/pricingSchedule/retrievePricingSchedule')
+        typeof import('@renderer/utility/process/pricingSchedule/retrievePricingSchedule')
       >()
     return {
       ...actual,
