@@ -1,4 +1,4 @@
-import { retrievePricingScheduleAsync } from '@renderer/utility/process/tableEntry/shared/retrievePricingSchedule'
+import { retrievePricingScheduleAsync } from 'renderer/src/utility/process/pricingSchedule/retrievePricingSchedule'
 import { Blind } from '@shared/types/blind/blind.types'
 import { getKineticsCellularControlCost } from '@renderer/utility/process/tableEntry/kineticsCellular/getKineticsCellularControlCost'
 import { getKineticsCellularDimensionCost } from '@renderer/utility/process/tableEntry/kineticsCellular/getKineticsCellularDimensionCost'
@@ -28,29 +28,25 @@ export async function getKineticsCellularCost(
   headrailColour: string,
   sideChannelColour: string
 ) {
-  try {
-    const pricingSchedule = await retrievePricingScheduleAsync(blindType)
-    if (typeof pricingSchedule === 'undefined') return undefined
-    if (!isKineticsCellularPricingSchedule(pricingSchedule)) return undefined
+  const pricingSchedule = await retrievePricingScheduleAsync(blindType)
+  if (typeof pricingSchedule === 'undefined') return undefined
+  if (!isKineticsCellularPricingSchedule(pricingSchedule)) return undefined
 
-    const dimensionCost = getKineticsCellularDimensionCost(width, height, fabric, pricingSchedule)
-    if (typeof dimensionCost === 'undefined') return undefined
+  const dimensionCost = getKineticsCellularDimensionCost(width, height, fabric, pricingSchedule)
+  if (typeof dimensionCost === 'undefined') return undefined
 
-    const controlCost = getKineticsCellularControlCost(control, pricingSchedule)
-    if (typeof controlCost === 'undefined') return undefined
+  const controlCost = getKineticsCellularControlCost(control, pricingSchedule)
+  if (typeof controlCost === 'undefined') return undefined
 
-    const headrailCost = getKineticsCellularHeadrailCost(headrailColour, pricingSchedule)
-    if (typeof headrailCost === 'undefined') return undefined
+  const headrailCost = getKineticsCellularHeadrailCost(headrailColour, pricingSchedule)
+  if (typeof headrailCost === 'undefined') return undefined
 
-    const sideChannelCost = getKineticsCellularSideChannelCost(
-      height,
-      sideChannelColour,
-      pricingSchedule
-    )
-    if (typeof sideChannelCost === 'undefined') return undefined
+  const sideChannelCost = getKineticsCellularSideChannelCost(
+    height,
+    sideChannelColour,
+    pricingSchedule
+  )
+  if (typeof sideChannelCost === 'undefined') return undefined
 
-    return dimensionCost + controlCost + headrailCost + sideChannelCost
-  } catch (error) {
-    return undefined
-  }
+  return dimensionCost + controlCost + headrailCost + sideChannelCost
 }

@@ -67,8 +67,6 @@ async function createWorksheetAsync(map: Map<Blind, WindowDisplay[]>, file: Proj
     try {
       if (value.length === 0) return undefined
 
-      // get the table entry list
-
       return await create(key, value, file)
     } catch (error) {
       const newError = new Error()

@@ -17,7 +17,7 @@ vi.mock(
   async (importOriginal) => {
     const actual =
       await importOriginal<
-        typeof import('@renderer/utility/process/tableEntry/shared/retrievePricingSchedule')
+        typeof import('renderer/src/utility/process/pricingSchedule/retrievePricingSchedule')
       >()
     return {
       ...actual,
