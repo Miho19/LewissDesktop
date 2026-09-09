@@ -42,7 +42,8 @@ export async function getKineticsRollerTableEntryAsync(
     ? `${control} ${controlLength}mm`
     : control
 
-  const controlSide = spec.controlSide ?? windowMeasurement.controlSide
+  const controlSide =
+    fit === 'inside' ? windowMeasurement.controlSide : windowMeasurement.outsideControlSide
 
   const { bottomRailType, bottomRailColour, pelmetType } = spec
   const bottomRail = `${bottomRailType} ${bottomRailColour}`
