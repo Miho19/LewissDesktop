@@ -14,13 +14,11 @@ function GETStaffFetchOption() {
 }
 
 export async function GETStaff(endpoint: URL = GETStaffEndpoint()): Promise<GETStaffResponse> {
-  try {
-    const fetchOptions = GETStaffFetchOption()
-    const response = await fetch(endpoint, fetchOptions)
-    if (!response.ok) throw new Error(response.statusText)
-    const data: GETStaffResponseBody = await response.json()
-    return { measurers: data.measurers, consultants: data.consultants }
-  } catch (error) {
-    throw new Error('Failed to fetch staff list', { cause: error })
-  }
+  const fetchOptions = GETStaffFetchOption()
+  const response = await fetch(endpoint, fetchOptions)
+  if (!response.ok) throw new Error(response.statusText)
+
+  const data: GETStaffResponseBody = await response.json()
+
+  return { measurers: data.measurers, consultants: data.consultants }
 }

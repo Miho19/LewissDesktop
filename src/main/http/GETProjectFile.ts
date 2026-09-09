@@ -15,25 +15,21 @@ function GETProjectFileFetchOptions(fileId: string) {
 }
 
 async function GETProjectfile(fileId: string, endpoint: URL = GETProjectFileEndpoint()) {
-  try {
-    if (typeof fileId === 'undefined' || fileId.trim().length === 0)
-      throw new Error('Missing file id')
+  if (typeof fileId === 'undefined' || fileId.trim().length === 0)
+    throw new Error('Missing file id')
 
-    const fetchOptions = GETProjectFileFetchOptions(fileId)
+  const fetchOptions = GETProjectFileFetchOptions(fileId)
 
-    const response = await fetch(endpoint, fetchOptions)
-    if (!response.ok) throw new Error(response.statusText)
+  const response = await fetch(endpoint, fetchOptions)
+  if (!response.ok) throw new Error(response.statusText)
 
-    const jsonBody: GETProjectFileResponse = await response.json()
+  const jsonBody: GETProjectFileResponse = await response.json()
 
-    if (!jsonBody.ok) throw new Error(response.statusText)
+  if (!jsonBody.ok) throw new Error(response.statusText)
 
-    const projectFile: ProjectFile = await JSON.parse(jsonBody.content)
+  const projectFile: ProjectFile = await JSON.parse(jsonBody.content)
 
-    return projectFile
-  } catch (error) {
-    throw new Error('Failed to fetch project file', { cause: error })
-  }
+  return projectFile
 }
 
 export default GETProjectfile

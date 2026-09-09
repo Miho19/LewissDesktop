@@ -25,21 +25,17 @@ export async function GETPricingSchedule(
   blindType: Blind,
   endpoint: URL = getPricingScheduleEndpoint()
 ) {
-  try {
-    const fileId = blindTypeToPricingScheduleId[blindType]
-    if (typeof fileId === 'undefined') throw new Error(`${blindType} is an invalid blind type`)
+  const fileId = blindTypeToPricingScheduleId[blindType]
+  if (typeof fileId === 'undefined') throw new Error(`${blindType} is an invalid blind type`)
 
-    const fetchOptions = getPricingScheduleFetchOptions(fileId)
+  const fetchOptions = getPricingScheduleFetchOptions(fileId)
 
-    const response = await fetch(endpoint, fetchOptions)
-    if (!response.ok) throw new Error(response.statusText)
+  const response = await fetch(endpoint, fetchOptions)
+  if (!response.ok) throw new Error(response.statusText)
 
-    const json: GETProjectFileResponse = await response.json()
-    const jsonContent: PricingSchedule = JSON.parse(json.content)
-    return jsonContent
-  } catch (error) {
-    throw new Error(`fetch error pricing schedule ${blindType}`, { cause: error })
-  }
+  const json: GETProjectFileResponse = await response.json()
+  const jsonContent: PricingSchedule = JSON.parse(json.content)
+  return jsonContent
 }
 
 const blindTypeToPricingScheduleId: Record<Blind, string> = {

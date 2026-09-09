@@ -81,12 +81,14 @@ app.on('window-all-closed', () => {
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
 
+const log = false
+
 ipcMain.handle('get-staff-list', async () => {
   try {
     const response = await GETStaff()
     return response
   } catch (error) {
-    if (error instanceof Error) console.error(error.message)
+    if (error instanceof Error && log) console.error(error.message)
     throw new Error('Failed to fetch staff list', { cause: error })
   }
 })
@@ -96,7 +98,7 @@ ipcMain.handle('get-folder', async (_event, folderId: string) => {
     const response = await GETFolder(folderId)
     return response
   } catch (error) {
-    if (error instanceof Error) console.error(error.message)
+    if (error instanceof Error && log) console.error(error.message)
     throw new Error('failed to fetch folder', { cause: error })
   }
 })
@@ -106,7 +108,7 @@ ipcMain.handle('get-project-file', async (_event, fileId: string) => {
     const response = await GETProjectfile(fileId)
     return response
   } catch (error) {
-    if (error instanceof Error) console.error(error.message)
+    if (error instanceof Error && log) console.error(error.message)
     throw new Error('failed to fetch project file', { cause: error })
   }
 })
@@ -116,7 +118,7 @@ ipcMain.handle('get-pricing-schedule', async (_event, blindType: Blind) => {
     const response = await GETPricingSchedule(blindType)
     return response
   } catch (error) {
-    if (error instanceof Error) console.error(error.message)
+    if (error instanceof Error && log) console.error(error.message)
     throw new Error('failed to fetch pricing schedule', { cause: error })
   }
 })
@@ -126,7 +128,7 @@ ipcMain.handle('get-accessory-schedule', async (_event, blindType: Blind) => {
     const response = await GETAccessorySchedule(blindType)
     return response
   } catch (error) {
-    if (error instanceof Error) console.error(error.message)
+    if (error instanceof Error && log) console.error(error.message)
     throw new Error('failed to fetch accessory schedule', { cause: error })
   }
 })

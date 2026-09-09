@@ -11,6 +11,7 @@ import { Skeleton } from '@/components/ui/skeleton'
 import useFolder from '@/hook/useFolder'
 import { FolderItem } from '@shared/types/Folder.types'
 import { Consultant } from '@shared/types/Consultant.types'
+import { toast } from 'sonner'
 
 function ConsultantList() {
   const {
@@ -32,8 +33,8 @@ function ConsultantList() {
   if (isPendingStaffList || isLoadingStaffList) return <ConsultantListSkeleton />
   if (isPendingRoot || isLoadingRoot) return <ConsultantListSkeleton />
 
-  if (isErrorStaffList) return <div>{errorStafflist.message}</div>
-  if (isErrorRoot) return <div>{errorRoot.message}</div>
+  if (isErrorStaffList) return errorToast(errorStafflist)
+  if (isErrorRoot) return errorToast(errorRoot)
 
   const navigationList = getSidebarNavigationLink(staffList.consultants, root)
 
@@ -95,6 +96,18 @@ function getSidebarNavigationComponent(consultantName: string, folderId: string)
       </SidebarMenuButton>
     </SidebarMenuItem>
   )
+}
+
+function errorToast(error: Error) {
+  toast.error('Error', {
+    description: (
+      <>
+        <p>{error.name}</p>
+        <p>{error.message}</p>
+      </>
+    )
+  })
+  return <div className="w-full"></div>
 }
 
 export default ConsultantList

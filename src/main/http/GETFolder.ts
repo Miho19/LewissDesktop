@@ -26,16 +26,12 @@ export async function GETFolder(
   folderId: string,
   endpoint: URL = GETFolderEndpoint()
 ): Promise<FolderItem[]> {
-  try {
-    if (folderId == null || folderId.trim().length === 0) throw new Error('FolderId is undefined')
+  if (folderId == null || folderId.trim().length === 0) throw new Error('FolderId is undefined')
 
-    const fetchOptions = GETFolderFetchOptions(folderId)
+  const fetchOptions = GETFolderFetchOptions(folderId)
 
-    const response = await fetch(endpoint, fetchOptions)
-    if (!response.ok) throw new Error(response.statusText)
-    const jsonBody: GETFolderResponse = await response.json()
-    return jsonBody.children
-  } catch (error) {
-    throw new Error(`Failed to fetch folder: ${folderId}`)
-  }
+  const response = await fetch(endpoint, fetchOptions)
+  if (!response.ok) throw new Error(response.statusText)
+  const jsonBody: GETFolderResponse = await response.json()
+  return jsonBody.children
 }
