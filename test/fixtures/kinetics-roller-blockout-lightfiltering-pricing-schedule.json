@@ -63,7 +63,7 @@
     "combo": 54.0
   },
   "pelmet": {
-    "customColour": 103,
+    "customColour": { "id": "", "name": "custom colour pelmet", "cost": 103 },
     "widthHeader": [
       240, 1000, 1250, 1500, 1750, 2000, 2250, 2500, 2750, 3000, 3250, 3500, 3750, 4000, 4250, 4500,
       4750, 5000, 5250, 5500

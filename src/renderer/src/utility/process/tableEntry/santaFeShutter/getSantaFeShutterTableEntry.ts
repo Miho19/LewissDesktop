@@ -40,7 +40,8 @@ export async function getSantaFeShutterTableEntryAsync(
   const shutterPole = spec.shuttlePole ? 'Yes' : ' '
   const flushBolt = spec.flushBolts ? 'Yes' : ' '
 
-  const leftBlindCost = await getSantaFeShutterCostAsync()
+  const leftBlindCost = await getSantaFeShutterCostAsync(blindType, width[0], height)
+  if (typeof leftBlindCost === 'undefined') return []
 
   const leftEntry: SantaFeShutterTableEntry = {
     index,

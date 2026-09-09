@@ -1,2 +1,7 @@
 export * from './getSantaFeShutterTableEntry'
 export * from './getSantaFeShutterCost'
+export * from './getSantaFeShutterDimensionCost'
+export * from './getSantaFeShutterFlushBoltCost'
+export * from './getSantaFeShutterShutterPoleCost'
+export * from './getSantaFeShutterTrackCost'
+export * from './getSantaFeShutterControlCost'

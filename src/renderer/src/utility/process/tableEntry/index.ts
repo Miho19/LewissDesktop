@@ -6,6 +6,7 @@ import { getRoom } from '../../windowDisplay/getRoom'
 import { getWindow } from '../../windowDisplay/getWindow'
 import { getKineticsCellularTableEntryAsync } from './kineticsCellular/getKineticsCellularTableEntry'
 import { getKineticsRollerTableEntryAsync } from '@renderer/utility/process/tableEntry/kineticsRoller'
+import { getSantaFeShutterTableEntryAsync } from '@renderer/utility/process/tableEntry/santaFeShutter'
 
 export async function getTableEntryListAsync(
   blindType: Blind,
@@ -48,5 +49,9 @@ const getTableEntryFunctionMap: Record<Blind, createTableEntryFn> = {
   'Kinetics 20mm Cellular Blind': getKineticsCellularTableEntryAsync,
   'Kinetics Blockout Roller Blind': getKineticsRollerTableEntryAsync,
   'Kinetics Light Filtering Roller Blind': getKineticsRollerTableEntryAsync,
-  'Kinetics Sunscreen Roller Blind': getKineticsRollerTableEntryAsync
+  'Kinetics Sunscreen Roller Blind': getKineticsRollerTableEntryAsync,
+  'Santa Fe Normandy Shutter': getSantaFeShutterTableEntryAsync,
+  'Santa Fe Waterproof Woodlore Plus Shutter': getSantaFeShutterTableEntryAsync,
+  'Santa Fe Woodlore Plus Shutter': getSantaFeShutterTableEntryAsync,
+  'Santa Fe Woodlore Shutter': getSantaFeShutterTableEntryAsync
 }
