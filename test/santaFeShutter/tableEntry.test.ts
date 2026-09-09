@@ -1,16 +1,14 @@
-import { describe, vi, it, expect, afterAll } from 'vitest'
-
+import { Blind } from '@shared/types/blind/blind.types'
+import { describe, vi, it, expect } from 'vitest'
 import {
-  getExampleAccessorySchedule,
   getExamplePricingSchedule,
+  getExampleAccessorySchedule,
   getWindowDisplayAndProjectFile
 } from '../utility'
-
-import { getKineticsCellularTableEntryAsync } from '@renderer/utility/process/tableEntry/kineticsCellular/getKineticsCellularTableEntry'
 import { getRoom } from '@renderer/utility/windowDisplay/getRoom'
 import { getWindow } from '@renderer/utility/windowDisplay/getWindow'
-import { isKineticsCellularTableEntry } from '@shared/types/tableEntry/kineticsCellular.types'
-import type { Blind } from '@shared/types/blind/blind.types'
+import { getSantaFeShutterTableEntryAsync } from '@renderer/utility/process/tableEntry/santaFeShutter'
+import { isSantaFeShutterTableEntry } from '@shared/types/tableEntry/santaFeShutter.types'
 
 vi.mock(
   '@renderer/utility/process/pricingSchedule/retrievePricingSchedule',
@@ -31,15 +29,20 @@ vi.mock(
   }
 )
 
-describe('getKineticsCellularTableEntryAsync', () => {
-  afterAll(() => vi.clearAllMocks())
+const inputList: { blindType: Blind }[] = [
+  { blindType: 'Santa Fe Normandy Shutter' },
+  { blindType: 'Santa Fe Waterproof Woodlore Plus Shutter' },
+  { blindType: 'Santa Fe Woodlore Plus Shutter' },
+  { blindType: 'Santa Fe Woodlore Shutter' }
+]
 
-  const { projectFile, windowDisplayList } = getWindowDisplayAndProjectFile(
-    'Kinetics 10mm Cellular Blind'
-  )
+describe('getSantaFeShutterTableEntryAsync', () => {
+  it.each(inputList)('should return a table entry list for $blindType', async ({ blindType }) => {
+    const { projectFile, windowDisplayList } = getWindowDisplayAndProjectFile(blindType)
 
-  it('should return a table entry with a cost', async () => {
     const windowDisplay = windowDisplayList[0]
+
+    if (typeof windowDisplay === 'undefined') return
 
     const room = getRoom(windowDisplay.roomId, projectFile)
     const windowMeasurement = getWindow(windowDisplay.windowId, projectFile)
@@ -47,8 +50,8 @@ describe('getKineticsCellularTableEntryAsync', () => {
     if (typeof room === 'undefined' || typeof windowMeasurement === 'undefined')
       expect.fail('undefined room or window')
 
-    const result = await getKineticsCellularTableEntryAsync(
-      'Kinetics 10mm Cellular Blind',
+    const result = await getSantaFeShutterTableEntryAsync(
+      blindType,
       0,
       windowDisplay,
       room,
@@ -62,16 +65,7 @@ describe('getKineticsCellularTableEntryAsync', () => {
 
     const tableEntry = result[0]
     expect(tableEntry).toBeDefined()
-    expect(isKineticsCellularTableEntry(tableEntry)).toBeTruthy()
+    expect(isSantaFeShutterTableEntry(tableEntry)).toBeTruthy()
     expect(parseInt(tableEntry.price)).toBeGreaterThan(0)
   })
 })
-
-/**
- * tests to do
- * bad room
- * bad window measurement
- * incorrect width, height, fit
- * etc
- *
- */

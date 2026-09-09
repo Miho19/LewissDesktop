@@ -5,7 +5,7 @@ import {
 import { PricingSchedule } from '@shared/types/pricing/pricingSchedule.types'
 import { getHeightIndex } from '@renderer/utility/process/tableEntry/shared/getHeightIndex'
 import { getWidthIndex } from '@renderer/utility/process/tableEntry/shared/getWidthIndex'
-import { getFabricOpacity } from '@renderer/utility/process/tableEntry/kineticsCellular/getKineticsCellularTableEntryList'
+import { getFabricOpacity } from '@renderer/utility/process/tableEntry/kineticsCellular/getKineticsCellularTableEntry'
 
 export function getKineticsCellularDimensionCost(
   width: number,

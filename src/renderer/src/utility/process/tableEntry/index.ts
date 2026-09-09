@@ -4,7 +4,7 @@ import { createTableEntryFn, TableEntry } from '@shared/types/tableEntry/TableEn
 import { WindowDisplay } from '@shared/types/Window.types'
 import { getRoom } from '../../windowDisplay/getRoom'
 import { getWindow } from '../../windowDisplay/getWindow'
-import { getKineticsCellularTableEntryAsync } from './kineticsCellular/getKineticsCellularTableEntryList'
+import { getKineticsCellularTableEntryAsync } from './kineticsCellular/getKineticsCellularTableEntry'
 import { getKineticsRollerTableEntryAsync } from '@renderer/utility/process/tableEntry/kineticsRoller'
 
 export async function getTableEntryListAsync(
