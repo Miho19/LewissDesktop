@@ -35,7 +35,7 @@ export function isSantaFeShutterPricingSchedule(
   if (!hasBlindType) return false
 
   if (!('dimension' in pricingSchedule)) return false
-  if (!('colour' in pricingSchedule)) return false
+  if (!('premiumColour' in pricingSchedule)) return false
   if (!('woodType' in pricingSchedule)) return false
   if (!('track' in pricingSchedule)) return false
   if (!('control' in pricingSchedule)) return false

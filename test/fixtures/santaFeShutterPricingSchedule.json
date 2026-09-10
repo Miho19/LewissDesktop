@@ -335,7 +335,7 @@
 
   "woodType": [
     { "id": "", "name": "Santa Fe Woodlore Shutter", "cost": 1 },
-    { "id": "", "name": "Santa Fe Woodlore Plus Shutte", "cost": 1.15 },
+    { "id": "", "name": "Santa Fe Woodlore Plus Shutter", "cost": 1.15 },
     { "id": "", "name": "Santa Fe Waterproof Woodlore Plus Shutter", "cost": 1.4 },
     { "id": "", "name": "Santa Fe Normandy Shutter", "cost": 1.4 }
   ],
