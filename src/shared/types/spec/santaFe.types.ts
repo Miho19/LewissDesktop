@@ -27,3 +27,13 @@ export function isSantaFeShutterSpec(spec: Spec): spec is SantaFeShutterSpec {
 
   return true
 }
+
+const trackOptions = [
+  'Single Sliding Track',
+  'Double Sliding Track',
+  '90 Degree Bifold Track',
+  '180 Degree Bifold Track',
+  'Hinge Track Bifold'
+] as const
+
+export type SantaFeShutterTrack = (typeof trackOptions)[number]

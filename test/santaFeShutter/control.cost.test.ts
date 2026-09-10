@@ -2,7 +2,7 @@ import { describe, it, expect } from 'vitest'
 import { getExamplePricingSchedule } from '../utility'
 import { getSantaFeShutterControlCost } from '@renderer/utility/process/tableEntry/santaFeShutter'
 
-const dimensionInput: {
+const controlInput: {
   control: string
   expected: number | undefined
 }[] = [
@@ -15,7 +15,7 @@ const dimensionInput: {
 describe('getSantaFeShutterControlCost', () => {
   const pricingSchedule = getExamplePricingSchedule('Santa Fe Normandy Shutter')
 
-  it.each(dimensionInput)(
+  it.each(controlInput)(
     "Given the control: $control should return '$expected' ",
     ({ control, expected }) => {
       const result = getSantaFeShutterControlCost(control, pricingSchedule)
