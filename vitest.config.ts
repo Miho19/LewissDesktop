@@ -9,6 +9,7 @@ export default defineConfig({
   test: { globals: true, testTimeout: 10000 },
   resolve: {
     alias: {
+      '@main': resolve(__dirname, 'src/main'),
       '@renderer': resolve(__dirname, 'src/renderer/src'),
       '@': resolve(__dirname, 'src/renderer/src'),
       '@shared': resolve(__dirname, './src/shared')

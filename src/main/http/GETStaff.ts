@@ -7,8 +7,15 @@ function GETStaffEndpoint() {
 function GETStaffFetchOption() {
   const fetchOptions: RequestInit = {
     method: 'GET',
-    headers: { 'Content-Type': 'application/json' }
+    credentials: 'include',
+    headers: {
+      'Content-Type': 'application/json',
+      Cookie: ''
+    }
   }
+
+  // 10 minutes
+  //
 
   return fetchOptions
 }
@@ -16,7 +23,8 @@ function GETStaffFetchOption() {
 export async function GETStaff(endpoint: URL = GETStaffEndpoint()): Promise<GETStaffResponse> {
   const fetchOptions = GETStaffFetchOption()
   const response = await fetch(endpoint, fetchOptions)
-  if (!response.ok) throw new Error(response.statusText)
+  console.log(response)
+  // if (!response.ok) throw new Error(response.statusText)
 
   const data: GETStaffResponseBody = await response.json()
 
