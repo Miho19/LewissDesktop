@@ -1,5 +1,8 @@
 import { getWidthIndex } from '@renderer/utility/process/tableEntry/shared/getWidthIndex'
-import { roundMeasurementUp } from '@renderer/utility/process/tableEntry/shared/roundMeasurementUp'
+import {
+  getToNearest,
+  roundMeasurementUp
+} from '@renderer/utility/process/tableEntry/shared/roundMeasurementUp'
 import { PricingSchedule } from '@shared/types/pricing/pricingSchedule.types'
 import {
   isSantaFeShutterPricingSchedule,
@@ -27,16 +30,12 @@ export function getSantaFeShutterTrackCost(
 }
 
 function getWidthMetreRounded(width: number, pricingSchedule: SantaFeShutterPricingSchedule) {
-  const roundedWidth = roundMeasurementUp(width)
+  const toNearest = getToNearest('Santa Fe Normandy Shutter')
+  const roundedWidth = roundMeasurementUp(width, toNearest)
+  const widthIndex = getWidthIndex(roundedWidth, toNearest, pricingSchedule)
+  if (typeof widthIndex === 'undefined') return undefined
 
-  const widthIndex = getWidthIndex(width, pricingSchedule)
-  const roundedWidthIndex = getWidthIndex(roundedWidth, pricingSchedule)
-
-  if (typeof roundedWidthIndex !== 'undefined') return roundedWidth / 1000
-
-  if (typeof widthIndex !== 'undefined') return width / 1000
-
-  return undefined
+  return roundedWidth / 1000
 }
 
 function isTrackPresent(track: string) {

@@ -1,8 +1,9 @@
 import { roundMeasurementUp } from '@renderer/utility/process/tableEntry/shared/roundMeasurementUp'
+
 import { PricingSchedule } from '@shared/types/pricing/pricingSchedule.types'
 
-export function getWidthIndex(width: number, pricingSchedule: PricingSchedule) {
-  let widthRounded = roundMeasurementUp(width)
+export function getWidthIndex(width: number, toNearest: number, pricingSchedule: PricingSchedule) {
+  let widthRounded = roundMeasurementUp(width, toNearest)
 
   const { widthHeader } = pricingSchedule.dimension
 

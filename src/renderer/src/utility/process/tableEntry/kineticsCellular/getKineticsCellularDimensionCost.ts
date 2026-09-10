@@ -6,6 +6,7 @@ import { PricingSchedule } from '@shared/types/pricing/pricingSchedule.types'
 import { getHeightIndex } from '@renderer/utility/process/tableEntry/shared/getHeightIndex'
 import { getWidthIndex } from '@renderer/utility/process/tableEntry/shared/getWidthIndex'
 import { getFabricOpacity } from '@renderer/utility/process/tableEntry/kineticsCellular/getKineticsCellularTableEntry'
+import { getToNearest } from '@renderer/utility/process/tableEntry/shared/roundMeasurementUp'
 
 export function getKineticsCellularDimensionCost(
   width: number,
@@ -17,10 +18,12 @@ export function getKineticsCellularDimensionCost(
 
   if (width <= 0 || height <= 0) return undefined
 
-  const widthIndex = getWidthIndex(width, pricingSchedule)
+  const toNearest = getToNearest('Kinetics 10mm Cellular Blind')
+
+  const widthIndex = getWidthIndex(width, toNearest, pricingSchedule)
   if (typeof widthIndex === 'undefined') return undefined
 
-  const heightIndex = getHeightIndex(height, pricingSchedule)
+  const heightIndex = getHeightIndex(height, toNearest, pricingSchedule)
   if (typeof heightIndex === 'undefined') return undefined
 
   const { data } = pricingSchedule.dimension

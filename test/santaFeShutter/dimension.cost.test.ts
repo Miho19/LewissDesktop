@@ -31,7 +31,7 @@ const dimensionInput: {
     blindType: 'Santa Fe Normandy Shutter',
     width: 1101,
     height: 900,
-    expected: 456.4
+    expected: 438.2
   },
 
   {
@@ -45,7 +45,7 @@ const dimensionInput: {
     blindType: 'Santa Fe Normandy Shutter',
     width: 1200,
     height: 801,
-    expected: 456.4
+    expected: 432.6
   },
 
   {
@@ -112,7 +112,7 @@ const dimensionInput: {
   }
 ]
 
-describe('getKineticsRollerDimensionCost', () => {
+describe('getSantaFeShutterDimensionCost', () => {
   const pricingSchedule = getExamplePricingSchedule('Santa Fe Normandy Shutter')
 
   it.each(dimensionInput)(

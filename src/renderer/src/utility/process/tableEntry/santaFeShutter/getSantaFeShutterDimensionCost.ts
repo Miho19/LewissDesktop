@@ -7,6 +7,7 @@ import {
 import { SantaFeShutterBlindOptions } from '@shared/types/blind/santaFe.types'
 import { getWidthIndex } from '@renderer/utility/process/tableEntry/shared/getWidthIndex'
 import { getHeightIndex } from '@renderer/utility/process/tableEntry/shared/getHeightIndex'
+import { getToNearest } from '@renderer/utility/process/tableEntry/shared/roundMeasurementUp'
 
 export function getSantaFeShutterDimensionCost(
   blindType: Blind,
@@ -17,10 +18,12 @@ export function getSantaFeShutterDimensionCost(
   if (!isSantaFeShutterPricingSchedule(pricingSchedule)) return undefined
   if (!isInputValid(blindType, width, height)) return undefined
 
-  const widthIndex = getWidthIndex(width, pricingSchedule)
+  const toNearest = getToNearest(blindType)
+
+  const widthIndex = getWidthIndex(width, toNearest, pricingSchedule)
   if (typeof widthIndex === 'undefined') return undefined
 
-  const heightIndex = getHeightIndex(height, pricingSchedule)
+  const heightIndex = getHeightIndex(height, toNearest, pricingSchedule)
   if (typeof heightIndex === 'undefined') return undefined
 
   const cost = pricingSchedule.dimension.data[heightIndex][widthIndex]

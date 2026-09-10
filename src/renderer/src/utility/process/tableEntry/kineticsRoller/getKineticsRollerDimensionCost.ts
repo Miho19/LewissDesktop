@@ -1,5 +1,6 @@
 import { getHeightIndex } from '@renderer/utility/process/tableEntry/shared/getHeightIndex'
 import { getWidthIndex } from '@renderer/utility/process/tableEntry/shared/getWidthIndex'
+import { getToNearest } from '@renderer/utility/process/tableEntry/shared/roundMeasurementUp'
 import { isKineticsRollerPricingSchedule } from '@shared/types/pricing/kineticsRoller.types'
 import { PricingSchedule } from '@shared/types/pricing/pricingSchedule.types'
 import { Fabric } from '@shared/types/Project.types'
@@ -14,10 +15,12 @@ export function getKineticsRollerDimensionCost(
 
   if (width <= 0 || height <= 0) return undefined
 
-  const widthIndex = getWidthIndex(width, pricingSchedule)
+  const toNearest = getToNearest('Kinetics Blockout Roller Blind')
+
+  const widthIndex = getWidthIndex(width, toNearest, pricingSchedule)
   if (typeof widthIndex === 'undefined') return undefined
 
-  const heightIndex = getHeightIndex(height, pricingSchedule)
+  const heightIndex = getHeightIndex(height, toNearest, pricingSchedule)
   if (typeof heightIndex === 'undefined') return undefined
 
   const { data } = pricingSchedule.dimension

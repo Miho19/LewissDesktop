@@ -10,7 +10,9 @@ const controlInput: {
 }[] = [
   { width: 1200, track: 'Single Sliding Track', expected: 170.4 },
   { width: 1199, track: 'Single Sliding Track', expected: 170.4 },
-  { width: 1101, track: 'Single Sliding Track', expected: 170.4 },
+  { width: 1150, track: 'Single Sliding Track', expected: 163.3 },
+  { width: 1101, track: 'Single Sliding Track', expected: 163.3 },
+  { width: 1149, track: 'Single Sliding Track', expected: 163.3 },
   { width: 0, track: 'Single Sliding Track', expected: undefined },
   { width: -1, track: 'Single Sliding Track', expected: undefined },
   { width: 1200, track: ' ' as SantaFeShutterTrack, expected: 0 },
