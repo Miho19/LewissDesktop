@@ -10,12 +10,9 @@ function GETStaffFetchOption() {
     credentials: 'include',
     headers: {
       'Content-Type': 'application/json',
-      Cookie: ''
+      Cookie: import.meta.env.MAIN_VITE_COOKIE
     }
   }
-
-  // 10 minutes
-  //
 
   return fetchOptions
 }
@@ -23,8 +20,8 @@ function GETStaffFetchOption() {
 export async function GETStaff(endpoint: URL = GETStaffEndpoint()): Promise<GETStaffResponse> {
   const fetchOptions = GETStaffFetchOption()
   const response = await fetch(endpoint, fetchOptions)
-  console.log(response)
-  // if (!response.ok) throw new Error(response.statusText)
+
+  if (!response.ok) throw new Error(response.statusText)
 
   const data: GETStaffResponseBody = await response.json()
 

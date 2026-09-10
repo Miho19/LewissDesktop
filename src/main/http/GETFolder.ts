@@ -15,7 +15,7 @@ function GETFolderFetchOptions(folderId: string): RequestInit {
 
   const fetchOptions: RequestInit = {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: { 'Content-Type': 'application/json', Cookie: import.meta.env.MAIN_VITE_COOKIE },
     body: body
   }
 
