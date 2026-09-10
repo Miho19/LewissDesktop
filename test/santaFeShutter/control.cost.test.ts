@@ -1,7 +1,6 @@
 import { describe, it, expect } from 'vitest'
 import { getExamplePricingSchedule } from '../utility'
 import { getSantaFeShutterControlCost } from '@renderer/utility/process/tableEntry/santaFeShutter'
-import { Blind } from '@shared/types/blind/blind.types'
 
 const dimensionInput: {
   control: string
