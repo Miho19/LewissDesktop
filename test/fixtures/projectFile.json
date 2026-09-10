@@ -59,13 +59,14 @@
               "subtypeId": "woodlore-plus",
               "blindType": "Santa Fe Woodlore Plus Shutter",
               "fabric": {
-                "name": "Decorators White",
+                "name": "Blue Seagrass",
                 "collection": "Paint",
                 "multiplier": 1,
                 "maxWidth": null,
                 "maxHeight": null,
                 "imageUrl": "https://www.santafeshutters.co.nz/interior-shutters/woodlore-plus-shutters/",
-                "chipImageUrl": "https://www.santafeshutters.co.nz/wp-content/uploads/063-decorators-white.jpg"
+                "chipImageUrl": "https://www.santafeshutters.co.nz/wp-content/uploads/063-decorators-white.jpg",
+                "premium": true
               },
               "track": "90 Degree Bifold Track",
               "shuttlePole": true,

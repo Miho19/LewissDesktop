@@ -19,6 +19,7 @@ function isMotorised(control: string) {
 
 function isEmpty(control: string) {
   if (!control) return true
+  if (typeof control !== 'string') return true
   if (control.trim().length === 0) return true
 
   return false

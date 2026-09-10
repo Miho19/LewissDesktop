@@ -4,8 +4,10 @@ import { TableEntry } from '@shared/types/tableEntry/TableEntry.types'
 import { WindowDisplay } from '@shared/types/Window.types'
 import { GetWorksheetExtraCostFn } from '@shared/types/worksheet/Worksheet.types'
 import { getKineticsCellularWorksheetExtraCostAsync } from '@renderer/utility/process/worksheet/cost/kinetics/getKineticsCellularWorksheetExtraCost'
-import { Cost, Extra } from 'shared/types/worksheet/Cost.types'
+
 import { getKineticsRollerWorksheetExtraCostAsync } from '@renderer/utility/process/worksheet/cost/kinetics/getKineticsRollerWorksheetExtraCost'
+import { getSantaFeShutterWorksheetExtraCostAsync } from '@/utility/process/worksheet/cost/kinetics/getSantaFeShutterWorksheetExtraCost'
+import { Cost, Extra } from '@shared/types/worksheet/Cost.types'
 
 export async function getWorksheetCostAsync(
   blindType: Blind,
@@ -49,7 +51,11 @@ const blindTypeMappedToGetWorksheetExtraCostFn: Record<Blind, GetWorksheetExtraC
   'Kinetics 20mm Cellular Blind': getKineticsCellularWorksheetExtraCostAsync,
   'Kinetics Blockout Roller Blind': getKineticsRollerWorksheetExtraCostAsync,
   'Kinetics Light Filtering Roller Blind': getKineticsRollerWorksheetExtraCostAsync,
-  'Kinetics Sunscreen Roller Blind': getKineticsRollerWorksheetExtraCostAsync
+  'Kinetics Sunscreen Roller Blind': getKineticsRollerWorksheetExtraCostAsync,
+  'Santa Fe Normandy Shutter': getSantaFeShutterWorksheetExtraCostAsync,
+  'Santa Fe Waterproof Woodlore Plus Shutter': getSantaFeShutterWorksheetExtraCostAsync,
+  'Santa Fe Woodlore Plus Shutter': getSantaFeShutterWorksheetExtraCostAsync,
+  'Santa Fe Woodlore Shutter': getSantaFeShutterWorksheetExtraCostAsync
 }
 
 export function getTableEntryCost(tableEntryList: TableEntry[]) {

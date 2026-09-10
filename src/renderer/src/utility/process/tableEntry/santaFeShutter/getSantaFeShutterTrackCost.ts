@@ -40,6 +40,7 @@ function getWidthMetreRounded(width: number, pricingSchedule: SantaFeShutterPric
 
 function isTrackPresent(track: string) {
   if (!track) return false
+  if (typeof track !== 'string') return false
   if (track.trim().length === 0) return false
 
   return true

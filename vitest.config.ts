@@ -13,6 +13,7 @@ export default defineConfig(({ mode }) => {
     test: { globals: true, testTimeout: 10000, env: env },
     resolve: {
       alias: {
+        '@': resolve(__dirname, 'src/renderer/src'),
         '@main': resolve(__dirname, 'src/main'),
         '@renderer': resolve(__dirname, 'src/renderer/src'),
         '@shared': resolve(__dirname, './src/shared')

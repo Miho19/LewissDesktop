@@ -346,8 +346,8 @@
     { "id": "remote", "name": "SmartDial 5Ch Remote", "cost": 181 },
     { "id": "hub", "name": "ShadeAuto Hub", "cost": 226 },
     { "id": "charger", "name": "USB Charging Cable", "cost": 18 },
-    { "id": "shuttle", "name": "Shuttle Pole (Extendable)", "cost": 51 },
-    { "id": "flush", "name": "Flush Bolt - Fitted", "cost": 19 }
+    { "id": "shuttlePole", "name": "Shuttle Pole (Extendable)", "cost": 51 },
+    { "id": "flushBolt", "name": "Flush Bolt - Fitted", "cost": 19 }
   ],
 
   "track": [
