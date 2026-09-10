@@ -144,9 +144,9 @@ function RoomSeparator(roomName: string) {
 
 function ProjectFormEmpty() {
   return (
-    <form className="flex-1 h-full flex flex-col -mt-(--card-spacing)">
-      <CardContent className="flex-1 bg-muted">
-        <p className="">No rooms to process</p>
+    <form className="flex-1 flex flex-col">
+      <CardContent className="flex-1 w-full h-full mb-4 flex flex-col items-center justify-center">
+        <p className="w-full text-center">No rooms to process</p>
       </CardContent>
     </form>
   )
