@@ -41,12 +41,9 @@ function getWindowDisplayMap(windowDisplayList: WindowDisplay[]) {
   const map: Map<Blind, WindowDisplay[]> = new Map()
 
   for (const w of windowDisplayList) {
-    let spec: Spec | undefined = undefined
-    if (w.fit === 'inside') spec = w.treatment.insideLayer.spec
-    if (w.fit === 'outside') spec = w.treatment.outsideLayer.spec
-    if (typeof spec === 'undefined') throw new Error('Incorrect value for fit')
-
+    const { spec } = w
     const blindType = getBlindTypeFromSpec(spec)
+
     if (typeof blindType === 'undefined') {
       throw new Error('Blind type is incorrect')
     }

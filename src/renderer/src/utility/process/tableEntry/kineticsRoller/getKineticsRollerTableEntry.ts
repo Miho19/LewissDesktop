@@ -19,8 +19,7 @@ export async function getKineticsRollerTableEntryAsync(
   entries: TableEntry[],
   file: ProjectFile
 ) {
-  const { width, height, fit, treatment } = windowDisplay
-  const spec = fit === 'inside' ? treatment.insideLayer.spec : treatment.outsideLayer.spec
+  const { width, height, fit, spec } = windowDisplay
 
   if (!isKineticsRollerSpec(spec)) throw new Error(`${blindType} incorrect spec type`)
 

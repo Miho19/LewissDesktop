@@ -9,11 +9,15 @@ describe('getWindowDisplayList', () => {
   it('should return a list of window display', () => {
     const projectFile = getExampleProjectFile()
 
-    const result = getWindowDisplayList(projectFile)
+    const list = getWindowDisplayList(projectFile)
 
-    expect(result).toBeDefined()
-    if (typeof result === 'undefined') return
-    expect(Array.isArray(result)).toBeTruthy()
-    expect(result.length).toBeGreaterThan(0)
+    expect(list).toBeDefined()
+    if (typeof list === 'undefined') return
+    expect(Array.isArray(list)).toBeTruthy()
+    expect(list.length).toBeGreaterThan(0)
+
+    const filtered = list?.filter((w) => w.blindCount === 'dual')
+
+    const windowDisplay = filtered[0]
   })
 })

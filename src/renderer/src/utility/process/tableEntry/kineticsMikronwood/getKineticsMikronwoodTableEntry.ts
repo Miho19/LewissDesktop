@@ -20,8 +20,7 @@ export async function getKineticsMikronwoodTableEntryAsync(
   entries: TableEntry[],
   file: ProjectFile
 ) {
-  const { width, height, fit, treatment, blindCount } = windowDisplay
-  const spec = fit === 'inside' ? treatment.insideLayer.spec : treatment.outsideLayer.spec
+  const { width, height, fit, spec, blindCount } = windowDisplay
 
   if (!isVenetianSpec(spec)) throw new Error(`${blindType} incorrect spec type`)
 

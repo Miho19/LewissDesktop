@@ -35,8 +35,7 @@ function getFilterWindowDisplay(blindType: Blind, file: ProjectFile) {
   const output: WindowDisplay[] = []
 
   for (const w of windowDisplayList) {
-    const { fit, treatment } = w
-    const spec = fit === 'inside' ? treatment.insideLayer.spec : treatment.outsideLayer.spec
+    const { spec } = w
     const windowBlindType = getBlindTypeFromSpec(spec)
     if (typeof windowBlindType === 'undefined') continue
     if (windowBlindType !== blindType) continue

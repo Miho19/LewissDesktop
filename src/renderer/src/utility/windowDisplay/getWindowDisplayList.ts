@@ -1,8 +1,9 @@
 import { ProjectFile, Treatment, WindowMeasurement } from '@shared/types/Project.types'
-import { WindowDisplay } from '@shared/types/Window.types'
+import { BlindCount, Fit, WindowDisplay } from '@shared/types/Window.types'
 import { getBlindCountDisplay } from './getBlindCountDisplay'
 import { getWindowWidth } from './getWindowWidth'
 import { getWindowHeight } from './getWindowHeight'
+import { isSpecDual } from '@shared/types/spec/Spec.types'
 
 export function getWindowDisplayList(file: ProjectFile) {
   if (typeof file === 'undefined') throw new Error(`Project file is undefined`)
@@ -18,6 +19,9 @@ export function getWindowDisplayList(file: ProjectFile) {
   for (var room of rooms) {
     const { id: roomId, treatment, windows } = room
 
+    if (typeof treatment === 'undefined')
+      throw new Error(`roomId: ${roomId} treatment is undefined`)
+
     const roomWindows = windows.flatMap((window) => getWindowDisplay(roomId, window, treatment))
     outputList.push(...roomWindows)
   }
@@ -25,50 +29,67 @@ export function getWindowDisplayList(file: ProjectFile) {
   return outputList.flat()
 }
 
+// we need to return the windows out --> this is two for standard inside / outside single and butting
+// for dual we need to return 4 blinds
+
 export function getWindowDisplay(
   roomId: string,
   window: WindowMeasurement,
   treatment: Treatment
 ): WindowDisplay[] {
-  if (typeof treatment === 'undefined') return []
+  const output: WindowDisplay[] = [
+    ...createWindowDisplay(roomId, window.id, 'inside', window, treatment),
+    ...createWindowDisplay(roomId, window.id, 'outside', window, treatment)
+  ]
 
-  const insideBlindCount = getBlindCountDisplay(window.blindCount) ?? 'single'
-  const insideWidth = getWindowWidth(window, 'inside') ?? [0]
-  const insideHeight = getWindowHeight(window, 'inside') ?? 0
+  const filtered = output.filter((wd) => {
+    if (typeof wd === 'undefined') return false
+    if (wd.width.length === 0) return false
+    if (wd.width[0] === 0) return false
+    if (wd.height === 0) return false
+    return true
+  })
 
-  const inside: WindowDisplay = {
-    windowId: window.id,
-    roomId: roomId,
-    fit: 'inside',
-    blindCount: insideBlindCount,
-    width: insideWidth,
-    height: insideHeight,
-    treatment: treatment
+  return filtered
+}
+
+function createWindowDisplay(
+  roomId: string,
+  windowId: string,
+  fit: Fit,
+  window: WindowMeasurement,
+  treatment: Treatment
+) {
+  const widthArray = getWindowWidth(window, fit) ?? [0]
+  const height = getWindowHeight(window, fit) ?? 0
+
+  const blindCount =
+    getBlindCountDisplay(fit === 'inside' ? window.blindCount : window.outsideBlindCount) ??
+    'single'
+
+  const spec = fit === 'inside' ? treatment.insideLayer.spec : treatment.outsideLayer.spec
+
+  const windowDisplay: WindowDisplay = {
+    windowId,
+    roomId,
+    fit,
+    blindCount,
+    width: widthArray,
+    height,
+    spec: spec
   }
 
-  const outsideBlindCount = getBlindCountDisplay(window.outsideBlindCount) ?? 'single'
-  const outsideWidth = getWindowWidth(window, 'outside') ?? [0]
-  const outsideHeight = getWindowHeight(window, 'outside') ?? 0
+  if (blindCount === 'single' || blindCount === 'butting') return [windowDisplay]
 
-  const outside: WindowDisplay = {
-    windowId: window.id,
-    roomId: roomId,
-    fit: 'outside',
-    blindCount: outsideBlindCount,
-    width: outsideWidth,
-    height: outsideHeight,
-    treatment: treatment
+  if (!isSpecDual(spec)) {
+    return []
+    // throw new Error(`room ${roomId} window ${windowId} spec needs to be dual`)
   }
 
-  const output: WindowDisplay[] = []
+  const { front, rear } = spec
 
-  if (inside.width.length !== 0) {
-    if (inside.width[0] > 0 && inside.height > 0) output.push(inside)
-  }
+  const frontDisplay = { ...windowDisplay, spec: front }
+  const rearDisplay = { ...windowDisplay, spec: rear }
 
-  if (outside.width.length !== 0) {
-    if (outside.width[0] > 0 && outside.height > 0) output.push(outside)
-  }
-
-  return output
+  return [frontDisplay, rearDisplay]
 }

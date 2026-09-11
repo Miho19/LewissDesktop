@@ -18,8 +18,7 @@ export async function getSantaFeShutterTableEntryAsync(
 ): Promise<SantaFeShutterTableEntry[]> {
   const location = `${room.name} - ${windowMeasurement.name}`
 
-  const { width, height, fit, treatment } = windowDisplay
-  const spec = fit === 'inside' ? treatment.insideLayer.spec : treatment.outsideLayer.spec
+  const { width, height, fit, spec } = windowDisplay
 
   if (!isSantaFeShutterSpec(spec)) return []
 

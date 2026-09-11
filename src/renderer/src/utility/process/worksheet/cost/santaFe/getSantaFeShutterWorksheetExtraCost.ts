@@ -63,18 +63,13 @@ function getPremiumColourExtra(
   pricingSchedule: SantaFeShutterPricingSchedule
 ) {
   const premiumCount = windowDisplayList.reduce((acc, curr) => {
-    const {
-      fit,
-      treatment: { insideLayer, outsideLayer }
-    } = curr
-
-    const spec = fit === 'inside' ? insideLayer.spec : outsideLayer.spec
+    const { spec } = curr
 
     if (!isSantaFeShutterSpec(spec)) return acc
 
-    const {
-      fabric: { premium }
-    } = spec
+    const { fabric } = spec
+    const { premium } = fabric
+
     if (premium == null) return acc
     if (!premium) return acc
 
@@ -118,12 +113,7 @@ function getAccessoryExtra(
 
 function getCount(propertyName: string, windowDisplayList: WindowDisplay[]) {
   const count = windowDisplayList.reduce((acc, curr) => {
-    const {
-      fit,
-      treatment: { insideLayer, outsideLayer }
-    } = curr
-
-    const spec = fit === 'inside' ? insideLayer.spec : outsideLayer.spec
+    const { spec } = curr
 
     if (!isSantaFeShutterSpec(spec)) return acc
 
