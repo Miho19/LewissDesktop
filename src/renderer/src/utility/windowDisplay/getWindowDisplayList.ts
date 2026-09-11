@@ -67,7 +67,13 @@ function createWindowDisplay(
     getBlindCountDisplay(fit === 'inside' ? window.blindCount : window.outsideBlindCount) ??
     'single'
 
-  const spec = fit === 'inside' ? treatment.insideLayer.spec : treatment.outsideLayer.spec
+  const layer = fit === 'inside' ? treatment.insideLayer : treatment.outsideLayer
+  if (layer == null) {
+    return []
+  }
+
+  const { spec } = layer
+  if (typeof spec === 'undefined') return []
 
   const windowDisplay: WindowDisplay = {
     windowId,

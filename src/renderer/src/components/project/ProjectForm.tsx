@@ -149,7 +149,7 @@ function ProjectFormEmpty() {
 
 function getOutputList(windowDisplayList: WindowDisplay[]) {
   return windowDisplayList.map((w) => (
-    <li key={`${w.windowId}-${w.fit}`}>
+    <li key={`${w.windowId}-${w.fit}-${w.spec.blindType}-${w.spec.fabric?.name}`}>
       <Item variant="muted" className="bg-muted">
         <ItemContent>
           <ItemTitle>{w.windowId}</ItemTitle>

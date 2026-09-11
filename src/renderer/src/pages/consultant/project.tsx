@@ -25,6 +25,8 @@ function Project() {
       </div>
     )
 
+  // console.log(JSON.stringify(data))
+
   return (
     <div className="w-full h-full flex flex-col p-6 gap-8">
       <ConsultantHeader name={consultantName} />

@@ -5,7 +5,7 @@ import { Spec } from './Spec.types'
 export type SantaFeShutterSpec = {
   blindType: Blind
   subtypeId: string
-  fabric: Fabric
+  fabric?: Fabric
   track?: string
   shuttlePole: boolean
   flushBolts: boolean
