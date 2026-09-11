@@ -14,8 +14,12 @@ export function getWindowHeight(window: WindowMeasurement, fit: Fit): number | u
 
 function getInsideHeight(window: WindowMeasurement): number | undefined {
   const { internalHeightL, internalHeightR } = window
+
   if (typeof internalHeightL === 'undefined' && typeof internalHeightR === 'undefined')
     return undefined
+
+  if (typeof internalHeightL === 'undefined') return internalHeightR
+  if (typeof internalHeightR === 'undefined') return internalHeightL
 
   return Math.max(internalHeightL, internalHeightR)
 }
