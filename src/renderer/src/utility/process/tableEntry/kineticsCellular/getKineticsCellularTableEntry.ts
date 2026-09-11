@@ -11,6 +11,7 @@ import { TableEntry } from '@shared/types/tableEntry/TableEntry.types'
 import { BlindCount, Fit, WindowDisplay } from '@shared/types/Window.types'
 import { getRemoteAndChannel } from '../shared/kinetics'
 import { getKineticsCellularCost } from './getKineticsCellularCost'
+import { getButtingString } from '@/utility/process/tableEntry/shared/getButtingString'
 
 export async function getKineticsCellularTableEntryAsync(
   blindType: Blind,
@@ -24,7 +25,7 @@ export async function getKineticsCellularTableEntryAsync(
   const { width, height, fit, treatment, blindCount } = windowDisplay
   const spec = fit === 'inside' ? treatment.insideLayer.spec : treatment.outsideLayer.spec
 
-  if (!isKineticsCellularSpec(spec)) return []
+  if (!isKineticsCellularSpec(spec)) throw new Error(`${blindType} incorrect spec type`)
 
   const location = `${room.name} - ${windowMeasurement.name}`
 
@@ -33,7 +34,7 @@ export async function getKineticsCellularTableEntryAsync(
   const comb = getCombSize(blindType)
 
   const { fabric } = spec
-  if (typeof fabric === 'undefined') return []
+  if (typeof fabric === 'undefined') throw new Error(`${blindType} fabric information missing`)
 
   const fabricName = fabric.name
 
@@ -44,7 +45,7 @@ export async function getKineticsCellularTableEntryAsync(
 
   const sideChannelColour = getSideChannelColour(spec)
 
-  const butting = getButtingString(windowDisplay.blindCount, index, 'LHS')
+  const leftBlindButting = getButtingString(windowDisplay.blindCount, index, 'LHS')
 
   const { remote, channel } = getRemoteAndChannel(location, control, entries)
 
@@ -58,7 +59,8 @@ export async function getKineticsCellularTableEntryAsync(
     sideChannelColour
   )
 
-  if (typeof leftBlindCost === 'undefined') return []
+  if (typeof leftBlindCost === 'undefined')
+    throw new Error(`${blindType} left blind cost is undefined`)
 
   const leftEntry: KineticsCellularTableEntry = {
     index,
@@ -72,7 +74,7 @@ export async function getKineticsCellularTableEntryAsync(
     'control side': controlSide,
     'headrail colour': 'White',
     'side channel colour': sideChannelColour,
-    butting,
+    butting: leftBlindButting,
     remote: remote,
     channel: channel,
     price: leftBlindCost.toFixed(2)
@@ -80,7 +82,7 @@ export async function getKineticsCellularTableEntryAsync(
 
   if (blindCount !== 'butting') return [leftEntry]
 
-  const rightSideCost = await getKineticsCellularCost(
+  const rightBlindCost = await getKineticsCellularCost(
     blindType,
     width[1],
     height,
@@ -90,17 +92,18 @@ export async function getKineticsCellularTableEntryAsync(
     sideChannelColour
   )
 
-  if (typeof rightSideCost === 'undefined') return []
+  if (typeof rightBlindCost === 'undefined')
+    throw new Error(`${blindType} right blind cost is undefined`)
 
-  const rightSideButtingString = getButtingString(blindCount, index, 'RHS')
-  const rightSideChannel = leftEntry.channel > 0 ? leftEntry.channel + 1 : 0
+  const rightBlindButting = getButtingString(blindCount, index, 'RHS')
+  const rightBlindChannel = leftEntry.channel > 0 ? leftEntry.channel + 1 : 0
 
   const rightEntry: KineticsCellularTableEntry = {
     ...leftEntry,
     width: width[1],
-    butting: rightSideButtingString,
-    channel: rightSideChannel,
-    price: rightSideCost.toFixed(2)
+    butting: rightBlindButting,
+    channel: rightBlindChannel,
+    price: rightBlindCost.toFixed(2)
   }
 
   return [leftEntry, rightEntry]
@@ -117,6 +120,7 @@ function getCombSize(blindType: Blind) {
   }
 }
 
+// move these functions into files associated with their cost
 function getControlString(spec: KineticsCellularSpec) {
   const { motorisation } = spec
   if (typeof motorisation === 'undefined') return 'Cord'
@@ -129,12 +133,6 @@ function getSideChannelColour(spec: KineticsCellularSpec) {
   if (!sideChannels) return 'None'
 
   return spec.customColour ? 'Custom' : 'White'
-}
-
-function getButtingString(blindCountString: BlindCount, index: number, side: 'LHS' | 'RHS') {
-  if (blindCountString !== 'butting') return 'No'
-
-  return `${side} of #${index}`
 }
 
 export function getFabricOpacity(fabricName: string) {

@@ -32,7 +32,7 @@ vi.mock(
   }
 )
 
-describe.skip('getKineticsMikronwoodTableEntryAsync', () => {
+describe('getKineticsMikronwoodTableEntryAsync', () => {
   afterAll(() => vi.clearAllMocks())
 
   const blindType: Blind = 'Kinetics Mikronwood 50mm Venetian'
@@ -40,7 +40,6 @@ describe.skip('getKineticsMikronwoodTableEntryAsync', () => {
   const { projectFile, windowDisplayList } = getWindowDisplayAndProjectFile(blindType)
 
   it('should return a table entry with a cost', async () => {
-    if (windowDisplayList.length === 0) return
     const windowDisplay = windowDisplayList[0]
 
     const room = getRoom(windowDisplay.roomId, projectFile)
