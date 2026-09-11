@@ -28,7 +28,7 @@ vi.mock(
 )
 
 describe('getSantaFeShutterWorksheetExtraCostAsync', () => {
-  const blindType: Blind = 'Santa Fe Woodlore Plus Shutter'
+  const blindType: Blind = 'Santa Fe Normandy Shutter'
 
   const { windowDisplayList, projectFile } = getWindowDisplayAndProjectFile(blindType)
 

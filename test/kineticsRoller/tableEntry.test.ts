@@ -1,4 +1,4 @@
-import { Blind } from 'shared/types/blind/blind.types'
+import { Blind } from '@shared/types/blind/blind.types'
 import { describe, vi, it, expect, afterAll } from 'vitest'
 import {
   getExamplePricingSchedule,
@@ -32,7 +32,7 @@ vi.mock(
 describe('getKineticsRollerTableEntryAsync', () => {
   afterAll(() => vi.clearAllMocks())
 
-  const blindType: Blind = 'Kinetics Blockout Roller Blind'
+  const blindType: Blind = 'Kinetics Sunscreen Roller Blind'
 
   const { projectFile, windowDisplayList } = getWindowDisplayAndProjectFile(blindType)
 
@@ -53,6 +53,8 @@ describe('getKineticsRollerTableEntryAsync', () => {
       [],
       projectFile
     )
+
+    // console.log(result)
 
     expect(result).toBeDefined()
     expect(Array.isArray(result)).toBeTruthy()

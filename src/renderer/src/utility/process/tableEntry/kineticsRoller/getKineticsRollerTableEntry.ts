@@ -4,7 +4,7 @@ import { ProjectFile, Room, WindowMeasurement } from '@shared/types/Project.type
 import { TableEntry } from '@shared/types/tableEntry/TableEntry.types'
 import { Fit, WindowDisplay } from '@shared/types/Window.types'
 import { getRemoteAndChannel } from '../shared/kinetics'
-import { isKineticsRollerSpec, KineticsRollerSpec } from '@shared/types/spec/kineticsRoller.types'
+import { isKineticsRollerSpec } from '@shared/types/spec/kineticsRoller.types'
 import { KineticsRollerTableEntry } from '@shared/types/tableEntry/kineticsRoller.types'
 import { getKineticsRollerCostAsync } from '@renderer/utility/process/tableEntry/kineticsRoller/getKineticsRollerCost'
 import { getKineticsRollerPelmet } from '@renderer/utility/process/tableEntry/kineticsRoller/getKineticsRollerPelmetCost'
@@ -22,7 +22,7 @@ export async function getKineticsRollerTableEntryAsync(
   const { width, height, fit, treatment } = windowDisplay
   const spec = fit === 'inside' ? treatment.insideLayer.spec : treatment.outsideLayer.spec
 
-  if (!isKineticsRollerSpec(spec)) return []
+  if (!isKineticsRollerSpec(spec)) throw new Error(`${blindType} incorrect spec type`)
 
   const location = `${room.name} - ${windowMeasurement.name}`
 
@@ -54,7 +54,7 @@ export async function getKineticsRollerTableEntryAsync(
 
   const { remote, channel } = getRemoteAndChannel(location, control, entries)
 
-  const price = await getKineticsRollerCostAsync(
+  const leftBlindCost = await getKineticsRollerCostAsync(
     blindType,
     width[0],
     height,
@@ -66,7 +66,8 @@ export async function getKineticsRollerTableEntryAsync(
     pelmetType ?? ''
   )
 
-  if (typeof price === 'undefined') return []
+  if (typeof leftBlindCost === 'undefined')
+    throw new Error(`${blindType} failed to get cost of blind`)
 
   const leftEntry: KineticsRollerTableEntry = {
     index,
@@ -84,7 +85,7 @@ export async function getKineticsRollerTableEntryAsync(
     butting: '',
     remote: remote,
     channel: channel,
-    price: price.toFixed(0)
+    price: leftBlindCost.toFixed(0)
   }
 
   return [leftEntry]

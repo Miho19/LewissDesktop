@@ -77,7 +77,8 @@ export function getKineticsRollerControl(spec: KineticsRollerSpec) {
   }
 
   const motorisation = spec.motorisation
-  if (motorisation.includes('lithium')) return 'Lithium-ion'
+  if (motorisation.localeCompare('lithium', undefined, { sensitivity: 'base' }) === 0)
+    return 'Lithium-ion'
 
   return motorisation
 }

@@ -17,13 +17,13 @@ import venetianAccessorySchedule from './fixtures/venetian-accessories.json'
 import { PricingSchedule } from '@shared/types/pricing/pricingSchedule.types'
 
 export function getWindowDisplayAndProjectFile(blindType: Blind) {
-  const projectFile = getProjectFile()
+  const projectFile = getExampleProjectFile()
   const filteredList = getFilterWindowDisplay(blindType, projectFile)
 
   return { windowDisplayList: filteredList, projectFile }
 }
 
-function getProjectFile() {
+export function getExampleProjectFile() {
   const projectFile: ProjectFile = JSON.parse(JSON.stringify(exampleProjectFile))
   return projectFile
 }

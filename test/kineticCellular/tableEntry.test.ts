@@ -34,9 +34,8 @@ vi.mock(
 describe('getKineticsCellularTableEntryAsync', () => {
   afterAll(() => vi.clearAllMocks())
 
-  const { projectFile, windowDisplayList } = getWindowDisplayAndProjectFile(
-    'Kinetics 10mm Cellular Blind'
-  )
+  const blindType: Blind = 'Kinetics 10mm Cellular Blind'
+  const { projectFile, windowDisplayList } = getWindowDisplayAndProjectFile(blindType)
 
   it('should return a table entry with a cost', async () => {
     const windowDisplay = windowDisplayList[0]
@@ -48,7 +47,7 @@ describe('getKineticsCellularTableEntryAsync', () => {
       expect.fail('undefined room or window')
 
     const result = await getKineticsCellularTableEntryAsync(
-      'Kinetics 10mm Cellular Blind',
+      blindType,
       0,
       windowDisplay,
       room,

@@ -49,7 +49,7 @@ export async function getSantaFeShutterTableEntryAsync(
     spec.shuttlePole,
     spec.flushBolts
   )
-  if (typeof leftBlindCost === 'undefined') return []
+  if (typeof leftBlindCost === 'undefined') throw new Error(`${blindType} returned undefined cost`)
 
   const leftEntry: SantaFeShutterTableEntry = {
     index,

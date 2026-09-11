@@ -20,7 +20,7 @@ export function getWindowDisplayList(file: ProjectFile) {
   return outputList.flat()
 }
 
-function getWindowDisplay(
+export function getWindowDisplay(
   roomId: string,
   window: WindowMeasurement,
   treatment: Treatment
@@ -55,5 +55,15 @@ function getWindowDisplay(
     treatment: treatment
   }
 
-  return [inside, outside]
+  const output: WindowDisplay[] = []
+
+  if (inside.width.length !== 0) {
+    if (inside.width[0] > 0 && inside.height > 0) output.push(inside)
+  }
+
+  if (outside.width.length !== 0) {
+    if (outside.width[0] > 0 && outside.height > 0) output.push(outside)
+  }
+
+  return output
 }
