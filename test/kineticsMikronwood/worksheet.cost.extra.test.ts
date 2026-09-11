@@ -5,8 +5,8 @@ import {
   getWindowDisplayAndProjectFile
 } from '../utility'
 import { Blind } from '@shared/types/blind/blind.types'
-import { getTableEntryListAsync } from '@/utility/process/tableEntry'
-import { getSantaFeShutterWorksheetExtraCostAsync } from '@/utility/process/worksheet/cost'
+import { getTableEntryListAsync } from '@renderer/utility/process/tableEntry'
+import { getKineticsMikronwoodWorksheetExtraCostAsync } from '@renderer/utility/process/worksheet/cost'
 
 vi.mock(
   '@renderer/utility/process/pricingSchedule/retrievePricingSchedule',
@@ -26,16 +26,15 @@ vi.mock(
     }
   }
 )
-
-describe('getSantaFeShutterWorksheetExtraCostAsync', () => {
-  const blindType: Blind = 'Santa Fe Normandy Shutter'
+describe('getKineticsMikronwoodWorksheetExtraCostAsync', () => {
+  const blindType: Blind = 'Kinetics Mikronwood 50mm Venetian'
 
   const { windowDisplayList, projectFile } = getWindowDisplayAndProjectFile(blindType)
 
   it('should return a list of extras', async () => {
     const tableEntryList = await getTableEntryListAsync(blindType, windowDisplayList, projectFile)
 
-    const extraList = await getSantaFeShutterWorksheetExtraCostAsync(
+    const extraList = await getKineticsMikronwoodWorksheetExtraCostAsync(
       blindType,
       tableEntryList,
       windowDisplayList,
@@ -48,9 +47,7 @@ describe('getSantaFeShutterWorksheetExtraCostAsync', () => {
     if (typeof extraList === 'undefined') expect.fail('extra list is undefined')
 
     expect(extraList.length).toBeGreaterThan(0)
-    expect(extraList.find((e) => e.name === 'Designer Colour')).toBeDefined()
-    expect(extraList.find((e) => e.name === 'SmartDial 5Ch Remote')).toBeDefined()
-    expect(extraList.find((e) => e.name === 'ShadeAuto Hub')).toBeDefined()
-    expect(extraList.find((e) => e.name === 'USB Charging Cable')).toBeDefined()
+    expect(extraList.find((e) => e.name === '15 Channel Remote')).toBeDefined()
+    expect(extraList.find((e) => e.name === 'USB Charger Cable')).toBeDefined()
   })
 })

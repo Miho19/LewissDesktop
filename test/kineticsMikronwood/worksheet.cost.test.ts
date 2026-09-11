@@ -1,12 +1,12 @@
+import { Blind } from '@shared/types/blind/blind.types'
 import { describe, vi, it, expect } from 'vitest'
 import {
-  getExampleAccessorySchedule,
   getExamplePricingSchedule,
+  getExampleAccessorySchedule,
   getWindowDisplayAndProjectFile
 } from '../utility'
-import { Blind } from '@shared/types/blind/blind.types'
+import { getWorksheetCostAsync } from '@renderer/utility/process/worksheet/cost'
 import { getTableEntryListAsync } from '@renderer/utility/process/tableEntry'
-import { getKineticsRollerWorksheetExtraCostAsync } from '@/utility/process/worksheet/cost'
 
 vi.mock(
   '@renderer/utility/process/pricingSchedule/retrievePricingSchedule',
@@ -27,28 +27,32 @@ vi.mock(
   }
 )
 
-describe('getKineticsRollerWorksheetExtraCostAsync', () => {
-  const blindType: Blind = 'Kinetics Sunscreen Roller Blind'
+describe('getWorksheetCostAsync', () => {
+  const blindType: Blind = 'Kinetics Mikronwood 50mm Venetian'
 
   const { windowDisplayList, projectFile } = getWindowDisplayAndProjectFile(blindType)
 
-  it('should return a list of extras', async () => {
+  it('should a worksheet cost object', async () => {
     const tableEntryList = await getTableEntryListAsync(blindType, windowDisplayList, projectFile)
 
-    const extraList = await getKineticsRollerWorksheetExtraCostAsync(
+    const result = await getWorksheetCostAsync(
       blindType,
       tableEntryList,
       windowDisplayList,
       projectFile
     )
 
-    expect(extraList).toBeDefined()
-    expect(Array.isArray(extraList)).toBeTruthy()
+    expect(result).toBeDefined()
 
-    if (typeof extraList === 'undefined') expect.fail('extra list is undefined')
+    if (typeof result === 'undefined') expect.fail('result is undefined')
 
-    expect(extraList.length).toBeGreaterThan(0)
-    expect(extraList.find((e) => e.name === '15 Channel Remote')).toBeDefined()
-    expect(extraList.find((e) => e.name === 'USB Charger Cable')).toBeDefined()
+    expect('blindTotal' in result).toBeTruthy()
+    expect(result.blindTotal).toBeGreaterThan(0)
+
+    expect('gst' in result).toBeTruthy()
+    expect(result.gst).toBeGreaterThan(0)
+
+    expect('total' in result).toBeTruthy()
+    expect(result.total).toBeGreaterThan(0)
   })
 })

@@ -16,6 +16,7 @@ import { WindowDisplay } from '@shared/types/Window.types'
  * select the additional products
  * even if the product quantity is zero we still fill an extra entry
  * the pdf will handle whether it is printed or not
+ * also missing smart hub link from this
  */
 
 export async function getExtraMotorProductsAsync(

@@ -2,6 +2,7 @@ import { retrievePricingScheduleAsync } from '@/utility/process/pricingSchedule/
 import { getKineticsMikronwoodControlCost } from '@/utility/process/tableEntry/kineticsMikronwood/getKineticsMikronwoodControlCost'
 import { getKineticsMikronwoodDimensionCost } from '@/utility/process/tableEntry/kineticsMikronwood/getKineticsMikronwoodDimensionCost'
 import { getKineticsMikronwoodFasciaCost } from '@/utility/process/tableEntry/kineticsMikronwood/getKineticsMikronwoodFasciaCost'
+import { getKineticsMikronwoodHoldDownBracketCost } from '@/utility/process/tableEntry/kineticsMikronwood/getKineticsMikronwoodHoldDownBracketCost'
 import { Blind } from '@shared/types/blind/blind.types'
 import { isKineticsMikronwoodPricingSchedule } from '@shared/types/pricing/kineticsMikronwood.types'
 
@@ -29,5 +30,11 @@ export async function getKineticsMikronwoodCostAsync(
   const fasciaCost = getKineticsMikronwoodFasciaCost(fascia, pricingSchedule)
   if (typeof fasciaCost === 'undefined') return undefined
 
-  return dimensionCost + controlCost + fasciaCost
+  const holdDownBracketCost = getKineticsMikronwoodHoldDownBracketCost(
+    holdDownBracket,
+    pricingSchedule
+  )
+  if (typeof holdDownBracketCost === 'undefined') return undefined
+
+  return dimensionCost + controlCost + fasciaCost + holdDownBracketCost
 }

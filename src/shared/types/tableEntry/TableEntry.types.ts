@@ -11,13 +11,11 @@ import {
   LewissPhoenixwoodTableEntry
 } from './venetian.types'
 
-export type KineticsTableEntry = KineticsCellularTableEntry | KineticsRollerTableEntry
+export type KineticsTableEntry =
+  KineticsCellularTableEntry | KineticsRollerTableEntry | KineticsMikronwoodTableEntry
 
 export type VenetianTableEntry =
-  | LewissAluminiumTableEntry
-  | LewissFauxwoodTableEntry
-  | LewissPhoenixwoodTableEntry
-  | KineticsMikronwoodTableEntry
+  LewissAluminiumTableEntry | LewissFauxwoodTableEntry | LewissPhoenixwoodTableEntry
 
 export type TableEntry = KineticsTableEntry | VenetianTableEntry | SantaFeShutterTableEntry
 

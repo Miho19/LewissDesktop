@@ -18,6 +18,14 @@ export type KineticsMikronwoodTableEntry = {
   price: string
 }
 
+export function isKineticsMikronwoodTableEntryList(
+  tableEntryList: TableEntry[]
+): tableEntryList is KineticsMikronwoodTableEntry[] {
+  if (typeof tableEntryList === 'undefined') if (!Array.isArray(tableEntryList)) return false
+  if (tableEntryList.length === 0) return false
+  return tableEntryList.every((e) => isKineticsMikronwoodTableEntry(e))
+}
+
 export function isKineticsMikronwoodTableEntry(
   tableEntry: TableEntry
 ): tableEntry is KineticsMikronwoodTableEntry {

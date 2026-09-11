@@ -6,8 +6,9 @@ import { GetWorksheetExtraCostFn } from '@shared/types/worksheet/Worksheet.types
 import { getKineticsCellularWorksheetExtraCostAsync } from '@renderer/utility/process/worksheet/cost/kinetics/getKineticsCellularWorksheetExtraCost'
 
 import { getKineticsRollerWorksheetExtraCostAsync } from '@renderer/utility/process/worksheet/cost/kinetics/getKineticsRollerWorksheetExtraCost'
-import { getSantaFeShutterWorksheetExtraCostAsync } from '@/utility/process/worksheet/cost/kinetics/getSantaFeShutterWorksheetExtraCost'
+import { getSantaFeShutterWorksheetExtraCostAsync } from '@/utility/process/worksheet/cost/santaFe/getSantaFeShutterWorksheetExtraCost'
 import { Cost, Extra } from '@shared/types/worksheet/Cost.types'
+import { getKineticsMikronwoodWorksheetExtraCostAsync } from '@/utility/process/worksheet/cost/kinetics/getKineticsMikronwoodWorksheetExtraCost'
 
 export async function getWorksheetCostAsync(
   blindType: Blind,
@@ -52,6 +53,7 @@ const blindTypeMappedToGetWorksheetExtraCostFn: Record<Blind, GetWorksheetExtraC
   'Kinetics Blockout Roller Blind': getKineticsRollerWorksheetExtraCostAsync,
   'Kinetics Light Filtering Roller Blind': getKineticsRollerWorksheetExtraCostAsync,
   'Kinetics Sunscreen Roller Blind': getKineticsRollerWorksheetExtraCostAsync,
+  'Kinetics Mikronwood 50mm Venetian': getKineticsMikronwoodWorksheetExtraCostAsync,
   'Santa Fe Normandy Shutter': getSantaFeShutterWorksheetExtraCostAsync,
   'Santa Fe Waterproof Woodlore Plus Shutter': getSantaFeShutterWorksheetExtraCostAsync,
   'Santa Fe Woodlore Plus Shutter': getSantaFeShutterWorksheetExtraCostAsync,
