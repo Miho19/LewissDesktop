@@ -49,13 +49,8 @@ function ProjectForm(props: Props) {
       if (errorMap.size === 0) return
 
       for (const [key, value] of errorMap) {
-        toast.error('Error', {
-          description: (
-            <>
-              <p>{key}</p>
-              <p>{value}</p>
-            </>
-          )
+        toast.error(key, {
+          description: <p>{value}</p>
         })
       }
     }

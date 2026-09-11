@@ -5,7 +5,12 @@ import { getWindowWidth } from './getWindowWidth'
 import { getWindowHeight } from './getWindowHeight'
 
 export function getWindowDisplayList(file: ProjectFile) {
-  const rooms = file.project.rooms
+  if (typeof file === 'undefined') throw new Error(`Project file is undefined`)
+  if (typeof file.project === 'undefined') throw new Error(`Project object is undefined`)
+
+  const { rooms } = file.project
+  if (typeof rooms === 'undefined') throw new Error(`${file.name} failed to read rooms`)
+
   if (rooms.length === 0) return undefined
 
   const outputList: WindowDisplay[] = []

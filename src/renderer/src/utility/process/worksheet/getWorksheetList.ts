@@ -22,7 +22,7 @@ export async function getWorksheetListAsync(
 
     return { worksheetList: fulfilled, rejectedReasons: rejected }
   } catch (error) {
-    throw new Error('getWorksheetListAsync', { cause: error })
+    return { worksheetList: [], rejectedReasons: [error] }
   }
 }
 
@@ -47,7 +47,9 @@ function getWindowDisplayMap(windowDisplayList: WindowDisplay[]) {
     if (typeof spec === 'undefined') throw new Error('Incorrect value for fit')
 
     const blindType = getBlindTypeFromSpec(spec)
-    if (typeof blindType === 'undefined') throw new Error('Blind type is incorrect')
+    if (typeof blindType === 'undefined') {
+      throw new Error('Blind type is incorrect')
+    }
 
     const current = map.get(blindType)
     if (typeof current === 'undefined') {
