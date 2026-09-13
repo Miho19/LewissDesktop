@@ -1,7 +1,7 @@
 import { Blind } from '@shared/types/blind/blind.types'
 import { ProjectFile } from '@shared/types/Project.types'
 import { TableEntry } from '@shared/types/tableEntry/TableEntry.types'
-import { WindowDisplay } from '@shared/types/Window.types'
+import { WindowDisplay } from '@shared/types/WindowDisplay.types'
 import { GetWorksheetExtraCostFn } from '@shared/types/worksheet/Worksheet.types'
 import { getKineticsCellularWorksheetExtraCostAsync } from '@renderer/utility/process/worksheet/cost/kinetics/getKineticsCellularWorksheetExtraCost'
 

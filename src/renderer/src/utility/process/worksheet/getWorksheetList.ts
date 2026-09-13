@@ -1,7 +1,7 @@
 import { Blind } from '@shared/types/blind/blind.types'
 import { ProjectFile } from '@shared/types/Project.types'
 import { Spec } from '@shared/types/spec/Spec.types'
-import { WindowDisplay } from '@shared/types/Window.types'
+import { WindowDisplay } from '@shared/types/WindowDisplay.types'
 import { getBlindTypeFromSpec } from './getBlindTypeFromSpec'
 import { Worksheet } from '@shared/types/worksheet/Worksheet.types'
 import { Customer } from '@shared/types/worksheet/Customer.types'

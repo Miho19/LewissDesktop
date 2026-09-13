@@ -1,5 +1,5 @@
 import { ProjectFile, Treatment, WindowMeasurement } from '@shared/types/Project.types'
-import { BlindCount, Fit, WindowDisplay } from '@shared/types/Window.types'
+import { BlindCount, Fit, WindowDisplay } from '@shared/types/WindowDisplay.types'
 import { getBlindCountDisplay } from './getBlindCountDisplay'
 import { getWindowWidth } from './getWindowWidth'
 import { getWindowHeight } from './getWindowHeight'

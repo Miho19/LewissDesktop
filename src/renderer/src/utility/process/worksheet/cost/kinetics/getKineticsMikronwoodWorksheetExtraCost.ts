@@ -3,7 +3,7 @@ import { Blind } from '@shared/types/blind/blind.types'
 import { ProjectFile } from '@shared/types/Project.types'
 import { isKineticsMikronwoodTableEntryList } from '@shared/types/tableEntry/kineticsMikronwood.types'
 import { TableEntry } from '@shared/types/tableEntry/TableEntry.types'
-import { WindowDisplay } from '@shared/types/Window.types'
+import { WindowDisplay } from '@shared/types/WindowDisplay.types'
 
 export async function getKineticsMikronwoodWorksheetExtraCostAsync(
   blindType: Blind,

@@ -4,11 +4,13 @@ import { KineticsAccessorySchedule } from '@shared/types/pricing/kineticsAccesso
 import { SantaFeShutterPricingSchedule } from '@shared/types/pricing/santaFeShutter.types'
 import { SantaFeAccessories } from '@shared/types/pricing/santaFeAccessories.types'
 import { KineticsMikronwoodPricingSchedule } from '@shared/types/pricing/kineticsMikronwood.types'
+import { LewissAluminiumPricingSchedule } from '@shared/types/pricing/lewissAluminium.types'
 
 export type PricingSchedule =
   | KineticsCellularPricingSchedule
   | KineticsRollerPricingSchedule
   | SantaFeShutterPricingSchedule
   | KineticsMikronwoodPricingSchedule
+  | LewissAluminiumPricingSchedule
 
 export type AccessorySchedule = KineticsAccessorySchedule | SantaFeAccessories

@@ -1,15 +1,13 @@
 import { Blind } from '../blind/blind.types'
 import { ProjectFile, Room, WindowMeasurement } from '../Project.types'
-import { WindowDisplay } from '../Window.types'
+import { WindowDisplay } from '../WindowDisplay.types'
 import { KineticsCellularTableEntry } from './kineticsCellular.types'
 import { KineticsMikronwoodTableEntry } from './kineticsMikronwood.types'
 import { KineticsRollerTableEntry } from './kineticsRoller.types'
 import { SantaFeShutterTableEntry } from './santaFeShutter.types'
-import {
-  LewissAluminiumTableEntry,
-  LewissFauxwoodTableEntry,
-  LewissPhoenixwoodTableEntry
-} from './venetian.types'
+import { LewissPhoenixwoodTableEntry } from './lewissPhoenixwood.types'
+import { LewissAluminiumTableEntry } from '@shared/types/tableEntry/lewissAluminium.types'
+import { LewissFauxwoodTableEntry } from '@shared/types/tableEntry/lewissFauxwood.types'
 
 export type KineticsTableEntry =
   KineticsCellularTableEntry | KineticsRollerTableEntry | KineticsMikronwoodTableEntry

@@ -1,0 +1,29 @@
+import { retrievePricingScheduleAsync } from '@/utility/process/pricingSchedule/retrievePricingSchedule'
+import { getLewissAluminiumDimensionCost } from '@/utility/process/tableEntry/lewissAluminium/getLewissAluminiumDimensionCost'
+import { Blind } from '@shared/types/blind/blind.types'
+import { isLewissAluminiumPricingSchedule } from '@shared/types/pricing/lewissAluminium.types'
+
+export async function getLewissAluminiumCostAsync(
+  blindType: Blind,
+  width: number,
+  height: number,
+  fabricMultiplier: number,
+  control: string,
+  spacerBlock: 'Yes' | 'No'
+) {
+  const pricingSchedule = await retrievePricingScheduleAsync(blindType)
+  if (!isLewissAluminiumPricingSchedule(pricingSchedule)) return undefined
+
+  const dimensionCost = getLewissAluminiumDimensionCost(
+    blindType,
+    width,
+    height,
+    fabricMultiplier,
+    control,
+    pricingSchedule
+  )
+
+  if (typeof dimensionCost === 'undefined') return undefined
+
+  return dimensionCost
+}

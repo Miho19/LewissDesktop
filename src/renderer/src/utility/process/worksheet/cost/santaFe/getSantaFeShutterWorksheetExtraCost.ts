@@ -10,7 +10,7 @@ import { ProjectFile } from '@shared/types/Project.types'
 import { isSantaFeShutterSpec } from '@shared/types/spec/santaFe.types'
 import { isSantaFeShutterTableEntryList } from '@shared/types/tableEntry/santaFeShutter.types'
 import { TableEntry } from '@shared/types/tableEntry/TableEntry.types'
-import { WindowDisplay } from '@shared/types/Window.types'
+import { WindowDisplay } from '@shared/types/WindowDisplay.types'
 import { Extra } from '@shared/types/worksheet/Cost.types'
 
 export async function getSantaFeShutterWorksheetExtraCostAsync(

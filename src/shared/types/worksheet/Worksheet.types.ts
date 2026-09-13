@@ -1,4 +1,4 @@
-import { WindowDisplay } from '@shared/types/Window.types'
+import { WindowDisplay } from '@shared/types/WindowDisplay.types'
 import { Blind } from '@shared/types/blind/blind.types'
 import { TableEntry } from '../tableEntry/TableEntry.types'
 import { Cost, Extra } from './Cost.types'

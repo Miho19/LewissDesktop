@@ -1,4 +1,4 @@
-export const SantaFeVenetianBlindOptions = [
+export const LewissVenetianBlindOptions = [
   "Lewis's 25mm Aluminium Venetian",
   "Lewis's 50mm Aluminium Venetian",
   "Lewis's 50mm Fauxwood Venetian",
@@ -9,10 +9,7 @@ export const SantaFeVenetianBlindOptions = [
 
 export const KineticsVenetianBlindOptions = ['Kinetics Mikronwood 50mm Venetian'] as const
 
-export const VenetianBlindOptions = [
-  ...SantaFeVenetianBlindOptions,
-  ...KineticsVenetianBlindOptions
-]
+export const VenetianBlindOptions = [...LewissVenetianBlindOptions, ...KineticsVenetianBlindOptions]
 
 export type VenetianBlind = (typeof VenetianBlindOptions)[number]
 

@@ -1,4 +1,4 @@
-import { Fit } from '../Window.types'
+import { Fit } from '../WindowDisplay.types'
 import { TableEntry } from './TableEntry.types'
 
 export type KineticsCellularTableEntry = {

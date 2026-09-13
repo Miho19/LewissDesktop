@@ -1,4 +1,4 @@
-import { BlindCount } from '@shared/types/Window.types'
+import { BlindCount } from '@shared/types/WindowDisplay.types'
 
 export function getButtingString(blindCountString: BlindCount, index: number, side: 'LHS' | 'RHS') {
   if (blindCountString !== 'butting') return 'No'

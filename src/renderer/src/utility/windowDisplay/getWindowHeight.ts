@@ -1,5 +1,5 @@
 import { WindowMeasurement } from '@shared/types/Project.types'
-import { Fit } from '@shared/types/Window.types'
+import { Fit } from '@shared/types/WindowDisplay.types'
 
 export function getWindowHeight(window: WindowMeasurement, fit: Fit): number | undefined {
   switch (fit) {

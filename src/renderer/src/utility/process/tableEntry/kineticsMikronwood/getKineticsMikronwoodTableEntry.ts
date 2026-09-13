@@ -9,7 +9,7 @@ import { Room, WindowMeasurement, ProjectFile } from '@shared/types/Project.type
 import { isVenetianSpec, VenetianSpec } from '@shared/types/spec/venetian.types'
 import { KineticsMikronwoodTableEntry } from '@shared/types/tableEntry/kineticsMikronwood.types'
 import { TableEntry } from '@shared/types/tableEntry/TableEntry.types'
-import { Fit, WindowDisplay } from '@shared/types/Window.types'
+import { Fit, WindowDisplay } from '@shared/types/WindowDisplay.types'
 
 export async function getKineticsMikronwoodTableEntryAsync(
   blindType: Blind,
