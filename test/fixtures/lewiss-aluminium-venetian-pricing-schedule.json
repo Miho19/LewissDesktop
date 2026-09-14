@@ -11,6 +11,7 @@
       { "id": "cordless", "name": "50mm Cordless with privacy slat", "cost": 2.38 }
     ]
   },
+  "spacerBlock": { "id": "", "name": "Spacer Block", "cost": 7 },
 
   "dimension": {
     "heightHeader": [

@@ -1,5 +1,6 @@
 import { retrievePricingScheduleAsync } from '@/utility/process/pricingSchedule/retrievePricingSchedule'
 import { getLewissAluminiumDimensionCost } from '@/utility/process/tableEntry/lewissAluminium/getLewissAluminiumDimensionCost'
+import { getLewissAluminiumSpacerBlockCost } from '@/utility/process/tableEntry/lewissAluminium/getLewissAluminiumSpacerBlockCost'
 import { Blind } from '@shared/types/blind/blind.types'
 import { isLewissAluminiumPricingSchedule } from '@shared/types/pricing/lewissAluminium.types'
 
@@ -25,5 +26,8 @@ export async function getLewissAluminiumCostAsync(
 
   if (typeof dimensionCost === 'undefined') return undefined
 
-  return dimensionCost
+  const spacerBlockCost = getLewissAluminiumSpacerBlockCost(spacerBlock, pricingSchedule)
+  if (typeof spacerBlockCost === 'undefined') return undefined
+
+  return dimensionCost + spacerBlockCost
 }
