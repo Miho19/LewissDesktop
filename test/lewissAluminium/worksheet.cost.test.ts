@@ -1,0 +1,61 @@
+import { Blind } from '@shared/types/blind/blind.types'
+import { describe, vi, it, expect } from 'vitest'
+import {
+  getExamplePricingSchedule,
+  getExampleAccessorySchedule,
+  getWindowDisplayAndProjectFile
+} from '../utility'
+import { getWorksheetCostAsync } from '@renderer/utility/process/worksheet/cost'
+import { getTableEntryListAsync } from '@renderer/utility/process/tableEntry'
+
+vi.mock(
+  '@renderer/utility/process/pricingSchedule/retrievePricingSchedule',
+  async (importOriginal) => {
+    const actual =
+      await importOriginal<
+        typeof import('@renderer/utility/process/pricingSchedule/retrievePricingSchedule')
+      >()
+    return {
+      ...actual,
+      retrievePricingScheduleAsync: vi
+        .fn()
+        .mockImplementation((blindType: Blind) => getExamplePricingSchedule(blindType)),
+      retrieveAccessorySchedule: vi
+        .fn()
+        .mockImplementation((blindType: Blind) => getExampleAccessorySchedule(blindType))
+    }
+  }
+)
+
+const input: { blindType: Blind }[] = [
+  { blindType: "Lewis's 25mm Aluminium Venetian" },
+  { blindType: "Lewis's 50mm Aluminium Venetian" }
+]
+
+describe('getWorksheetCostAsync', () => {
+  it.each(input)('should a worksheet cost object for $blindType', async ({ blindType }) => {
+    const { windowDisplayList, projectFile } = getWindowDisplayAndProjectFile(blindType)
+
+    const tableEntryList = await getTableEntryListAsync(blindType, windowDisplayList, projectFile)
+
+    const result = await getWorksheetCostAsync(
+      blindType,
+      tableEntryList,
+      windowDisplayList,
+      projectFile
+    )
+
+    expect(result).toBeDefined()
+
+    if (typeof result === 'undefined') expect.fail('result is undefined')
+
+    expect('blindTotal' in result).toBeTruthy()
+    expect(result.blindTotal).toBeGreaterThan(0)
+
+    expect('gst' in result).toBeTruthy()
+    expect(result.gst).toBeGreaterThan(0)
+
+    expect('total' in result).toBeTruthy()
+    expect(result.total).toBeGreaterThan(0)
+  })
+})

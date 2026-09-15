@@ -8,6 +8,7 @@ import { getKineticsCellularTableEntryAsync } from './kineticsCellular/getKineti
 import { getKineticsRollerTableEntryAsync } from '@renderer/utility/process/tableEntry/kineticsRoller'
 import { getSantaFeShutterTableEntryAsync } from '@renderer/utility/process/tableEntry/santaFeShutter'
 import { getKineticsMikronwoodTableEntryAsync } from '@/utility/process/tableEntry/kineticsMikronwood'
+import { getLewissAluminiumTableEntryAsync } from '@/utility/process/tableEntry/lewissAluminium'
 
 export async function getTableEntryListAsync(
   blindType: Blind,
@@ -55,5 +56,7 @@ const getTableEntryFunctionMap: Record<Blind, createTableEntryFn> = {
   'Santa Fe Normandy Shutter': getSantaFeShutterTableEntryAsync,
   'Santa Fe Waterproof Woodlore Plus Shutter': getSantaFeShutterTableEntryAsync,
   'Santa Fe Woodlore Plus Shutter': getSantaFeShutterTableEntryAsync,
-  'Santa Fe Woodlore Shutter': getSantaFeShutterTableEntryAsync
+  'Santa Fe Woodlore Shutter': getSantaFeShutterTableEntryAsync,
+  "Lewis's 25mm Aluminium Venetian": getLewissAluminiumTableEntryAsync,
+  "Lewis's 50mm Aluminium Venetian": getLewissAluminiumTableEntryAsync
 }
