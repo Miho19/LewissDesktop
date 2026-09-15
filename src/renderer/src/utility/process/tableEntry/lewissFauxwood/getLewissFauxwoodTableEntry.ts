@@ -6,6 +6,7 @@ import {
   getLewissSpacerBlock,
   getLewissVenetianCutOut
 } from '@/utility/process/tableEntry/shared/venetian'
+
 import { Blind } from '@shared/types/blind/blind.types'
 import { Room, WindowMeasurement, ProjectFile } from '@shared/types/Project.types'
 import { isVenetianSpec } from '@shared/types/spec/venetian.types'

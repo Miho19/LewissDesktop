@@ -1,16 +1,16 @@
+import { AccessorySchedule } from '@shared/types/pricing/pricingSchedule.types'
 import {
-  isLewissAluminiumPricingSchedule,
-  LewissAluminiumPricingSchedule
-} from '@shared/types/pricing/lewissAluminium.types'
-import { PricingSchedule } from '@shared/types/pricing/pricingSchedule.types'
+  isLewissAccessorySchedule,
+  LewissAccessorySchedule
+} from '@shared/types/pricing/venetianAccessories.types'
 
 const spacerBlockOptions = ['yes', 'no']
 
 export function getLewissAluminiumSpacerBlockCost(
   spacerBlock: 'Yes' | 'No',
-  pricingSchedule: PricingSchedule
+  pricingSchedule: AccessorySchedule
 ) {
-  if (!isLewissAluminiumPricingSchedule(pricingSchedule)) return undefined
+  if (!isLewissAccessorySchedule(pricingSchedule)) return undefined
   if (!isInputValid(spacerBlock)) return undefined
 
   const cost = getSpacerBlockCost(pricingSchedule)
@@ -32,7 +32,7 @@ function isInputValid(spacerBlock: string) {
   return true
 }
 
-function getSpacerBlockCost(pricingSchedule: LewissAluminiumPricingSchedule) {
+function getSpacerBlockCost(pricingSchedule: LewissAccessorySchedule) {
   const { spacerBlock } = pricingSchedule
 
   if (typeof spacerBlock === 'undefined') return undefined

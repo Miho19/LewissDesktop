@@ -1,1 +1,33 @@
-export type LewissAccessories = {}
+import { LewissVenetianBlindOptions } from '@shared/types/blind/venetian.types'
+import { AccessorySchedule } from '@shared/types/pricing/pricingSchedule.types'
+
+export type LewissAccessorySchedule = {
+  blindType: string[]
+  spacerBlock: Base
+}
+
+type Base = {
+  id: string
+  name: string
+  cost: number
+}
+
+export function isLewissAccessorySchedule(
+  pricingSchedule: AccessorySchedule
+): pricingSchedule is LewissAccessorySchedule {
+  if (typeof pricingSchedule === 'undefined') return false
+  if (!('blindType' in pricingSchedule)) return false
+
+  const { blindType } = pricingSchedule
+
+  if (blindType.length === 0) return false
+
+  const optionSet = new Set<string>(LewissVenetianBlindOptions)
+
+  const hasEvery = blindType.every((b) => optionSet.has(b))
+  if (!hasEvery) return false
+
+  if (!('spacerBlock' in pricingSchedule)) return false
+
+  return true
+}

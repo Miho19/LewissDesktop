@@ -2,10 +2,9 @@ import { KineticsRollerPricingSchedule } from '@shared/types/pricing/kineticsRol
 import { KineticsCellularPricingSchedule } from './kineticsCellular.types'
 import { KineticsAccessorySchedule } from '@shared/types/pricing/kineticsAccessories.types'
 import { SantaFeShutterPricingSchedule } from '@shared/types/pricing/santaFeShutter.types'
-import { SantaFeAccessories } from '@shared/types/pricing/santaFeAccessories.types'
 import { KineticsMikronwoodPricingSchedule } from '@shared/types/pricing/kineticsMikronwood.types'
 import { LewissAluminiumPricingSchedule } from '@shared/types/pricing/lewissAluminium.types'
-import { LewissAccessories } from '@shared/types/pricing/venetianAccessories.types'
+import { LewissAccessorySchedule } from '@shared/types/pricing/venetianAccessories.types'
 
 export type PricingSchedule =
   | KineticsCellularPricingSchedule
@@ -14,4 +13,4 @@ export type PricingSchedule =
   | KineticsMikronwoodPricingSchedule
   | LewissAluminiumPricingSchedule
 
-export type AccessorySchedule = KineticsAccessorySchedule | SantaFeAccessories | LewissAccessories
+export type AccessorySchedule = KineticsAccessorySchedule | LewissAccessorySchedule

@@ -4,9 +4,10 @@ import {
   getLewissSpacerBlock,
   getLewissVenetianControl
 } from '@/utility/process/tableEntry/shared/venetian'
+
 import { Blind } from '@shared/types/blind/blind.types'
 import { Room, WindowMeasurement, ProjectFile } from '@shared/types/Project.types'
-import { isVenetianSpec, VenetianSpec } from '@shared/types/spec/venetian.types'
+import { isVenetianSpec } from '@shared/types/spec/venetian.types'
 import { LewissAluminiumTableEntry } from '@shared/types/tableEntry/lewissAluminium.types'
 import { TableEntry } from '@shared/types/tableEntry/TableEntry.types'
 import { Fit, WindowDisplay } from '@shared/types/WindowDisplay.types'
