@@ -68,6 +68,8 @@ function getPremiumColourExtra(
     if (!isSantaFeShutterSpec(spec)) return acc
 
     const { fabric } = spec
+    if (fabric == null) return acc
+
     const { premium } = fabric
 
     if (premium == null) return acc

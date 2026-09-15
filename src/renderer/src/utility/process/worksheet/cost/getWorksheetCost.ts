@@ -9,6 +9,9 @@ import { getKineticsRollerWorksheetExtraCostAsync } from '@renderer/utility/proc
 import { getSantaFeShutterWorksheetExtraCostAsync } from '@/utility/process/worksheet/cost/santaFe/getSantaFeShutterWorksheetExtraCost'
 import { Cost, Extra } from '@shared/types/worksheet/Cost.types'
 import { getKineticsMikronwoodWorksheetExtraCostAsync } from '@/utility/process/worksheet/cost/kinetics/getKineticsMikronwoodWorksheetExtraCost'
+import { getLewissAluminiumWorksheetExtraCostAsync } from '@/utility/process/worksheet/cost/venetian/getLewissAluminiumWorksheetExtraCost'
+import { getLewissFauxwoodWorksheetExtraCostAsync } from '@/utility/process/worksheet/cost/venetian/getLewissFauxwoodWorksheetExtraCost'
+import { getLewissPhoenixwoodWorksheetExtraCostAsync } from '@/utility/process/worksheet/cost/venetian/getLewissPhoenixwoodWorksheetExtraCost'
 
 export async function getWorksheetCostAsync(
   blindType: Blind,
@@ -57,7 +60,13 @@ const blindTypeMappedToGetWorksheetExtraCostFn: Record<Blind, GetWorksheetExtraC
   'Santa Fe Normandy Shutter': getSantaFeShutterWorksheetExtraCostAsync,
   'Santa Fe Waterproof Woodlore Plus Shutter': getSantaFeShutterWorksheetExtraCostAsync,
   'Santa Fe Woodlore Plus Shutter': getSantaFeShutterWorksheetExtraCostAsync,
-  'Santa Fe Woodlore Shutter': getSantaFeShutterWorksheetExtraCostAsync
+  'Santa Fe Woodlore Shutter': getSantaFeShutterWorksheetExtraCostAsync,
+  "Lewis's 25mm Aluminium Venetian": getLewissAluminiumWorksheetExtraCostAsync,
+  "Lewis's 50mm Aluminium Venetian": getLewissAluminiumWorksheetExtraCostAsync,
+  "Lewis's 50mm Fauxwood Venetian": getLewissFauxwoodWorksheetExtraCostAsync,
+  "Lewis's 63mm Fauxwood Venetian": getLewissFauxwoodWorksheetExtraCostAsync,
+  "Lewis's 50mm Phoenixwood Venetian": getLewissPhoenixwoodWorksheetExtraCostAsync,
+  "Lewis's 63mm Phoenixwood Venetian": getLewissPhoenixwoodWorksheetExtraCostAsync
 }
 
 export function getTableEntryCost(tableEntryList: TableEntry[]) {
