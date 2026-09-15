@@ -59,6 +59,7 @@ export function getLewissVenetianControlMultiplier(
 function getSlatSize(blindType: Blind) {
   if (blindType.includes('25mm')) return '25'
   if (blindType.includes('50mm')) return '50'
+  if (blindType.includes('63mm')) return '63'
 
   return undefined
 }

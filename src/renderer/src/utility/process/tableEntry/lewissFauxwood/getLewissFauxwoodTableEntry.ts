@@ -89,7 +89,7 @@ export async function getLewissFauxwoodTableEntryAsync(
     'cut out': cutOut,
     'palladian shelf': palladianShelf,
     butting,
-    price: leftBlindCost
+    price: leftBlindCost.toFixed(2)
   }
 
   return [leftBlindEntry]

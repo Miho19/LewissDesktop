@@ -8,6 +8,7 @@
     "Lewis's 63mm Phoenixwood Venetian"
   ],
   "spacerBlock": { "id": "", "name": "Spacer Block", "cost": 7 },
+  "valance": { "id": "", "cost": 28, "name": "Valance" },
 
   "palladianShelf": {
     "id": "",
@@ -57,7 +58,7 @@
   },
   "cutOut": { "id": "", "base": 29, "name": "Cut out" },
   "keystone": { "id": "", "base": 19, "name": "Keystone" },
-  "valance": { "id": "", "base": 28, "name": "Valance" },
+
   "twoOnOne": { "id": "", "base": 28, "name": "2 on 1" },
   "phoenixwoodColourSurcharge": {
     "under10": {

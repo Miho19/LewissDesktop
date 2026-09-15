@@ -3,11 +3,22 @@ import { KineticsCellularPricingSchedule } from './kineticsCellular.types'
 import { KineticsAccessorySchedule } from '@shared/types/pricing/kineticsAccessories.types'
 import { SantaFeShutterPricingSchedule } from '@shared/types/pricing/santaFeShutter.types'
 import { KineticsMikronwoodPricingSchedule } from '@shared/types/pricing/kineticsMikronwood.types'
-import { LewissAluminiumPricingSchedule } from '@shared/types/pricing/lewissAluminium.types'
+import {
+  isLewissAluminiumPricingSchedule,
+  LewissAluminiumPricingSchedule
+} from '@shared/types/pricing/lewissAluminium.types'
 import { LewissAccessorySchedule } from '@shared/types/pricing/venetianAccessories.types'
-import { VenetianBlindOptions } from '@shared/types/blind/venetian.types'
+import {
+  isLewissPhoenixwoodPricingSchedule,
+  LewissPhoenixwoodPricingSchedule
+} from '@shared/types/pricing/lewissPhoenixwood.types'
+import {
+  isLewissFauxwoodPricingSchedule,
+  LewissFauxwoodPricingSchedule
+} from '@shared/types/pricing/lewissFauxwood.types'
 
-export type LewissVenetianPricingSchedule = LewissAluminiumPricingSchedule
+export type LewissVenetianPricingSchedule =
+  LewissAluminiumPricingSchedule | LewissFauxwoodPricingSchedule | LewissPhoenixwoodPricingSchedule
 
 export type PricingSchedule =
   | KineticsCellularPricingSchedule
@@ -22,15 +33,8 @@ export type AccessorySchedule = KineticsAccessorySchedule | LewissAccessorySched
 export function isLewissVenetianPricingSchedule(
   pricingSchedule: PricingSchedule
 ): pricingSchedule is LewissVenetianPricingSchedule {
-  if (typeof pricingSchedule === 'undefined') return false
-  if (!('blindType' in pricingSchedule)) return false
-
-  const { blindType } = pricingSchedule
-
-  const optionSet = new Set<string>(VenetianBlindOptions)
-
-  const isEvery = blindType.every((b) => optionSet.has(b))
-  if (!isEvery) return false
-
-  return true
+  if (isLewissAluminiumPricingSchedule(pricingSchedule)) return true
+  if (isLewissFauxwoodPricingSchedule(pricingSchedule)) return true
+  if (isLewissPhoenixwoodPricingSchedule(pricingSchedule)) return true
+  return false
 }

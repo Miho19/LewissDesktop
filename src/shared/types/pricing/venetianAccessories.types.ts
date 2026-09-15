@@ -4,6 +4,7 @@ import { AccessorySchedule } from '@shared/types/pricing/pricingSchedule.types'
 export type LewissAccessorySchedule = {
   blindType: string[]
   spacerBlock: Base
+  valance: Base
 }
 
 type Base = {
