@@ -2,16 +2,14 @@ import { getHeightIndex } from '@/utility/process/tableEntry/shared/getHeightInd
 import { getWidthIndex } from '@/utility/process/tableEntry/shared/getWidthIndex'
 import { getToNearest } from '@/utility/process/tableEntry/shared/roundMeasurementUp'
 import {
-  getLewissVenetianControlMultiplier,
+  lewissVenetianIsInputValid,
   lewissVenetianIsBlindTypeValid,
-  lewissVenetianIsInputValid
+  getLewissVenetianControlMultiplier
 } from '@/utility/process/tableEntry/shared/venetian'
 import { Blind } from '@shared/types/blind/blind.types'
-
-import { isLewissAluminiumPricingSchedule } from '@shared/types/pricing/lewissAluminium.types'
 import { PricingSchedule } from '@shared/types/pricing/pricingSchedule.types'
 
-export function getLewissAluminiumDimensionCost(
+export function getLewissFauxwoodDimensionCost(
   blindType: Blind,
   width: number,
   height: number,
@@ -19,7 +17,7 @@ export function getLewissAluminiumDimensionCost(
   control: string,
   pricingSchedule: PricingSchedule
 ) {
-  if (!isLewissAluminiumPricingSchedule(pricingSchedule)) return undefined
+  if (!isLewissFa(pricingSchedule)) return undefined
 
   if (!lewissVenetianIsInputValid(width, height, fabricMultiplier, control)) return undefined
   if (!lewissVenetianIsBlindTypeValid(blindType)) return undefined

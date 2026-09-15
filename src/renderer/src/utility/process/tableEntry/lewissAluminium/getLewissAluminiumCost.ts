@@ -3,7 +3,8 @@ import {
   retrievePricingScheduleAsync
 } from '@/utility/process/pricingSchedule/retrievePricingSchedule'
 import { getLewissAluminiumDimensionCost } from '@/utility/process/tableEntry/lewissAluminium/getLewissAluminiumDimensionCost'
-import { getLewissAluminiumSpacerBlockCost } from '@/utility/process/tableEntry/lewissAluminium/getLewissAluminiumSpacerBlockCost'
+import { getLewissVenetianSpacerBlockCost } from '@/utility/process/tableEntry/shared/venetian'
+
 import { Blind } from '@shared/types/blind/blind.types'
 import { isLewissAluminiumPricingSchedule } from '@shared/types/pricing/lewissAluminium.types'
 import { isLewissAccessorySchedule } from '@shared/types/pricing/venetianAccessories.types'
@@ -33,7 +34,7 @@ export async function getLewissAluminiumCostAsync(
   const accessorySchedule = await retrieveAccessorySchedule(blindType)
   if (!isLewissAccessorySchedule(accessorySchedule)) return undefined
 
-  const spacerBlockCost = getLewissAluminiumSpacerBlockCost(spacerBlock, accessorySchedule)
+  const spacerBlockCost = getLewissVenetianSpacerBlockCost(spacerBlock, accessorySchedule)
   if (typeof spacerBlockCost === 'undefined') return undefined
 
   return dimensionCost + spacerBlockCost
