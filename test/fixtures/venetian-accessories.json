@@ -7,6 +7,7 @@
     "Lewis's 50mm Phoenixwood Venetian",
     "Lewis's 63mm Phoenixwood Venetian"
   ],
+  "spacerBlock": { "id": "", "name": "Spacer Block", "cost": 7 },
 
   "palladianShelf": {
     "id": "",

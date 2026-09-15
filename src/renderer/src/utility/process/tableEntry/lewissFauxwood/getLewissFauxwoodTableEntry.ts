@@ -1,17 +1,19 @@
 import { capitalise } from '@/utility/general/capitalise'
-import { getLewissAluminiumCostAsync } from '@/utility/process/tableEntry/lewissAluminium/getLewissAluminiumCost'
+import { getLewissFauxwoodCostAsync } from '@/utility/process/tableEntry/lewissFauxwood/getLewissFauxwoodCost'
 import {
+  getLewissVenetianControl,
+  getLewissVenetianValance,
   getLewissSpacerBlock,
-  getLewissVenetianControl
+  getLewissVenetianCutOut
 } from '@/utility/process/tableEntry/shared/venetian'
 import { Blind } from '@shared/types/blind/blind.types'
 import { Room, WindowMeasurement, ProjectFile } from '@shared/types/Project.types'
-import { isVenetianSpec, VenetianSpec } from '@shared/types/spec/venetian.types'
-import { LewissAluminiumTableEntry } from '@shared/types/tableEntry/lewissAluminium.types'
+import { isVenetianSpec } from '@shared/types/spec/venetian.types'
+import { LewissFauxwoodTableEntry } from '@shared/types/tableEntry/lewissFauxwood.types'
 import { TableEntry } from '@shared/types/tableEntry/TableEntry.types'
 import { Fit, WindowDisplay } from '@shared/types/WindowDisplay.types'
 
-export async function getLewissAluminiumTableEntryAsync(
+export async function getLewissFauxwoodTableEntryAsync(
   blindType: Blind,
   index: number,
   windowDisplay: WindowDisplay,
@@ -43,32 +45,50 @@ export async function getLewissAluminiumTableEntryAsync(
 
   const tiltSide = controlSide // this is currently incorrect as we do not have a seperate tilt selector
 
+  const valance = getLewissVenetianValance(spec) ?? ''
+  const fascia = ' '
+
   const spacerBlock = getLewissSpacerBlock(spec)
 
-  const leftBlindCost = await getLewissAluminiumCostAsync(
+  const cutOut = getLewissVenetianCutOut(spec)
+
+  const palladianShelf = ''
+
+  const butting = ''
+
+  const leftBlindCost = await getLewissFauxwoodCostAsync(
     blindType,
     leftBlindWidth,
     height,
     fabricMultiplier,
     control,
-    spacerBlock
+    valance,
+    fascia,
+    spacerBlock,
+    cutOut,
+    palladianShelf
   )
 
   if (typeof leftBlindCost === 'undefined')
     throw new Error(`${blindType} left blind cost is undefined`)
 
-  const leftBlindEntry: LewissAluminiumTableEntry = {
+  const leftBlindEntry: LewissFauxwoodTableEntry = {
     index,
     location,
-    width: width[0],
+    width: leftBlindWidth,
     height,
     fit: fitCapitalised,
-    colour,
+    colour: colour,
     control,
     'control side': controlSide,
     'tilt side': tiltSide,
+    valance,
+    fascia: fascia,
     'Spacer Block': spacerBlock,
-    price: leftBlindCost.toFixed(2)
+    'cut out': cutOut,
+    'palladian shelf': palladianShelf,
+    butting,
+    price: leftBlindCost
   }
 
   return [leftBlindEntry]

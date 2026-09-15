@@ -5,7 +5,6 @@ export type LewissAluminiumPricingSchedule = {
   blindType: string[]
   dimension: Dimension
   control: Control
-  spacerBlock: Base
 }
 
 type Control = {
