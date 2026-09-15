@@ -14,7 +14,7 @@ import lewissPhoenixwoodPricingSchedule from './fixtures/lewiss-phoenixwood-pric
 import santaFeShutterPricingSchedule from './fixtures/santaFeShutterPricingSchedule.json'
 import kineticsAccessorySchedule from './fixtures/kinetics-accessories.json'
 import venetianAccessorySchedule from './fixtures/venetian-accessories.json'
-import { PricingSchedule } from '@shared/types/pricing/pricingSchedule.types'
+import { AccessorySchedule, PricingSchedule } from '@shared/types/pricing/pricingSchedule.types'
 
 export function getWindowDisplayAndProjectFile(blindType: Blind) {
   const projectFile = getExampleProjectFile()
@@ -77,7 +77,7 @@ export function getExamplePricingSchedule(blindType: Blind): PricingSchedule {
   }
 }
 
-export function getExampleAccessorySchedule(blindType: Blind) {
+export function getExampleAccessorySchedule(blindType: Blind): AccessorySchedule {
   switch (blindType) {
     case 'Kinetics 10mm Cellular Blind':
     case 'Kinetics 20mm Cellular Blind':
@@ -93,11 +93,11 @@ export function getExampleAccessorySchedule(blindType: Blind) {
     case "Lewis's 50mm Phoenixwood Venetian":
     case "Lewis's 63mm Phoenixwood Venetian":
       return venetianAccessorySchedule
-    case 'Santa Fe Normandy Shutter':
-    case 'Santa Fe Waterproof Woodlore Plus Shutter':
-    case 'Santa Fe Woodlore Plus Shutter':
-    case 'Santa Fe Woodlore Shutter':
-      return santaFeShutterPricingSchedule
+    // case 'Santa Fe Normandy Shutter':
+    // case 'Santa Fe Waterproof Woodlore Plus Shutter':
+    // case 'Santa Fe Woodlore Plus Shutter':
+    // case 'Santa Fe Woodlore Shutter':
+    //   return santaFeShutterPricingSchedule
     default:
       throw new Error(`${blindType} does not have a accessory schedule`)
   }

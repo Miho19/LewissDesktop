@@ -1,7 +1,8 @@
 import { describe, it, expect } from 'vitest'
-import { getExamplePricingSchedule } from '../utility'
-import { getLewissAluminiumSpacerBlockCost } from '@/utility/process/tableEntry/lewissAluminium'
+import { getExampleAccessorySchedule } from '../utility'
+
 import { Blind } from '@shared/types/blind/blind.types'
+import { getLewissVenetianSpacerBlockCost } from '@/utility/process/tableEntry/shared/venetian'
 
 type SpacerBlockInput = {
   blindType: Blind
@@ -39,9 +40,9 @@ describe('getLewissAluminiumSpacerBlockCost', () => {
   it.each(spacerBlockInput)(
     'Given a $blindType and spacerBlock status $spacerBlock should return $expected',
     ({ blindType, spacerBlock, expected }) => {
-      const pricingSchedule = getExamplePricingSchedule(blindType)
+      const pricingSchedule = getExampleAccessorySchedule(blindType)
 
-      const result = getLewissAluminiumSpacerBlockCost(spacerBlock as 'Yes' | 'No', pricingSchedule)
+      const result = getLewissVenetianSpacerBlockCost(spacerBlock as 'Yes' | 'No', pricingSchedule)
 
       if (typeof expected === 'undefined') {
         expect(result).toBeUndefined()
