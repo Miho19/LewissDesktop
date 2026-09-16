@@ -5,12 +5,18 @@ export type LewissAccessorySchedule = {
   blindType: string[]
   spacerBlock: Base
   valance: Base
+  cutOut: Base
+  palladianShelf: PalladianShelf
 }
 
 type Base = {
   id: string
   name: string
   cost: number
+}
+
+type PalladianShelf = Base & {
+  colour: Base[]
 }
 
 export function isLewissAccessorySchedule(

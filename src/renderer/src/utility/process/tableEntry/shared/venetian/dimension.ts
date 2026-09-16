@@ -1,7 +1,8 @@
 import { Blind } from '@shared/types/blind/blind.types'
-import { VenetianBlind, VenetianBlindOptions } from '@shared/types/blind/venetian.types'
+import { VenetianBlind } from '@shared/types/blind/venetian.types'
 import { LewissAluminiumPricingSchedule } from '@shared/types/pricing/lewissAluminium.types'
 import {
+  LewissVenetianPricingSchedule,
   PricingSchedule,
   isLewissVenetianPricingSchedule
 } from '@shared/types/pricing/pricingSchedule.types'
@@ -25,14 +26,6 @@ export function lewissVenetianIsInputValid(
   if (control.trim().length === 0) return false
 
   return true
-}
-
-export function lewissVenetianIsBlindTypeValid(blindType: Blind) {
-  if (typeof blindType !== 'string') return false
-
-  const optionSet = new Set<string>(VenetianBlindOptions)
-
-  return optionSet.has(blindType)
 }
 
 export function getLewissVenetianControlMultiplier(
@@ -64,18 +57,23 @@ function getSlatSize(blindType: Blind) {
   return undefined
 }
 
-function getControlArray(blindType: Blind, pricingSchedule: LewissAluminiumPricingSchedule) {
+// this will need a refactor later
+type Base = { id: string; name: string; cost: number }
+
+function getControlArray(blindType: Blind, pricingSchedule: LewissVenetianPricingSchedule) {
   const slatName = getControlObjectName(blindType)
   if (typeof slatName === 'undefined') return undefined
 
   const { control } = pricingSchedule
-  const controlArray = control[slatName as keyof typeof pricingSchedule.control]
+  const controlArray = control[slatName as keyof LewissAluminiumPricingSchedule['control']]
 
-  return controlArray
+  return controlArray as Base[]
 }
 
 function getControlObjectName(blindType: Blind) {
   const slatSize = getSlatSize(blindType)
+  if (typeof slatSize === 'undefined') return undefined
+
   const slatPrefix = getSlatPrefix(blindType as VenetianBlind)
 
   if (typeof slatPrefix === 'undefined') return undefined

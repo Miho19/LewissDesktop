@@ -3,10 +3,15 @@ import {
   retrievePricingScheduleAsync
 } from '@/utility/process/pricingSchedule/retrievePricingSchedule'
 import { getLewissFauxwoodDimensionCost } from '@/utility/process/tableEntry/lewissFauxwood/getLewissFauxwoodDimensionCost'
+import { getLewissFauxwoodFasciaCost } from '@/utility/process/tableEntry/lewissFauxwood/getLewissFauxwoodFasciaCost'
 import { getLewissFauxwoodValanceCost } from '@/utility/process/tableEntry/lewissFauxwood/getLewissFauxwoodValanceCost'
+import {
+  getLewissVenetianCutoutCost,
+  getLewissVenetianPalladianShelfCost,
+  getLewissVenetianSpacerBlockCost
+} from '@/utility/process/tableEntry/shared/venetian'
 import { Blind } from '@shared/types/blind/blind.types'
 import { isLewissFauxwoodPricingSchedule } from '@shared/types/pricing/lewissFauxwood.types'
-import { isLewissVenetianPricingSchedule } from '@shared/types/pricing/pricingSchedule.types'
 import { isLewissAccessorySchedule } from '@shared/types/pricing/venetianAccessories.types'
 
 export async function getLewissFauxwoodCostAsync(
@@ -41,5 +46,24 @@ export async function getLewissFauxwoodCostAsync(
   const valanceCost = getLewissFauxwoodValanceCost(blindType, valance, accessorySchedule)
   if (typeof valanceCost === 'undefined') return undefined
 
-  return dimensionCost + valanceCost
+  const fasciaCost = getLewissFauxwoodFasciaCost(blindType, width, fascia, pricingSchedule)
+  if (typeof fasciaCost === 'undefined') return undefined
+
+  // need add tests for spacerBlock cost
+
+  const spacerBlockCost = getLewissVenetianSpacerBlockCost(spacerBlock, accessorySchedule)
+  if (typeof spacerBlockCost === 'undefined') return undefined
+
+  const cutOutCost = getLewissVenetianCutoutCost(blindType, cutOut, accessorySchedule)
+  if (typeof cutOutCost === 'undefined') return undefined
+
+  const palladianShelfCost = getLewissVenetianPalladianShelfCost(
+    blindType,
+    width,
+    palladianShelf,
+    accessorySchedule
+  )
+  if (typeof palladianShelfCost === 'undefined') return undefined
+
+  return dimensionCost + valanceCost + fasciaCost + cutOutCost + palladianShelfCost
 }
