@@ -7,11 +7,10 @@ import {
   getLewissVenetianControlMultiplier
 } from '@/utility/process/tableEntry/shared/venetian'
 import { Blind } from '@shared/types/blind/blind.types'
-import { isLewissFauxwoodPricingSchedule } from '@shared/types/pricing/lewissFauxwood.types'
+import { isLewissPhoenixwoodPricingSchedule } from '@shared/types/pricing/lewissPhoenixwood.types'
 import { PricingSchedule } from '@shared/types/pricing/pricingSchedule.types'
 
-// this will be refactored into venentian dimension function since they are all performing the same thing
-export function getLewissFauxwoodDimensionCost(
+export function getLewissPhoenixwoodDimensionCost(
   blindType: Blind,
   width: number,
   height: number,
@@ -19,7 +18,7 @@ export function getLewissFauxwoodDimensionCost(
   control: string,
   pricingSchedule: PricingSchedule
 ) {
-  if (!isLewissFauxwoodPricingSchedule(pricingSchedule)) return undefined
+  if (!isLewissPhoenixwoodPricingSchedule(pricingSchedule)) return undefined
 
   if (!lewissVenetianIsInputValid(width, height, fabricMultiplier, control)) return undefined
   if (!lewissVenetianIsBlindTypeValid(blindType)) return undefined

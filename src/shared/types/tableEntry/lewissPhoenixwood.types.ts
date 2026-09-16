@@ -6,7 +6,7 @@ export type LewissPhoenixwoodTableEntry = {
   width: number
   height: number
   fit: string
-  fabric: string
+  colour: string
   control: string
   'control side': string
   'tilt side': string
