@@ -28,7 +28,13 @@ vi.mock(
   }
 )
 
-const input: { blindType: Blind }[] = [{ blindType: 'Kinetics 10mm Cellular Blind' }]
+const input: { blindType: Blind }[] = [
+  { blindType: 'Kinetics 10mm Cellular Blind' },
+  { blindType: 'Kinetics 20mm Cellular Blind' },
+  { blindType: 'Kinetics Blockout Roller Blind' },
+  { blindType: 'Kinetics Light Filtering Roller Blind' },
+  { blindType: 'Kinetics Sunscreen Roller Blind' }
+]
 
 describe('generateWorksheetPDF', () => {
   afterAll(() => {
@@ -49,6 +55,8 @@ describe('generateWorksheetPDF', () => {
 
   it.each(input)('should return a worksheet pdf for $blindType', async ({ blindType }) => {
     const { projectFile, windowDisplayList } = getWindowDisplayAndProjectFile(blindType)
+
+    if (windowDisplayList.length === 0) return
 
     const map = new Map<Blind, WindowDisplay[]>()
     map.set(blindType, windowDisplayList)

@@ -54,6 +54,6 @@ function getCombSize(blindType: Blind) {
     case 'Kinetics 20mm Cellular Blind':
       return '20'
     default:
-      throw new Error(`${blindType} does not have a comb size`)
+      throw new Error(`${blindType} is not a valid option`)
   }
 }

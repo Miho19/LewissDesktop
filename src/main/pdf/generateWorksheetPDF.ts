@@ -1,4 +1,6 @@
 import { getKineticsCellularPDFContentAsync } from '@main/pdf/kinetics/kineticsCellular'
+import { getKineticsMikronwoodPDFContentAsync } from '@main/pdf/kinetics/kineticsMikronwood'
+import { getKineticsRollerPDFContentAsync } from '@main/pdf/kinetics/kineticsRoller'
 import { getDeliverToText } from '@main/pdf/shared'
 import { Blind } from '@shared/types/blind/blind.types'
 import { CreateWorksheetPDFFn } from '@shared/types/pdf.types'
@@ -56,6 +58,34 @@ function getProductTitle(blindType: Blind) {
       return 'cellular-blind-10'
     case 'Kinetics 20mm Cellular Blind':
       return 'cellular-blind-20'
+    case 'Kinetics Blockout Roller Blind':
+      return 'blockout-roller'
+    case 'Kinetics Light Filtering Roller Blind':
+      return 'light-filtering-roller'
+    case 'Kinetics Sunscreen Roller Blind':
+      return 'sunscreen-roller'
+    case 'Kinetics Mikronwood 50mm Venetian':
+      return 'mikronwood-50'
+    case "Lewis's 25mm Aluminium Venetian":
+      return 'aluminium-25'
+    case "Lewis's 50mm Aluminium Venetian":
+      return 'aluminium-50'
+    case "Lewis's 50mm Fauxwood Venetian":
+      return 'fauxwood-50'
+    case "Lewis's 63mm Fauxwood Venetian":
+      return 'fauxwood-63'
+    case "Lewis's 50mm Phoenixwood Venetian":
+      return 'phoenixwood-50'
+    case "Lewis's 63mm Phoenixwood Venetian":
+      return 'phoenixwood-63'
+    case 'Santa Fe Normandy Shutter':
+      return 'normandy-shutter'
+    case 'Santa Fe Waterproof Woodlore Plus Shutter':
+      return 'waterproof-woodlore-plus-shutter'
+    case 'Santa Fe Woodlore Plus Shutter':
+      return 'woodlore-plus-shutter'
+    case 'Santa Fe Woodlore Shutter':
+      return 'woodlore-shutter'
     default:
       throw new Error(`${blindType} does not have a product title`)
   }
@@ -74,18 +104,10 @@ function getAuthor(worksheet: Worksheet) {
 const blindTypeMappedToCreateWorksheetPDFFunction: Record<Blind, CreateWorksheetPDFFn> = {
   'Kinetics 10mm Cellular Blind': getKineticsCellularPDFContentAsync,
   'Kinetics 20mm Cellular Blind': getKineticsCellularPDFContentAsync,
-  'Kinetics Sunscreen Roller Blind': function (worksheet: Worksheet): Promise<Content[]> {
-    throw new Error('Function not implemented.')
-  },
-  'Kinetics Blockout Roller Blind': function (worksheet: Worksheet): Promise<Content[]> {
-    throw new Error('Function not implemented.')
-  },
-  'Kinetics Light Filtering Roller Blind': function (worksheet: Worksheet): Promise<Content[]> {
-    throw new Error('Function not implemented.')
-  },
-  "Lewis's 25mm Aluminium Venetian": function (worksheet: Worksheet): Promise<Content[]> {
-    throw new Error('Function not implemented.')
-  },
+  'Kinetics Sunscreen Roller Blind': getKineticsRollerPDFContentAsync,
+  'Kinetics Blockout Roller Blind': getKineticsRollerPDFContentAsync,
+  'Kinetics Light Filtering Roller Blind': getKineticsRollerPDFContentAsync,
+  "Lewis's 25mm Aluminium Venetian": getKineticsMikronwoodPDFContentAsync,
   "Lewis's 50mm Aluminium Venetian": function (worksheet: Worksheet): Promise<Content[]> {
     throw new Error('Function not implemented.')
   },

@@ -8,7 +8,7 @@ import { Blind } from '@shared/types/blind/blind.types'
 import { Worksheet } from '@shared/types/worksheet/Worksheet.types'
 import { Content } from 'pdfmake'
 
-export async function getKineticsRollerPDFContentAsync(worksheet: Worksheet) {
+export async function getKineticsMikronwoodPDFContentAsync(worksheet: Worksheet) {
   const content: Content[] = []
 
   const { blindType, customer, tableEntryList, worksheetCost } = worksheet
@@ -49,13 +49,9 @@ function getTitleString(blindType: Blind, blindNumber: number) {
 
 function getBlindTypeTitle(blindType: Blind) {
   switch (blindType) {
-    case 'Kinetics Sunscreen Roller Blind':
-      return 'sunscreen-roller'
-    case 'Kinetics Blockout Roller Blind':
-      return 'blockout-roller'
-    case 'Kinetics Light Filtering Roller Blind':
-      return 'light-filtering-roller'
+    case 'Kinetics Mikronwood 50mm Venetian':
+      return 'mikronwood 50mm'
     default:
-      throw new Error(`${blindType} is not a valid option`)
+      throw new Error(`${blindType} incorrect blind type`)
   }
 }

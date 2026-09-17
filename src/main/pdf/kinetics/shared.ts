@@ -2,6 +2,7 @@ import { Column, ContentImage } from 'pdfmake/interfaces'
 
 import windowWareLogo from '../../../resources/Windoware-Logo-1.png?asset'
 
+// we are going to eventually make this a shared function for all create content because it is the same thing repeated with the only change being title
 export async function createWindowWareHeader() {
   const windowWareLogoAsBase64: string = await getImageAsBase64Async(windowWareLogo)
 
