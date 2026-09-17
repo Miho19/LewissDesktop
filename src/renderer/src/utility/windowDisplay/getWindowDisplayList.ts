@@ -32,6 +32,8 @@ export function getWindowDisplayList(file: ProjectFile) {
 // we need to return the windows out --> this is two for standard inside / outside single and butting
 // for dual we need to return 4 blinds
 
+// want to create a result return type --> windowdisplay[] and an array of errors to display to the user
+
 export function getWindowDisplay(
   roomId: string,
   window: WindowMeasurement,
@@ -53,6 +55,20 @@ export function getWindowDisplay(
   return filtered
 }
 
+/**
+ *
+ * @param roomId
+ * @param windowId
+ * @param fit
+ * @param window
+ * @param treatment
+ * @returns
+ *
+ *
+ * If the room has a inside or outside spec that is dual but the current window is a single
+ * it will inspect the spec and retrieve from the dual spec either front if inside or rear if outside for the spec
+ *
+ */
 function createWindowDisplay(
   roomId: string,
   windowId: string,
@@ -63,17 +79,25 @@ function createWindowDisplay(
   const widthArray = getWindowWidth(window, fit) ?? [0]
   const height = getWindowHeight(window, fit) ?? 0
 
-  const blindCount =
-    getBlindCountDisplay(fit === 'inside' ? window.blindCount : window.outsideBlindCount) ??
-    'single'
+  const blindCount = getBlindCountDisplay(
+    fit === 'inside' ? window.blindCount : window.outsideBlindCount
+  )
+
+  if (typeof blindCount === 'undefined')
+    throw new Error(`${roomId} ${windowId} ${fit} incorrect blind count`)
 
   const layer = fit === 'inside' ? treatment.insideLayer : treatment.outsideLayer
   if (layer == null) {
     return []
   }
 
-  const { spec } = layer
-  if (typeof spec === 'undefined') return []
+  let { spec } = layer
+  if (typeof spec === 'undefined') throw new Error(`${roomId} ${windowId} ${fit} spec is undefined`)
+
+  if (isSpecDual(spec) && blindCount !== 'dual') {
+    // console.log(`room ${roomId} window ${windowId} spec needs to be dual`)
+    spec = fit === 'inside' ? spec.front : spec.rear
+  }
 
   const windowDisplay: WindowDisplay = {
     windowId,
@@ -85,17 +109,17 @@ function createWindowDisplay(
     spec: spec
   }
 
-  if (blindCount === 'single' || blindCount === 'butting') return [windowDisplay]
+  if (blindCount !== 'dual') return [windowDisplay]
 
   if (!isSpecDual(spec)) {
     return []
-    // throw new Error(`room ${roomId} window ${windowId} spec needs to be dual`)
+    throw new Error(`${roomId} ${windowId} ${fit} spec needs to be dual`)
   }
 
   const { front, rear } = spec
 
-  const frontDisplay = { ...windowDisplay, spec: front }
-  const rearDisplay = { ...windowDisplay, spec: rear }
+  const frontDisplay: WindowDisplay = { ...windowDisplay, spec: front, fit: 'inside' }
+  const rearDisplay: WindowDisplay = { ...windowDisplay, spec: rear, fit: 'outside' }
 
   return [frontDisplay, rearDisplay]
 }

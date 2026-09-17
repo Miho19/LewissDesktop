@@ -44,6 +44,7 @@ function getWindowDisplayMap(windowDisplayList: WindowDisplay[]) {
     const blindType = getBlindTypeFromSpec(spec)
 
     if (typeof blindType === 'undefined') {
+      console.log(w)
       throw new Error('Blind type is incorrect')
     }
 

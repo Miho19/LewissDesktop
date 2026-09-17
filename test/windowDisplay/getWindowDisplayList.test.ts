@@ -4,10 +4,13 @@ import {
 } from '@/utility/windowDisplay/getWindowDisplayList'
 import { getExampleProjectFile } from '../utility'
 import { describe, it, expect } from 'vitest'
+import { Room } from '@shared/types/Project.types'
 
 describe('getWindowDisplayList', () => {
   it('should return a list of window display', () => {
     const projectFile = getExampleProjectFile()
+
+    projectFile.project.rooms = room
 
     const list = getWindowDisplayList(projectFile)
 
