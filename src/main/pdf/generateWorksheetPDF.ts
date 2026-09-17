@@ -1,8 +1,9 @@
-import { getKineticsCellularPDFContentAsync } from '@main/pdf/kineticsCellular'
+import { getKineticsCellularPDFContentAsync } from '@main/pdf/kinetics/kineticsCellular'
+import { getDeliverToText } from '@main/pdf/shared'
 import { Blind } from '@shared/types/blind/blind.types'
 import { CreateWorksheetPDFFn } from '@shared/types/pdf.types'
 import { Worksheet } from '@shared/types/worksheet/Worksheet.types'
-import { Content, TDocumentDefinitions } from 'pdfmake/interfaces'
+import { Content, TDocumentDefinitions, TDocumentInformation } from 'pdfmake/interfaces'
 
 export async function generateWorksheetPDF(worksheet: Worksheet) {
   const { blindType } = worksheet
@@ -12,12 +13,62 @@ export async function generateWorksheetPDF(worksheet: Worksheet) {
     throw new Error(`${blindType} does not have a pdf content creation function`)
 
   const content = await createContentFunction(worksheet)
+  const metaData = getDocumentMetaData(worksheet)
+
+  const deliverToText = getDeliverToText()
 
   const document: TDocumentDefinitions = {
-    content: content
+    content: content,
+    info: metaData,
+    pageOrientation: 'landscape',
+    footer: (currentPage, pageCount) => {
+      return { stack: [deliverToText, getPageNumberText(currentPage, pageCount)] }
+    }
   }
 
   return document
+}
+
+function getDocumentMetaData(worksheet: Worksheet) {
+  const meta: TDocumentInformation = {
+    title: getDocumentTitle(worksheet),
+    author: getAuthor(worksheet),
+    creator: 'lewiss-processing'
+  }
+
+  return meta
+}
+
+function getDocumentTitle(worksheet: Worksheet) {
+  const { blindType, customer } = worksheet
+  const { customerName, reference } = customer
+
+  const productTitle = getProductTitle(blindType)
+
+  const documentTitle = [customerName, reference, productTitle].join('-')
+
+  return documentTitle
+}
+
+function getProductTitle(blindType: Blind) {
+  switch (blindType) {
+    case 'Kinetics 10mm Cellular Blind':
+      return 'cellular-blind-10'
+    case 'Kinetics 20mm Cellular Blind':
+      return 'cellular-blind-20'
+    default:
+      throw new Error(`${blindType} does not have a product title`)
+  }
+}
+
+function getAuthor(worksheet: Worksheet) {
+  const { customer } = worksheet
+  const { salesConsultant } = customer
+
+  const currentUser = process.env.USERNAME
+  if (currentUser == null || currentUser.length === 0) return salesConsultant
+
+  return currentUser
 }
 
 const blindTypeMappedToCreateWorksheetPDFFunction: Record<Blind, CreateWorksheetPDFFn> = {
@@ -67,37 +118,14 @@ const blindTypeMappedToCreateWorksheetPDFFunction: Record<Blind, CreateWorksheet
   }
 }
 
-// export function createDocument(salesConsultant: string, title: string) {
-//   const metaData: TDocumentInformation = {
-//     title: title,
-//     author: salesConsultant,
-//     creator: "lewiss-processing",
-//   };
-
-//   const deliverToText = getDeliverToText();
-
-//   const document: TDocumentDefinitions = {
-//     content: [],
-//     info: metaData,
-//     pageOrientation: "landscape",
-//     footer: (currentPage, pageCount) => {
-//       return {
-//         stack: [deliverToText, getPageNumberText(currentPage, pageCount)],
-//       };
-//     },
-//   };
-
-//   return document;
-// }
-
-// function getPageNumberText(currentPage: number, pageCount: number): Content {
-//   if (pageCount === 1) return { text: "", margin: [0, 0, 0, 0] };
-//   return {
-//     text: `${currentPage}/${pageCount}`,
-//     alignment: "center",
-//     margin: [0, 5, 0, 5],
-//   };
-// }
+function getPageNumberText(currentPage: number, pageCount: number): Content {
+  if (pageCount === 1) return { text: '', margin: [0, 0, 0, 0] }
+  return {
+    text: `${currentPage}/${pageCount}`,
+    alignment: 'center',
+    margin: [0, 5, 0, 5]
+  }
+}
 
 // export async function openPDFDocumentAsync(document: TDocumentDefinitions) {
 //   const pdfDocument = await getPDFDocumentAsync(document);

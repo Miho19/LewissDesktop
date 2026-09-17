@@ -1,51 +1,366 @@
+import { TableEntry } from '@shared/types/tableEntry/TableEntry.types'
+import { Cost, Extra } from '@shared/types/worksheet/Cost.types'
+import { Customer } from '@shared/types/worksheet/Customer.types'
 import { Content } from 'pdfmake'
-import { ContentImage } from 'pdfmake/interfaces'
+import {
+  TableCellProperties,
+  ContentTable,
+  Column,
+  ContentStack,
+  ContentColumns
+} from 'pdfmake/interfaces'
 
-import windowWareLogo from '../../../resources/Windoware-Logo-1.png'
+// This file will eventually be redo
 
-export async function createWindowWareHeader() {
-  const windowWareLogoAsBase64: string = await getImageAsBase64Async(windowWareLogo)
+export function convertTableEntryToStringArray(tableEntry: TableEntry) {
+  return Object.keys(tableEntry).map((column) => {
+    const columnSplitCapitalised = column
+      .split(' ')
+      .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+    return columnSplitCapitalised.join(' ')
+  })
+}
 
-  const image: ContentImage = {
-    image: windowWareLogoAsBase64,
-    width: 100
+function createWidthArray(tableEntry: TableEntry, evenCellLength: boolean) {
+  return Object.keys(tableEntry).map((key) => {
+    if (evenCellLength) return '*'
+
+    if (key.localeCompare('fabric', undefined, { sensitivity: 'base' }) === 0) return '*'
+
+    if (key.localeCompare('colour', undefined, { sensitivity: 'base' }) === 0) return '*'
+
+    return 'auto'
+  })
+}
+
+export function generateTableHeader(tableEntry: TableEntry, centerOnPage: boolean) {
+  const columnStringArray = convertTableEntryToStringArray(tableEntry)
+
+  const tableHeaderArray: Content[] = columnStringArray.map((column) => {
+    return {
+      text: column,
+      alignment: 'center',
+      verticalAlignment: 'middle',
+      fontSize: 8,
+      bold: true
+    }
+  })
+
+  if (centerOnPage) {
+    tableHeaderArray.unshift(emptyTableContent)
+    tableHeaderArray.push(emptyTableContent)
   }
+
+  return tableHeaderArray
+}
+
+const emptyTableContent: Content & TableCellProperties = {
+  text: '',
+  border: [false, false, false, false]
+}
+
+type CreateTableOptions = {
+  centerOnPage?: boolean
+  evenCellLength?: boolean
+}
+
+const defaultCreateTableOptions: Required<CreateTableOptions> = {
+  centerOnPage: false,
+  evenCellLength: false
+}
+
+export function createTable(
+  tableEntryList: TableEntry[],
+  options: CreateTableOptions = {}
+): ContentTable {
+  const { centerOnPage, evenCellLength } = {
+    ...defaultCreateTableOptions,
+    ...options
+  }
+
+  const tableHeaderArray: Content[] = generateTableHeader(tableEntryList[0], centerOnPage)
+
+  const widthArray = createWidthArray(tableEntryList[0], evenCellLength)
+
+  if (centerOnPage) {
+    widthArray.unshift('*')
+    widthArray.push('*')
+  }
+
+  const table: ContentTable = {
+    table: {
+      headerRows: 1,
+      widths: widthArray,
+      body: [tableHeaderArray]
+    },
+    layout: {
+      paddingBottom: () => {
+        return 5
+      },
+
+      paddingTop: () => {
+        return 5
+      },
+
+      hLineWidth: () => {
+        return 1
+      },
+
+      vLineWidth: () => {
+        return 1
+      }
+    },
+    marginBottom: 14
+  }
+
+  const tableEntries = createBlindTableTextData(tableEntryList)
+
+  if (centerOnPage) {
+    for (const entry of tableEntries) {
+      entry.unshift(emptyTableContent)
+      entry.push(emptyTableContent)
+    }
+  }
+
+  table.table.body.push(...tableEntries)
+
+  return table
+}
+
+export function createBlindTableTextData(tableEntryList: TableEntry[]): Content[][] {
+  const entries: Content[][] = tableEntryList.map((entry) => {
+    return Object.values(entry).map((value) => {
+      let adjustedValue: string | number
+
+      try {
+        const parsedInt = parseInt(value as string)
+        if (parsedInt === 0) {
+          adjustedValue = ' '
+        } else {
+          adjustedValue = value
+        }
+      } catch {
+        adjustedValue = value
+      }
+
+      return {
+        text: adjustedValue,
+        alignment: 'center',
+        verticalAlignment: 'middle',
+        fontSize: 8
+      }
+    })
+  })
+
+  return entries
+}
+
+function createColumn(leftContent: Content, rightContent: Content) {
+  return {
+    columns: [leftContent, { text: ' ', width: 'auto' }, rightContent],
+    columnGap: 10
+  }
+}
+
+export function createBlindSubTotalCostColumn(worksheetCost: Cost): Content {
+  const blindSubtotalText: Column = {
+    text: 'Blind Subtotal',
+    width: 'auto',
+    alignment: 'left',
+    noWrap: true,
+    marginBottom: 5
+  }
+
+  const blindSubtotalCost = worksheetCost.blindTotal
+
+  const costText: Column = {
+    text: blindSubtotalCost.toFixed(2),
+    width: '*',
+    alignment: 'right',
+    noWrap: true,
+    marginBottom: 5
+  }
+
+  return createColumn(blindSubtotalText, costText)
+}
+
+export function createGSTCostColumn(worksheetCost: Cost): Content {
+  const GSTText: Column = {
+    text: 'GST',
+    width: 'auto',
+    alignment: 'left',
+    noWrap: true
+  }
+
+  const GST = worksheetCost.gst
+
+  const costText: Column = {
+    text: GST.toFixed(2),
+    width: '*',
+    alignment: 'right',
+    noWrap: true
+  }
+
+  return createColumn(GSTText, costText)
+}
+
+export function createTotalCostColumn(worksheetCost: Cost): Content {
+  const totalText: Column = {
+    text: 'Total (Inc. GST)',
+    width: 'auto',
+    alignment: 'left',
+    noWrap: true,
+    bold: true
+  }
+
+  const total = worksheetCost.total
+
+  const costText: Column = {
+    text: total.toFixed(2),
+    width: '*',
+    alignment: 'right',
+    noWrap: true,
+    bold: true
+  }
+
+  return createColumn(totalText, costText)
+}
+
+function getAdditionalProductNameStack(extraList: Extra[]): ContentStack {
+  const names: Content = extraList.map((p) => ({
+    text: `${p.name} x ${p.quantity}`,
+    alignment: 'left',
+    width: 'auto',
+    noWrap: true,
+    marginBottom: 5
+  }))
+
+  return { stack: [...names] }
+}
+
+function getAdditionalProductCostStack(extraList: Extra[]): ContentStack {
+  const costs: Content = extraList.map((p) => ({
+    text: `${(p.cost * p.quantity).toFixed(2)}`,
+    alignment: 'right',
+    width: '*',
+    noWrap: true,
+    marginBottom: 5
+  }))
+
+  return { stack: [...costs] }
+}
+
+export function createAdditionalProductCostColumn(worksheetCost: Cost): Content {
+  const extraList = worksheetCost.extra
+
+  const additionalProductNameStack = getAdditionalProductNameStack(extraList)
+
+  const additionalProductCostStack = getAdditionalProductCostStack(extraList)
+
+  return createColumn(additionalProductNameStack, additionalProductCostStack)
+}
+
+export function createCustomerInformationColumn(customerInformation: Customer): ContentColumns {
+  const { customerName, reference, salesConsultant } = customerInformation
+
+  const leftStack1: ContentStack = {
+    stack: [{ text: 'Client', marginBottom: 4 }, { text: 'Reference' }]
+  }
+
+  const leftStack2: ContentStack = {
+    stack: [{ text: customerName, marginBottom: 4 }, { text: reference }]
+  }
+
+  const leftColumn: Column[] = [
+    { width: 'auto', ...leftStack1 },
+    { width: 'auto', ...leftStack2 }
+  ]
+
+  const rightStack1: ContentStack = {
+    stack: [{ text: 'Date', marginBottom: 4 }, { text: 'Consultant' }]
+  }
+
+  const rightStack2: ContentStack = {
+    stack: [
+      {
+        text: new Date().toLocaleDateString(),
+        marginBottom: 4,
+        alignment: 'right'
+      },
+      { text: salesConsultant, alignment: 'right' }
+    ]
+  }
+
+  const rightColumn: Column[] = [
+    { width: 'auto', ...rightStack1 },
+    { width: 'auto', ...rightStack2 }
+  ]
+
+  const customerInformationColumn: Column[] = [
+    { width: 'auto', columns: [...leftColumn], columnGap: 24 },
+    { width: '*', text: ' ' },
+    { width: 'auto', columns: [...rightColumn], columnGap: 24 }
+  ]
+
+  const content: Content = {
+    columns: customerInformationColumn,
+    marginBottom: 14
+  }
+
+  return content
+}
+
+export function createHorizontalLine(): Content {
+  const table: Content = {
+    table: {
+      widths: ['*'],
+      body: [['']]
+    },
+    layout: {
+      hLineWidth: (index) => (index === 1 ? 1 : 0),
+      hLineColor: () => '#cccccc',
+      vLineWidth: () => 0
+    },
+    margin: [0, 0, 0, 10]
+  }
+
+  return table
+}
+
+export function createCostTotalColumn(worksheetCost: Cost): Column[] {
+  const blindSubtotalColumn = createBlindSubTotalCostColumn(worksheetCost)
+
+  const additionalProductColumn = createAdditionalProductCostColumn(worksheetCost)
+
+  const gstCostColumn = createGSTCostColumn(worksheetCost)
+
+  const totalCostColumn = createTotalCostColumn(worksheetCost)
+
+  const stack: Content[] = [
+    blindSubtotalColumn,
+    additionalProductColumn,
+    gstCostColumn,
+    createHorizontalLine(),
+    totalCostColumn
+  ]
 
   const content: Content[] = [
     {
-      columns: [{ width: '*', text: ' ' }, image]
+      columns: [
+        { width: '*', text: ' ' },
+        { width: 'auto', stack: stack }
+      ],
+      unbreakable: true
     }
   ]
 
   return content
 }
 
-async function getImageAsBase64Async(path: string): Promise<string> {
-  try {
-    const fileBlob = await fetchFileBlobAsync(path)
-
-    return await convertFileToBase64(fileBlob)
-  } catch (error) {
-    throw new Error('Failed to fetch image as base64', { cause: error })
+export function getDeliverToText(): Content {
+  return {
+    text: "Please deliver to Lewis's Home Fabrics Ltd, Warehouse 2, 25 Centennial Highway, Ngauranga, Wellington 6035",
+    alignment: 'center',
+    margin: [0, 10, 0, 10]
   }
-}
-
-async function fetchFileBlobAsync(path: string) {
-  const response: Response = await fetch(path)
-  return await response.blob()
-}
-
-function convertFileToBase64(fileBlob: Blob): Promise<string> {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader()
-    reader.onloadend = () => {
-      const result = reader.result
-      if (typeof result === 'string') {
-        resolve(result)
-      } else {
-        reject('Failed to read file into base64')
-      }
-    }
-    reader.readAsDataURL(fileBlob)
-  })
 }
