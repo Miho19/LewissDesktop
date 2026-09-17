@@ -6,7 +6,10 @@ export type LewissAccessorySchedule = {
   spacerBlock: Base
   valance: Base
   cutOut: Base
+  keyStone: Base
+  twoOnOne: Base
   palladianShelf: PalladianShelf
+  phoenixwoodColourCost: PhoenixwoodColourCost
 }
 
 type Base = {
@@ -16,6 +19,11 @@ type Base = {
 }
 
 type PalladianShelf = Base & {
+  colour: Base[]
+}
+
+type PhoenixwoodColourCost = {
+  count: Base[]
   colour: Base[]
 }
 

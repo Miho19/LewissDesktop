@@ -100,6 +100,7 @@ function getSidebarNavigationComponent(consultantName: string, folderId: string)
 
 function errorToast(error: Error) {
   toast.error('Error', {
+    id: 'consultant-error-toast',
     description: (
       <>
         <p>{error.name}</p>

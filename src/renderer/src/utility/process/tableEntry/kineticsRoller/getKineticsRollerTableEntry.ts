@@ -35,7 +35,7 @@ export async function getKineticsRollerTableEntryAsync(
   const fabricName = fabric.name
 
   const control = getKineticsRollerControl(spec)
-  const controlLength = windowMeasurement.controlLength
+  const controlLength = windowMeasurement.controlLength || '1000'
 
   const controlString = control.toLocaleLowerCase().includes('chain')
     ? `${control} ${controlLength}mm`
@@ -65,8 +65,7 @@ export async function getKineticsRollerTableEntryAsync(
     pelmetType ?? ''
   )
 
-  if (typeof leftBlindCost === 'undefined')
-    throw new Error(`${blindType} failed to get cost of blind`)
+  if (typeof leftBlindCost === 'undefined') throw new Error(`failed to get cost of blind`)
 
   const leftEntry: KineticsRollerTableEntry = {
     index,

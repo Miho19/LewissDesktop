@@ -26,6 +26,7 @@ export async function getKineticsRollerCostAsync(
   if (typeof dimensionCost === 'undefined') return undefined
 
   const controlCost = getKineticsRollerControlCost(control, controlLength, pricingSchedule)
+
   if (typeof controlCost === 'undefined') return undefined
 
   const bottomRailCost = getKineticsRollerBottomRailCost(

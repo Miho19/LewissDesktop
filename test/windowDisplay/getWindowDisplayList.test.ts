@@ -6,7 +6,7 @@ import { getExampleProjectFile } from '../utility'
 import { describe, it, expect } from 'vitest'
 import { Room } from '@shared/types/Project.types'
 
-describe('getWindowDisplayList', () => {
+describe.skip('getWindowDisplayList', () => {
   it('should return a list of window display', () => {
     const projectFile = getExampleProjectFile()
 

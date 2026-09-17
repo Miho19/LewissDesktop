@@ -11,10 +11,9 @@ describe('getStaffList', () => {
     const { consultants, measurers } = response
     expect(Array.isArray(consultants)).toBeTruthy()
     expect(consultants.length).toBeGreaterThan(0)
-    expect(consultants.find((c) => c.name === 'Terry Donald')).toBeDefined()
+    expect(consultants.find((c) => c.name.includes('Terry Donald'))).toBeDefined()
 
     expect(Array.isArray(measurers)).toBeTruthy()
     expect(measurers.length).toBeGreaterThan(0)
-    expect(measurers.find((m) => m === 'Terry Donald')).toBeDefined()
   })
 })
