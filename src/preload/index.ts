@@ -8,7 +8,8 @@ const api: Api = {
   getFolder: (folderId) => ipcRenderer.invoke('get-folder', folderId),
   getProjectFile: (fileId) => ipcRenderer.invoke('get-project-file', fileId),
   getPricingSchedule: (blindType) => ipcRenderer.invoke('get-pricing-schedule', blindType),
-  getAccessorySchedule: (blindType) => ipcRenderer.invoke('get-accessory-schedule', blindType)
+  getAccessorySchedule: (blindType) => ipcRenderer.invoke('get-accessory-schedule', blindType),
+  createWorksheetPDF: (worksheet) => ipcRenderer.invoke('create-worksheet-pdf', worksheet)
 }
 
 // Use `contextBridge` APIs to expose Electron APIs to

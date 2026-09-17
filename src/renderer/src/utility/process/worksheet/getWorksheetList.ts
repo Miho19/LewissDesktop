@@ -17,7 +17,7 @@ export async function getWorksheetListAsync(
     const map = getWindowDisplayMap(windowDisplayList)
     if (map.size === 0) throw new Error('Failed to map window display list')
 
-    const [fulfilled, rejected] = await createWorksheetAsync(map, file)
+    const [fulfilled, rejected] = await createWorksheetListAsync(map, file)
 
     return { worksheetList: fulfilled, rejectedReasons: rejected }
   } catch (error) {
@@ -59,14 +59,14 @@ function getWindowDisplayMap(windowDisplayList: WindowDisplay[]) {
   return map
 }
 
-async function createWorksheetAsync(map: Map<Blind, WindowDisplay[]>, file: ProjectFile) {
+async function createWorksheetListAsync(map: Map<Blind, WindowDisplay[]>, file: ProjectFile) {
   const entries = Array.from(map.entries())
 
   const jobList = entries.map(async ([key, value]) => {
     try {
       if (value.length === 0) return undefined
 
-      return await create(key, value, file)
+      return await createWorksheetAsync(key, value, file)
     } catch (error) {
       const newError = new Error()
       newError.name = `${key}`
@@ -88,7 +88,11 @@ async function createWorksheetAsync(map: Map<Blind, WindowDisplay[]>, file: Proj
   return [fulfilled, rejected]
 }
 
-async function create(blindType: Blind, windowDisplayList: WindowDisplay[], file: ProjectFile) {
+export async function createWorksheetAsync(
+  blindType: Blind,
+  windowDisplayList: WindowDisplay[],
+  file: ProjectFile
+) {
   const customer: Customer = {
     customerName: file.name,
     reference: file.reference,

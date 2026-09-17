@@ -8,6 +8,9 @@ import GETProjectfile from './http/GETProjectFile'
 import type { Blind } from '@shared/types/blind/blind.types'
 import { GETPricingSchedule } from './http/GETPricingSchedule'
 import { GETAccessorySchedule } from './http/GETAccessorySchedule'
+import { Worksheet } from '@shared/types/worksheet/Worksheet.types'
+import { generateWorksheetPDF } from '@main/pdf/generateWorksheetPDF'
+import { PDFResponse } from '@shared/types/pdf.types'
 
 function createWindow(): void {
   // Create the browser window.
@@ -130,5 +133,15 @@ ipcMain.handle('get-accessory-schedule', async (_event, blindType: Blind) => {
   } catch (error) {
     if (error instanceof Error && log) console.error(error.message)
     throw new Error('failed to fetch accessory schedule', { cause: error })
+  }
+})
+
+ipcMain.handle('create-worksheet-pdf', async (_event, worksheet: Worksheet) => {
+  try {
+    const response = await generateWorksheetPDF(worksheet)
+    return { status: 'success', pdf: response }
+  } catch (error) {
+    if (error instanceof Error && log) console.error(error.message)
+    return { status: 'failure', error: [error as Error] }
   }
 })
