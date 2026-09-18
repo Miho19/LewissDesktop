@@ -47,6 +47,7 @@ function ProjectForm(props: Props) {
 
       for (const w of kineticsOnly) {
         const pdfDocument = await createWorksheetPDF(w)
+        if (pdfDocument.status === 'failure') continue
         await openWorksheetPDF(pdfDocument)
       }
 
