@@ -11,6 +11,7 @@ import { Spinner } from '@/components/ui/spinner'
 import { toast } from 'sonner'
 import { getWorksheetListAsync } from '@renderer/utility/process/worksheet/getWorksheetList'
 import { createWorksheetPDF } from '@/utility/process/pdf/createWorksheetPDF'
+import { openWorksheetPDF } from '@/utility/process/pdf/openWorksheetPDF'
 
 type Props = {
   file: ProjectFile
@@ -44,7 +45,10 @@ function ProjectForm(props: Props) {
       // test
       const kineticsOnly = worksheetList.filter((w) => w.blindType.includes('Kinetics'))
 
-      const pdfDocument = await createWorksheetPDF(kineticsOnly[0])
+      for (const w of kineticsOnly) {
+        const pdfDocument = await createWorksheetPDF(w)
+        await openWorksheetPDF(pdfDocument)
+      }
 
       return
     } catch (error) {

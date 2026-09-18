@@ -15,8 +15,3 @@ export async function createPDFDocumentAsync(document: TDocumentDefinitions) {
 
   return pdfmake.createPdf(document)
 }
-
-// export async function openPDFDocumentAsync(document: TDocumentDefinitions) {
-//   const pdfDocument = await createPDFDocumentAsync(document)
-//   pdfDocument.open()
-// }

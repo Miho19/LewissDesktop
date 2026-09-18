@@ -17,6 +17,7 @@ export interface Api {
   getPricingSchedule: (blindType: Blind) => Promise<PricingSchedule>
   getAccessorySchedule: (blindType: Blind) => Promise<AccessorySchedule>
   createWorksheetPDF: (worksheet: Worksheet) => Promise<PDFResponse>
+  openPDF: (pdfBase64: string) => Promise<void>
 }
 
 declare global {

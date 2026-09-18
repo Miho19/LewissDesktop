@@ -6,10 +6,8 @@ import { getDeliverToText } from '@main/pdf/shared'
 import { Blind } from '@shared/types/blind/blind.types'
 import { CreateWorksheetPDFFn } from '@shared/types/pdf.types'
 import { Worksheet } from '@shared/types/worksheet/Worksheet.types'
-import { app, shell } from 'electron'
-import path from 'path'
+
 import { Content, TDocumentDefinitions, TDocumentInformation } from 'pdfmake/interfaces'
-import fs from 'node:fs/promises'
 
 export async function generateWorksheetPDF(worksheet: Worksheet) {
   const { blindType } = worksheet
@@ -36,22 +34,7 @@ export async function generateWorksheetPDF(worksheet: Worksheet) {
   const pdfDoc = await createPDFDocumentAsync(document)
   const base64 = await pdfDoc.getBase64()
 
-  await createPDFWindow(base64)
-
   return base64
-}
-
-async function createPDFWindow(pdf: string) {
-  // write to disk
-
-  try {
-    const tempFile = path.join(app.getPath('temp'), `pdf_${Date.now()}.pdf`)
-    await fs.writeFile(tempFile, pdf, 'base64')
-
-    await shell.openPath(tempFile)
-  } catch (error) {
-    throw new Error('pdf failed', { cause: error })
-  }
 }
 
 function getDocumentMetaData(worksheet: Worksheet) {

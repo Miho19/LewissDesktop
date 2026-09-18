@@ -1,5 +1,5 @@
 import { app, shell, BrowserWindow, ipcMain } from 'electron'
-import { join } from 'path'
+import path, { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
 import { GETStaff } from './http/GETStaff'
@@ -10,6 +10,7 @@ import { GETPricingSchedule } from './http/GETPricingSchedule'
 import { GETAccessorySchedule } from './http/GETAccessorySchedule'
 import { Worksheet } from '@shared/types/worksheet/Worksheet.types'
 import { generateWorksheetPDF } from '@main/pdf/generateWorksheetPDF'
+import fs from 'node:fs/promises'
 
 function createWindow(): void {
   // Create the browser window.
@@ -142,5 +143,15 @@ ipcMain.handle('create-worksheet-pdf', async (_event, worksheet: Worksheet) => {
   } catch (error) {
     if (error instanceof Error && log) console.error(error)
     return { status: 'failure', error: [error as Error] }
+  }
+})
+
+ipcMain.handle('open-base64-pdf', async (_event, pdfBase64: string) => {
+  try {
+    const tempFile = path.join(app.getPath('temp'), `pdf_${Date.now()}.pdf`)
+    await fs.writeFile(tempFile, pdfBase64, 'base64')
+    await shell.openPath(tempFile)
+  } catch (error) {
+    if (error instanceof Error && log) console.error(error)
   }
 })
