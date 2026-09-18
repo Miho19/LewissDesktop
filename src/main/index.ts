@@ -10,7 +10,6 @@ import { GETPricingSchedule } from './http/GETPricingSchedule'
 import { GETAccessorySchedule } from './http/GETAccessorySchedule'
 import { Worksheet } from '@shared/types/worksheet/Worksheet.types'
 import { generateWorksheetPDF } from '@main/pdf/generateWorksheetPDF'
-import { PDFResponse } from '@shared/types/pdf.types'
 
 function createWindow(): void {
   // Create the browser window.
@@ -84,7 +83,7 @@ app.on('window-all-closed', () => {
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
 
-const log = false
+const log = true
 
 ipcMain.handle('get-staff-list', async () => {
   try {
@@ -141,7 +140,7 @@ ipcMain.handle('create-worksheet-pdf', async (_event, worksheet: Worksheet) => {
     const response = await generateWorksheetPDF(worksheet)
     return { status: 'success', pdf: response }
   } catch (error) {
-    if (error instanceof Error && log) console.error(error.message)
+    if (error instanceof Error && log) console.error(error)
     return { status: 'failure', error: [error as Error] }
   }
 })

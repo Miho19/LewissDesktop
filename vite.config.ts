@@ -4,18 +4,20 @@ import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 import { tanstackRouter } from '@tanstack/router-plugin/vite'
 
+const sharedResolve = {
+  alias: {
+    '@': resolve(__dirname, 'src/renderer/src'),
+    '@main': resolve(__dirname, './src/main'),
+    '@renderer': resolve(__dirname, './src/renderer/src'),
+    '@shared': resolve(__dirname, './src/shared')
+  }
+}
+
 export default defineConfig({
-  main: {},
+  main: { resolve: sharedResolve },
   preload: {},
   renderer: {
-    resolve: {
-      alias: {
-        '@': resolve(__dirname, 'src/renderer/src'),
-        '@main': resolve(__dirname, 'src/main'),
-        '@renderer': resolve(__dirname, './src/renderer/src'),
-        '@shared': resolve(__dirname, './src/shared')
-      }
-    },
+    resolve: sharedResolve,
     plugins: [
       tanstackRouter({
         target: 'react',

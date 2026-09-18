@@ -7,15 +7,16 @@
     "./src/preload/*.d.ts",
     "./test/**/*",
     "./src/**/*.ts",
-    "./src/shared/types/env.d.ts"
+    "./src/shared/types/env.d.ts",
+    "./src/main/**/*.ts"
   ],
   "compilerOptions": {
     "composite": true,
     "baseUrl": "./",
     "jsx": "react-jsx",
     "paths": {
-      "@/*": ["./src/renderer/src/*"],
       "@main/*": ["./src/main/*"],
+      "@/*": ["./src/renderer/src/*"],
       "@renderer/*": ["./src/renderer/src/*"],
       "@shared/*": ["./src/shared/*"],
     }

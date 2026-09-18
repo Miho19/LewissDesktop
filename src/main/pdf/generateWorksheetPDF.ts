@@ -1,6 +1,7 @@
 import { getKineticsCellularPDFContentAsync } from '@main/pdf/kinetics/kineticsCellular'
 import { getKineticsMikronwoodPDFContentAsync } from '@main/pdf/kinetics/kineticsMikronwood'
 import { getKineticsRollerPDFContentAsync } from '@main/pdf/kinetics/kineticsRoller'
+import { createPDFDocumentAsync } from '@main/pdf/pdfMake'
 import { getDeliverToText } from '@main/pdf/shared'
 import { Blind } from '@shared/types/blind/blind.types'
 import { CreateWorksheetPDFFn } from '@shared/types/pdf.types'
@@ -28,7 +29,13 @@ export async function generateWorksheetPDF(worksheet: Worksheet) {
     }
   }
 
-  return document
+  const pdfDoc = await createPDFDocumentAsync(document)
+  pdfDoc.open()
+
+  const base64 = await pdfDoc.getBase64()
+  const dataUrl = `data:application/pdf;base64,${base64}`
+
+  return dataUrl
 }
 
 function getDocumentMetaData(worksheet: Worksheet) {
@@ -148,17 +155,3 @@ function getPageNumberText(currentPage: number, pageCount: number): Content {
     margin: [0, 5, 0, 5]
   }
 }
-
-// export async function openPDFDocumentAsync(document: TDocumentDefinitions) {
-//   const pdfDocument = await getPDFDocumentAsync(document);
-//   pdfDocument.open();
-// }
-
-// export async function getPDFDocumentAsync(document: TDocumentDefinitions) {
-//   const pdfmake = (await import("pdfmake/build/pdfmake")).default;
-//   const pdfFonts = (await import("pdfmake/build/vfs_fonts")).default;
-
-//   pdfmake.addVirtualFileSystem(pdfFonts);
-
-//   return pdfmake.createPdf(document);
-// }

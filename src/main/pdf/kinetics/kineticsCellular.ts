@@ -14,6 +14,7 @@ export async function getKineticsCellularPDFContentAsync(worksheet: Worksheet) {
   const { blindType, customer, tableEntryList, worksheetCost } = worksheet
 
   if (tableEntryList.length === 0) throw new Error(`Table Entry List is empty`)
+
   const header = await createWindowWareHeader()
   content.push(header)
 

@@ -1,9 +1,9 @@
 import { Worksheet } from '@shared/types/worksheet/Worksheet.types'
-import { Content, TDocumentDefinitions } from 'pdfmake/interfaces'
+import { Content } from 'pdfmake/interfaces'
 
 type Success = {
   status: 'success'
-  pdf: TDocumentDefinitions
+  pdf: string
 }
 
 type Failure = {
