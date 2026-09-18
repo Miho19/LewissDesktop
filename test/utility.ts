@@ -93,11 +93,6 @@ export function getExampleAccessorySchedule(blindType: Blind): AccessorySchedule
     case "Lewis's 50mm Phoenixwood Venetian":
     case "Lewis's 63mm Phoenixwood Venetian":
       return venetianAccessorySchedule
-    // case 'Santa Fe Normandy Shutter':
-    // case 'Santa Fe Waterproof Woodlore Plus Shutter':
-    // case 'Santa Fe Woodlore Plus Shutter':
-    // case 'Santa Fe Woodlore Shutter':
-    //   return santaFeShutterPricingSchedule
     default:
       throw new Error(`${blindType} does not have a accessory schedule`)
   }
