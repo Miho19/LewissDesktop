@@ -45,6 +45,7 @@ export async function getTableEntryListAsync(
 
 function getCurrentTableEntryIndex(tableEntryList: TableEntry[]) {
   const currentMax = tableEntryList.reduce((max, curr) => (curr.index > max ? curr.index : max), -1)
+  if (currentMax <= 0) return 1
   return currentMax + 1
 }
 
