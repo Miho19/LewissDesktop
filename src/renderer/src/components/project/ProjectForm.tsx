@@ -45,14 +45,6 @@ function ProjectForm(props: Props) {
       const kineticsOnly = worksheetList.filter((w) => w.blindType.includes('Kinetics'))
 
       const pdfDocument = await createWorksheetPDF(kineticsOnly[0])
-      if (pdfDocument.status === 'failure') return
-
-      const newWindow = window.open()
-      if (!newWindow) return
-
-      newWindow.document.write(
-        `<iframe width="100%" height="100%" src="${pdfDocument}" style="border:none;"></iframe>`
-      )
 
       return
     } catch (error) {
