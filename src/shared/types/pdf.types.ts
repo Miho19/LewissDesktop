@@ -1,5 +1,5 @@
-import { Worksheet } from '@shared/types/worksheet/Worksheet.types'
-import { Content } from 'pdfmake/interfaces'
+import { Blind } from '@shared/types/blind/blind.types'
+import { ColumnProperties, ContentColumns, ContentText } from 'pdfmake/interfaces'
 
 type Success = {
   status: 'success'
@@ -13,4 +13,5 @@ type Failure = {
 
 export type PDFResponse = Success | Failure
 
-export type CreateWorksheetPDFFn = (worksheet: Worksheet) => Promise<Content[]>
+export type GetPDFTitleFn = (blindType: Blind, blindTotal: number) => ContentText
+export type GetLogoHeaderFn = (blindType: Blind) => Promise<ContentColumns & ColumnProperties>
