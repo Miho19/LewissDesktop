@@ -1,6 +1,7 @@
 import { WindowDisplay } from '@shared/types/WindowDisplay.types'
 import { createColumnHelper, rowSelectionFeature, tableFeatures } from '@tanstack/react-table'
 import { Checkbox } from '@/components/ui/checkbox'
+import { capitalise } from '@/utility/general/capitalise'
 
 export const windowTableFeatures = tableFeatures({
   rowSelectionFeature
@@ -19,20 +20,23 @@ export const windowTableColumns = columnHelper.columns([
     header: 'Window Name'
   }),
 
-  columnHelper.accessor('width', {
-    header: 'Width'
+  columnHelper.accessor((row) => row.width.join(', '), {
+    id: 'width',
+    header: 'Width (mm)'
   }),
 
   columnHelper.accessor('height', {
-    header: 'Height'
+    header: 'Height (mm)'
   }),
 
-  columnHelper.accessor('fit', {
+  columnHelper.accessor((row) => capitalise(row.fit), {
+    id: 'fit',
     header: 'Fit'
   }),
 
-  columnHelper.accessor('blindCount', {
-    header: 'Count'
+  columnHelper.accessor((row) => capitalise(row.blindCount), {
+    id: 'blindCount',
+    header: 'Window Type'
   }),
 
   columnHelper.display({

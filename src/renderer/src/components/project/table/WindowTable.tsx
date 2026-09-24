@@ -1,4 +1,5 @@
 import { WindowTableFeatures } from '@/components/project/table/windowTableUtility'
+import { ScrollArea } from '@/components/ui/scroll-area'
 import {
   Table,
   TableBody,
@@ -24,18 +25,20 @@ function WindowTable(props: Props) {
   const bodyList = getTableBody(table)
 
   return (
-    <Table>
-      <TableHeader>{headerList}</TableHeader>
-      <TableBody>{bodyList}</TableBody>
-      <TableFooter>
-        <TableRow>
-          <TableCell className="text-right" colSpan={table.getAllColumns().length}>
-            {table.getFilteredSelectedRowModel().rows.length} of{' '}
-            {table.getFilteredRowModel().rows.length} selected
-          </TableCell>
-        </TableRow>
-      </TableFooter>
-    </Table>
+    <ScrollArea className="h-[400px] w-full rounded-md border">
+      <Table>
+        <TableHeader className="sticky z-10 top-0 bg-background">{headerList}</TableHeader>
+        <TableBody>{bodyList}</TableBody>
+        <TableFooter>
+          <TableRow>
+            <TableCell className="text-right" colSpan={table.getAllColumns().length}>
+              {table.getFilteredSelectedRowModel().rows.length} of{' '}
+              {table.getFilteredRowModel().rows.length} selected
+            </TableCell>
+          </TableRow>
+        </TableFooter>
+      </Table>
+    </ScrollArea>
   )
 }
 

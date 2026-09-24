@@ -11,13 +11,13 @@ function Layout(props: Props) {
   const { children } = props
 
   return (
-    <SidebarProvider className="bg-background text-foreground font-sans">
+    <SidebarProvider>
       <AppSidebar />
-      <SidebarInset className="flex flex-col flex-1 bg-background">
+      <SidebarInset>
         <header className="flex h-16 shrink-0 items-center gap-2 border-b px-4">
           <SidebarTrigger />
         </header>
-        <main className="flex-1 p-6 overflow-auto">{children}</main>
+        <main className="flex-1 p-6">{children}</main>
         <Toaster
           position="bottom-right"
           visibleToasts={3}
