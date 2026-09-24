@@ -1,7 +1,8 @@
 import { ProjectFile } from '@shared/types/Project.types'
 import { Card } from '@/components/ui/card'
 import ProjectHeader from './ProjectHeader'
-import ProjectForm from './ProjectForm'
+import ProjectForm from './list/ProjectForm'
+import WindowTableForm from '@/components/project/table/WindowTableForm'
 
 type Props = {
   file: ProjectFile
@@ -18,7 +19,7 @@ function ProjectCard(props: Props) {
         pricingType={file.pricingType}
       />
 
-      <ProjectForm file={file} />
+      <WindowTableForm file={file} />
     </Card>
   )
 }

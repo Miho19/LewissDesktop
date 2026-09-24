@@ -11,7 +11,7 @@ function Layout(props: Props) {
   const { children } = props
 
   return (
-    <SidebarProvider className="dark bg-background text-foreground font-sans">
+    <SidebarProvider className="bg-background text-foreground font-sans">
       <AppSidebar />
       <SidebarInset className="flex flex-col flex-1 bg-background">
         <header className="flex h-16 shrink-0 items-center gap-2 border-b px-4">

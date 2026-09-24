@@ -10,6 +10,8 @@ export type BlindCount = (typeof BlindCountOption)[number]
 export type WindowDisplay = {
   windowId: string
   roomId: string
+  roomName: string
+  windowName: string
   fit: Fit
   blindCount: BlindCount
   width: number[]
