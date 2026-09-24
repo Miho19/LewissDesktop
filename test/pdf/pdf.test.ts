@@ -33,7 +33,8 @@ const input: { blindType: Blind }[] = [
   { blindType: 'Kinetics 20mm Cellular Blind' },
   { blindType: 'Kinetics Blockout Roller Blind' },
   { blindType: 'Kinetics Light Filtering Roller Blind' },
-  { blindType: 'Kinetics Sunscreen Roller Blind' }
+  { blindType: 'Kinetics Sunscreen Roller Blind' },
+  { blindType: 'Kinetics Mikronwood 50mm Venetian' }
 ]
 
 describe('generateWorksheetPDF', () => {

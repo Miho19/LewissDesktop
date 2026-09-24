@@ -42,10 +42,7 @@ function ProjectForm(props: Props) {
 
       errorMap = handleGetWorksheetListError(rejectedReasons, errorMap)
 
-      // test
-      const kineticsOnly = worksheetList.filter((w) => w.blindType.includes('Kinetics'))
-
-      for (const w of kineticsOnly) {
+      for (const w of worksheetList) {
         const pdfDocument = await createWorksheetPDF(w)
         if (pdfDocument.status === 'failure') continue
         await openWorksheetPDF(pdfDocument)
