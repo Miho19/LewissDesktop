@@ -17,12 +17,14 @@ export function getWindowDisplayList(file: ProjectFile) {
   const outputList: WindowDisplay[] = []
 
   for (var room of rooms) {
-    const { id: roomId, treatment, windows } = room
+    const { id: roomId, treatment, windows, name } = room
 
     if (typeof treatment === 'undefined')
       throw new Error(`roomId: ${roomId} treatment is undefined`)
 
-    const roomWindows = windows.flatMap((window) => getWindowDisplay(roomId, window, treatment))
+    const roomWindows = windows.flatMap((window) =>
+      getWindowDisplay(roomId, window, treatment, name)
+    )
     outputList.push(...roomWindows)
   }
 
@@ -37,11 +39,12 @@ export function getWindowDisplayList(file: ProjectFile) {
 export function getWindowDisplay(
   roomId: string,
   window: WindowMeasurement,
-  treatment: Treatment
+  treatment: Treatment,
+  roomName: string
 ): WindowDisplay[] {
   const output: WindowDisplay[] = [
-    ...createWindowDisplay(roomId, window.id, 'inside', window, treatment),
-    ...createWindowDisplay(roomId, window.id, 'outside', window, treatment)
+    ...createWindowDisplay(roomId, window.id, 'inside', window, treatment, roomName),
+    ...createWindowDisplay(roomId, window.id, 'outside', window, treatment, roomName)
   ]
 
   const filtered = output.filter((wd) => {
@@ -74,7 +77,8 @@ function createWindowDisplay(
   windowId: string,
   fit: Fit,
   window: WindowMeasurement,
-  treatment: Treatment
+  treatment: Treatment,
+  roomName: string
 ) {
   const widthArray = getWindowWidth(window, fit) ?? [0]
   const height = getWindowHeight(window, fit) ?? 0
@@ -106,7 +110,9 @@ function createWindowDisplay(
     blindCount,
     width: widthArray,
     height,
-    spec: spec
+    spec: spec,
+    roomName,
+    windowName: window.name
   }
 
   if (blindCount !== 'dual') return [windowDisplay]
