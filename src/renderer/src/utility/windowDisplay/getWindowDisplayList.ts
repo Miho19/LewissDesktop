@@ -1,5 +1,5 @@
 import { ProjectFile, Treatment, WindowMeasurement } from '@shared/types/Project.types'
-import { BlindCount, Fit, WindowDisplay } from '@shared/types/WindowDisplay.types'
+import { Fit, WindowDisplay } from '@shared/types/WindowDisplay.types'
 import { getBlindCountDisplay } from './getBlindCountDisplay'
 import { getWindowWidth } from './getWindowWidth'
 import { getWindowHeight } from './getWindowHeight'
@@ -12,7 +12,7 @@ export function getWindowDisplayList(file: ProjectFile) {
   const { rooms } = file.project
   if (typeof rooms === 'undefined') throw new Error(`${file.name} failed to read rooms`)
 
-  if (rooms.length === 0) return undefined
+  if (rooms.length === 0) throw new Error(`Project file does not have any rooms`)
 
   const outputList: WindowDisplay[] = []
 
