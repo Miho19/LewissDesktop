@@ -25,18 +25,12 @@ function WindowTable(props: Props) {
   const bodyList = getTableBody(table)
 
   return (
-    <ScrollArea className="h-[400px] w-full rounded-md border">
-      <Table>
-        <TableHeader className="sticky z-10 top-0 bg-background">{headerList}</TableHeader>
+    <ScrollArea className="h-[512px] w-full rounded-md border">
+      <Table noWrapper className="mr-6">
+        <TableHeader className="sticky top-0 z-10 bg-background shadow-xs">
+          {headerList}
+        </TableHeader>
         <TableBody>{bodyList}</TableBody>
-        <TableFooter>
-          <TableRow>
-            <TableCell className="text-right" colSpan={table.getAllColumns().length}>
-              {table.getFilteredSelectedRowModel().rows.length} of{' '}
-              {table.getFilteredRowModel().rows.length} selected
-            </TableCell>
-          </TableRow>
-        </TableFooter>
       </Table>
     </ScrollArea>
   )

@@ -31,12 +31,17 @@ function WindowTableForm(props: Props) {
     }
   })
 
+  const totalSelected = table.getFilteredSelectedRowModel().rows.length
+  const totalRows = table.getFilteredRowModel().rows.length
+
+  const selectedOutputString = `${totalSelected} of ${totalRows} selected`
+
   return (
     <form>
       <CardContent className="py-4">
         <WindowTable table={table} />
       </CardContent>
-      {/* <WindowTableFooter isSubmitPending={false} /> */}
+      <WindowTableFooter isSubmitPending={false} selectedRowsString={selectedOutputString} />
     </form>
   )
 }
