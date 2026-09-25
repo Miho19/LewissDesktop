@@ -15,18 +15,19 @@ import { ReactTable } from '@tanstack/react-table'
 
 type Props = {
   table: ReactTable<WindowTableFeatures, WindowDisplay>
+  onRowClick: (row: WindowDisplay) => void
 }
 
 function WindowTable(props: Props) {
-  const { table } = props
+  const { table, onRowClick } = props
 
   const headerList = getTableHeader(table)
 
-  const bodyList = getTableBody(table)
+  const bodyList = getTableBody(table, onRowClick)
 
   return (
     <ScrollArea className="h-[512px] w-full rounded-md border">
-      <Table noWrapper className="mr-6">
+      <Table nowrapper className="mr-6">
         <TableHeader className="sticky top-0 z-10 bg-background shadow-xs">
           {headerList}
         </TableHeader>
@@ -36,7 +37,10 @@ function WindowTable(props: Props) {
   )
 }
 
-function getTableBody(table: ReactTable<WindowTableFeatures, WindowDisplay>) {
+function getTableBody(
+  table: ReactTable<WindowTableFeatures, WindowDisplay>,
+  onClick: (row: WindowDisplay) => void
+) {
   if (table.getRowModel().rows.length === 0)
     return (
       <TableRow>
@@ -48,7 +52,12 @@ function getTableBody(table: ReactTable<WindowTableFeatures, WindowDisplay>) {
 
   const bodyList = table.getRowModel().rows.map((row) => {
     return (
-      <TableRow key={row.id} data-state={row.getIsSelected() && 'selected'}>
+      <TableRow
+        key={row.id}
+        data-state={row.getIsSelected() && 'selected'}
+        className="cursor-pointer hover:bg-muted/50 transition-colors"
+        onClick={() => onClick(row.original)}
+      >
         {row.getAllCells().map((cell) => {
           return (
             <TableCell key={cell.id}>

@@ -1,7 +1,11 @@
 import * as React from 'react'
 import { cn } from 'cn'
 
-function Table({ className, ...props }: React.ComponentProps<'table'> & { noWrapper?: boolean }) {
+function Table({
+  className,
+  nowrapper,
+  ...props
+}: React.ComponentProps<'table'> & { nowrapper?: boolean }) {
   const table = (
     <table
       data-slot="table"
@@ -10,7 +14,7 @@ function Table({ className, ...props }: React.ComponentProps<'table'> & { noWrap
     />
   )
 
-  if (props.noWrapper) return table
+  if (nowrapper) return table
   return (
     <div data-slot="table-container" className="relative w-full overflow-x-auto">
       {table}
