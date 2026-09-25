@@ -1,7 +1,9 @@
+import SpecFactory from '@/components/spec/SpecFactory'
 import { Separator } from '@/components/ui/separator'
 import { SheetContent, SheetDescription, SheetHeader, SheetTitle } from '@/components/ui/sheet'
 import { capitalise } from '@/utility/general/capitalise'
 import { getBlindTypeFromSpec } from '@/utility/process/worksheet/getBlindTypeFromSpec'
+import { Blind } from '@shared/types/blind/blind.types'
 import { WindowDisplay } from '@shared/types/WindowDisplay.types'
 import { toast } from 'sonner'
 
@@ -40,11 +42,22 @@ function SpecSheetContent(props: Props) {
           <span>{capitalise(blindCount)}</span>
         </SheetDescription>
       </SheetHeader>
-      <div className="flex-1 p-4">
-        <p>{blindType}</p>
-        <Separator />
+      <div className="flex-1 p-4 flex flex-col gap-6">
+        {getSpecName(blindType)}
+
+        <SpecFactory spec={spec} />
       </div>
     </SheetContent>
+  )
+}
+
+function getSpecName(blindType: Blind) {
+  return (
+    <div className="flex w-full py-4 px-4 items-center">
+      <div className="grow border-t border" />
+      <span className="shrink mx-2  text-foreground">{blindType}</span>
+      <div className="grow border-t border " />
+    </div>
   )
 }
 
