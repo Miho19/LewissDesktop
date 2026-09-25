@@ -32,16 +32,12 @@ function SpecSheetContent(props: Props) {
     <SheetContent side="right" showCloseButton={false}>
       <SheetHeader>
         <SheetTitle>{location}</SheetTitle>
-        <SheetDescription asChild>
-          <div className="flex flex-col w-full">
-            <ul className="w-full flex justify-between items-center">
-              {getMeasurement(windowDisplay)}
-            </ul>
-            <div className="w-full flex justify-between items-center">
-              <span>{capitalise(fit)}</span>
-              <span>{capitalise(blindCount)}</span>
-            </div>
-          </div>
+        <SheetDescription className="w-full flex justify-between items-center">
+          {getMeasurement(windowDisplay)}
+        </SheetDescription>
+        <SheetDescription className="w-full flex justify-between items-center">
+          <span>{capitalise(fit)}</span>
+          <span>{capitalise(blindCount)}</span>
         </SheetDescription>
       </SheetHeader>
       <div className="flex-1 p-4">
@@ -56,11 +52,9 @@ function getMeasurement(windowDisplay: WindowDisplay) {
   const { width, height, roomId, windowId, fit, spec } = windowDisplay
 
   return width.map((w) => (
-    <li key={`${roomId}-${windowId}-${width}-${height}-${fit}-${spec.fabric?.name}`}>
-      <p>
-        {w}mm x {height}mm
-      </p>
-    </li>
+    <p key={`${roomId}-${windowId}-${width}-${height}-${fit}-${spec.fabric?.name}`}>
+      {w}mm x {height}mm
+    </p>
   ))
 }
 
