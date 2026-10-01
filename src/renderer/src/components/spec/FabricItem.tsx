@@ -32,7 +32,8 @@ function FabricItem(props: Props) {
       <ItemContent>
         <ItemTitle className="flex w-full justify-between">
           <p>
-            {fabric.name} <span className="text-muted-foreground">(x{multiplierFormatted})</span>
+            {fabric.name}{' '}
+            <span className="text-muted-foreground text-xs">(x{multiplierFormatted})</span>
           </p>
           {premium && <p className="text-muted-foreground">Premium</p>}
         </ItemTitle>

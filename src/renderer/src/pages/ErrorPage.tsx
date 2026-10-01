@@ -9,7 +9,7 @@ function ErrorPage(props: Props) {
 
   toast.error(error?.name, {
     id: 'page error',
-    description: <p>{error?.message}</p>
+    description: <p className="text-foreground bg-background">{error?.message}</p>
   })
 
   return (

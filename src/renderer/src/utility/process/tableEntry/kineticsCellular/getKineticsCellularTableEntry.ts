@@ -40,7 +40,8 @@ export async function getKineticsCellularTableEntryAsync(
   const control = getKineticsCellularControl(spec)
 
   const controlSide =
-    fit === 'inside' ? windowMeasurement.controlSide : windowMeasurement.outsideControlSide
+    (fit === 'inside' ? windowMeasurement.controlSide : windowMeasurement.outsideControlSide) ??
+    'left'
 
   const sideChannelColour = getKineticsCellularSideChannelColour(spec)
 

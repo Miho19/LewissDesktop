@@ -19,11 +19,11 @@ export async function getKineticsRollerTableEntryAsync(
   entries: TableEntry[],
   file: ProjectFile
 ) {
-  const { width, height, fit, spec } = windowDisplay
+  const { roomName, windowName, width, height, fit, spec } = windowDisplay
 
   if (!isKineticsRollerSpec(spec)) throw new Error(`${blindType} incorrect spec type`)
 
-  const location = `${room.name} - ${windowMeasurement.name}`
+  const location = `${roomName} - ${windowName}`
 
   const fitCapitalised = capitalise(fit) as Fit
 

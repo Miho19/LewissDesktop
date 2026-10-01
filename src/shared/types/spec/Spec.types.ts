@@ -17,3 +17,8 @@ export function isSpecDual(spec: unknown): spec is SpecDual {
   if (!('rear' in spec)) return false
   return true
 }
+
+export type SpecDisplayList = {
+  title: string
+  description: string
+}
