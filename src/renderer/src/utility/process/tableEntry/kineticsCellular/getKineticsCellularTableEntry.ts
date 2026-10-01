@@ -42,7 +42,7 @@ export async function getKineticsCellularTableEntryAsync(
   const controlSide =
     fit === 'inside' ? windowMeasurement.controlSide : windowMeasurement.outsideControlSide
 
-  const sideChannelColour = getSideChannelColour(spec)
+  const sideChannelColour = getKineticsCellularSideChannelColour(spec)
 
   const leftBlindButting = getButtingString(windowDisplay.blindCount, index, 'LHS')
 
@@ -127,7 +127,7 @@ export function getKineticsCellularControl(spec: KineticsCellularSpec) {
   return 'Lithium-ion'
 }
 
-function getSideChannelColour(spec: KineticsCellularSpec) {
+export function getKineticsCellularSideChannelColour(spec: KineticsCellularSpec) {
   const { sideChannels } = spec
   if (!sideChannels) return 'None'
 

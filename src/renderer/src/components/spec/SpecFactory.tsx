@@ -17,7 +17,7 @@ function SpecFactory(props: Props) {
   const specContent = getSpecContent(blindType, spec)
 
   return (
-    <div className="w-full h-full flex flex-col gap-6">
+    <div className="w-full h-full flex flex-col">
       <FabricItem fabric={fabric} />
       {specContent}
     </div>
