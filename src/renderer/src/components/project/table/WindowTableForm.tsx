@@ -1,4 +1,4 @@
-import SpecSheetContent from '@/components/project/table/SpecSheetContent'
+import SpecSheetContent from '@/components/spec/SpecSheetContent'
 import WindowTable from '@/components/project/table/WindowTable'
 import WindowTableFooter from '@/components/project/table/WindowTableFooter'
 import {

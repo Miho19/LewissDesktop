@@ -1,5 +1,5 @@
 import SpecFactory from '@/components/spec/SpecFactory'
-import { Separator } from '@/components/ui/separator'
+import { Marker, MarkerContent } from '@/components/ui/marker'
 import { SheetContent, SheetDescription, SheetHeader, SheetTitle } from '@/components/ui/sheet'
 import { capitalise } from '@/utility/general/capitalise'
 import { getBlindTypeFromSpec } from '@/utility/process/worksheet/getBlindTypeFromSpec'
@@ -42,22 +42,15 @@ function SpecSheetContent(props: Props) {
           <span>{capitalise(blindCount)}</span>
         </SheetDescription>
       </SheetHeader>
-      <div className="flex-1 p-4 flex flex-col gap-6">
-        {getSpecName(blindType)}
 
-        <SpecFactory spec={spec} />
+      <div className="flex-1 p-4 flex flex-col gap-6">
+        <Marker variant={'separator'}>
+          <MarkerContent>{blindType}</MarkerContent>
+        </Marker>
+
+        <SpecFactory blindType={blindType} spec={spec} />
       </div>
     </SheetContent>
-  )
-}
-
-function getSpecName(blindType: Blind) {
-  return (
-    <div className="flex w-full py-4 px-4 items-center">
-      <div className="grow border-t border" />
-      <span className="shrink mx-2  text-foreground">{blindType}</span>
-      <div className="grow border-t border " />
-    </div>
   )
 }
 

@@ -15,6 +15,10 @@ type Props = {
 function FabricItem(props: Props) {
   const { fabric } = props
 
+  const multiplierFormatted = fabric.multiplier.toFixed(2)
+
+  const premium = fabric.premium ?? false
+
   return (
     <Item variant="default">
       <ItemHeader>
@@ -26,8 +30,11 @@ function FabricItem(props: Props) {
       </ItemHeader>
 
       <ItemContent>
-        <ItemTitle>
-          {fabric.name} <span className="text-muted-foreground">(x{fabric.multiplier})</span>
+        <ItemTitle className="flex w-full justify-between">
+          <p>
+            {fabric.name} <span className="text-muted-foreground">(x{multiplierFormatted})</span>
+          </p>
+          {premium && <p className="text-muted-foreground">Premium</p>}
         </ItemTitle>
         <ItemDescription>{fabric.collection}</ItemDescription>
       </ItemContent>
