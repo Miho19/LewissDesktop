@@ -22,22 +22,22 @@ export async function getKineticsCellularTableEntryAsync(
   entries: TableEntry[],
   file: ProjectFile
 ): Promise<KineticsCellularTableEntry[]> {
-  const { width, height, fit, spec, blindCount } = windowDisplay
+  const { roomName, windowName, width, height, fit, spec, blindCount } = windowDisplay
 
   if (!isKineticsCellularSpec(spec)) throw new Error(`${blindType} incorrect spec type`)
 
-  const location = `${room.name} - ${windowMeasurement.name}`
+  const location = `${roomName} - ${windowName}`
 
   const fitCapitalised = capitalise(fit) as Fit
 
-  const comb = getCombSize(blindType)
+  const comb = getKineticsCellularCombSize(blindType)
 
   const { fabric } = spec
   if (typeof fabric === 'undefined') throw new Error(`${blindType} fabric information missing`)
 
   const fabricName = fabric.name
 
-  const control = getControlString(spec)
+  const control = getKineticsCellularControl(spec)
 
   const controlSide =
     fit === 'inside' ? windowMeasurement.controlSide : windowMeasurement.outsideControlSide
@@ -108,7 +108,7 @@ export async function getKineticsCellularTableEntryAsync(
   return [leftEntry, rightEntry]
 }
 
-function getCombSize(blindType: Blind) {
+export function getKineticsCellularCombSize(blindType: Blind) {
   switch (blindType) {
     case 'Kinetics 10mm Cellular Blind':
       return '10mm'
@@ -120,7 +120,7 @@ function getCombSize(blindType: Blind) {
 }
 
 // move these functions into files associated with their cost
-function getControlString(spec: KineticsCellularSpec) {
+export function getKineticsCellularControl(spec: KineticsCellularSpec) {
   const { motorisation } = spec
   if (typeof motorisation === 'undefined') return 'Cord'
 

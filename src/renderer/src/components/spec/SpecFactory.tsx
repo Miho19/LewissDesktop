@@ -28,7 +28,7 @@ function getSpecContent(blindType: Blind, spec: Spec) {
   switch (blindType) {
     case 'Kinetics 10mm Cellular Blind':
     case 'Kinetics 20mm Cellular Blind':
-      return <KineticsCellularSpecSheet />
+      return <KineticsCellularSpecSheet blindType={blindType} spec={spec} />
 
     default:
       return <div></div>

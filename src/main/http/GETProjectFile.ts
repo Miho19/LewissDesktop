@@ -1,4 +1,7 @@
 import { GETProjectFileResponse, ProjectFile } from '@shared/types/Project.types'
+import { app, shell } from 'electron'
+import path from 'path'
+import fs from 'node:fs/promises'
 
 function GETProjectFileEndpoint() {
   return new URL(``, 'https://lewiss-measure-pro.netlify.app/.netlify/functions/graph')
@@ -26,10 +29,21 @@ async function GETProjectfile(fileId: string, endpoint: URL = GETProjectFileEndp
   const jsonBody: GETProjectFileResponse = await response.json()
 
   if (!jsonBody.ok) throw new Error(response.statusText)
+  // await _writeToTemp(jsonBody)
 
   const projectFile: ProjectFile = await JSON.parse(jsonBody.content)
 
   return projectFile
+}
+
+async function _writeToTemp(jsonBody: GETProjectFileResponse) {
+  try {
+    const tempFile = path.join(app.getPath('temp'), `projectFile.json`)
+    await fs.writeFile(tempFile, jsonBody.content, 'utf-8')
+    await shell.openPath(tempFile)
+  } catch (error) {
+    throw new Error(`Error writing to temp`, { cause: error })
+  }
 }
 
 export default GETProjectfile
