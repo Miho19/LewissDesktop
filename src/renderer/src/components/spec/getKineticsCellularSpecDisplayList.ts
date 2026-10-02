@@ -8,7 +8,7 @@ import { isKineticsCellularSpec } from '@shared/types/spec/kineticsCellular.type
 import { Spec, SpecDisplayList } from '@shared/types/spec/Spec.types'
 
 export function getKineticsCellularSpecDisplayList(blindType: Blind, spec: Spec) {
-  if (!isKineticsCellularSpec(spec)) throw new Error('Incorrect spec type')
+  if (!isKineticsCellularSpec(spec)) return []
 
   const combSize = getKineticsCellularCombSize(blindType)
 

@@ -1,32 +1,38 @@
+import FabricItem from '@/components/spec/FabricItem'
 import SpecFactory from '@/components/spec/SpecFactory'
+import { ItemGroup } from '@/components/ui/item'
 import { Marker, MarkerContent } from '@/components/ui/marker'
 import { SheetContent, SheetDescription, SheetHeader, SheetTitle } from '@/components/ui/sheet'
 import { capitalise } from '@/utility/general/capitalise'
 import { getBlindTypeFromSpec } from '@/utility/process/worksheet/getBlindTypeFromSpec'
-import { Blind } from '@shared/types/blind/blind.types'
 import { WindowDisplay } from '@shared/types/WindowDisplay.types'
-import { toast } from 'sonner'
 
 type Props = {
   windowDisplay?: WindowDisplay
-  setSheetOpen: React.Dispatch<React.SetStateAction<boolean>>
+  errorHandler: (errorTitle: string, errorDescription: string) => void
 }
 
 function SpecSheetContent(props: Props) {
-  const { windowDisplay, setSheetOpen } = props
-  if (windowDisplay == null) return <SheetContentEmpty />
+  const { windowDisplay, errorHandler } = props
+
+  if (windowDisplay == null) {
+    errorHandler('Window Display', 'Is undefined or null')
+    return
+  }
 
   const { roomName, windowName, fit, blindCount, spec } = windowDisplay
   const location = `${roomName} - ${windowName}`
 
   const blindType = getBlindTypeFromSpec(spec)
-  if (typeof blindType === 'undefined') {
-    toast.error('Treatment Specification', {
-      id: 'treatment-specification',
-      description: <p className="bg-background text-foreground font-sans">Invalid blind type</p>
-    })
 
-    setSheetOpen(false)
+  if (typeof blindType === 'undefined') {
+    errorHandler('', 'Blind type is undefined or null')
+    return
+  }
+
+  const { fabric } = spec
+  if (fabric == null) {
+    errorHandler('', 'Fabric is undefined or null')
     return
   }
 
@@ -48,7 +54,10 @@ function SpecSheetContent(props: Props) {
           <MarkerContent>{blindType}</MarkerContent>
         </Marker>
 
-        <SpecFactory blindType={blindType} spec={spec} />
+        <ItemGroup className="w-full h-full flex flex-col">
+          <FabricItem fabric={fabric} />
+          <SpecFactory blindType={blindType} spec={spec} errorHandler={errorHandler} />
+        </ItemGroup>
       </div>
     </SheetContent>
   )
@@ -58,9 +67,9 @@ function getMeasurement(windowDisplay: WindowDisplay) {
   const { width, height, roomId, windowId, fit, spec } = windowDisplay
 
   return width.map((w) => (
-    <p key={`${roomId}-${windowId}-${width}-${height}-${fit}-${spec.fabric?.name}`}>
+    <span key={`${roomId}-${windowId}-${width}-${height}-${fit}-${spec.fabric?.name}`}>
       {w}mm x {height}mm
-    </p>
+    </span>
   ))
 }
 

@@ -1,11 +1,4 @@
-import {
-  Item,
-  ItemContent,
-  ItemDescription,
-  ItemHeader,
-  ItemMedia,
-  ItemTitle
-} from '@/components/ui/item'
+import { Item, ItemContent, ItemDescription, ItemHeader, ItemTitle } from '@/components/ui/item'
 import { Fabric } from '@shared/types/Project.types'
 
 type Props = {

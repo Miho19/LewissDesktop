@@ -2,17 +2,6 @@ import { WindowDisplay } from '@shared/types/WindowDisplay.types'
 import { createColumnHelper, rowSelectionFeature, tableFeatures } from '@tanstack/react-table'
 import { Checkbox } from '@/components/ui/checkbox'
 import { capitalise } from '@/utility/general/capitalise'
-import { getBlindTypeFromSpec } from '@/utility/process/worksheet/getBlindTypeFromSpec'
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuGroup,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuTrigger
-} from '@/components/ui/dropdown-menu'
-import { Button } from '@/components/ui/button'
-import { MoreHorizontal } from 'lucide-react'
 
 export const windowTableFeatures = tableFeatures({
   rowSelectionFeature
@@ -42,6 +31,7 @@ export const windowTableColumns = columnHelper.columns([
         checked={row.getIsSelected()}
         onCheckedChange={(value) => row.toggleSelected(!!value)}
         aria-label="Select row"
+        onClick={(e) => e.stopPropagation()}
       />
     )
   }),

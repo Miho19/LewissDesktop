@@ -12,6 +12,7 @@ import { ProjectFile } from '@shared/types/Project.types'
 import { WindowDisplay } from '@shared/types/WindowDisplay.types'
 import { useTable } from '@tanstack/react-table'
 import { useState } from 'react'
+import { toast } from 'sonner'
 
 type Props = {
   file: ProjectFile
@@ -46,6 +47,16 @@ function WindowTableForm(props: Props) {
     setRowSelected(row)
   }
 
+  function handleSpecSheetContentError(errorTitle: string, errorDescription: string) {
+    toast.error('Window Table Form', {
+      id: 'window-table-form',
+      description: <p className="bg-background text-foreground font-sans">{errorDescription}</p>
+    })
+
+    setIsSheetOpen(false)
+    return
+  }
+
   return (
     <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
       <form>
@@ -54,7 +65,7 @@ function WindowTableForm(props: Props) {
         </CardContent>
         <WindowTableFooter isSubmitPending={false} selectedRowsString={selectedOutputString} />
       </form>
-      <SpecSheetContent windowDisplay={rowSelected} setSheetOpen={setIsSheetOpen} />
+      <SpecSheetContent windowDisplay={rowSelected} errorHandler={handleSpecSheetContentError} />
     </Sheet>
   )
 }

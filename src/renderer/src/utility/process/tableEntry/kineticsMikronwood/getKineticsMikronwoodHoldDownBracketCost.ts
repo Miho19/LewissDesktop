@@ -3,6 +3,7 @@ import {
   KineticsMikronwoodPricingSchedule
 } from '@shared/types/pricing/kineticsMikronwood.types'
 import { PricingSchedule } from '@shared/types/pricing/pricingSchedule.types'
+import { VenetianSpec } from '@shared/types/spec/venetian.types'
 
 export function getKineticsMikronwoodHoldDownBracketCost(
   holdDownBracket: string,
@@ -30,4 +31,11 @@ function getCost(query: string, pricingSchedule: KineticsMikronwoodPricingSchedu
     return undefined
 
   return holdDownBracket.cost
+}
+
+export function getKineticsMikronwoodHoldDownBracket(spec: VenetianSpec) {
+  const { holdDownBrackets } = spec
+  if (typeof holdDownBrackets === 'boolean' && holdDownBrackets) return 'Antique Brass'
+
+  return undefined
 }

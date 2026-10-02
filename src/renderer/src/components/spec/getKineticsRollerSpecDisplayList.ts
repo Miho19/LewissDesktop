@@ -7,7 +7,7 @@ import { isKineticsRollerSpec } from '@shared/types/spec/kineticsRoller.types'
 import { Spec, SpecDisplayList } from '@shared/types/spec/Spec.types'
 
 export function getKineticsRollerSpecDisplayList(blindType: Blind, spec: Spec) {
-  if (!isKineticsRollerSpec(spec)) throw new Error('Incorrect spec type')
+  if (!isKineticsRollerSpec(spec)) return []
 
   const opacity = getOpacity(blindType)
   const control = getKineticsRollerControl(spec)
@@ -37,6 +37,6 @@ function getOpacity(blindType: Blind) {
     case 'Kinetics Sunscreen Roller Blind':
       return 'Sunscreen'
     default:
-      throw new Error(`${blindType} is not a Kinetics Roller Blind`)
+      return 'Invalid opacity'
   }
 }
