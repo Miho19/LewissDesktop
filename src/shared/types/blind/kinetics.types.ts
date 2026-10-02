@@ -1,3 +1,5 @@
+import { KineticsVenetianBlindOptions } from '@shared/types/blind/venetian.types'
+
 export const KineticsCellularBlindOptions = [
   'Kinetics 10mm Cellular Blind',
   'Kinetics 20mm Cellular Blind'
@@ -12,3 +14,9 @@ export const KineticsRollerBlindOptions = [
 ] as const
 
 export type KineticsRollerBlind = (typeof KineticsRollerBlindOptions)[number]
+
+export const KineticsBlindTypeOptions = [
+  ...KineticsCellularBlindOptions,
+  ...KineticsRollerBlindOptions,
+  ...KineticsVenetianBlindOptions
+] as const

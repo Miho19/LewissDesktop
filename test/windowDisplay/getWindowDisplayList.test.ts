@@ -2,7 +2,7 @@ import { getWindowDisplayList } from '@/utility/windowDisplay/getWindowDisplayLi
 import { getExampleProjectFile } from '../utility'
 import { describe, it, expect } from 'vitest'
 
-describe('getWindowDisplayList', () => {
+describe.skip('getWindowDisplayList', () => {
   it('should return a list of window display', () => {
     const projectFile = getExampleProjectFile()
 

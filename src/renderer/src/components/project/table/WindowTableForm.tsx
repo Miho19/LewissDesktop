@@ -13,6 +13,8 @@ import { WindowDisplay } from '@shared/types/WindowDisplay.types'
 import { useTable } from '@tanstack/react-table'
 import { useState } from 'react'
 import { toast } from 'sonner'
+import { getBlindTypeFromSpec } from '@/utility/process/worksheet/getBlindTypeFromSpec'
+import { KineticsBlindTypeOptions } from '@shared/types/blind/kinetics.types'
 
 type Props = {
   file: ProjectFile
@@ -30,7 +32,7 @@ function WindowTableForm(props: Props) {
   const [isSheetOpen, setIsSheetOpen] = useState<boolean>(false)
   const [rowSelected, setRowSelected] = useState<WindowDisplay | undefined>(undefined)
 
-  const windowDisplayList = getWindowDisplayList(file)
+  const windowDisplayList = getFilteredList(getWindowDisplayList(file))
 
   const table = useTable({
     features: windowTableFeatures,
@@ -75,6 +77,17 @@ function WindowTableForm(props: Props) {
       <SpecSheetContent windowDisplay={rowSelected} errorHandler={handleSpecSheetContentError} />
     </Sheet>
   )
+}
+
+function getFilteredList(windowDisplayList: WindowDisplay[]) {
+  return windowDisplayList.filter((wd) => {
+    const { spec } = wd
+    const blindType = getBlindTypeFromSpec(spec)
+    if (typeof blindType === 'undefined') return false
+
+    const result = (KineticsBlindTypeOptions as readonly string[]).includes(blindType)
+    return result
+  })
 }
 
 export default WindowTableForm

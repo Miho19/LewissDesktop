@@ -1,8 +1,5 @@
-import {
-  KineticsCellularBlindOptions,
-  KineticsRollerBlindOptions
-} from '@shared/types/blind/kinetics.types'
-import { KineticsVenetianBlindOptions } from '@shared/types/blind/venetian.types'
+import { KineticsBlindTypeOptions } from '@shared/types/blind/kinetics.types'
+
 import { AccessorySchedule } from '@shared/types/pricing/pricingSchedule.types'
 
 export type KineticsAccessorySchedule = {
@@ -27,12 +24,6 @@ export function isKineticsAccessorySchedule(
 
   const { blindType } = accessorySchedule
 
-  const kineticsBlindType = [
-    ...KineticsCellularBlindOptions,
-    ...KineticsRollerBlindOptions,
-    ...KineticsVenetianBlindOptions
-  ] as const
-
-  const result = blindType.every((b) => (kineticsBlindType as readonly string[]).includes(b))
+  const result = blindType.every((b) => (KineticsBlindTypeOptions as readonly string[]).includes(b))
   return result
 }
