@@ -6,11 +6,9 @@ import { getExampleProjectFile } from '../utility'
 import { describe, it, expect } from 'vitest'
 import { Room } from '@shared/types/Project.types'
 
-describe.skip('getWindowDisplayList', () => {
+describe('getWindowDisplayList', () => {
   it('should return a list of window display', () => {
     const projectFile = getExampleProjectFile()
-
-    projectFile.project.rooms = room
 
     const list = getWindowDisplayList(projectFile)
 
@@ -19,8 +17,12 @@ describe.skip('getWindowDisplayList', () => {
     expect(Array.isArray(list)).toBeTruthy()
     expect(list.length).toBeGreaterThan(0)
 
-    const filtered = list?.filter((w) => w.blindCount === 'dual')
+    const output = list.map((wd) => {
+      return `${wd.roomId}-${wd.windowId}-${wd.width}-${wd.height}-${wd.fit}-${wd.spec.fabric?.name}`
+    })
 
-    const windowDisplay = filtered[0]
+    console.log(output)
   })
 })
+
+// `${roomId}-${windowId}-${width}-${height}-${fit}-${spec.fabric?.name}`

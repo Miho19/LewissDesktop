@@ -66,8 +66,8 @@ function SpecSheetContent(props: Props) {
 function getMeasurement(windowDisplay: WindowDisplay) {
   const { width, height, roomId, windowId, fit, spec } = windowDisplay
 
-  return width.map((w) => (
-    <span key={`${roomId}-${windowId}-${width}-${height}-${fit}-${spec.fabric?.name}`}>
+  return width.map((w, index) => (
+    <span key={`${roomId}-${windowId}-${width[index]}-${height}-${fit}-${spec.fabric?.name}`}>
       {w}mm x {height}mm
     </span>
   ))
