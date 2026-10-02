@@ -17,7 +17,7 @@ function FabricItem(props: Props) {
       <ItemHeader>
         <img
           src={fabric.chipImageUrl}
-          className="aspect-square rounded-sm object-cover w-32 h-32"
+          className="aspect-square rounded-sm object-cover w-32 h-32 border"
           alt={`${fabric.name} chip`}
         />
       </ItemHeader>

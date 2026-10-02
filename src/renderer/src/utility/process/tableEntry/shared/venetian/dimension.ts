@@ -49,7 +49,7 @@ export function getLewissVenetianControlMultiplier(
   return found.cost
 }
 
-function getSlatSize(blindType: Blind) {
+export function getLewissVenetianSlatSize(blindType: Blind) {
   if (blindType.includes('25mm')) return '25'
   if (blindType.includes('50mm')) return '50'
   if (blindType.includes('63mm')) return '63'
@@ -71,7 +71,7 @@ function getControlArray(blindType: Blind, pricingSchedule: LewissVenetianPricin
 }
 
 function getControlObjectName(blindType: Blind) {
-  const slatSize = getSlatSize(blindType)
+  const slatSize = getLewissVenetianSlatSize(blindType)
   if (typeof slatSize === 'undefined') return undefined
 
   const slatPrefix = getSlatPrefix(blindType as VenetianBlind)
