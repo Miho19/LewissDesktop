@@ -1,3 +1,4 @@
+import { ToastErrorOption } from '@/components/project/table/WindowTableForm'
 import FabricItem from '@/components/spec/FabricItem'
 import SpecFactory from '@/components/spec/SpecFactory'
 import { ItemGroup } from '@/components/ui/item'
@@ -9,14 +10,14 @@ import { WindowDisplay } from '@shared/types/WindowDisplay.types'
 
 type Props = {
   windowDisplay?: WindowDisplay
-  errorHandler: (errorDescription: string) => void
+  errorHandler: (options: ToastErrorOption) => void
 }
 
 function SpecSheetContent(props: Props) {
   const { windowDisplay, errorHandler } = props
 
   if (windowDisplay == null) {
-    errorHandler('Window Display is undefined or null')
+    errorHandler({ message: '', showToast: false })
     return
   }
 
@@ -26,13 +27,13 @@ function SpecSheetContent(props: Props) {
   const blindType = getBlindTypeFromSpec(spec)
 
   if (typeof blindType === 'undefined') {
-    errorHandler('Blind type is undefined or null')
+    errorHandler({ message: 'Blind type is undefined or null' })
     return
   }
 
   const { fabric } = spec
   if (fabric == null) {
-    errorHandler('Fabric is undefined or null')
+    errorHandler({ message: 'Fabric is undefined or null' })
     return
   }
 
@@ -71,10 +72,6 @@ function getMeasurement(windowDisplay: WindowDisplay) {
       {w}mm x {height}mm
     </span>
   ))
-}
-
-function SheetContentEmpty() {
-  return <SheetContent side="right" showCloseButton={false}></SheetContent>
 }
 
 export default SpecSheetContent

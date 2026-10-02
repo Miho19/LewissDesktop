@@ -1,3 +1,4 @@
+import { ToastErrorOption } from '@/components/project/table/WindowTableForm'
 import { getKineticsCellularSpecDisplayList } from '@/components/spec/getKineticsCellularSpecDisplayList'
 import { getKineticsMikronwoodSpecDisplayList } from '@/components/spec/getKineticsMikronwoodSpecDisplayList'
 import { getKineticsRollerSpecDisplayList } from '@/components/spec/getKineticsRollerSpecDisplayList'
@@ -10,7 +11,7 @@ import { Spec } from '@shared/types/spec/Spec.types'
 type Props = {
   blindType: Blind
   spec: Spec
-  errorHandler: (errorDescription: string) => void
+  errorHandler: (options: ToastErrorOption) => void
 }
 
 function SpecFactory(props: Props) {
@@ -18,7 +19,7 @@ function SpecFactory(props: Props) {
 
   const specList = getSpecContent(blindType, spec)
   if (specList.length === 0) {
-    errorHandler(`${blindType} spec display list error`)
+    errorHandler({ message: `${blindType} spec display list error` })
     return
   }
 

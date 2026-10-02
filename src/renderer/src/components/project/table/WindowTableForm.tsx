@@ -18,6 +18,11 @@ type Props = {
   file: ProjectFile
 }
 
+export type ToastErrorOption = {
+  message: string
+  showToast?: boolean
+}
+
 function WindowTableForm(props: Props) {
   const { file } = props
 
@@ -47,11 +52,13 @@ function WindowTableForm(props: Props) {
     setRowSelected(row)
   }
 
-  function handleSpecSheetContentError(errorDescription: string) {
-    toast.error('Window Table Form', {
-      id: 'window-table-form',
-      description: <p className="bg-background text-foreground font-sans">{errorDescription}</p>
-    })
+  function handleSpecSheetContentError({ message, showToast = true }: ToastErrorOption) {
+    if (showToast) {
+      toast.error('Window Table Form', {
+        id: 'window-table-form',
+        description: <p className="bg-background text-foreground font-sans">{message}</p>
+      })
+    }
 
     setIsSheetOpen(false)
     return

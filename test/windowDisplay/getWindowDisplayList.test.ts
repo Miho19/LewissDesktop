@@ -1,10 +1,6 @@
-import {
-  getWindowDisplay,
-  getWindowDisplayList
-} from '@/utility/windowDisplay/getWindowDisplayList'
+import { getWindowDisplayList } from '@/utility/windowDisplay/getWindowDisplayList'
 import { getExampleProjectFile } from '../utility'
 import { describe, it, expect } from 'vitest'
-import { Room } from '@shared/types/Project.types'
 
 describe('getWindowDisplayList', () => {
   it('should return a list of window display', () => {
