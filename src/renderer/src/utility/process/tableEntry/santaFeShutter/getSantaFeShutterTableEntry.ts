@@ -3,7 +3,7 @@ import { Room, WindowMeasurement, ProjectFile } from '@shared/types/Project.type
 import { SantaFeShutterTableEntry } from '@shared/types/tableEntry/santaFeShutter.types'
 import { TableEntry } from '@shared/types/tableEntry/TableEntry.types'
 import { Fit, WindowDisplay } from '@shared/types/WindowDisplay.types'
-import { isSantaFeShutterSpec } from '@shared/types/spec/santaFe.types'
+import { isSantaFeShutterSpec, SantaFeShutterSpec } from '@shared/types/spec/santaFe.types'
 import { capitalise } from '@renderer/utility/general/capitalise'
 import { getSantaFeShutterCostAsync } from '@renderer/utility/process/tableEntry/santaFeShutter/getSantaFeShutterCost'
 
@@ -29,12 +29,12 @@ export async function getSantaFeShutterTableEntryAsync(
 
   const colour = fabric.name
 
-  const control = spec.lithiumSmartMotor ? 'Lithium Smart Motor' : ' '
+  const control = getSantaFeShutterControl(spec)
 
   const controlSide =
     fit === 'inside' ? windowMeasurement.controlSide : windowMeasurement.outsideControlSide
 
-  const track = spec.track ?? ' '
+  const track = getSantaFeShutterTrack(spec) ?? ' '
 
   const shutterPole = spec.shuttlePole ? 'Yes' : ' '
   const flushBolt = spec.flushBolts ? 'Yes' : ' '
@@ -66,4 +66,12 @@ export async function getSantaFeShutterTableEntryAsync(
   }
 
   return [leftEntry]
+}
+
+export function getSantaFeShutterControl(spec: SantaFeShutterSpec) {
+  return spec.lithiumSmartMotor ? 'Lithium Smart Motor' : 'Cord'
+}
+
+export function getSantaFeShutterTrack(spec: SantaFeShutterSpec) {
+  return spec.track
 }

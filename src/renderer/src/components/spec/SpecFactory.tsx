@@ -2,6 +2,7 @@ import { getKineticsCellularSpecDisplayList } from '@/components/spec/getKinetic
 import { getKineticsMikronwoodSpecDisplayList } from '@/components/spec/getKineticsMikronwoodSpecDisplayList'
 import { getKineticsRollerSpecDisplayList } from '@/components/spec/getKineticsRollerSpecDisplayList'
 import { getLewissVenetianSpecDisplayList } from '@/components/spec/getLewissVenetianSpecDisplayList'
+import { getSantaFeShutterSpecDisplayList } from '@/components/spec/getSantaFeShutterSpecDisplayList'
 import { Item, ItemContent, ItemDescription, ItemTitle } from '@/components/ui/item'
 import { Blind } from '@shared/types/blind/blind.types'
 import { Spec } from '@shared/types/spec/Spec.types'
@@ -50,6 +51,12 @@ function getSpecContent(blindType: Blind, spec: Spec) {
     case "Lewis's 50mm Phoenixwood Venetian":
     case "Lewis's 63mm Phoenixwood Venetian":
       return getLewissVenetianSpecDisplayList(blindType, spec)
+
+    case 'Santa Fe Normandy Shutter':
+    case 'Santa Fe Waterproof Woodlore Plus Shutter':
+    case 'Santa Fe Woodlore Plus Shutter':
+    case 'Santa Fe Woodlore Shutter':
+      return getSantaFeShutterSpecDisplayList(blindType, spec)
 
     default:
       return []
