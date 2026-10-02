@@ -17,8 +17,8 @@ function SpecSheetContent(props: Props) {
   const { windowDisplay, errorHandler } = props
 
   if (windowDisplay == null) {
-    errorHandler({ message: '', showToast: false })
-    return
+    //errorHandler({ message: '', showToast: false })
+    return <SheetContentEmpty />
   }
 
   const { roomName, windowName, fit, blindCount, spec } = windowDisplay
@@ -28,13 +28,13 @@ function SpecSheetContent(props: Props) {
 
   if (typeof blindType === 'undefined') {
     errorHandler({ message: 'Blind type is undefined or null' })
-    return
+    return <SheetContentEmpty />
   }
 
   const { fabric } = spec
   if (fabric == null) {
     errorHandler({ message: 'Fabric is undefined or null' })
-    return
+    return <SheetContentEmpty />
   }
 
   return (
@@ -72,6 +72,10 @@ function getMeasurement(windowDisplay: WindowDisplay) {
       {w}mm x {height}mm
     </span>
   ))
+}
+
+function SheetContentEmpty() {
+  return <SheetContent side="right" showCloseButton={false}></SheetContent>
 }
 
 export default SpecSheetContent

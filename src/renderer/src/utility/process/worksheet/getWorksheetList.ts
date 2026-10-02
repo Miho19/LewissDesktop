@@ -10,19 +10,15 @@ import { getWorksheetCostAsync } from '@renderer/utility/process/worksheet/cost/
 export async function getWorksheetListAsync(
   windowDisplayList: WindowDisplay[],
   file: ProjectFile
-): Promise<{ worksheetList: Worksheet[]; rejectedReasons: any[] }> {
-  try {
-    errorCheck(windowDisplayList, file)
+): Promise<[Worksheet[], any[]]> {
+  errorCheck(windowDisplayList, file)
 
-    const map = getWindowDisplayMap(windowDisplayList)
-    if (map.size === 0) throw new Error('Failed to map window display list')
+  const map = getWindowDisplayMap(windowDisplayList)
+  if (map.size === 0) throw new Error('Failed to map window display list')
 
-    const [fulfilled, rejected] = await createWorksheetListAsync(map, file)
+  const [fulfilled, rejected] = await createWorksheetListAsync(map, file)
 
-    return { worksheetList: fulfilled, rejectedReasons: rejected }
-  } catch (error) {
-    return { worksheetList: [], rejectedReasons: [error] }
-  }
+  return [fulfilled, rejected] as const
 }
 
 function errorCheck(windowDisplayList: WindowDisplay[], file: ProjectFile) {
@@ -31,9 +27,9 @@ function errorCheck(windowDisplayList: WindowDisplay[], file: ProjectFile) {
     !Array.isArray(windowDisplayList) ||
     windowDisplayList.length === 0
   )
-    throw new Error('No window selected')
+    throw new Error('No windows selected')
 
-  if (typeof file === 'undefined') throw new Error('Project file is missing')
+  if (typeof file === 'undefined') throw new Error('Project file is undefined')
 }
 
 function getWindowDisplayMap(windowDisplayList: WindowDisplay[]) {
@@ -44,8 +40,7 @@ function getWindowDisplayMap(windowDisplayList: WindowDisplay[]) {
     const blindType = getBlindTypeFromSpec(spec)
 
     if (typeof blindType === 'undefined') {
-      console.log(w)
-      throw new Error('Blind type is incorrect')
+      throw new Error('Blind type is undefined')
     }
 
     const current = map.get(blindType)
@@ -85,7 +80,7 @@ async function createWorksheetListAsync(map: Map<Blind, WindowDisplay[]>, file: 
 
   const rejected = result.filter((j) => j.status === 'rejected').map((j) => j.reason)
 
-  return [fulfilled, rejected]
+  return [fulfilled, rejected] as const
 }
 
 export async function createWorksheetAsync(

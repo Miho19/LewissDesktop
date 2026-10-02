@@ -35,10 +35,7 @@ function ProjectForm(props: Props) {
       setIsSubmitPending(true)
       if (typeof windowDisplayList === 'undefined') return
 
-      const { worksheetList, rejectedReasons } = await getWorksheetListAsync(
-        windowDisplayList,
-        file
-      )
+      const [worksheetList, rejectedReasons] = await getWorksheetListAsync(windowDisplayList, file)
 
       errorMap = handleGetWorksheetListError(rejectedReasons, errorMap)
 

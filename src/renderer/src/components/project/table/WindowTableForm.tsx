@@ -11,10 +11,11 @@ import { getWindowDisplayList } from '@/utility/windowDisplay/getWindowDisplayLi
 import { ProjectFile } from '@shared/types/Project.types'
 import { WindowDisplay } from '@shared/types/WindowDisplay.types'
 import { useTable } from '@tanstack/react-table'
-import { useState } from 'react'
+import { SubmitEvent, useState } from 'react'
 import { toast } from 'sonner'
 import { getBlindTypeFromSpec } from '@/utility/process/worksheet/getBlindTypeFromSpec'
 import { KineticsBlindTypeOptions } from '@shared/types/blind/kinetics.types'
+import { getWorksheetListAsync } from '@/utility/process/worksheet/getWorksheetList'
 
 type Props = {
   file: ProjectFile
@@ -31,6 +32,7 @@ function WindowTableForm(props: Props) {
   const [rowSelection, setRowSelection] = useState({})
   const [isSheetOpen, setIsSheetOpen] = useState<boolean>(false)
   const [rowSelected, setRowSelected] = useState<WindowDisplay | undefined>(undefined)
+  const [isSubmitPending, setIsSubmitPending] = useState(false)
 
   const windowDisplayList = getFilteredList(getWindowDisplayList(file))
 
@@ -55,24 +57,57 @@ function WindowTableForm(props: Props) {
   }
 
   function handleSpecSheetContentError({ message, showToast = true }: ToastErrorOption) {
-    if (showToast) {
-      toast.error('Window Table Form', {
-        id: 'window-table-form',
-        description: <p className="bg-background text-foreground font-sans">{message}</p>
-      })
-    }
+    if (showToast) toastErrorMessage(message)
 
     setIsSheetOpen(false)
+
     return
+  }
+
+  async function onSubmitHandler(event: SubmitEvent<HTMLFormElement>) {
+    event.preventDefault()
+    if (isSubmitPending) return
+    if (typeof windowDisplayList === 'undefined') return
+
+    if (table.getFilteredSelectedRowModel().rows.length === 0) {
+      toastErrorMessage('No rows selected')
+      return
+    }
+
+    let errorMap = new Map<string, string>()
+
+    try {
+      setIsSubmitPending(true)
+      const selectedWindows = table.getFilteredSelectedRowModel().rows.map((row) => row.original)
+
+      const [worksheetList, rejectedReasons] = await getWorksheetListAsync(selectedWindows, file)
+      errorMap = handleGetWorksheetListRejectedList(rejectedReasons, errorMap)
+
+      console.log(worksheetList)
+    } catch (error) {
+      if (error instanceof Error) {
+        errorMap.set(error.name, error.message)
+      }
+    } finally {
+      setIsSubmitPending(false)
+      if (errorMap.size === 0) return
+
+      for (const [key, value] of errorMap) {
+        toastErrorMessage(`${key}\n${value}`)
+      }
+    }
   }
 
   return (
     <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
-      <form>
+      <form onSubmit={onSubmitHandler}>
         <CardContent className="py-4">
           <WindowTable table={table} onRowClick={onRowClick} />
         </CardContent>
-        <WindowTableFooter isSubmitPending={false} selectedRowsString={selectedOutputString} />
+        <WindowTableFooter
+          isSubmitPending={isSubmitPending}
+          selectedRowsString={selectedOutputString}
+        />
       </form>
       <SpecSheetContent windowDisplay={rowSelected} errorHandler={handleSpecSheetContentError} />
     </Sheet>
@@ -88,6 +123,26 @@ function getFilteredList(windowDisplayList: WindowDisplay[]) {
     const result = (KineticsBlindTypeOptions as readonly string[]).includes(blindType)
     return result
   })
+}
+
+function toastErrorMessage(message: string) {
+  toast.error('Window Table Form', {
+    id: 'window-table-form',
+    description: <p className="bg-background text-foreground font-sans">{message}</p>
+  })
+}
+
+function handleGetWorksheetListRejectedList(rejectedReason: any[], errorMap: Map<string, string>) {
+  if (rejectedReason.length === 0) return new Map([...errorMap])
+
+  const map = new Map<string, string>()
+
+  for (const reason of rejectedReason) {
+    if (!(reason instanceof Error)) continue
+    map.set(reason.name, reason.message)
+  }
+
+  return map
 }
 
 export default WindowTableForm
