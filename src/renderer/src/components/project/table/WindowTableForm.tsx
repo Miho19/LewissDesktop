@@ -47,7 +47,7 @@ function WindowTableForm(props: Props) {
     setRowSelected(row)
   }
 
-  function handleSpecSheetContentError(errorTitle: string, errorDescription: string) {
+  function handleSpecSheetContentError(errorDescription: string) {
     toast.error('Window Table Form', {
       id: 'window-table-form',
       description: <p className="bg-background text-foreground font-sans">{errorDescription}</p>

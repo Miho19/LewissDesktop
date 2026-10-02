@@ -9,14 +9,14 @@ import { WindowDisplay } from '@shared/types/WindowDisplay.types'
 
 type Props = {
   windowDisplay?: WindowDisplay
-  errorHandler: (errorTitle: string, errorDescription: string) => void
+  errorHandler: (errorDescription: string) => void
 }
 
 function SpecSheetContent(props: Props) {
   const { windowDisplay, errorHandler } = props
 
   if (windowDisplay == null) {
-    errorHandler('Window Display', 'Is undefined or null')
+    errorHandler('Window Display is undefined or null')
     return
   }
 
@@ -26,13 +26,13 @@ function SpecSheetContent(props: Props) {
   const blindType = getBlindTypeFromSpec(spec)
 
   if (typeof blindType === 'undefined') {
-    errorHandler('', 'Blind type is undefined or null')
+    errorHandler('Blind type is undefined or null')
     return
   }
 
   const { fabric } = spec
   if (fabric == null) {
-    errorHandler('', 'Fabric is undefined or null')
+    errorHandler('Fabric is undefined or null')
     return
   }
 

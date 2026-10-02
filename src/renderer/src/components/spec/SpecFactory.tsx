@@ -10,7 +10,7 @@ import { Spec } from '@shared/types/spec/Spec.types'
 type Props = {
   blindType: Blind
   spec: Spec
-  errorHandler: (errorTitle: string, errorDescription: string) => void
+  errorHandler: (errorDescription: string) => void
 }
 
 function SpecFactory(props: Props) {
@@ -18,7 +18,7 @@ function SpecFactory(props: Props) {
 
   const specList = getSpecContent(blindType, spec)
   if (specList.length === 0) {
-    errorHandler('', `${blindType} spec display list error`)
+    errorHandler(`${blindType} spec display list error`)
     return
   }
 

@@ -69,7 +69,7 @@ export async function getSantaFeShutterTableEntryAsync(
 }
 
 export function getSantaFeShutterControl(spec: SantaFeShutterSpec) {
-  return spec.lithiumSmartMotor ? 'Lithium Smart Motor' : 'Cord'
+  return spec.lithiumSmartMotor ? 'Lithium Smart Motor' : ' '
 }
 
 export function getSantaFeShutterTrack(spec: SantaFeShutterSpec) {
