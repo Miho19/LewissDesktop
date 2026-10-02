@@ -1,6 +1,7 @@
 import { getKineticsCellularSpecDisplayList } from '@/components/spec/getKineticsCellularSpecDisplayList'
 import { getKineticsMikronwoodSpecDisplayList } from '@/components/spec/getKineticsMikronwoodSpecDisplayList'
 import { getKineticsRollerSpecDisplayList } from '@/components/spec/getKineticsRollerSpecDisplayList'
+import { getLewissVenetianSpecDisplayList } from '@/components/spec/getLewissVenetianSpecDisplayList'
 import { Item, ItemContent, ItemDescription, ItemTitle } from '@/components/ui/item'
 import { Blind } from '@shared/types/blind/blind.types'
 import { Spec } from '@shared/types/spec/Spec.types'
@@ -41,6 +42,14 @@ function getSpecContent(blindType: Blind, spec: Spec) {
       return getKineticsRollerSpecDisplayList(blindType, spec)
     case 'Kinetics Mikronwood 50mm Venetian':
       return getKineticsMikronwoodSpecDisplayList(blindType, spec)
+
+    case "Lewis's 25mm Aluminium Venetian":
+    case "Lewis's 50mm Aluminium Venetian":
+    case "Lewis's 50mm Fauxwood Venetian":
+    case "Lewis's 63mm Fauxwood Venetian":
+    case "Lewis's 50mm Phoenixwood Venetian":
+    case "Lewis's 63mm Phoenixwood Venetian":
+      return getLewissVenetianSpecDisplayList(blindType, spec)
 
     default:
       return []
