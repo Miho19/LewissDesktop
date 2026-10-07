@@ -1,9 +1,8 @@
 import { useParams } from '@tanstack/react-router'
-
 import { Spinner } from '@/components/ui/spinner'
 import useProjectFile from '@/hook/useProjectFile'
-import ProjectPageHeader from '@/components/project/ProjectPageHeader'
-import { getWindowDisplayList } from '@/utility/windowDisplay/getWindowDisplayList'
+import ProjectPageHeader from '@/components/projectPageHeader/ProjectPageHeader'
+import WindowTableContainer from '@/components/windowTable/WindowTableContainer'
 
 function Project() {
   const { consultantName, projectId } = useParams({
@@ -26,8 +25,6 @@ function Project() {
       </div>
     )
 
-  const windowDisplayList = getWindowDisplayList(file)
-
   return (
     <div className="w-full h-full flex flex-col p-6 gap-8">
       <ProjectPageHeader
@@ -37,6 +34,7 @@ function Project() {
         pricingType={file.pricingType}
         consultantName={consultantName}
       />
+      <WindowTableContainer file={file} />
     </div>
   )
 }

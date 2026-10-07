@@ -1,5 +1,5 @@
 import ConsultantAvatar from '@/components/consultantAvatar/ConsultantAvatar'
-import CustomerCard from '@/components/customercard/CustomerCard'
+import CustomerCard from '@/components/customerCard/CustomerCard'
 
 type Props = {
   name: string

@@ -13,7 +13,7 @@ export async function getWorksheetListAsync(
 ): Promise<[Worksheet[], any[]]> {
   errorCheck(windowDisplayList, file)
 
-  const map = getWindowDisplayMap(windowDisplayList)
+  const map = getWindowDisplayListAsMap(windowDisplayList)
   if (map.size === 0) throw new Error('Failed to map window display list')
 
   const [fulfilled, rejected] = await createWorksheetListAsync(map, file)
@@ -32,7 +32,7 @@ function errorCheck(windowDisplayList: WindowDisplay[], file: ProjectFile) {
   if (typeof file === 'undefined') throw new Error('Project file is undefined')
 }
 
-function getWindowDisplayMap(windowDisplayList: WindowDisplay[]) {
+export function getWindowDisplayListAsMap(windowDisplayList: WindowDisplay[]) {
   const map: Map<Blind, WindowDisplay[]> = new Map()
 
   for (const w of windowDisplayList) {

@@ -1,18 +1,13 @@
-import { WindowDisplay } from '@shared/types/WindowDisplay.types'
-import { createColumnHelper, rowSelectionFeature, tableFeatures } from '@tanstack/react-table'
+import { WindowTableFeatures } from '@/components/windowTable/utility/features'
+import { WindowTableEntry } from '@shared/types/WindowTableForm.types'
+import { createColumnHelper } from '@tanstack/react-table'
 import { Checkbox } from '@/components/ui/checkbox'
 import { capitalise } from '@/utility/general/capitalise'
 
-export const windowTableFeatures = tableFeatures({
-  rowSelectionFeature
-})
+export const windowTableColumnHelper = createColumnHelper<WindowTableFeatures, WindowTableEntry>()
 
-export type WindowTableFeatures = typeof windowTableFeatures
-
-const columnHelper = createColumnHelper<WindowTableFeatures, WindowDisplay>()
-
-export const windowTableColumns = columnHelper.columns([
-  columnHelper.display({
+export const windowTableColumnBase = windowTableColumnHelper.columns([
+  windowTableColumnHelper.display({
     id: 'select',
     header: ({ table }) => {
       return (
@@ -35,29 +30,32 @@ export const windowTableColumns = columnHelper.columns([
       />
     )
   }),
-  columnHelper.accessor('roomName', {
+  windowTableColumnHelper.accessor((row) => row.windowDisplay.roomName, {
+    id: 'roomName',
     header: 'Room Name'
   }),
 
-  columnHelper.accessor('windowName', {
+  windowTableColumnHelper.accessor((row) => row.windowDisplay.windowName, {
+    id: 'windowName',
     header: 'Window Name'
   }),
 
-  columnHelper.accessor((row) => row.width.join(', '), {
+  windowTableColumnHelper.accessor((row) => row.tableEntry.width, {
     id: 'width',
     header: 'Width (mm)'
   }),
 
-  columnHelper.accessor('height', {
+  windowTableColumnHelper.accessor((row) => row.tableEntry.height, {
+    id: 'height',
     header: 'Height (mm)'
   }),
 
-  columnHelper.accessor((row) => capitalise(row.fit), {
+  windowTableColumnHelper.accessor((row) => row.tableEntry.fit, {
     id: 'fit',
     header: 'Fit'
   }),
 
-  columnHelper.accessor((row) => capitalise(row.blindCount), {
+  windowTableColumnHelper.accessor((row) => capitalise(row.windowDisplay.blindCount), {
     id: 'blindCount',
     header: 'Count'
   })

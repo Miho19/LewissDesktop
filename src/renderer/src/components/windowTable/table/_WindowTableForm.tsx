@@ -1,10 +1,10 @@
 import SpecSheetContent from '@/components/spec/SpecSheetContent'
-import WindowTable from '@/components/project/table/WindowTable'
-import WindowTableFooter from '@/components/project/table/WindowTableFooter'
+import WindowTable from '@/components/windowTable/table/_WindowTable'
+import WindowTableFooter from '@/components/windowTable/table/_WindowTableFooter'
 import {
   windowTableFeatures,
   windowTableColumns
-} from '@/components/project/table/windowTableUtility'
+} from '@/components/windowTable/table/_windowTableUtility'
 import { CardContent } from '@/components/ui/card'
 import { Sheet } from '@/components/ui/sheet'
 import { getWindowDisplayList } from '@/utility/windowDisplay/getWindowDisplayList'
@@ -22,7 +22,7 @@ type Props = {
   file: ProjectFile
 }
 
-export type ToastErrorOption = {
+type ToastErrorOption = {
   message: string
   showToast?: boolean
 }
@@ -114,7 +114,7 @@ function WindowTableForm(props: Props) {
           selectedRowsString={selectedOutputString}
         />
       </form>
-      <SpecSheetContent windowDisplay={rowSelected} errorHandler={handleSpecSheetContentError} />
+      <SpecSheetContent windowTableEntry={rowSelected} errorHandler={handleSpecSheetContentError} />
     </Sheet>
   )
 }

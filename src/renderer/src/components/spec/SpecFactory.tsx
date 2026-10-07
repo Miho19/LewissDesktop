@@ -1,4 +1,4 @@
-import { ToastErrorOption } from '@/components/project/table/WindowTableForm'
+import { ToastErrorOption } from '@/components/windowTable/table/_WindowTableForm'
 import { getKineticsCellularSpecDisplayList } from '@/components/spec/getKineticsCellularSpecDisplayList'
 import { getKineticsMikronwoodSpecDisplayList } from '@/components/spec/getKineticsMikronwoodSpecDisplayList'
 import { getKineticsRollerSpecDisplayList } from '@/components/spec/getKineticsRollerSpecDisplayList'

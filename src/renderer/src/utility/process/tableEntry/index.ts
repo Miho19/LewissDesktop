@@ -15,7 +15,8 @@ import { getLewissFauxwoodTableEntryAsync } from '@/utility/process/tableEntry/l
 export async function getTableEntryListAsync(
   blindType: Blind,
   windowDisplayList: WindowDisplay[],
-  file: ProjectFile
+  file: ProjectFile,
+  cb?: (blindType: Blind, windowDisplay: WindowDisplay, tableEntry: TableEntry) => void
 ) {
   const createFn = getTableEntryFunctionMap[blindType]
   if (typeof createFn === 'undefined')
@@ -37,6 +38,7 @@ export async function getTableEntryListAsync(
     for (const newEntry of result) {
       if (typeof newEntry === 'undefined') continue
       entries.push(newEntry)
+      cb?.(blindType, w, newEntry)
     }
   }
 

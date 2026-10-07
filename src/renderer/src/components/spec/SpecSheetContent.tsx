@@ -1,4 +1,4 @@
-import { ToastErrorOption } from '@/components/project/table/WindowTableForm'
+import { ToastErrorOption } from '@/components/windowTable/table/_WindowTableForm'
 import FabricItem from '@/components/spec/FabricItem'
 import SpecFactory from '@/components/spec/SpecFactory'
 import { ItemGroup } from '@/components/ui/item'
@@ -7,21 +7,22 @@ import { SheetContent, SheetDescription, SheetHeader, SheetTitle } from '@/compo
 import { capitalise } from '@/utility/general/capitalise'
 import { getBlindTypeFromSpec } from '@/utility/process/worksheet/getBlindTypeFromSpec'
 import { WindowDisplay } from '@shared/types/WindowDisplay.types'
+import { WindowTableEntry } from '@shared/types/WindowTableForm.types'
 
 type Props = {
-  windowDisplay?: WindowDisplay
+  windowTableEntry?: WindowTableEntry
   errorHandler: (options: ToastErrorOption) => void
 }
 
 function SpecSheetContent(props: Props) {
-  const { windowDisplay, errorHandler } = props
+  const { windowTableEntry, errorHandler } = props
 
-  if (windowDisplay == null) {
+  if (windowTableEntry == null) {
     //errorHandler({ message: '', showToast: false })
     return <SheetContentEmpty />
   }
 
-  const { roomName, windowName, fit, blindCount, spec } = windowDisplay
+  const { roomName, windowName, fit, blindCount, spec } = windowTableEntry.windowDisplay
   const location = `${roomName} - ${windowName}`
 
   const blindType = getBlindTypeFromSpec(spec)
@@ -42,7 +43,7 @@ function SpecSheetContent(props: Props) {
       <SheetHeader>
         <SheetTitle>{location}</SheetTitle>
         <SheetDescription className="w-full flex justify-between items-center">
-          {getMeasurement(windowDisplay)}
+          {getMeasurement(windowTableEntry.windowDisplay)}
         </SheetDescription>
         <SheetDescription className="w-full flex justify-between items-center">
           <span>{capitalise(fit)}</span>

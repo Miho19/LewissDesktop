@@ -1,4 +1,4 @@
-import { WindowTableFeatures } from '@/components/project/table/windowTableUtility'
+import { WindowTableFeatures } from '@/components/windowTable/table/_windowTableUtility'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import {
   Table,
@@ -25,7 +25,7 @@ function WindowTable(props: Props) {
   const bodyList = getTableBody(table, onRowClick)
 
   return (
-    <ScrollArea className="h-[512px] w-full rounded-md border">
+    <ScrollArea className="h-128 w-full rounded-md border">
       <Table nowrapper className="mr-6">
         <TableHeader className="sticky top-0 z-10 bg-background shadow-xs">
           {headerList}
