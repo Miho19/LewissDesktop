@@ -1,15 +1,16 @@
 import { useParams } from '@tanstack/react-router'
-import ConsultantHeader from '@/components/consultant/ConsultantHeader'
+
 import { Spinner } from '@/components/ui/spinner'
 import useProjectFile from '@/hook/useProjectFile'
-import ProjectCard from '@/components/project/ProjectCard'
+import ConsultantAvatar from '@/components/consultantAvatar/ConsultantAvatar'
+import CustomerCard from '@/components/customercard/CustomerCard'
 
 function Project() {
   const { consultantName, projectId } = useParams({
     from: '/consultant/$consultantName/project/$projectId'
   })
 
-  const { data, isPending, isLoading, isError, error } = useProjectFile(projectId)
+  const { data: file, isPending, isLoading, isError, error } = useProjectFile(projectId)
 
   if (isPending || isLoading)
     return (
@@ -27,8 +28,15 @@ function Project() {
 
   return (
     <div className="w-full h-full flex flex-col p-6 gap-8">
-      <ConsultantHeader name={consultantName} />
-      <ProjectCard file={data} />
+      <div className="flex w-full justify-end focus:outline-none gap-4 items-center">
+        <ConsultantAvatar name={consultantName} />
+      </div>
+      <CustomerCard
+        name={file.name}
+        reference={file.reference}
+        service={file.service}
+        pricingType={file.pricingType}
+      />
     </div>
   )
 }

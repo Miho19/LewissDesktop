@@ -1,8 +1,8 @@
 import { useParams, useRouterState } from '@tanstack/react-router'
 import useFolder from '@/hook/useFolder'
-import ConsultantHeader from '@/components/consultant/ConsultantHeader'
-import FolderList from '@/components/consultant/FolderList'
+import FileList from '@/components/fileList/FileList'
 import { Spinner } from '@/components/ui/spinner'
+import ConsultantAvatar from '@/components/consultantAvatar/ConsultantAvatar'
 
 function Consultant() {
   const { consultantName } = useParams({ from: '/consultant/$consultantName/' })
@@ -22,9 +22,12 @@ function Consultant() {
   const filtered = data.filter((i) => i.isFile)
 
   return (
-    <div className="w-full h-full flex flex-col p-6 gap-8">
-      <ConsultantHeader name={consultantName} />
-      <FolderList folder={filtered} />
+    <div className="w-full h-full flex flex-col p-6 gap-8 items-center">
+      <div className="flex w-full justify-end focus:outline-none gap-4 items-center">
+        <ConsultantAvatar name={consultantName} />
+      </div>
+
+      <FileList folder={filtered} />
     </div>
   )
 }

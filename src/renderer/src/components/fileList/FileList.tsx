@@ -7,7 +7,7 @@ type Props = {
   folder: FolderItem[]
 }
 
-function FolderList(props: Props) {
+function FileList(props: Props) {
   const { folder } = props
   const { consultantName } = useParams({ from: '/consultant/$consultantName/' })
 
@@ -23,7 +23,7 @@ function FolderList(props: Props) {
   }
 
   return (
-    <Card className="w-full max-w-lg h-96 max-h-120 bg-card">
+    <Card className="w-full max-w-2xl h-96 max-h-120 bg-card">
       <CardHeader>
         <CardTitle>Project Files</CardTitle>
         <CardDescription>{description}</CardDescription>
@@ -106,4 +106,4 @@ function getFormattedLastModified(dateString: string) {
   }).format(date)
 }
 
-export default FolderList
+export default FileList
