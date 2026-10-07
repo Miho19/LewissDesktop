@@ -14,10 +14,11 @@ import { useTable } from '@tanstack/react-table'
 import { SubmitEvent, useState } from 'react'
 import { toast } from 'sonner'
 import { getBlindTypeFromSpec } from '@/utility/process/worksheet/getBlindTypeFromSpec'
-import { KineticsBlindTypeOptions } from '@shared/types/blind/kinetics.types'
 import { getWorksheetListAsync } from '@/utility/process/worksheet/getWorksheetList'
+import { Blind } from '@shared/types/blind/blind.types'
 
 type Props = {
+  blindType: Blind
   file: ProjectFile
 }
 
@@ -27,14 +28,14 @@ export type ToastErrorOption = {
 }
 
 function WindowTableForm(props: Props) {
-  const { file } = props
+  const { blindType, file } = props
 
   const [rowSelection, setRowSelection] = useState({})
   const [isSheetOpen, setIsSheetOpen] = useState<boolean>(false)
   const [rowSelected, setRowSelected] = useState<WindowDisplay | undefined>(undefined)
   const [isSubmitPending, setIsSubmitPending] = useState(false)
 
-  const windowDisplayList = getFilteredList(getWindowDisplayList(file))
+  const windowDisplayList = getFilteredList(blindType, getWindowDisplayList(file))
 
   const table = useTable({
     features: windowTableFeatures,
@@ -118,14 +119,13 @@ function WindowTableForm(props: Props) {
   )
 }
 
-function getFilteredList(windowDisplayList: WindowDisplay[]) {
+function getFilteredList(filterType: Blind, windowDisplayList: WindowDisplay[]) {
   return windowDisplayList.filter((wd) => {
     const { spec } = wd
     const blindType = getBlindTypeFromSpec(spec)
     if (typeof blindType === 'undefined') return false
 
-    const result = (KineticsBlindTypeOptions as readonly string[]).includes(blindType)
-    return result
+    return blindType !== filterType
   })
 }
 
