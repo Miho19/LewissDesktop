@@ -2,8 +2,7 @@ import { useParams } from '@tanstack/react-router'
 
 import { Spinner } from '@/components/ui/spinner'
 import useProjectFile from '@/hook/useProjectFile'
-import ConsultantAvatar from '@/components/consultantAvatar/ConsultantAvatar'
-import CustomerCard from '@/components/customercard/CustomerCard'
+import ProjectPageHeader from '@/components/project/ProjectPageHeader'
 
 function Project() {
   const { consultantName, projectId } = useParams({
@@ -28,14 +27,12 @@ function Project() {
 
   return (
     <div className="w-full h-full flex flex-col p-6 gap-8">
-      <div className="flex w-full justify-end focus:outline-none gap-4 items-center">
-        <ConsultantAvatar name={consultantName} />
-      </div>
-      <CustomerCard
+      <ProjectPageHeader
         name={file.name}
         reference={file.reference}
         service={file.service}
         pricingType={file.pricingType}
+        consultantName={consultantName}
       />
     </div>
   )
