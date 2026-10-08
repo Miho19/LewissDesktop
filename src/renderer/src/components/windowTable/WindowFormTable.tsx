@@ -1,3 +1,4 @@
+import { Marker, MarkerContent } from '@/components/ui/marker'
 import { getWindowFormTableColumnDefinition } from '@/components/windowTable/utility/columnDefinitions'
 import { windowFormTableFeatures } from '@/components/windowTable/utility/features'
 import WindowFormTableFooter from '@/components/windowTable/WindowFormTableFooter'
@@ -61,17 +62,14 @@ function WindowFormTable(props: Props) {
   return (
     <form className="flex flex-col w-full gap-8" onSubmit={onSubmitHandler}>
       <div className="flex w-full justify-between">
-        <p>{blindType}</p>
+        <Marker variant={'separator'}>
+          <MarkerContent>{blindType}</MarkerContent>
+        </Marker>
       </div>
-      <WindowTable
-        onRowClickHandler={onRowClickHandler}
-        table={table}
-        tableFooter={
-          <WindowFormTableFooter
-            isSubmitPending={isSubmitPending}
-            numberOfSelectedRowsString={numberOfSelectedRowsString}
-          />
-        }
+      <WindowTable onRowClickHandler={onRowClickHandler} table={table} />
+      <WindowFormTableFooter
+        isSubmitPending={isSubmitPending}
+        numberOfSelectedRowsString={numberOfSelectedRowsString}
       />
     </form>
   )

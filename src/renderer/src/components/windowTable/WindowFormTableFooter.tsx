@@ -9,8 +9,8 @@ type Props = {
 function WindowFormTableFooter(props: Props) {
   const { isSubmitPending, numberOfSelectedRowsString } = props
   return (
-    <div className="w-full flex justify-between">
-      <p className="w-full">{numberOfSelectedRowsString}</p>
+    <div className="w-full flex justify-between px-4">
+      <p className="w-full text-sm text-muted-foreground">{numberOfSelectedRowsString}</p>
       <Button>{isSubmitPending && <Spinner />}Submit</Button>
     </div>
   )

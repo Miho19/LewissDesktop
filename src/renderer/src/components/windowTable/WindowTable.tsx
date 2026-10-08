@@ -3,7 +3,6 @@ import {
   Table,
   TableBody,
   TableCell,
-  TableFooter,
   TableHead,
   TableHeader,
   TableRow
@@ -16,27 +15,24 @@ import { ReactTable } from '@tanstack/react-table'
 type Props = {
   table: ReactTable<WindowFormTableFeatures, WindowTableEntry>
   onRowClickHandler: (row: WindowTableEntry) => void
-  tableFooter: React.ReactElement
 }
 
 function WindowTable(props: Props) {
-  const { table, onRowClickHandler, tableFooter } = props
+  const { table, onRowClickHandler } = props
 
   const headerList = getTableHeader(table)
 
   const bodyList = getTableBody(table, onRowClickHandler)
 
   return (
-    <ScrollArea className="h-auto max-h-128 rounded-md border w-auto max-w-screen">
-      <Table nowrapper className=" mb-8">
+    <ScrollArea className="h-auto max-h-128 rounded-md border w-auto max-w-screen whitespace-nowrap">
+      <Table nowrapper className="">
         <TableHeader className="sticky top-0 z-10 bg-background shadow-xs">
           {headerList}
         </TableHeader>
         <TableBody>{bodyList}</TableBody>
-        {/* <TableFooter className="bg-background shadow-xs">
-          <TableCell colSpan={table.getAllColumns().length}>hello</TableCell>
-        </TableFooter> */}
       </Table>
+
       <ScrollBar orientation="horizontal" />
     </ScrollArea>
   )
