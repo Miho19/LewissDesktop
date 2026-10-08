@@ -1,61 +1,99 @@
-import { getTableEntryListAsync } from '@/utility/process/tableEntry'
-import { Blind } from '@shared/types/blind/blind.types'
-import { ProjectFile } from '@shared/types/Project.types'
-import { WindowDisplay } from '@shared/types/WindowDisplay.types'
+import { ScrollArea } from '@/components/ui/scroll-area'
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableFooter,
+  TableHead,
+  TableHeader,
+  TableRow
+} from '@/components/ui/table'
+import { WindowFormTableFeatures } from '@/components/windowTable/utility/features'
+
 import { WindowTableEntry } from '@shared/types/WindowTableForm.types'
-import { useSuspenseQuery } from '@tanstack/react-query'
-import { useState } from 'react'
+import { ReactTable } from '@tanstack/react-table'
 
 type Props = {
-  blindType: Blind
-  windowDisplayList: WindowDisplay[]
-  file: ProjectFile
-  rowOnClick: (row: WindowTableEntry) => void
-  onSubmitHandler: (selected: WindowTableEntry[]) => void
+  table: ReactTable<WindowFormTableFeatures, WindowTableEntry>
+  onRowClickHandler: (row: WindowTableEntry) => void
+  tableFooter: React.ReactElement
 }
 
 function WindowTable(props: Props) {
-  const { blindType, windowDisplayList, file, rowOnClick, onSubmitHandler } = props
+  const { table, onRowClickHandler, tableFooter } = props
 
-  const [rowSelection, setRowSelection] = useState({})
+  const headerList = getTableHeader(table)
 
-  const { data, error, isFetching } = useSuspenseQuery<WindowTableEntry[]>({
-    queryKey: [`${blindType} initial window table form`],
-    queryFn: async () => await getWindowTableEntryList(blindType, windowDisplayList, file)
-  })
+  const bodyList = getTableBody(table, onRowClickHandler)
 
-  if (error && !isFetching) {
-    throw error
-  }
-
-  return <form></form>
+  return (
+    <ScrollArea className="min-h-36 max-h-128 w-full rounded-md border">
+      <Table nowrapper className="mr-6">
+        <TableHeader className="sticky top-0 z-10 bg-background shadow-xs">
+          {headerList}
+        </TableHeader>
+        <TableBody>{bodyList}</TableBody>
+        <TableFooter className="bg-background shadow-xs">
+          <TableCell colSpan={table.getAllColumns().length}>
+            <div className="w-full flex py-2 px-4">{tableFooter}</div>
+          </TableCell>
+        </TableFooter>
+      </Table>
+    </ScrollArea>
+  )
 }
 
-async function getWindowTableEntryList(
-  blindType: Blind,
-  windowDisplayList: WindowDisplay[],
-  file: ProjectFile
+function getTableBody(
+  table: ReactTable<WindowFormTableFeatures, WindowTableEntry>,
+  onClick: (row: WindowTableEntry) => void
 ) {
-  // breaking functional programming here but do not know another solution currently
+  if (table.getRowModel().rows.length === 0)
+    return (
+      <TableRow>
+        <TableCell colSpan={table.getAllColumns().length} className="h-24 text-center">
+          No windows
+        </TableCell>
+      </TableRow>
+    )
 
-  const entries: WindowTableEntry[] = []
+  const bodyList = table.getRowModel().rows.map((row) => {
+    return (
+      <TableRow
+        key={row.id}
+        data-state={row.getIsSelected() && 'selected'}
+        className="cursor-pointer hover:bg-muted/50 transition-colors"
+        onClick={() => onClick(row.original)}
+      >
+        {row.getAllCells().map((cell) => {
+          return (
+            <TableCell key={cell.id}>
+              <table.FlexRender cell={cell} />
+            </TableCell>
+          )
+        })}
+      </TableRow>
+    )
+  })
 
-  await getTableEntryListAsync(
-    blindType,
-    windowDisplayList,
-    file,
-    (blindType, windowDisplay, tableEntry) => {
-      const newEntry: WindowTableEntry = {
-        blindType,
-        windowDisplay,
-        tableEntry
-      }
+  return bodyList
+}
 
-      entries.push(newEntry)
-    }
-  )
+function getTableHeader(table: ReactTable<WindowFormTableFeatures, WindowTableEntry>) {
+  const headerList = table.getHeaderGroups().map((headerGroup) => {
+    return (
+      <TableRow key={headerGroup.id}>
+        {headerGroup.headers.map((header) => {
+          return (
+            <TableHead key={header.id}>
+              {header.isPlaceholder ? null : <table.FlexRender header={header} />}
+            </TableHead>
+          )
+        })}
+      </TableRow>
+    )
+  })
 
-  return entries
+  return headerList
 }
 
 export default WindowTable

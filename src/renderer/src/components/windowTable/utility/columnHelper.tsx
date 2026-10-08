@@ -1,10 +1,13 @@
-import { WindowTableFeatures } from '@/components/windowTable/utility/features'
 import { WindowTableEntry } from '@shared/types/WindowTableForm.types'
 import { createColumnHelper } from '@tanstack/react-table'
 import { Checkbox } from '@/components/ui/checkbox'
 import { capitalise } from '@/utility/general/capitalise'
+import { WindowFormTableFeatures } from '@/components/windowTable/utility/features'
 
-export const windowTableColumnHelper = createColumnHelper<WindowTableFeatures, WindowTableEntry>()
+export const windowTableColumnHelper = createColumnHelper<
+  WindowFormTableFeatures,
+  WindowTableEntry
+>()
 
 export const windowTableColumnBase = windowTableColumnHelper.columns([
   windowTableColumnHelper.display({

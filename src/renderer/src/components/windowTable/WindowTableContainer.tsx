@@ -1,7 +1,8 @@
 import SpecSheetContent from '@/components/spec/SpecSheetContent'
+import { Separator } from '@/components/ui/separator'
 import { Sheet } from '@/components/ui/sheet'
 import { Spinner } from '@/components/ui/spinner'
-import WindowTable from '@/components/windowTable/WindowTable'
+import WindowFormTable from '@/components/windowTable/WindowFormTable'
 import { getWindowDisplayListAsMap } from '@/utility/process/worksheet/getWorksheetList'
 import { getWindowDisplayList } from '@/utility/windowDisplay/getWindowDisplayList'
 import { Blind } from '@shared/types/blind/blind.types'
@@ -48,7 +49,8 @@ function WindowTableContainer(props: Props) {
   return (
     <div className="w-full h-full flex flex-col gap-8">
       <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
-        {windowTableFormList}
+        <div className="flex flex-col w-full gap-8">{windowTableFormList}</div>
+
         <SpecSheetContent
           windowTableEntry={rowSelected}
           errorHandler={handleSpecSheetContentError}
@@ -61,17 +63,16 @@ function WindowTableContainer(props: Props) {
 function getWindowTableFormList(
   map: Map<Blind, WindowDisplay[]>,
   file: ProjectFile,
-  onRowClick: (row: WindowTableEntry) => void
+  onRowClickHandler: (row: WindowTableEntry) => void
 ) {
   return [...map.entries()].map(([key, value]) => {
     return (
       <Suspense fallback={<WindowTableLoading />}>
-        <WindowTable
+        <WindowFormTable
           blindType={key}
           windowDisplayList={value}
           file={file}
-          rowOnClick={onRowClick}
-          onSubmitHandler={() => console.log(`submitted`)}
+          onRowClickHandler={onRowClickHandler}
         />
       </Suspense>
     )

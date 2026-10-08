@@ -1,0 +1,135 @@
+import { windowTableColumnBase } from '@/components/windowTable/utility/columnHelper'
+import { windowFormTableFeatures } from '@/components/windowTable/utility/features'
+import WindowFormTableFooter from '@/components/windowTable/WindowFormTableFooter'
+import WindowTable from '@/components/windowTable/WindowTable'
+import { getTableEntryListAsync } from '@/utility/process/tableEntry'
+import { Blind } from '@shared/types/blind/blind.types'
+import { ProjectFile } from '@shared/types/Project.types'
+import { WindowDisplay } from '@shared/types/WindowDisplay.types'
+import { WindowTableEntry } from '@shared/types/WindowTableForm.types'
+import { useSuspenseQuery } from '@tanstack/react-query'
+import { RowSelectionState, useTable } from '@tanstack/react-table'
+import { useState } from 'react'
+
+type Props = {
+  blindType: Blind
+  windowDisplayList: WindowDisplay[]
+  file: ProjectFile
+  onRowClickHandler: (row: WindowTableEntry) => void
+}
+
+function WindowFormTable(props: Props) {
+  const { blindType, windowDisplayList, file, onRowClickHandler } = props
+
+  const [isSubmitPending, setIsSubmitPending] = useState(false)
+  const [rowSelection, setRowSelection] = useState<RowSelectionState>({})
+
+  const { data, error, isFetching } = useSuspenseQuery<WindowTableEntry[]>({
+    queryKey: [`${blindType} initial window table form`],
+    queryFn: async () => await getWindowTableEntryList(blindType, windowDisplayList, file)
+  })
+
+  const table = useTable({
+    features: windowFormTableFeatures,
+    columns: windowTableColumnBase,
+    data: data,
+    onRowSelectionChange: setRowSelection,
+    state: {
+      rowSelection
+    }
+  })
+
+  if (error && !isFetching) {
+    throw error
+  }
+
+  const totalSelected = table.getFilteredSelectedRowModel().rows.length
+  const totalRows = table.getFilteredRowModel().rows.length
+
+  const numberOfSelectedRowsString = `${totalSelected} of ${totalRows} selected`
+
+  async function onSubmitHandler(event: React.SubmitEvent<HTMLFormElement>) {
+    event.stopPropagation()
+  }
+
+  return (
+    <form className="flex flex-col w-full gap-8" onSubmit={onSubmitHandler}>
+      <div className="flex w-full justify-between">
+        <p>{blindType}</p>
+      </div>
+      <WindowTable
+        onRowClickHandler={onRowClickHandler}
+        table={table}
+        tableFooter={
+          <WindowFormTableFooter
+            isSubmitPending={isSubmitPending}
+            numberOfSelectedRowsString={numberOfSelectedRowsString}
+          />
+        }
+      />
+    </form>
+  )
+}
+
+async function getWindowTableEntryList(
+  blindType: Blind,
+  windowDisplayList: WindowDisplay[],
+  file: ProjectFile
+) {
+  // breaking functional programming here but do not know another solution currently
+
+  const entries: WindowTableEntry[] = []
+
+  await getTableEntryListAsync(
+    blindType,
+    windowDisplayList,
+    file,
+    (blindType, windowDisplay, tableEntry) => {
+      const newEntry: WindowTableEntry = {
+        blindType,
+        windowDisplay,
+        tableEntry
+      }
+
+      entries.push(newEntry)
+    }
+  )
+
+  return entries
+}
+
+export default WindowFormTable
+
+// async function onSubmitHandler(event: SubmitEvent<HTMLFormElement>) {
+//   event.preventDefault()
+//   if (isSubmitPending) return
+//   if (typeof windowDisplayList === 'undefined') return
+
+//   if (table.getFilteredSelectedRowModel().rows.length === 0) {
+//     toastErrorMessage('No rows selected')
+//     return
+//   }
+
+//   let errorMap = new Map<string, string>()
+
+//   try {
+//     setIsSubmitPending(true)
+//     const selectedWindows = table.getFilteredSelectedRowModel().rows.map((row) => row.original)
+
+//     const [worksheetList, rejectedReasons] = await getWorksheetListAsync(selectedWindows, file)
+//     errorMap = handleGetWorksheetListRejectedList(rejectedReasons, errorMap)
+
+//     console.log(worksheetList)
+//   } catch (error) {
+//     if (error instanceof Error) {
+//       errorMap.set(error.name, error.message)
+//     }
+//   } finally {
+//     setIsSubmitPending(false)
+//     if (errorMap.size === 0) return
+
+//     for (const [key, value] of errorMap) {
+//       toastErrorMessage(`${key}\n${value}`)
+//     }
+//   }
+// }

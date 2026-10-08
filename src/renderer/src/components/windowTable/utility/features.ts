@@ -1,7 +1,7 @@
 import { rowSelectionFeature, tableFeatures } from '@tanstack/react-table'
 
-export const windowTableFeatures = tableFeatures({
+export const windowFormTableFeatures = tableFeatures({
   rowSelectionFeature
 })
 
-export type WindowTableFeatures = typeof windowTableFeatures
+export type WindowFormTableFeatures = typeof windowFormTableFeatures
