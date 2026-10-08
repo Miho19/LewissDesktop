@@ -83,7 +83,7 @@ export async function getKineticsRollerTableEntryAsync(
     butting: '',
     remote: remote,
     channel: channel,
-    price: leftBlindCost.toFixed(0)
+    price: leftBlindCost.toFixed(2)
   }
 
   return [leftEntry]

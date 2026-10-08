@@ -7,3 +7,7 @@ export type WindowTableEntry = {
   windowDisplay: WindowDisplay
   tableEntry: TableEntry
 }
+
+export type WindowTableMeta = {
+  updateData: (rowIndex: number, columnId: string, value: unknown) => void
+}

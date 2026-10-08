@@ -4,7 +4,7 @@ import { isKineticsRollerTableEntry } from '@shared/types/tableEntry/kineticsRol
 import { WindowTableEntry } from '@shared/types/WindowTableForm.types'
 import { createColumnHelper } from '@tanstack/react-table'
 
-export const columnHelper = createColumnHelper<WindowFormTableFeatures, WindowTableEntry>()
+const columnHelper = createColumnHelper<WindowFormTableFeatures, WindowTableEntry>()
 
 export const kineticsRollerWindowTableColumnDefinition = columnHelper.columns([
   ...windowTableColumnBase,

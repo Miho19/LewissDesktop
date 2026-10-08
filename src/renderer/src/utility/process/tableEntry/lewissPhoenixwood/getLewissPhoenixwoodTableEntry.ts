@@ -89,7 +89,7 @@ export async function getLewisPhoenixwoodTableEntryAsync(
     'cut out': cutOut,
     'palladian shelf': palladianShelf,
     butting,
-    price: leftBlindCost.toFixed(0)
+    price: leftBlindCost.toFixed(2)
   }
 
   return [leftBlindEntry]

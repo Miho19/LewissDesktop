@@ -34,6 +34,7 @@ function WindowFormTable(props: Props) {
     features: windowFormTableFeatures,
     columns: getWindowFormTableColumnDefinition(blindType),
     data: data,
+
     onRowSelectionChange: setRowSelection,
     state: {
       rowSelection
