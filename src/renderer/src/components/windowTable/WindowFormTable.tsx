@@ -25,16 +25,29 @@ function WindowFormTable(props: Props) {
   const [isSubmitPending, setIsSubmitPending] = useState(false)
   const [rowSelection, setRowSelection] = useState<RowSelectionState>({})
 
-  const { data, error, isFetching } = useSuspenseQuery<WindowTableEntry[]>({
+  const {
+    data: initialTableData,
+    error,
+    isFetching
+  } = useSuspenseQuery<WindowTableEntry[]>({
     queryKey: [`${blindType} initial window table form`],
     queryFn: async () => await getWindowTableEntryList(blindType, windowDisplayList, file)
   })
+
+  const [data, setData] = useState(initialTableData)
 
   const table = useTable({
     features: windowFormTableFeatures,
     columns: getWindowFormTableColumnDefinition(blindType),
     data: data,
-
+    meta: {
+      updateData: (rowIndex, columnId, value) => {
+        setData((prev) => {
+          console.log(prev)
+          return prev
+        })
+      }
+    },
     onRowSelectionChange: setRowSelection,
     state: {
       rowSelection

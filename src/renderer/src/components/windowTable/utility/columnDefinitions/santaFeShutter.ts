@@ -1,3 +1,4 @@
+import EditableCell from '@/components/windowTable/EditableCell'
 import { windowTableColumnBase } from '@/components/windowTable/utility/columnDefinitions/defaultDefinition'
 import { WindowFormTableFeatures } from '@/components/windowTable/utility/features'
 import { isSantaFeShutterTableEntry } from '@shared/types/tableEntry/santaFeShutter.types'
@@ -7,15 +8,25 @@ import { createColumnHelper } from '@tanstack/react-table'
 
 const columnHelper = createColumnHelper<WindowFormTableFeatures, WindowTableEntry>()
 
+
+  // columnHelper.accessor(
+  //   (row) => {
+  //     if (!isSantaFeShutterTableEntry(row.tableEntry)) return
+  //     return row.tableEntry.colour
+  //   },
+  //   {
+  //     id: 'colour',
+  //     header: 'Colour'
+  //   }
+  // ),
+
 export const SantaFeShutterWindowTableColumnDefinition = columnHelper.columns([
   ...windowTableColumnBase,
 
   columnHelper.accessor(
-    (row) => {
-      if (!isSantaFeShutterTableEntry(row.tableEntry)) return
-      return row.tableEntry.colour
-    },
+    
     {
+      cell
       id: 'colour',
       header: 'Colour'
     }
