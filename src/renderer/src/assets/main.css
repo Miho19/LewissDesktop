@@ -128,3 +128,17 @@
     @apply font-sans;
   }
 }
+
+/* Hide webkit scrollbars for Chrome runtime inside Electron */
+::-webkit-scrollbar {
+  display: none;
+}
+
+/* Optional utility if you want to keep scrolling functionality but hide the bar visually */
+.no-scrollbar {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none; /* Chrome, Safari and Opera */
+}

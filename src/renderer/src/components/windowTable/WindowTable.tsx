@@ -1,4 +1,4 @@
-import { ScrollArea } from '@/components/ui/scroll-area'
+import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area'
 import {
   Table,
   TableBody,
@@ -27,18 +27,14 @@ function WindowTable(props: Props) {
   const bodyList = getTableBody(table, onRowClickHandler)
 
   return (
-    <ScrollArea className="min-h-36 max-h-128 w-full rounded-md border">
+    <ScrollArea className="min-h-36 max-h-128  rounded-md border">
       <Table nowrapper className="mr-6">
         <TableHeader className="sticky top-0 z-10 bg-background shadow-xs">
           {headerList}
         </TableHeader>
         <TableBody>{bodyList}</TableBody>
-        <TableFooter className="bg-background shadow-xs">
-          <TableCell colSpan={table.getAllColumns().length}>
-            <div className="w-full flex py-2 px-4">{tableFooter}</div>
-          </TableCell>
-        </TableFooter>
       </Table>
+      <ScrollBar orientation="horizontal" />
     </ScrollArea>
   )
 }

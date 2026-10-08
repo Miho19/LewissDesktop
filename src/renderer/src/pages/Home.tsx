@@ -1,5 +1,5 @@
 function Home() {
-  return <div className="h-full flex justify-start items-center"></div>
+  return <div className="h-full w-full"></div>
 }
 
 export default Home

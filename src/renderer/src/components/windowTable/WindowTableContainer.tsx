@@ -1,5 +1,4 @@
 import SpecSheetContent from '@/components/spec/SpecSheetContent'
-import { Separator } from '@/components/ui/separator'
 import { Sheet } from '@/components/ui/sheet'
 import { Spinner } from '@/components/ui/spinner'
 import WindowFormTable from '@/components/windowTable/WindowFormTable'

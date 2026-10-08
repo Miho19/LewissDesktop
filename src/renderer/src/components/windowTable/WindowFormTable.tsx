@@ -1,4 +1,4 @@
-import { windowTableColumnBase } from '@/components/windowTable/utility/columnHelper'
+import { getWindowFormTableColumnDefinition } from '@/components/windowTable/utility/columnDefinitions'
 import { windowFormTableFeatures } from '@/components/windowTable/utility/features'
 import WindowFormTableFooter from '@/components/windowTable/WindowFormTableFooter'
 import WindowTable from '@/components/windowTable/WindowTable'
@@ -31,7 +31,7 @@ function WindowFormTable(props: Props) {
 
   const table = useTable({
     features: windowFormTableFeatures,
-    columns: windowTableColumnBase,
+    columns: getWindowFormTableColumnDefinition(blindType),
     data: data,
     onRowSelectionChange: setRowSelection,
     state: {
@@ -50,6 +50,12 @@ function WindowFormTable(props: Props) {
 
   async function onSubmitHandler(event: React.SubmitEvent<HTMLFormElement>) {
     event.stopPropagation()
+    if (isSubmitPending) return
+    try {
+    } catch (error) {
+    } finally {
+      setIsSubmitPending(false)
+    }
   }
 
   return (

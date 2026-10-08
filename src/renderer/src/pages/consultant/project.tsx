@@ -3,6 +3,7 @@ import { Spinner } from '@/components/ui/spinner'
 import useProjectFile from '@/hook/useProjectFile'
 import ProjectPageHeader from '@/components/projectPageHeader/ProjectPageHeader'
 import WindowTableContainer from '@/components/windowTable/WindowTableContainer'
+import { ScrollArea } from '@/components/ui/scroll-area'
 
 function Project() {
   const { consultantName, projectId } = useParams({
@@ -26,7 +27,7 @@ function Project() {
     )
 
   return (
-    <div className="w-full h-full flex flex-col p-6 gap-8">
+    <div className="h-full w-full flex flex-col gap-8">
       <ProjectPageHeader
         name={file.name}
         reference={file.reference}
