@@ -48,7 +48,7 @@ function WindowTableContainer(props: Props) {
   return (
     <div className="w-full h-full flex flex-col gap-8">
       <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
-        <div className="flex flex-col w-full gap-8">{windowTableFormList}</div>
+        <div className="flex flex-col w-full gap-16">{windowTableFormList}</div>
 
         <SpecSheetContent
           windowTableEntry={rowSelected}

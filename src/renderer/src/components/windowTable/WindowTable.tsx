@@ -27,12 +27,15 @@ function WindowTable(props: Props) {
   const bodyList = getTableBody(table, onRowClickHandler)
 
   return (
-    <ScrollArea className="min-h-36 max-h-128  rounded-md border">
-      <Table nowrapper className="mr-6">
+    <ScrollArea className="h-auto max-h-128 rounded-md border w-auto max-w-screen">
+      <Table nowrapper className=" mb-8">
         <TableHeader className="sticky top-0 z-10 bg-background shadow-xs">
           {headerList}
         </TableHeader>
         <TableBody>{bodyList}</TableBody>
+        {/* <TableFooter className="bg-background shadow-xs">
+          <TableCell colSpan={table.getAllColumns().length}>hello</TableCell>
+        </TableFooter> */}
       </Table>
       <ScrollBar orientation="horizontal" />
     </ScrollArea>
@@ -46,7 +49,7 @@ function getTableBody(
   if (table.getRowModel().rows.length === 0)
     return (
       <TableRow>
-        <TableCell colSpan={table.getAllColumns().length} className="h-24 text-center">
+        <TableCell colSpan={table.getAllColumns().length} className="text-center">
           No windows
         </TableCell>
       </TableRow>
