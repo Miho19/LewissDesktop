@@ -5,7 +5,7 @@ type Props = {
 }
 
 function WindowFormTableFooter(props: Props) {
-  const { isSubmitPending, numberOfSelectedRowsString } = props
+  const { numberOfSelectedRowsString } = props
   return (
     <div className="w-full flex justify-between px-4">
       <p className="w-full text-sm text-muted-foreground">{numberOfSelectedRowsString}</p>

@@ -1,4 +1,5 @@
 import SpecSheetContent from '@/components/spec/SpecSheetContent'
+import SubmitSheet from '@/components/submitSheet/SubmitSheet'
 import { Sheet } from '@/components/ui/sheet'
 import { Spinner } from '@/components/ui/spinner'
 import WindowFormTable from '@/components/windowTable/WindowFormTable'
@@ -23,30 +24,56 @@ export type ToastErrorOption = {
 function WindowTableContainer(props: Props) {
   const { file } = props
   const [isSheetOpen, setIsSheetOpen] = useState(false)
+  const [submitData, setSubmitData] = useState<WindowTableEntry[]>([])
 
   const windowDisplayList = getWindowDisplayList(file)
   const map = getWindowDisplayListAsMap(windowDisplayList)
 
   if (map.size === 0) return <WindowTableContainerEmpty />
 
-  async function submitTable(windowTableEntryList: WindowTableEntry[], file: ProjectFile) {}
+  function openSheet(windowTableEntry: WindowTableEntry[]) {
+    setSubmitData(windowTableEntry)
+    setIsSheetOpen(true)
+  }
 
-  const windowTableFormList = getWindowTableFormList(map, file)
+  function handleSpecSheetContentError({ message, showToast = true }: ToastErrorOption) {
+    if (showToast) toastWindowTableFormErrorMessage(message)
+
+    setIsSheetOpen(false)
+
+    return
+  }
+
+  const windowTableFormList = getWindowTableFormList(map, file, openSheet)
 
   return (
     <div className="w-full h-full flex flex-col gap-8">
       <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
         <div className="flex flex-col w-full gap-16">{windowTableFormList}</div>
+        <SubmitSheet
+          windowTableEntryList={submitData}
+          errorHandler={handleSpecSheetContentError}
+          file={file}
+        />
       </Sheet>
     </div>
   )
 }
 
-function getWindowTableFormList(map: Map<Blind, WindowDisplay[]>, file: ProjectFile) {
+function getWindowTableFormList(
+  map: Map<Blind, WindowDisplay[]>,
+  file: ProjectFile,
+  openSheet: (WindowTableEntryList: WindowTableEntry[]) => void
+) {
   return [...map.entries()].map(([key, value]) => {
     return (
       <Suspense fallback={<WindowTableLoading />} key={`${key}`}>
-        <WindowFormTable blindType={key} windowDisplayList={value} file={file} />
+        <WindowFormTable
+          blindType={key}
+          windowDisplayList={value}
+          file={file}
+          openSheet={openSheet}
+        />
       </Suspense>
     )
   })

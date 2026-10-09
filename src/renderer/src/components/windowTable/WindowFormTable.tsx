@@ -4,7 +4,6 @@ import { editableDefaultColumnId } from '@/components/windowTable/utility/column
 import { windowFormTableFeatures } from '@/components/windowTable/utility/features'
 import WindowFormTableFooter from '@/components/windowTable/WindowFormTableFooter'
 import WindowTable from '@/components/windowTable/WindowTable'
-import { toastWindowTableFormErrorMessage } from '@/components/windowTable/WindowTableContainer'
 import { getTableEntryListAsync } from '@/utility/process/tableEntry'
 import { Blind } from '@shared/types/blind/blind.types'
 import { ProjectFile } from '@shared/types/Project.types'
@@ -18,14 +17,12 @@ type Props = {
   blindType: Blind
   windowDisplayList: WindowDisplay[]
   file: ProjectFile
+  openSheet: (WindowTableEntryList: WindowTableEntry[]) => void
 }
 
-// kept in editing code for future update
-
 function WindowFormTable(props: Props) {
-  const { blindType, windowDisplayList, file } = props
+  const { blindType, windowDisplayList, file, openSheet } = props
 
-  const [isSubmitPending, setIsSubmitPending] = useState(false)
   const [rowSelection, setRowSelection] = useState<RowSelectionState>({})
 
   const {
@@ -86,20 +83,15 @@ function WindowFormTable(props: Props) {
   const numberOfSelectedRowsString = `${totalSelected} of ${totalRows} selected`
 
   async function onSubmitHandler(event: React.SubmitEvent<HTMLFormElement>) {
-    try {
-      event.preventDefault()
-      if (isSubmitPending) return
-      setIsSubmitPending(true)
-      const windowDisplayList = table.getFilteredSelectedRowModel().rows.map((row) => row.original)
+    event.preventDefault()
+    const WindowTableEntryList = table.getFilteredSelectedRowModel().rows.map((row) => row.original)
 
-      if (windowDisplayList.length === 0) {
-        toastWindowTableFormErrorMessage(`No '${blindType}' windows are selected`)
-        return
-      }
-    } catch (error) {
-    } finally {
-      setIsSubmitPending(false)
+    if (WindowTableEntryList.length === 0) {
+      toastErrorMessage(`No '${blindType} windows selected'`)
+      return
     }
+
+    openSheet(WindowTableEntryList)
   }
 
   return (
@@ -110,10 +102,7 @@ function WindowFormTable(props: Props) {
         </Marker>
       </div>
       <WindowTable table={table} />
-      <WindowFormTableFooter
-        isSubmitPending={isSubmitPending}
-        numberOfSelectedRowsString={numberOfSelectedRowsString}
-      />
+      <WindowFormTableFooter numberOfSelectedRowsString={numberOfSelectedRowsString} />
     </form>
   )
 }
@@ -147,6 +136,9 @@ async function getWindowTableEntryList(
 
 export default WindowFormTable
 
+function toastErrorMessage(arg0: string) {
+  throw new Error('Function not implemented.')
+}
 // async function onSubmitHandler(event: SubmitEvent<HTMLFormElement>) {
 //   event.preventDefault()
 //   if (isSubmitPending) return
