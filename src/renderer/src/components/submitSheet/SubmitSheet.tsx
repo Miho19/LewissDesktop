@@ -1,4 +1,5 @@
 import CustomerFieldSet from '@/components/submitSheet/CustomerFieldSet'
+import InstructionsFieldSet from '@/components/submitSheet/InstructionsFieldSet'
 
 import { Button } from '@/components/ui/button'
 
@@ -82,6 +83,7 @@ function SubmitSheet(props: Props) {
 
       <form className="flex w-full px-4" id="create-worksheet-form" onSubmit={onSubmitHandler}>
         {page === 0 && <CustomerFieldSet onInputChange={onInputChange} value={value} />}
+        {page === 1 && <InstructionsFieldSet onInputChange={onInputChange} value={value} />}
         {page}
       </form>
       <SheetFooter>
