@@ -15,3 +15,9 @@
     - special notes
     - for now ignore dual blinds
     - specify the remote + channels
+
+## Window Form Table
+
+    - have to different sheets
+        - on click row --> editable form
+        - on submit --> process window

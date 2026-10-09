@@ -1,8 +1,10 @@
 import { Marker, MarkerContent } from '@/components/ui/marker'
 import { getWindowFormTableColumnDefinition } from '@/components/windowTable/utility/columnDefinitions'
+import { editableDefaultColumnId } from '@/components/windowTable/utility/columnDefinitions/defaultDefinition'
 import { windowFormTableFeatures } from '@/components/windowTable/utility/features'
 import WindowFormTableFooter from '@/components/windowTable/WindowFormTableFooter'
 import WindowTable from '@/components/windowTable/WindowTable'
+import { toastWindowTableFormErrorMessage } from '@/components/windowTable/WindowTableContainer'
 import { getTableEntryListAsync } from '@/utility/process/tableEntry'
 import { Blind } from '@shared/types/blind/blind.types'
 import { ProjectFile } from '@shared/types/Project.types'
@@ -16,11 +18,12 @@ type Props = {
   blindType: Blind
   windowDisplayList: WindowDisplay[]
   file: ProjectFile
-  onRowClickHandler: (row: WindowTableEntry) => void
 }
 
+// kept in editing code for future update
+
 function WindowFormTable(props: Props) {
-  const { blindType, windowDisplayList, file, onRowClickHandler } = props
+  const { blindType, windowDisplayList, file } = props
 
   const [isSubmitPending, setIsSubmitPending] = useState(false)
   const [rowSelection, setRowSelection] = useState<RowSelectionState>({})
@@ -43,8 +46,27 @@ function WindowFormTable(props: Props) {
     meta: {
       updateData: (rowIndex, columnId, value) => {
         setData((prev) => {
-          console.log(prev)
-          return prev
+          return prev.map((row, index) => {
+            if (index !== rowIndex) return row
+
+            if (editableDefaultColumnId.includes(columnId)) {
+              return {
+                ...row,
+                windowDisplay: {
+                  ...row.windowDisplay,
+                  [columnId]: value
+                }
+              }
+            }
+
+            return {
+              ...row,
+              tableEntry: {
+                ...row.tableEntry,
+                [columnId]: value
+              }
+            }
+          })
         })
       }
     },
@@ -64,9 +86,16 @@ function WindowFormTable(props: Props) {
   const numberOfSelectedRowsString = `${totalSelected} of ${totalRows} selected`
 
   async function onSubmitHandler(event: React.SubmitEvent<HTMLFormElement>) {
-    event.stopPropagation()
-    if (isSubmitPending) return
     try {
+      event.preventDefault()
+      if (isSubmitPending) return
+      setIsSubmitPending(true)
+      const windowDisplayList = table.getFilteredSelectedRowModel().rows.map((row) => row.original)
+
+      if (windowDisplayList.length === 0) {
+        toastWindowTableFormErrorMessage(`No '${blindType}' windows are selected`)
+        return
+      }
     } catch (error) {
     } finally {
       setIsSubmitPending(false)
@@ -80,7 +109,7 @@ function WindowFormTable(props: Props) {
           <MarkerContent>{blindType}</MarkerContent>
         </Marker>
       </div>
-      <WindowTable onRowClickHandler={onRowClickHandler} table={table} />
+      <WindowTable table={table} />
       <WindowFormTableFooter
         isSubmitPending={isSubmitPending}
         numberOfSelectedRowsString={numberOfSelectedRowsString}

@@ -14,15 +14,14 @@ import { ReactTable } from '@tanstack/react-table'
 
 type Props = {
   table: ReactTable<WindowFormTableFeatures, WindowTableEntry>
-  onRowClickHandler: (row: WindowTableEntry) => void
 }
 
 function WindowTable(props: Props) {
-  const { table, onRowClickHandler } = props
+  const { table } = props
 
   const headerList = getTableHeader(table)
 
-  const bodyList = getTableBody(table, onRowClickHandler)
+  const bodyList = getTableBody(table)
 
   return (
     <ScrollArea className="h-auto max-h-128 rounded-md border w-auto max-w-screen whitespace-nowrap">
@@ -38,10 +37,7 @@ function WindowTable(props: Props) {
   )
 }
 
-function getTableBody(
-  table: ReactTable<WindowFormTableFeatures, WindowTableEntry>,
-  onClick: (row: WindowTableEntry) => void
-) {
+function getTableBody(table: ReactTable<WindowFormTableFeatures, WindowTableEntry>) {
   if (table.getRowModel().rows.length === 0)
     return (
       <TableRow>
@@ -57,7 +53,6 @@ function getTableBody(
         key={row.id}
         data-state={row.getIsSelected() && 'selected'}
         className="cursor-pointer hover:bg-muted/50 transition-colors"
-        onClick={() => onClick(row.original)}
       >
         {row.getAllCells().map((cell) => {
           return (

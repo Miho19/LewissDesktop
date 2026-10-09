@@ -1,8 +1,12 @@
 import { windowTableColumnBase } from '@/components/windowTable/utility/columnDefinitions/defaultDefinition'
+import EditableCell from '@/components/windowTable/utility/columnDefinitions/EditableCell'
 import { WindowFormTableFeatures } from '@/components/windowTable/utility/features'
 import { isKineticsCellularTableEntry } from '@shared/types/tableEntry/kineticsCellular.types'
 import { WindowTableEntry } from '@shared/types/WindowTableForm.types'
 import { createColumnHelper } from '@tanstack/react-table'
+
+// align column id so we can set using object notation
+// issue is that some values are in window display and not table entry
 
 const columnHelper = createColumnHelper<WindowFormTableFeatures, WindowTableEntry>()
 
@@ -48,7 +52,7 @@ export const kineticsCellularWindowTableColumnDefinition = columnHelper.columns(
       return row.tableEntry['control side']
     },
     {
-      id: 'controlSide',
+      id: 'control side',
       header: 'Control Side'
     }
   ),
@@ -59,7 +63,7 @@ export const kineticsCellularWindowTableColumnDefinition = columnHelper.columns(
       return row.tableEntry['headrail colour']
     },
     {
-      id: 'headrailColour',
+      id: 'headrail colour',
       header: 'Headrail Colour'
     }
   ),
@@ -82,7 +86,8 @@ export const kineticsCellularWindowTableColumnDefinition = columnHelper.columns(
     },
     {
       id: 'remote',
-      header: 'Remote'
+      header: 'Remote',
+      cell: EditableCell
     }
   ),
 
@@ -93,7 +98,8 @@ export const kineticsCellularWindowTableColumnDefinition = columnHelper.columns(
     },
     {
       id: 'channel',
-      header: 'Channel'
+      header: 'Channel',
+      cell: EditableCell
     }
   ),
 

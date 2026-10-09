@@ -9,6 +9,14 @@ export const windowTableColumnHelper = createColumnHelper<
   WindowTableEntry
 >()
 
+export const editableDefaultColumnId: string[] = [
+  'roomName',
+  'windowName',
+  'width',
+  'height',
+  'fit'
+] as const
+
 export const windowTableColumnBase = windowTableColumnHelper.columns([
   windowTableColumnHelper.display({
     id: 'select',

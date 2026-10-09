@@ -1,4 +1,5 @@
 import { windowTableColumnBase } from '@/components/windowTable/utility/columnDefinitions/defaultDefinition'
+import EditableCell from '@/components/windowTable/utility/columnDefinitions/EditableCell'
 import { WindowFormTableFeatures } from '@/components/windowTable/utility/features'
 import { isKineticsRollerTableEntry } from '@shared/types/tableEntry/kineticsRoller.types'
 import { WindowTableEntry } from '@shared/types/WindowTableForm.types'
@@ -104,7 +105,8 @@ export const kineticsRollerWindowTableColumnDefinition = columnHelper.columns([
     },
     {
       id: 'remote',
-      header: 'Remote'
+      header: 'Remote',
+      cell: EditableCell
     }
   ),
 
@@ -115,7 +117,8 @@ export const kineticsRollerWindowTableColumnDefinition = columnHelper.columns([
     },
     {
       id: 'channel',
-      header: 'Channel'
+      header: 'Channel',
+      cell: EditableCell
     }
   ),
 

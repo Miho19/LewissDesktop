@@ -1,4 +1,5 @@
 import { windowTableColumnBase } from '@/components/windowTable/utility/columnDefinitions/defaultDefinition'
+import EditableCell from '@/components/windowTable/utility/columnDefinitions/EditableCell'
 import { WindowFormTableFeatures } from '@/components/windowTable/utility/features'
 import { isKineticsMikronwoodTableEntry } from '@shared/types/tableEntry/kineticsMikronwood.types'
 import { WindowTableEntry } from '@shared/types/WindowTableForm.types'
@@ -93,7 +94,8 @@ export const kineticsMikronwoodWindowTableColumnDefinition = columnHelper.column
     },
     {
       id: 'remote',
-      header: 'Remote'
+      header: 'Remote',
+      cell: EditableCell
     }
   ),
 
@@ -104,7 +106,8 @@ export const kineticsMikronwoodWindowTableColumnDefinition = columnHelper.column
     },
     {
       id: 'channel',
-      header: 'Channel'
+      header: 'Channel',
+      cell: EditableCell
     }
   ),
 

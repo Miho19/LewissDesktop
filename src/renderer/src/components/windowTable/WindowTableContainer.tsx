@@ -23,56 +23,30 @@ export type ToastErrorOption = {
 function WindowTableContainer(props: Props) {
   const { file } = props
   const [isSheetOpen, setIsSheetOpen] = useState(false)
-  const [rowSelected, setRowSelected] = useState<WindowTableEntry | undefined>(undefined)
 
   const windowDisplayList = getWindowDisplayList(file)
   const map = getWindowDisplayListAsMap(windowDisplayList)
 
   if (map.size === 0) return <WindowTableContainerEmpty />
 
-  function handleSpecSheetContentError({ message, showToast = true }: ToastErrorOption) {
-    if (showToast) toastErrorMessage(message)
+  async function submitTable(windowTableEntryList: WindowTableEntry[], file: ProjectFile) {}
 
-    setIsSheetOpen(false)
-
-    return
-  }
-
-  function onRowClick(row: WindowTableEntry) {
-    setIsSheetOpen(true)
-    setRowSelected(row)
-  }
-
-  const windowTableFormList = getWindowTableFormList(map, file, onRowClick)
+  const windowTableFormList = getWindowTableFormList(map, file)
 
   return (
     <div className="w-full h-full flex flex-col gap-8">
       <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
         <div className="flex flex-col w-full gap-16">{windowTableFormList}</div>
-
-        <SpecSheetContent
-          windowTableEntry={rowSelected}
-          errorHandler={handleSpecSheetContentError}
-        />
       </Sheet>
     </div>
   )
 }
 
-function getWindowTableFormList(
-  map: Map<Blind, WindowDisplay[]>,
-  file: ProjectFile,
-  onRowClickHandler: (row: WindowTableEntry) => void
-) {
+function getWindowTableFormList(map: Map<Blind, WindowDisplay[]>, file: ProjectFile) {
   return [...map.entries()].map(([key, value]) => {
     return (
-      <Suspense fallback={<WindowTableLoading />}>
-        <WindowFormTable
-          blindType={key}
-          windowDisplayList={value}
-          file={file}
-          onRowClickHandler={onRowClickHandler}
-        />
+      <Suspense fallback={<WindowTableLoading />} key={`${key}`}>
+        <WindowFormTable blindType={key} windowDisplayList={value} file={file} />
       </Suspense>
     )
   })
@@ -86,7 +60,7 @@ function WindowTableContainerEmpty() {
   )
 }
 
-function toastErrorMessage(message: string) {
+export function toastWindowTableFormErrorMessage(message: string) {
   toast.error('Window Table Form', {
     id: 'window-table-form',
     description: <p className="bg-background text-foreground font-sans">{message}</p>
