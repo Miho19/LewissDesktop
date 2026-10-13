@@ -12,6 +12,7 @@ import { getKineticsMikronwoodWorksheetExtraCostAsync } from '@/utility/process/
 import { getLewissAluminiumWorksheetExtraCostAsync } from '@/utility/process/worksheet/cost/venetian/getLewissAluminiumWorksheetExtraCost'
 import { getLewissFauxwoodWorksheetExtraCostAsync } from '@/utility/process/worksheet/cost/venetian/getLewissFauxwoodWorksheetExtraCost'
 import { getLewissPhoenixwoodWorksheetExtraCostAsync } from '@/utility/process/worksheet/cost/venetian/getLewissPhoenixwoodWorksheetExtraCost'
+import { kineticsGetExtraListAsync } from '@/utility/process/worksheet/cost/kinetics/shared'
 
 export async function getWorksheetCostAsync(
   blindType: Blind,
@@ -85,4 +86,30 @@ export function getGST(blindTotal: number, extraList: Extra[], GST: number = 0.1
 
 export function sumExtraList(extraList: Extra[]) {
   return extraList.reduce((acc, curr) => curr.cost * curr.quantity + acc, 0)
+}
+
+export async function kineticsGetWorksheetCostAsync(
+  tableEntryList: TableEntry[],
+  remote: number,
+  charger: number,
+  smartHub: number
+) {
+  const blindTotal = getTableEntryCost(tableEntryList)
+  if (typeof blindTotal === 'undefined') return undefined
+
+  const extraCostList = await kineticsGetExtraListAsync(remote, charger, smartHub)
+  if (typeof extraCostList === 'undefined') return undefined
+
+  const gst = getGST(blindTotal, [])
+
+  const total = blindTotal + sumExtraList(extraCostList)
+
+  const worksheetCost: Cost = {
+    blindTotal,
+    gst,
+    total,
+    extra: extraCostList
+  }
+
+  return worksheetCost
 }

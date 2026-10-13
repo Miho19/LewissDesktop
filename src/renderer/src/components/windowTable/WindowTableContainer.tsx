@@ -67,12 +67,13 @@ function getWindowTableFormList(
 ) {
   return [...map.entries()].map(([key, value]) => {
     return (
-      <Suspense fallback={<WindowTableLoading />} key={`${key}`}>
+      <Suspense fallback={<WindowTableLoading />} key={`${key}${file.id}`}>
         <WindowFormTable
           blindType={key}
           windowDisplayList={value}
           file={file}
           openSheet={openSheet}
+          toastMessage={toastWindowTableFormErrorMessage}
         />
       </Suspense>
     )

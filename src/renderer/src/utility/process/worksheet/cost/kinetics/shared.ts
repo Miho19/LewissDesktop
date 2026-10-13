@@ -85,3 +85,52 @@ function getChargerExtra(remoteExtra: Extra, accessorySchedule: KineticsAccessor
 
   return chargerExtra
 }
+
+export async function kineticsGetExtraListAsync(
+  remoteNumber: number,
+  chargerNumber: number,
+  smartHubNumber: number
+) {
+  const accessorySchedule = await retrieveAccessorySchedule('Kinetics 10mm Cellular Blind')
+  if (typeof accessorySchedule === 'undefined') return undefined
+  if (!isKineticsAccessorySchedule(accessorySchedule)) return undefined
+
+  const output: Extra[] = []
+
+  const remoteCostObject = accessorySchedule.motorisation.find(
+    (m) => m.name.localeCompare('remote', undefined, { sensitivity: 'base' }) === 0
+  )
+  if (typeof remoteCostObject === 'undefined') return undefined
+
+  const remoteExtra: Extra = {
+    name: '15 Channel Remote',
+    quantity: remoteNumber,
+    cost: remoteCostObject.cost
+  }
+
+  output.push(remoteExtra)
+
+  const chargerCostObject = accessorySchedule.motorisation.find((m) => m.name === 'usbCharger')
+  if (typeof chargerCostObject === 'undefined') return undefined
+
+  const chargerExtra: Extra = {
+    name: 'USB Charger Cable',
+    quantity: chargerNumber,
+    cost: chargerCostObject.cost
+  }
+
+  output.push(chargerExtra)
+
+  const smartHubObject = accessorySchedule.motorisation.find((m) => m.name === 'smartLinkHub')
+  if (typeof smartHubObject === 'undefined') return undefined
+
+  const smartHubExtra: Extra = {
+    name: 'Smart Link Hub',
+    quantity: smartHubNumber,
+    cost: smartHubObject.cost
+  }
+
+  output.push(smartHubExtra)
+
+  return output
+}

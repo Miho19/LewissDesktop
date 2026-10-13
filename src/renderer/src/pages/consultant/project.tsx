@@ -9,6 +9,8 @@ function Project() {
     from: '/consultant/$consultantName/project/$projectId'
   })
 
+  console.log(projectId)
+
   const { data: file, isPending, isLoading, isError, error } = useProjectFile(projectId)
 
   if (isPending || isLoading)

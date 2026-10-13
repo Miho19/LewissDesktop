@@ -31,6 +31,7 @@ async function GETProjectfile(fileId: string, endpoint: URL = GETProjectFileEndp
   if (!jsonBody.ok) throw new Error(response.statusText)
 
   const projectFile: ProjectFile = await JSON.parse(jsonBody.content)
+  // _writeToTemp(jsonBody)
 
   return projectFile
 }

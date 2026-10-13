@@ -1,12 +1,11 @@
 import { SubmitSheetInputValue } from '@/components/submitSheet/SubmitSheet'
 import { Field, FieldDescription, FieldLabel, FieldLegend, FieldSet } from '@/components/ui/field'
-import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { ChangeEvent } from 'react'
 
 type Props = {
   value: SubmitSheetInputValue
-  onInputChange: (event: ChangeEvent<HTMLInputElement>) => void
+  onInputChange: (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
 }
 
 function InstructionsFieldSet(props: Props) {
@@ -22,7 +21,10 @@ function InstructionsFieldSet(props: Props) {
           id="instructions"
           name="instructions"
 
-          value={value.customerName}
+          value={value.instructions}
+          onChange={onInputChange}
+          rows={5}
+          cols={40}
         />
       </Field>
     </FieldSet>

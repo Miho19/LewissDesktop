@@ -1,11 +1,11 @@
 import CustomerFieldSet from '@/components/submitSheet/CustomerFieldSet'
 import InstructionsFieldSet from '@/components/submitSheet/InstructionsFieldSet'
+import MotorAccessory from '@/components/submitSheet/MotorAccessory'
 
 import { Button } from '@/components/ui/button'
 
 import { Marker, MarkerContent } from '@/components/ui/marker'
 import {
-  SheetClose,
   SheetContent,
   SheetDescription,
   SheetFooter,
@@ -13,9 +13,13 @@ import {
   SheetTitle
 } from '@/components/ui/sheet'
 import { ToastErrorOption } from '@/components/windowTable/WindowTableContainer'
+import { createWorksheetPDF } from '@/utility/process/pdf/createWorksheetPDF'
+import { openWorksheetPDF } from '@/utility/process/pdf/openWorksheetPDF'
+import { kineticsGetWorksheetCostAsync } from '@/utility/process/worksheet/cost'
 import { ProjectFile } from '@shared/types/Project.types'
 import { WindowTableEntry } from '@shared/types/WindowTableForm.types'
 import { Customer } from '@shared/types/worksheet/Customer.types'
+import { Worksheet } from '@shared/types/worksheet/Worksheet.types'
 import { ChangeEvent, useEffect, useState } from 'react'
 
 type Props = {
@@ -25,11 +29,16 @@ type Props = {
 }
 
 export type SubmitSheetInputValue = {
-  specialInstructions: string
+  instructions: string
+  remote: number
+  charger: number
+  smartHub: number
 } & Customer
 
 function SubmitSheet(props: Props) {
   const { windowTableEntryList, errorHandler, file } = props
+
+  const [isSubmitPending, setIsSubmitPending] = useState(false)
 
   const [page, setPage] = useState<number>(0)
 
@@ -37,14 +46,11 @@ function SubmitSheet(props: Props) {
     customerName: '',
     reference: '',
     salesConsultant: '',
-    specialInstructions: ''
+    instructions: '',
+    remote: 0,
+    charger: 0,
+    smartHub: 0
   })
-
-  if (windowTableEntryList == null || windowTableEntryList.length === 0) {
-    return <SheetContentEmpty />
-  }
-
-  const blindType = windowTableEntryList[0].blindType
 
   useEffect(() => {
     const customer = getCustomer(file)
@@ -56,18 +62,77 @@ function SubmitSheet(props: Props) {
     })
   }, [])
 
+  if (windowTableEntryList == null || windowTableEntryList.length === 0) {
+    return <SheetContentEmpty />
+  }
+
+  const blindType = windowTableEntryList[0].blindType
+
   async function onSubmitHandler(event: React.SubmitEvent<HTMLFormElement>) {
-    event.preventDefault()
-    if (page !== 2) {
-      setPage((prev) => prev + 1)
-      return
+    try {
+      event.preventDefault()
+
+      if (isSubmitPending) return
+
+      if (page !== 2) {
+        setPage((prev) => prev + 1)
+        return
+      }
+
+      setIsSubmitPending(true)
+
+      const customer: Customer = {
+        customerName: value.customerName,
+        reference: value.reference,
+        salesConsultant: value.salesConsultant
+      }
+
+      const tableEntryList = windowTableEntryList.map((wt) => wt.tableEntry)
+
+      const { remote, charger, smartHub } = value
+
+      const worksheetCost = await kineticsGetWorksheetCostAsync(
+        tableEntryList,
+        remote,
+        charger,
+        smartHub
+      )
+
+      if (typeof worksheetCost === 'undefined') {
+        errorHandler({ message: 'worksheet cost returned undefined', showToast: true })
+        return
+      }
+
+      const worksheet: Worksheet = {
+        blindType,
+        customer,
+        worksheetCost,
+        tableEntryList: tableEntryList
+      }
+
+      const pdfResponse = await createWorksheetPDF(worksheet)
+
+      await openWorksheetPDF(pdfResponse)
+      errorHandler({ message: 'PDF created', showToast: true })
+    } catch (error) {
+    } finally {
+      setIsSubmitPending(false)
     }
   }
 
-  function onInputChange(event: ChangeEvent<HTMLInputElement>) {
+  function onInputChange(event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
     setValue((prev) => {
       return { ...prev, [event.target.name]: event.target.value }
     })
+  }
+
+  function backButtonOnClick() {
+    if (page > 0) {
+      setPage((prev) => prev - 1)
+      return
+    }
+
+    errorHandler({ message: '', showToast: false })
   }
 
   return (
@@ -84,19 +149,18 @@ function SubmitSheet(props: Props) {
       <form className="flex w-full px-4" id="create-worksheet-form" onSubmit={onSubmitHandler}>
         {page === 0 && <CustomerFieldSet onInputChange={onInputChange} value={value} />}
         {page === 1 && <InstructionsFieldSet onInputChange={onInputChange} value={value} />}
-        {page}
+        {page === 2 && <MotorAccessory onInputChange={onInputChange} value={value} />}
       </form>
       <SheetFooter>
-        <Button variant={'default'} type="submit" form="create-worksheet-form">
+        <Button
+          variant={'default'}
+          type="submit"
+          form="create-worksheet-form"
+          disabled={isSubmitPending}
+        >
           {page !== 2 ? 'Next' : 'Process'}
         </Button>
-        <Button
-          variant={'outline'}
-          type="button"
-          onClick={() => {
-            if (page > 0) setPage((prev) => prev - 1)
-          }}
-        >
+        <Button variant={'outline'} type="button" onClick={backButtonOnClick}>
           {page !== 0 ? 'Back' : 'Cancel'}
         </Button>
       </SheetFooter>
