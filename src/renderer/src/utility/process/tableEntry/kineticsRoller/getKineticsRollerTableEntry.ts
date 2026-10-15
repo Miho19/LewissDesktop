@@ -14,10 +14,10 @@ export async function getKineticsRollerTableEntryAsync(
   blindType: Blind,
   index: number,
   windowDisplay: WindowDisplay,
-  room: Room,
+  _room: Room,
   windowMeasurement: WindowMeasurement,
   entries: TableEntry[],
-  file: ProjectFile
+  _file: ProjectFile
 ) {
   const { roomName, windowName, width, height, fit, spec } = windowDisplay
 

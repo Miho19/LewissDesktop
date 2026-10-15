@@ -22,8 +22,8 @@ import { WindowDisplay } from '@shared/types/WindowDisplay.types'
 export async function getExtraMotorProductsAsync(
   blindType: Blind,
   tableEntryList: KineticsTableEntry[],
-  windowDisplayList: WindowDisplay[],
-  file: ProjectFile
+  _windowDisplayList: WindowDisplay[],
+  _file: ProjectFile
 ): Promise<Extra[] | undefined> {
   const accessorySchedule = await retrieveAccessorySchedule(blindType)
   if (typeof accessorySchedule === 'undefined') return undefined

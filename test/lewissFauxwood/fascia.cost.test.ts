@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { getExampleAccessorySchedule, getExamplePricingSchedule } from '../utility'
+import { getExamplePricingSchedule } from '../utility'
 
 import { Blind } from '@shared/types/blind/blind.types'
 import { getLewissFauxwoodFasciaCost } from '@/utility/process/tableEntry/lewissFauxwood'

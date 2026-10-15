@@ -13,11 +13,11 @@ export async function getLewissPhoenixwoodCostAsync(
   height: number,
   fabricMultiplier: number,
   control: string,
-  valance: string,
-  fascia: string,
-  spacerBlock: 'Yes' | 'No',
-  cutOut: 'Yes' | 'No',
-  palladianShelf: string
+  _valance: string,
+  _fascia: string,
+  _spacerBlock: 'Yes' | 'No',
+  _cutOut: 'Yes' | 'No',
+  _palladianShelf: string
 ) {
   const pricingSchedule = await retrievePricingScheduleAsync(blindType)
   if (!isLewissPhoenixwoodPricingSchedule(pricingSchedule)) return undefined

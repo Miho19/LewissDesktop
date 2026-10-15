@@ -13,8 +13,8 @@ export async function getSantaFeShutterTableEntryAsync(
   windowDisplay: WindowDisplay,
   room: Room,
   windowMeasurement: WindowMeasurement,
-  entries: TableEntry[],
-  file: ProjectFile
+  _entries: TableEntry[],
+  _file: ProjectFile
 ): Promise<SantaFeShutterTableEntry[]> {
   const location = `${room.name} - ${windowMeasurement.name}`
 

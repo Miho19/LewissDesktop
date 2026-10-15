@@ -1,20 +1,23 @@
 import Layout from '@/components/Layout'
+import { Button } from '@/components/ui/button'
+import { ErrorComponentProps } from '@tanstack/react-router'
 import { toast } from 'sonner'
 
-type Props = {
-  error?: Error
-}
-function ErrorPage(props: Props) {
-  const { error } = props
+function ErrorPage(props: ErrorComponentProps) {
+  const { error, reset } = props
 
-  toast.error(error?.name, {
+  const errorObject = error instanceof Error ? error : new Error(String(error))
+
+  toast.error(errorObject.name, {
     id: 'page error',
-    description: <p className="text-foreground bg-background">{error?.message}</p>
+    description: <p className="text-foreground bg-background">{errorObject.message}</p>
   })
 
   return (
     <Layout>
-      <div className="w-full h-full flex flex-col p-6 gap-8"></div>
+      <div className="w-full h-full flex flex-col p-6 gap-8">
+        <Button onClick={() => reset()}>Try Again</Button>
+      </div>
     </Layout>
   )
 }

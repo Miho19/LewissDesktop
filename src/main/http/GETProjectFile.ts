@@ -31,11 +31,12 @@ async function GETProjectfile(fileId: string, endpoint: URL = GETProjectFileEndp
   if (!jsonBody.ok) throw new Error(response.statusText)
 
   const projectFile: ProjectFile = await JSON.parse(jsonBody.content)
-  // _writeToTemp(jsonBody)
 
   return projectFile
 }
 
+// @ts-ignore
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 async function _writeToTemp(jsonBody: GETProjectFileResponse) {
   try {
     const tempFile = path.join(app.getPath('temp'), `projectFile.json`)

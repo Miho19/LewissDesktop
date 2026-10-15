@@ -17,7 +17,7 @@ export async function getSantaFeShutterWorksheetExtraCostAsync(
   blindType: Blind,
   tableEntryList: TableEntry[],
   windowDisplayList: WindowDisplay[],
-  file: ProjectFile
+  _file: ProjectFile
 ) {
   if (!isSantaFeShutterBlindType(blindType)) return undefined
   if (!isSantaFeShutterTableEntryList(tableEntryList)) return undefined

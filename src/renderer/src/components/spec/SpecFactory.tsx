@@ -1,10 +1,10 @@
-import { ToastErrorOption } from '@/components/windowTable/table/_WindowTableForm'
 import { getKineticsCellularSpecDisplayList } from '@/components/spec/getKineticsCellularSpecDisplayList'
 import { getKineticsMikronwoodSpecDisplayList } from '@/components/spec/getKineticsMikronwoodSpecDisplayList'
 import { getKineticsRollerSpecDisplayList } from '@/components/spec/getKineticsRollerSpecDisplayList'
 import { getLewissVenetianSpecDisplayList } from '@/components/spec/getLewissVenetianSpecDisplayList'
 import { getSantaFeShutterSpecDisplayList } from '@/components/spec/getSantaFeShutterSpecDisplayList'
 import { Item, ItemContent, ItemDescription, ItemTitle } from '@/components/ui/item'
+import { ToastErrorOption } from '@/components/windowTable/WindowTableContainer'
 import { Blind } from '@shared/types/blind/blind.types'
 import { Spec } from '@shared/types/spec/Spec.types'
 

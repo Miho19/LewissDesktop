@@ -1,5 +1,3 @@
-import { Blind } from './blind.types'
-
 export const SantaFeShutterBlindOptions = [
   'Santa Fe Woodlore Shutter',
   'Santa Fe Woodlore Plus Shutter',

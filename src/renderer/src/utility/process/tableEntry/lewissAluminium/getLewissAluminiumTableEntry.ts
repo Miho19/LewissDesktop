@@ -18,8 +18,8 @@ export async function getLewissAluminiumTableEntryAsync(
   windowDisplay: WindowDisplay,
   room: Room,
   windowMeasurement: WindowMeasurement,
-  entries: TableEntry[],
-  file: ProjectFile
+  _entries: TableEntry[],
+  _file: ProjectFile
 ) {
   const { width, height, fit, spec } = windowDisplay
 

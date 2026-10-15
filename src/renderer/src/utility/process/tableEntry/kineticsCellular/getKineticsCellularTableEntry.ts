@@ -8,7 +8,7 @@ import {
 } from '@shared/types/spec/kineticsCellular.types'
 import { KineticsCellularTableEntry } from '@shared/types/tableEntry/kineticsCellular.types'
 import { TableEntry } from '@shared/types/tableEntry/TableEntry.types'
-import { BlindCount, Fit, WindowDisplay } from '@shared/types/WindowDisplay.types'
+import { Fit, WindowDisplay } from '@shared/types/WindowDisplay.types'
 import { getRemoteAndChannel } from '../shared/kinetics'
 import { getKineticsCellularCost } from './getKineticsCellularCost'
 import { getButtingString } from '@/utility/process/tableEntry/shared/getButtingString'
@@ -17,10 +17,10 @@ export async function getKineticsCellularTableEntryAsync(
   blindType: Blind,
   index: number,
   windowDisplay: WindowDisplay,
-  room: Room,
+  _room: Room,
   windowMeasurement: WindowMeasurement,
   entries: TableEntry[],
-  file: ProjectFile
+  _file: ProjectFile
 ): Promise<KineticsCellularTableEntry[]> {
   const { roomName, windowName, width, height, fit, spec, blindCount } = windowDisplay
 

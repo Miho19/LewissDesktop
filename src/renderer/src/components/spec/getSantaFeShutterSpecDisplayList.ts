@@ -6,7 +6,7 @@ import { Blind } from '@shared/types/blind/blind.types'
 import { isSantaFeShutterSpec } from '@shared/types/spec/santaFe.types'
 import { Spec, SpecDisplayList } from '@shared/types/spec/Spec.types'
 
-export function getSantaFeShutterSpecDisplayList(blindType: Blind, spec: Spec) {
+export function getSantaFeShutterSpecDisplayList(_blindType: Blind, spec: Spec) {
   if (!isSantaFeShutterSpec(spec)) return []
 
   const control = getSantaFeShutterControl(spec)

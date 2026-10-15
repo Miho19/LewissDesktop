@@ -1,4 +1,3 @@
-import SpecSheetContent from '@/components/spec/SpecSheetContent'
 import SubmitSheet from '@/components/submitSheet/SubmitSheet'
 import { Sheet } from '@/components/ui/sheet'
 import { Spinner } from '@/components/ui/spinner'

@@ -398,18 +398,10 @@ function createHorizontalLineWithText(
     },
     layout: {
       defaultBorder: false,
-      paddingLeft: function (i, node) {
-        return 0
-      },
-      paddingRight: function (i, node) {
-        return 0
-      },
-      paddingTop: function (i, node) {
-        return 4
-      },
-      paddingBottom: function (i, node) {
-        return 4
-      }
+      paddingLeft: () => 0,
+      paddingRight: () => 0,
+      paddingTop: () => 4,
+      paddingBottom: () => 4
     },
     marginBottom
   }

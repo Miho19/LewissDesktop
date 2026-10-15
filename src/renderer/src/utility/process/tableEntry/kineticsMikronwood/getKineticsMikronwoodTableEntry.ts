@@ -19,7 +19,7 @@ export async function getKineticsMikronwoodTableEntryAsync(
   room: Room,
   windowMeasurement: WindowMeasurement,
   entries: TableEntry[],
-  file: ProjectFile
+  _file: ProjectFile
 ) {
   const { width, height, fit, spec, blindCount } = windowDisplay
 

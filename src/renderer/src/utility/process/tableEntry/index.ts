@@ -1,5 +1,5 @@
 import { Blind } from '@shared/types/blind/blind.types'
-import { ProjectFile, Room, WindowMeasurement } from '@shared/types/Project.types'
+import { ProjectFile } from '@shared/types/Project.types'
 import { createTableEntryFn, TableEntry } from '@shared/types/tableEntry/TableEntry.types'
 import { WindowDisplay } from '@shared/types/WindowDisplay.types'
 import { getRoom } from '../../windowDisplay/getRoom'

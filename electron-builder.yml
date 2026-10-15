@@ -1,7 +1,8 @@
-appId: com.electron.app
-productName: processing
+appId: 'com.lewiss.processing'
+productName: "Lewis's-Processing"
 directories:
   buildResources: build
+
 files:
   - '!**/.vscode/*'
   - '!src/*'
@@ -9,12 +10,10 @@ files:
   - '!{.eslintcache,eslint.config.mjs,.prettierignore,.prettierrc.yaml,dev-app-update.yml,CHANGELOG.md,README.md}'
   - '!{.env,.env.*,.npmrc,pnpm-lock.yaml}'
   - '!{tsconfig.json,tsconfig.node.json,tsconfig.web.json}'
-  - '!out/**/*'
-  - '!dist/**/*'
 asarUnpack:
   - resources/**
 win:
-  executableName: processing
+  executableName: "Lewis's Processing"
 nsis:
   artifactName: ${name}-${version}-setup.${ext}
   shortcutName: ${productName}

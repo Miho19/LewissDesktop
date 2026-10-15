@@ -1,7 +1,9 @@
+/// <reference types="electron-vite/node" />
+
 import { app, shell, BrowserWindow, ipcMain } from 'electron'
 import path, { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
-import icon from '../../resources/icon.png?asset'
+import Icon from '../../resources/Icon.png?asset'
 import { GETStaff } from './http/GETStaff'
 import { GETFolder } from './http/GETFolder'
 import GETProjectfile from './http/GETProjectFile'
@@ -19,7 +21,7 @@ function createWindow(): void {
     height: 670,
     show: false,
     autoHideMenuBar: true,
-    ...(process.platform === 'linux' ? { icon } : {}),
+    ...(process.platform === 'linux' ? { Icon } : {}),
     webPreferences: {
       preload: join(__dirname, '../preload/index.js'),
       sandbox: false
