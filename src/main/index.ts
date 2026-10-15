@@ -17,8 +17,6 @@ import fs from 'node:fs/promises'
 function createWindow(): void {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
-    width: 900,
-    height: 670,
     show: false,
     autoHideMenuBar: true,
     ...(process.platform === 'linux' ? { Icon } : {}),
@@ -32,6 +30,7 @@ function createWindow(): void {
   if (is.dev && process.env['ELECTRON_RENDERER_URL']) mainWindow.webContents.openDevTools()
 
   mainWindow.on('ready-to-show', () => {
+    mainWindow.maximize()
     mainWindow.show()
   })
 

@@ -25,13 +25,7 @@ function Layout(props: Props) {
           </ScrollArea>
         </main>
 
-        <Toaster
-          position="bottom-right"
-          visibleToasts={3}
-          theme="dark"
-          duration={10000}
-          closeButton
-        />
+        <Toaster position="bottom-right" visibleToasts={3} duration={3000} closeButton />
       </SidebarInset>
     </SidebarProvider>
   )

@@ -1,5 +1,5 @@
 {
-  "name": "Lewis's-Processing",
+  "name": "com.lewiss.processing",
   "version": "1.0.0",
   "description": "Application to process blinds",
   "main": "./out/main/index.js",
@@ -13,12 +13,10 @@
     "typecheck": "npm run typecheck:node && npm run typecheck:web",
     "start": "electron-vite preview",
     "dev": "electron-vite dev",
-    "build": "npm run typecheck && electron-vite build",
+    "build": "npm run typecheck && electron-vite build && rm -rf ./dist",
     "postinstall": "electron-builder install-app-deps",
     "build:unpack": "npm run build && electron-builder --dir",
     "build:win": "npm run build && electron-builder --win",
-    "build:mac": "electron-vite build && electron-builder --mac",
-    "build:linux": "electron-vite build && electron-builder --linux",
     "test": "vitest"
   },
   "dependencies": {
