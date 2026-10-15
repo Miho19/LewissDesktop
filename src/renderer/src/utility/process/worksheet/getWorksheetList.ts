@@ -109,7 +109,8 @@ export async function createWorksheetAsync(
     blindType,
     customer,
     worksheetCost,
-    tableEntryList: tableEntryList
+    tableEntryList: tableEntryList,
+    instructions: ''
   }
 
   return worksheet

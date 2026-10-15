@@ -1,3 +1,4 @@
+import { Blind } from '@shared/types/blind/blind.types'
 import { TableEntry } from '@shared/types/tableEntry/TableEntry.types'
 import { Cost, Extra } from '@shared/types/worksheet/Cost.types'
 import { Customer } from '@shared/types/worksheet/Customer.types'
@@ -250,8 +251,9 @@ function getAdditionalProductCostStack(extraList: Extra[]): ContentStack {
   return { stack: [...costs] }
 }
 
-export function createAdditionalProductCostColumn(worksheetCost: Cost): Content {
-  const extraList = worksheetCost.extra
+export function createAdditionalProductCostColumn(worksheetCost: Cost) {
+  const extraList = worksheetCost.extra.filter((e) => e.quantity > 0)
+  if (extraList.length === 0) return undefined
 
   const additionalProductNameStack = getAdditionalProductNameStack(extraList)
 
@@ -318,7 +320,7 @@ export function createHorizontalLine(): Content {
     },
     layout: {
       hLineWidth: (index) => (index === 1 ? 1 : 0),
-      hLineColor: () => '#cccccc',
+      hLineColor: () => '#000000',
       vLineWidth: () => 0
     },
     margin: [0, 0, 0, 10]
@@ -327,32 +329,39 @@ export function createHorizontalLine(): Content {
   return table
 }
 
-export function createCostTotalColumn(worksheetCost: Cost): Column[] {
+export function createCostTotalColumn(
+  blindType: Blind,
+  worksheetCost: Cost,
+  instructions: string
+): Column {
+  const costStack: Content[] = []
+
   const blindSubtotalColumn = createBlindSubTotalCostColumn(worksheetCost)
+  costStack.push(blindSubtotalColumn)
 
   const additionalProductColumn = createAdditionalProductCostColumn(worksheetCost)
+  if (typeof additionalProductColumn !== 'undefined') {
+    costStack.push(additionalProductColumn)
+  }
 
   const gstCostColumn = createGSTCostColumn(worksheetCost)
+  costStack.push(gstCostColumn)
+
+  costStack.push(createHorizontalLine())
 
   const totalCostColumn = createTotalCostColumn(worksheetCost)
+  costStack.push(totalCostColumn)
 
-  const stack: Content[] = [
-    blindSubtotalColumn,
-    additionalProductColumn,
-    gstCostColumn,
-    createHorizontalLine(),
-    totalCostColumn
-  ]
+  const instructionStack = createInstructionStack(blindType, instructions)
 
-  const content: Content[] = [
-    {
-      columns: [
-        { width: '*', text: ' ' },
-        { width: 'auto', stack: stack }
-      ],
-      unbreakable: true
-    }
-  ]
+  const content: Content = {
+    columns: [
+      { width: 'auto', stack: instructionStack },
+      { width: '*', text: ' ' },
+      { width: 'auto', stack: costStack }
+    ],
+    unbreakable: true
+  }
 
   return content
 }
@@ -363,4 +372,41 @@ export function getDeliverToText(): Content {
     alignment: 'center',
     margin: [0, 10, 0, 10]
   }
+}
+
+// one column
+// header
+// horizontal line
+function createInstructionStack(blindType: Blind, instruction: string) {
+  const defaultLineMap: Record<Blind, string> = {
+    'Kinetics 10mm Cellular Blind': 'Please use Kinetics stickers on all blinds',
+    'Kinetics 20mm Cellular Blind': 'Please use Kinetics stickers on all blinds',
+    'Kinetics Sunscreen Roller Blind': 'Please use Kinetics stickers on all blinds',
+    'Kinetics Blockout Roller Blind': 'Please use Kinetics stickers on all blinds',
+    'Kinetics Light Filtering Roller Blind': 'Please use Kinetics stickers on all blinds',
+    "Lewis's 25mm Aluminium Venetian": '',
+    "Lewis's 50mm Aluminium Venetian": '',
+    "Lewis's 50mm Fauxwood Venetian": '',
+    "Lewis's 63mm Fauxwood Venetian": '',
+    "Lewis's 50mm Phoenixwood Venetian": '',
+    "Lewis's 63mm Phoenixwood Venetian": '',
+    'Kinetics Mikronwood 50mm Venetian': '',
+    'Santa Fe Woodlore Shutter': '',
+    'Santa Fe Woodlore Plus Shutter': '',
+    'Santa Fe Waterproof Woodlore Plus Shutter': '',
+    'Santa Fe Normandy Shutter': ''
+  }
+
+  const defaultText = defaultLineMap[blindType]
+
+  const content: Content[] = [
+    { text: 'Special Instructions'.toUpperCase(), bold: true },
+    createHorizontalLine()
+  ]
+
+  if (defaultText.length !== 0) content.push({ text: defaultText, bold: true })
+
+  content.push({ text: instruction })
+
+  return content
 }

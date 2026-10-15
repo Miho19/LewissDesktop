@@ -109,7 +109,8 @@ function SubmitSheet(props: Props) {
         blindType,
         customer,
         worksheetCost,
-        tableEntryList: tableEntryList
+        tableEntryList: tableEntryList,
+        instructions: value.instructions
       }
 
       const pdfResponse = await createWorksheetPDF(worksheet)

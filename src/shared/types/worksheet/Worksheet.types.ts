@@ -10,6 +10,7 @@ export type Worksheet = {
   customer: Customer
   worksheetCost: Cost
   tableEntryList: TableEntry[]
+  instructions: string
 }
 
 export type GetWorksheetExtraCostFn = (

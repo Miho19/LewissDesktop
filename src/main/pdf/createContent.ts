@@ -13,7 +13,7 @@ import { Content } from 'pdfmake'
 export async function createContentAsync(worksheet: Worksheet) {
   const content: Content[] = []
 
-  const { blindType, customer, tableEntryList, worksheetCost } = worksheet
+  const { blindType, customer, tableEntryList, worksheetCost, instructions } = worksheet
 
   if (tableEntryList.length === 0) throw new Error(`Table Entry List is empty`)
 
@@ -37,7 +37,7 @@ export async function createContentAsync(worksheet: Worksheet) {
   const blindInformation = createTable(tableEntryList)
   content.push(blindInformation)
 
-  const costTotal = createCostTotalColumn(worksheetCost)
+  const costTotal = createCostTotalColumn(blindType, worksheetCost, instructions)
   content.push(costTotal)
 
   return content
