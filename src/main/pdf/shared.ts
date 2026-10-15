@@ -312,7 +312,7 @@ export function createCustomerInformationColumn(customerInformation: Customer): 
   return content
 }
 
-export function createHorizontalLine(): Content {
+function createHorizontalLine(margin: [number, number, number, number] = [0, 0, 0, 10]): Content {
   const table: Content = {
     table: {
       widths: ['*'],
@@ -323,7 +323,7 @@ export function createHorizontalLine(): Content {
       hLineColor: () => '#000000',
       vLineWidth: () => 0
     },
-    margin: [0, 0, 0, 10]
+    margin
   }
 
   return table
@@ -374,6 +374,49 @@ export function getDeliverToText(): Content {
   }
 }
 
+function createHorizontalLineWithText(
+  text: string,
+  bold: boolean,
+  margin: [number, number, number, number] = [0, 0, 0, 0],
+  marginBottom: number = 5
+) {
+  const table: Content = {
+    table: {
+      widths: ['*'],
+      body: [
+        [
+          {
+            text,
+            bold,
+            border: [false, false, false, true],
+            borderColor: ['', '', '', '#000000'],
+            fillColor: '#ffffff',
+            margin
+          }
+        ]
+      ]
+    },
+    layout: {
+      defaultBorder: false,
+      paddingLeft: function (i, node) {
+        return 0
+      },
+      paddingRight: function (i, node) {
+        return 0
+      },
+      paddingTop: function (i, node) {
+        return 4
+      },
+      paddingBottom: function (i, node) {
+        return 4
+      }
+    },
+    marginBottom
+  }
+
+  return table
+}
+
 // one column
 // header
 // horizontal line
@@ -400,13 +443,14 @@ function createInstructionStack(blindType: Blind, instruction: string) {
   const defaultText = defaultLineMap[blindType]
 
   const content: Content[] = [
-    { text: 'Special Instructions'.toUpperCase(), bold: true },
-    createHorizontalLine()
+    createHorizontalLineWithText('Special Instructions'.toUpperCase(), true, [0, 0, 0, 0])
   ]
 
-  if (defaultText.length !== 0) content.push({ text: defaultText, bold: true })
+  if (defaultText.length !== 0) content.push({ text: defaultText, bold: true, marginBottom: 5 })
 
-  content.push({ text: instruction })
+  const instructionContent: Content[] = instruction.split('\n').map((line) => {
+    return { text: line, marginBottom: 5 }
+  })
 
-  return content
+  return [...content, ...instructionContent]
 }
