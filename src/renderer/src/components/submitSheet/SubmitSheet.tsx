@@ -12,7 +12,7 @@ import {
   SheetHeader,
   SheetTitle
 } from '@/components/ui/sheet'
-import { ToastErrorOption } from '@/components/windowTable/WindowTableContainer'
+import { ToastDisplayOptions } from '@/components/windowTable/WindowTableContainer'
 import { createWorksheetPDF } from '@/utility/process/pdf/createWorksheetPDF'
 import { openWorksheetPDF } from '@/utility/process/pdf/openWorksheetPDF'
 import { kineticsGetWorksheetCostAsync } from '@/utility/process/worksheet/cost'
@@ -24,7 +24,8 @@ import { ChangeEvent, useEffect, useState } from 'react'
 
 type Props = {
   windowTableEntryList: WindowTableEntry[]
-  errorHandler: (options: ToastErrorOption) => void
+  showToast: (message: string, type: ToastDisplayOptions) => void
+  closeSheet: () => void
   file: ProjectFile
 }
 
@@ -36,7 +37,7 @@ export type SubmitSheetInputValue = {
 } & Customer
 
 function SubmitSheet(props: Props) {
-  const { windowTableEntryList, errorHandler, file } = props
+  const { windowTableEntryList, showToast, closeSheet, file } = props
 
   const [isSubmitPending, setIsSubmitPending] = useState(false)
 
@@ -99,7 +100,8 @@ function SubmitSheet(props: Props) {
       )
 
       if (typeof worksheetCost === 'undefined') {
-        errorHandler({ message: 'worksheet cost returned undefined', showToast: true })
+        showToast('worksheet cost returned undefined', 'error')
+        closeSheet()
         return
       }
 
@@ -113,7 +115,8 @@ function SubmitSheet(props: Props) {
       const pdfResponse = await createWorksheetPDF(worksheet)
 
       await openWorksheetPDF(pdfResponse)
-      errorHandler({ message: 'PDF created', showToast: true })
+      showToast('PDF created', 'success')
+      closeSheet()
     } catch (error) {
     } finally {
       setIsSubmitPending(false)
@@ -132,7 +135,7 @@ function SubmitSheet(props: Props) {
       return
     }
 
-    errorHandler({ message: '', showToast: false })
+    closeSheet()
   }
 
   return (

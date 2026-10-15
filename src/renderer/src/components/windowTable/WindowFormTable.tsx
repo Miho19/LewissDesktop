@@ -4,6 +4,7 @@ import { editableDefaultColumnId } from '@/components/windowTable/utility/column
 import { windowFormTableFeatures } from '@/components/windowTable/utility/features'
 import WindowFormTableFooter from '@/components/windowTable/WindowFormTableFooter'
 import WindowTable from '@/components/windowTable/WindowTable'
+import { ToastDisplayOptions } from '@/components/windowTable/WindowTableContainer'
 import { getTableEntryListAsync } from '@/utility/process/tableEntry'
 import { Blind } from '@shared/types/blind/blind.types'
 import { ProjectFile } from '@shared/types/Project.types'
@@ -18,7 +19,7 @@ type Props = {
   windowDisplayList: WindowDisplay[]
   file: ProjectFile
   openSheet: (WindowTableEntryList: WindowTableEntry[]) => void
-  toastMessage: (message: string) => void
+  toastMessage: (message: string, type: ToastDisplayOptions) => void
 }
 
 function WindowFormTable(props: Props) {
@@ -88,7 +89,7 @@ function WindowFormTable(props: Props) {
     const WindowTableEntryList = table.getFilteredSelectedRowModel().rows.map((row) => row.original)
 
     if (WindowTableEntryList.length === 0) {
-      toastMessage(`No '${blindType} windows selected'`)
+      toastMessage(`No '${blindType} windows selected'`, 'error')
       return
     }
 

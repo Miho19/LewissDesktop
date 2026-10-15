@@ -16,9 +16,12 @@ type Props = {
   file: ProjectFile
 }
 
+export type ToastDisplayOptions = 'error' | 'success' | 'info'
+
 export type ToastErrorOption = {
   message: string
   showToast?: boolean
+  type?: ToastDisplayOptions
 }
 
 function WindowTableContainer(props: Props) {
@@ -36,12 +39,8 @@ function WindowTableContainer(props: Props) {
     setIsSheetOpen(true)
   }
 
-  function handleSpecSheetContentError({ message, showToast = true }: ToastErrorOption) {
-    if (showToast) toastWindowTableFormErrorMessage(message)
-
+  function closeSheet() {
     setIsSheetOpen(false)
-
-    return
   }
 
   const windowTableFormList = getWindowTableFormList(map, file, openSheet)
@@ -52,7 +51,8 @@ function WindowTableContainer(props: Props) {
         <div className="flex flex-col w-full gap-16">{windowTableFormList}</div>
         <SubmitSheet
           windowTableEntryList={submitData}
-          errorHandler={handleSpecSheetContentError}
+          showToast={toastWindowTableForm}
+          closeSheet={closeSheet}
           file={file}
         />
       </Sheet>
@@ -73,7 +73,7 @@ function getWindowTableFormList(
           windowDisplayList={value}
           file={file}
           openSheet={openSheet}
-          toastMessage={toastWindowTableFormErrorMessage}
+          toastMessage={toastWindowTableForm}
         />
       </Suspense>
     )
@@ -88,10 +88,24 @@ function WindowTableContainerEmpty() {
   )
 }
 
-export function toastWindowTableFormErrorMessage(message: string) {
-  toast.error('Window Table Form', {
-    id: 'window-table-form',
-    description: <p className="bg-background text-foreground font-sans">{message}</p>
+export function toastWindowTableForm(message: string, type: ToastDisplayOptions) {
+  const name = 'Window Table Form'
+  const id = 'window-table-form'
+
+  function getDescription(message: string) {
+    return <p className="bg-background text-foreground font-sans">{message}</p>
+  }
+
+  const sonnerMap = {
+    error: toast.error,
+    success: toast.success,
+    info: toast.info
+  }
+
+  const toastFunction = sonnerMap[type] ?? toast
+  toastFunction(name, {
+    id,
+    description: getDescription(message)
   })
 }
 
