@@ -10,7 +10,7 @@ const api: Api = {
   getPricingSchedule: (blindType) => ipcRenderer.invoke('get-pricing-schedule', blindType),
   getAccessorySchedule: (blindType) => ipcRenderer.invoke('get-accessory-schedule', blindType),
   createWorksheetPDF: (worksheet) => ipcRenderer.invoke('create-worksheet-pdf', worksheet),
-  openPDF: (pdfBase64) => ipcRenderer.invoke('open-base64-pdf', pdfBase64)
+  openPDF: (fileName, pdfBase64) => ipcRenderer.invoke('open-base64-pdf', fileName, pdfBase64)
 }
 
 // Use `contextBridge` APIs to expose Electron APIs to

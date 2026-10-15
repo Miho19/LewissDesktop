@@ -115,7 +115,7 @@ function SubmitSheet(props: Props) {
 
       const pdfResponse = await createWorksheetPDF(worksheet)
 
-      await openWorksheetPDF(pdfResponse)
+      await openWorksheetPDF(worksheet, pdfResponse)
       showToast('PDF created', 'success')
       closeSheet()
     } catch (error) {
@@ -153,7 +153,9 @@ function SubmitSheet(props: Props) {
       <form className="flex w-full px-4" id="create-worksheet-form" onSubmit={onSubmitHandler}>
         {page === 0 && <CustomerFieldSet onInputChange={onInputChange} value={value} />}
         {page === 1 && <InstructionsFieldSet onInputChange={onInputChange} value={value} />}
-        {page === 2 && <MotorAccessory onInputChange={onInputChange} value={value} />}
+        {page === 2 && (
+          <MotorAccessory onInputChange={onInputChange} value={value} blindType={blindType} />
+        )}
       </form>
       <SheetFooter>
         <Button

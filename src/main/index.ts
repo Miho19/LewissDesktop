@@ -148,9 +148,9 @@ ipcMain.handle('create-worksheet-pdf', async (_event, worksheet: Worksheet) => {
   }
 })
 
-ipcMain.handle('open-base64-pdf', async (_event, pdfBase64: string) => {
+ipcMain.handle('open-base64-pdf', async (_event, fileName: string, pdfBase64: string) => {
   try {
-    const tempFile = path.join(app.getPath('temp'), `pdf_${Date.now()}.pdf`)
+    const tempFile = path.join(app.getPath('temp'), `${fileName}.pdf`)
     await fs.writeFile(tempFile, pdfBase64, 'base64')
     await shell.openPath(tempFile)
   } catch (error) {
