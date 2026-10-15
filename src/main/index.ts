@@ -3,7 +3,7 @@
 import { app, shell, BrowserWindow, ipcMain } from 'electron'
 import path, { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
-import Icon from '../../resources/Icon.png?asset'
+import Icon from '../../resources/icon.png?asset'
 import { GETStaff } from './http/GETStaff'
 import { GETFolder } from './http/GETFolder'
 import GETProjectfile from './http/GETProjectFile'
@@ -22,13 +22,14 @@ function createWindow(): void {
     show: false,
     autoHideMenuBar: true,
     ...(process.platform === 'linux' ? { Icon } : {}),
+    icon: Icon,
     webPreferences: {
       preload: join(__dirname, '../preload/index.js'),
       sandbox: false
     }
   })
 
-  mainWindow.webContents.openDevTools()
+  if (is.dev && process.env['ELECTRON_RENDERER_URL']) mainWindow.webContents.openDevTools()
 
   mainWindow.on('ready-to-show', () => {
     mainWindow.show()
