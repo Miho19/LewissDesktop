@@ -39,7 +39,7 @@ export async function getWorksheetCostAsync(
 
   const gst = getGST(blindTotal, extraCostList)
 
-  const total = blindTotal + sumExtraList(extraCostList)
+  const total = blindTotal + sumExtraList(extraCostList) + gst
 
   const worksheetCost: Cost = {
     blindTotal,
@@ -102,7 +102,7 @@ export async function kineticsGetWorksheetCostAsync(
 
   const gst = getGST(blindTotal, [])
 
-  const total = blindTotal + sumExtraList(extraCostList)
+  const total = blindTotal + sumExtraList(extraCostList) + gst
 
   const worksheetCost: Cost = {
     blindTotal,
