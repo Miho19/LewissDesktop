@@ -142,6 +142,13 @@ function SubmitSheet(props: Props) {
         instructions: value.instructions
       }
 
+      // manual edit of reference here
+
+      const oldRef = worksheet.customer.reference
+      const newRef = `${oldRef.slice(0, 5)}-${oldRef.slice(5)}`
+
+      worksheet.customer.reference = newRef
+
       const pdfResponse = await createWorksheetPDF(worksheet)
 
       await openWorksheetPDF(worksheet, pdfResponse)
@@ -195,6 +202,12 @@ function SubmitSheet(props: Props) {
     })
   }
 
+  function onSelectChange(inputName: keyof SubmitSheetErrorObject, value: string) {
+    setValue((prev) => {
+      return { ...prev, [inputName]: value }
+    })
+  }
+
   return (
     <SheetContent side="right" showCloseButton={false}>
       <SheetHeader>
@@ -213,6 +226,7 @@ function SubmitSheet(props: Props) {
             value={value}
             referenceOnChange={referenceOnChange}
             errorObject={errorObject}
+            onSelectChange={onSelectChange}
           />
         )}
         {page === 1 && <InstructionsFieldSet onInputChange={onInputChange} value={value} />}
