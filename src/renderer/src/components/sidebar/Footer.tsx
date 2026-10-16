@@ -11,7 +11,7 @@ function Footer() {
             className="p-8 aspect-square transition-all duration-300 ease-in-out hover:scale-105 hover:bg-transparent"
           >
             <Link to="/">
-              <img src={Logo} alt="Lewis's Logo" />
+              <img src={Logo} alt="Lewis's Logo" className="invert dark:invert-0" />
             </Link>
           </SidebarMenuButton>
         </SidebarMenuItem>

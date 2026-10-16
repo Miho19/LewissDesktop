@@ -157,3 +157,10 @@ ipcMain.handle('open-base64-pdf', async (_event, fileName: string, pdfBase64: st
     if (error instanceof Error && log) console.error(error)
   }
 })
+
+ipcMain.handle('get-application-information', async () => {
+  try {
+  } catch (error) {
+    if (error instanceof Error && log) console.error(error)
+  }
+})
