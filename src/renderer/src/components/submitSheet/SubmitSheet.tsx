@@ -36,6 +36,13 @@ export type SubmitSheetInputValue = {
   smartHub: number
 } & Customer
 
+export type SubmitSheetErrorObject = {
+  [k in keyof SubmitSheetInputValue]: {
+    isError: boolean
+    message: string
+  }
+}
+
 function SubmitSheet(props: Props) {
   const { windowTableEntryList, showToast, closeSheet, file } = props
 
@@ -51,6 +58,16 @@ function SubmitSheet(props: Props) {
     remote: 0,
     charger: 0,
     smartHub: 0
+  })
+
+  const [errorObject, setErrorObject] = useState<SubmitSheetErrorObject>({
+    customerName: { isError: false, message: '' },
+    reference: { isError: false, message: '' },
+    salesConsultant: { isError: false, message: '' },
+    instructions: { isError: false, message: '' },
+    remote: { isError: false, message: '' },
+    charger: { isError: false, message: '' },
+    smartHub: { isError: false, message: '' }
   })
 
   useEffect(() => {
@@ -86,6 +103,24 @@ function SubmitSheet(props: Props) {
         customerName: value.customerName,
         reference: value.reference,
         salesConsultant: value.salesConsultant
+      }
+
+      if (customer.customerName.trim().length === 0) {
+        setError('customerName', 'Must contain a value')
+        setPage(0)
+        return
+      }
+
+      if (customer.reference.trim().length !== 10) {
+        setError('reference', 'Must have a length of 10')
+        setPage(0)
+        return
+      }
+
+      if (customer.salesConsultant.trim().length === 0) {
+        setError('salesConsultant', 'Must contain a value')
+        setPage(0)
+        return
       }
 
       const tableEntryList = windowTableEntryList.map((wt) => wt.tableEntry)
@@ -128,6 +163,14 @@ function SubmitSheet(props: Props) {
     setValue((prev) => {
       return { ...prev, [event.target.name]: event.target.value }
     })
+
+    clearError(event.target.name as keyof SubmitSheetErrorObject)
+  }
+
+  function referenceOnChange(newValue: string) {
+    setValue((prev) => {
+      return { ...prev, reference: newValue }
+    })
   }
 
   function backButtonOnClick() {
@@ -137,6 +180,24 @@ function SubmitSheet(props: Props) {
     }
 
     closeSheet()
+  }
+
+  function clearError(inputName: keyof SubmitSheetErrorObject) {
+    setErrorObject((prev) => {
+      return {
+        ...prev,
+        [inputName]: {
+          isError: false,
+          message: ''
+        }
+      }
+    })
+  }
+
+  function setError(inputName: keyof SubmitSheetErrorObject, message: string) {
+    setErrorObject((prev) => {
+      return { ...prev, [inputName]: { isError: true, message } }
+    })
   }
 
   return (
@@ -151,7 +212,15 @@ function SubmitSheet(props: Props) {
       </SheetHeader>
 
       <form className="flex w-full px-4" id="create-worksheet-form" onSubmit={onSubmitHandler}>
-        {page === 0 && <CustomerFieldSet onInputChange={onInputChange} value={value} />}
+        {page === 0 && (
+          <CustomerFieldSet
+            onInputChange={onInputChange}
+            value={value}
+            referenceOnChange={referenceOnChange}
+            errorObject={errorObject}
+            clearError={clearError}
+          />
+        )}
         {page === 1 && <InstructionsFieldSet onInputChange={onInputChange} value={value} />}
         {page === 2 && (
           <MotorAccessory onInputChange={onInputChange} value={value} blindType={blindType} />
