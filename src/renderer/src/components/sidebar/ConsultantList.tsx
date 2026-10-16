@@ -77,7 +77,7 @@ function getSidebarNavigationComponent(consultantName: string, folderId: string)
   const payload = { name: consultantName, folderId }
 
   if (typeof payload === 'undefined') {
-    console.log(`${consultantName} ${folderId}`)
+    console.log(`${consultantName} ${folderId} payload undefined`)
   }
 
   return (
@@ -87,7 +87,7 @@ function getSidebarNavigationComponent(consultantName: string, folderId: string)
           to={`/consultant/$consultantName`}
           params={{ consultantName: consultantName }}
           className="flex w-full"
-          activeOptions={{ exact: true }}
+
           activeProps={{ className: 'font-bold' }}
           state={{ consultantFolder: payload }}
         >
