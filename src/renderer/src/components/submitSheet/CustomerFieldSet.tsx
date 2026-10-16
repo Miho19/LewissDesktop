@@ -51,6 +51,10 @@ function CustomerFieldSet(props: Props) {
     return <div className="w-full"></div>
   }
 
+  const filteredStaff = staffList.consultants.filter((consultant) =>
+    consultant.functions.includes('Consultant')
+  )
+
   return (
     <FieldSet className="w-full">
       <FieldLegend>Customer</FieldLegend>
@@ -117,9 +121,9 @@ function CustomerFieldSet(props: Props) {
           <SelectTrigger>
             <SelectValue />
           </SelectTrigger>
-          <SelectContent>
+          <SelectContent alignItemWithTrigger={false}>
             <SelectGroup>
-              {staffList.consultants.map((consultant) => (
+              {filteredStaff.map((consultant) => (
                 <SelectItem value={consultant.name} key={consultant.name}>
                   {capitalise(consultant.name)}
                 </SelectItem>
