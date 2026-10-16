@@ -16,10 +16,12 @@ import { ToastDisplayOptions } from '@/components/windowTable/WindowTableContain
 import { createWorksheetPDF } from '@/utility/process/pdf/createWorksheetPDF'
 import { openWorksheetPDF } from '@/utility/process/pdf/openWorksheetPDF'
 import { kineticsGetWorksheetCostAsync } from '@/utility/process/worksheet/cost'
+import { Blind } from '@shared/types/blind/blind.types'
 import { ProjectFile } from '@shared/types/Project.types'
 import { WindowTableEntry } from '@shared/types/WindowTableForm.types'
 import { Customer } from '@shared/types/worksheet/Customer.types'
 import { Worksheet } from '@shared/types/worksheet/Worksheet.types'
+import { error } from 'console'
 import { ChangeEvent, useEffect, useState } from 'react'
 
 type Props = {
@@ -105,27 +107,19 @@ function SubmitSheet(props: Props) {
         salesConsultant: value.salesConsultant
       }
 
-      if (customer.customerName.trim().length === 0) {
-        setError('customerName', 'Must contain a value')
+      if (!isCustomerValid(customer, setError)) {
         setPage(0)
         return
       }
 
-      if (customer.reference.trim().length !== 10) {
-        setError('reference', 'Must have a length of 10')
-        setPage(0)
-        return
-      }
+      const { remote, charger, smartHub } = value
 
-      if (customer.salesConsultant.trim().length === 0) {
-        setError('salesConsultant', 'Must contain a value')
-        setPage(0)
+      if (!isMotorAccessoryValid(remote, charger, smartHub, setError)) {
+        setPage(2)
         return
       }
 
       const tableEntryList = windowTableEntryList.map((wt) => wt.tableEntry)
-
-      const { remote, charger, smartHub } = value
 
       const worksheetCost = await kineticsGetWorksheetCostAsync(
         tableEntryList,
@@ -171,6 +165,7 @@ function SubmitSheet(props: Props) {
     setValue((prev) => {
       return { ...prev, reference: newValue }
     })
+    clearError('reference')
   }
 
   function backButtonOnClick() {
@@ -218,12 +213,16 @@ function SubmitSheet(props: Props) {
             value={value}
             referenceOnChange={referenceOnChange}
             errorObject={errorObject}
-            clearError={clearError}
           />
         )}
         {page === 1 && <InstructionsFieldSet onInputChange={onInputChange} value={value} />}
         {page === 2 && (
-          <MotorAccessory onInputChange={onInputChange} value={value} blindType={blindType} />
+          <MotorAccessory
+            onInputChange={onInputChange}
+            value={value}
+            blindType={blindType}
+            errorObject={errorObject}
+          />
         )}
       </form>
       <SheetFooter>
@@ -255,6 +254,59 @@ function getCustomer(file: ProjectFile) {
   }
 
   return customer
+}
+
+function isCustomerValid(
+  customer: Customer,
+  setError: (inputName: keyof SubmitSheetErrorObject, message: string) => void
+) {
+  let errorFound = false
+
+  if (customer.customerName.trim().length === 0) {
+    setError('customerName', 'Must contain a value')
+    errorFound = true
+  }
+
+  if (customer.reference.trim().length !== 10) {
+    setError('reference', 'Must have a length of 10')
+
+    errorFound = true
+  }
+
+  if (customer.salesConsultant.trim().length === 0) {
+    setError('salesConsultant', 'Must contain a value')
+
+    errorFound = true
+  }
+
+  return !errorFound
+}
+
+// this is hard coded path for kinetics currently
+function isMotorAccessoryValid(
+  remote: number,
+  charger: number,
+  smartHub: number,
+  setError: (inputName: keyof SubmitSheetErrorObject, message: string) => void
+) {
+  let errorFound = false
+
+  if (remote < 0) {
+    setError('remote', 'Must be a positive number')
+    errorFound = true
+  }
+
+  if (charger < 0) {
+    setError('charger', 'Must be a positive number')
+    errorFound = true
+  }
+
+  if (smartHub < 0) {
+    setError('smartHub', 'Must be a positive number')
+    errorFound = true
+  }
+
+  return !errorFound
 }
 
 export default SubmitSheet

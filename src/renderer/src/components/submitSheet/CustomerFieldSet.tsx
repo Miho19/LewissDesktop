@@ -9,11 +9,10 @@ type Props = {
   onInputChange: (event: ChangeEvent<HTMLInputElement>) => void
   referenceOnChange: (newValue: string) => void
   errorObject: SubmitSheetErrorObject
-  clearError: (inputName: keyof SubmitSheetErrorObject) => void
 }
 
 function CustomerFieldSet(props: Props) {
-  const { value, onInputChange, referenceOnChange, errorObject, clearError } = props
+  const { value, onInputChange, referenceOnChange, errorObject } = props
   return (
     <FieldSet className="w-full">
       <FieldLegend>Customer</FieldLegend>
@@ -26,7 +25,11 @@ function CustomerFieldSet(props: Props) {
           name="customerName"
           onChange={onInputChange}
           value={value.customerName}
+          aria-invalid={!!errorObject.customerName.isError}
         />
+        {errorObject.customerName.isError && (
+          <FieldDescription>{errorObject.customerName.message}</FieldDescription>
+        )}
       </Field>
 
       <Field data-invalid={!!errorObject.reference.isError}>
@@ -37,10 +40,7 @@ function CustomerFieldSet(props: Props) {
           name="reference"
           maxLength={10}
           value={value.reference}
-          onChange={(value) => {
-            errorObject.reference.isError && clearError('reference')
-            referenceOnChange(value)
-          }}
+          onChange={referenceOnChange}
         >
           <InputOTPGroup>
             {[...Array(5)].map((_, index) => (
@@ -68,14 +68,18 @@ function CustomerFieldSet(props: Props) {
         )}
       </Field>
 
-      <Field>
+      <Field data-invalid={!!errorObject.salesConsultant.isError}>
         <FieldLabel htmlFor="salesConsultant">Sales Consultant</FieldLabel>
         <Input
           id="salesConsultant"
           name="salesConsultant"
           onChange={onInputChange}
           value={value.salesConsultant}
+          aria-invalid={!!errorObject.salesConsultant.isError}
         />
+        {errorObject.salesConsultant.isError && (
+          <FieldDescription>{errorObject.salesConsultant.message}</FieldDescription>
+        )}
       </Field>
     </FieldSet>
   )
