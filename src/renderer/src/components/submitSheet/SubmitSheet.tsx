@@ -16,12 +16,10 @@ import { ToastDisplayOptions } from '@/components/windowTable/WindowTableContain
 import { createWorksheetPDF } from '@/utility/process/pdf/createWorksheetPDF'
 import { openWorksheetPDF } from '@/utility/process/pdf/openWorksheetPDF'
 import { kineticsGetWorksheetCostAsync } from '@/utility/process/worksheet/cost'
-import { Blind } from '@shared/types/blind/blind.types'
 import { ProjectFile } from '@shared/types/Project.types'
 import { WindowTableEntry } from '@shared/types/WindowTableForm.types'
 import { Customer } from '@shared/types/worksheet/Customer.types'
 import { Worksheet } from '@shared/types/worksheet/Worksheet.types'
-import { error } from 'console'
 import { ChangeEvent, useEffect, useState } from 'react'
 
 type Props = {
