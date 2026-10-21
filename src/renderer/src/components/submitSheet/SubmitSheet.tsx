@@ -12,6 +12,7 @@ import {
   SheetHeader,
   SheetTitle
 } from '@/components/ui/sheet'
+import { Spinner } from '@/components/ui/spinner'
 import { ToastDisplayOptions } from '@/components/windowTable/WindowTableContainer'
 import { createWorksheetPDF } from '@/utility/process/pdf/createWorksheetPDF'
 import { openWorksheetPDF } from '@/utility/process/pdf/openWorksheetPDF'
@@ -243,7 +244,9 @@ function SubmitSheet(props: Props) {
           type="submit"
           form="create-worksheet-form"
           disabled={isSubmitPending}
+          className="gap-4"
         >
+          {isSubmitPending && <Spinner />}
           {page !== 2 ? 'Next' : 'Process'}
         </Button>
         <Button variant={'outline'} type="button" onClick={backButtonOnClick}>
