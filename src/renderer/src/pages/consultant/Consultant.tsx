@@ -2,7 +2,7 @@ import { useParams, useRouterState } from '@tanstack/react-router'
 import useFolder from '@/hook/useFolder'
 import FileList from '@/components/fileList/FileList'
 import { Spinner } from '@/components/ui/spinner'
-import ConsultantAvatar from '@/components/consultantAvatar/ConsultantAvatar'
+import ConsultantAvatar from '@/components/applicationInformation/ConsultantAvatar'
 
 function Consultant() {
   const { consultantName } = useParams({ from: '/consultant/$consultantName/' })

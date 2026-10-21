@@ -19,7 +19,8 @@ function ConsultantAvatar(props: Props) {
 
 function getFallback(name: string) {
   const split = name.split(' ')
-  return `${split[0].charAt(0)} ${split[1].charAt(0)}`
+  if (split.length >= 2) return `${split[0].charAt(0)} ${split[1].charAt(0)}`
+  return `${split[0].charAt(0)}`
 }
 
 export default ConsultantAvatar

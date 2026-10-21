@@ -1,4 +1,3 @@
-import ConsultantAvatar from '@/components/consultantAvatar/ConsultantAvatar'
 import CustomerCard from '@/components/customerCard/CustomerCard'
 
 type Props = {
@@ -14,10 +13,13 @@ function ProjectPageHeader(props: Props) {
 
   return (
     <div className="w-full h-full flex flex-col gap-8">
-      <div className="flex w-full justify-end focus:outline-none gap-4 items-center">
-        <ConsultantAvatar name={consultantName} />
-      </div>
-      <CustomerCard name={name} reference={reference} service={service} pricingType={pricingType} />
+      <CustomerCard
+        name={name}
+        reference={reference}
+        service={service}
+        pricingType={pricingType}
+        consultantName={consultantName}
+      />
     </div>
   )
 }

@@ -13,6 +13,7 @@ import { GETAccessorySchedule } from './http/GETAccessorySchedule'
 import { Worksheet } from '@shared/types/worksheet/Worksheet.types'
 import { generateWorksheetPDF } from '@main/pdf/generateWorksheetPDF'
 import fs from 'node:fs/promises'
+import { ApplicationInformation } from '@shared/types/Application.types'
 
 function createWindow(): void {
   // Create the browser window.
@@ -160,7 +161,14 @@ ipcMain.handle('open-base64-pdf', async (_event, fileName: string, pdfBase64: st
 
 ipcMain.handle('get-application-information', async () => {
   try {
+    const applicationInformation: ApplicationInformation = {
+      version: app.getVersion(),
+      userName: process.env.USERNAME ?? 'User'
+    }
+
+    return applicationInformation
   } catch (error) {
     if (error instanceof Error && log) console.error(error)
+    throw new Error('Failed to get application information', { cause: error })
   }
 })

@@ -9,6 +9,7 @@ import type {
   PricingSchedule
 } from '@shared/types/pricing/pricingSchedule.types'
 import { Worksheet } from '@shared/types/worksheet/Worksheet.types'
+import type { ApplicationInformation } from '@shared/types/Application.types'
 
 export interface Api {
   getStaffList: () => Promise<GETStaffResponse>

@@ -6,10 +6,11 @@ type Props = {
   reference: string
   service: string
   pricingType: string
+  consultantName: string
 }
 
 function CustomerCard(props: Props) {
-  const { name, reference, service, pricingType } = props
+  const { name, reference, service, pricingType, consultantName } = props
   return (
     <Card>
       <CardHeader className="flex flex-col h-full bg-card text-card-foreground ">
@@ -17,10 +18,13 @@ function CustomerCard(props: Props) {
           <p className="flex w-full h-full">{name}</p>
           <p>{reference}</p>
         </CardTitle>
-        <CardDescription className="flex w-full space-x-4">
-          <span>{service}</span>
-          <Separator orientation="vertical" />
-          <span>{pricingType}</span>
+        <CardDescription className="flex gap-4 justify-between w-full">
+          <div className="flex w-full gap-4">
+            <span>{service}</span>
+            <Separator orientation="vertical" />
+            <span>{pricingType}</span>
+          </div>
+          <p className="w-full flex justify-end">{consultantName}</p>
         </CardDescription>
       </CardHeader>
     </Card>
