@@ -39,7 +39,7 @@ export const kineticsMikronwoodWindowTableColumnDefinition = columnHelper.column
       return row.tableEntry['control side']
     },
     {
-      id: 'controlSide',
+      id: 'control side',
       header: 'Control Side',
       cell: (props) => (
         <SelectValueCell {...props} validOptions={ControlSideOption as readonly string[]} />
@@ -53,7 +53,7 @@ export const kineticsMikronwoodWindowTableColumnDefinition = columnHelper.column
       return row.tableEntry['tilt side']
     },
     {
-      id: 'tiltSide',
+      id: 'tilt side',
       header: 'Tilt Side'
     }
   ),
@@ -75,7 +75,7 @@ export const kineticsMikronwoodWindowTableColumnDefinition = columnHelper.column
       return row.tableEntry['hold down bracket']
     },
     {
-      id: 'holdDownBracket',
+      id: 'hold down bracket',
       header: 'Hold Down Bracket'
     }
   ),

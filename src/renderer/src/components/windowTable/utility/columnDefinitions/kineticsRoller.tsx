@@ -51,7 +51,7 @@ export const kineticsRollerWindowTableColumnDefinition = columnHelper.columns([
       return row.tableEntry['control side']
     },
     {
-      id: 'controlSide',
+      id: 'control side',
       header: 'Control Side',
       cell: (props) => (
         <SelectValueCell {...props} validOptions={ControlSideOption as readonly string[]} />
@@ -65,7 +65,7 @@ export const kineticsRollerWindowTableColumnDefinition = columnHelper.columns([
       return row.tableEntry['bottom rail']
     },
     {
-      id: 'bottomRail',
+      id: 'bottom rail',
       header: 'Bottom Rail'
     }
   ),

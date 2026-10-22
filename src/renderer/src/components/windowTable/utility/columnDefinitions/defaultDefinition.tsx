@@ -3,6 +3,7 @@ import { createColumnHelper } from '@tanstack/react-table'
 import { Checkbox } from '@/components/ui/checkbox'
 
 import { WindowFormTableFeatures } from '@/components/windowTable/utility/features'
+import EditableCell from '@/components/windowTable/utility/columnDefinitions/EditableCell'
 
 export const windowTableColumnHelper = createColumnHelper<
   WindowFormTableFeatures,
@@ -37,7 +38,8 @@ export const windowTableColumnBase = windowTableColumnHelper.columns([
 
   windowTableColumnHelper.accessor((row) => row.tableEntry.location, {
     id: 'location',
-    header: 'Location'
+    header: 'Location',
+    cell: EditableCell
   }),
 
   windowTableColumnHelper.accessor((row) => row.tableEntry.width, {
