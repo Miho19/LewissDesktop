@@ -19,6 +19,7 @@ export const editableDefaultColumnId: string[] = [
 
 export const windowTableColumnBase = windowTableColumnHelper.columns([
   windowTableColumnHelper.display({
+    size: 50,
     id: 'select',
     header: ({ table }) => {
       return (

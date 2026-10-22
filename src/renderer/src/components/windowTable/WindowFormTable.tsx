@@ -43,6 +43,11 @@ function WindowFormTable(props: Props) {
     columns: getWindowFormTableColumnDefinition(blindType),
     data: data,
     columnResizeMode: 'onChange',
+    defaultColumn: {
+      size: 150,
+      minSize: 50,
+      maxSize: 350
+    },
     meta: {
       updateData: (rowIndex, columnId, value) => {
         setData((prev) => {

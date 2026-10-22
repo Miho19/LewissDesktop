@@ -25,7 +25,7 @@ function WindowTable(props: Props) {
 
   return (
     <ScrollArea className="h-auto max-h-128 rounded-md border w-auto max-w-screen whitespace-nowrap">
-      <Table nowrapper className="">
+      <Table nowrapper className="table-auto" style={{ width: table.getCenterTotalSize() }}>
         <TableHeader className="sticky top-0 z-10 bg-background shadow-xs">
           {headerList}
         </TableHeader>
@@ -56,7 +56,7 @@ function getTableBody(table: ReactTable<WindowFormTableFeatures, WindowTableEntr
       >
         {row.getAllCells().map((cell) => {
           return (
-            <TableCell key={cell.id}>
+            <TableCell key={cell.id} style={{ width: cell.column.getSize() }}>
               <table.FlexRender cell={cell} />
             </TableCell>
           )
@@ -74,8 +74,19 @@ function getTableHeader(table: ReactTable<WindowFormTableFeatures, WindowTableEn
       <TableRow key={headerGroup.id}>
         {headerGroup.headers.map((header) => {
           return (
-            <TableHead key={header.id}>
+            <TableHead
+              key={header.id}
+              style={{ width: header.getSize() }}
+              className="relative group"
+            >
               {header.isPlaceholder ? null : <table.FlexRender header={header} />}
+              <div
+                onMouseDown={header.getResizeHandler()}
+                onTouchStart={header.getResizeHandler()}
+                className={`absolute right-0 top-0 h-full w-1 cursor-col-resize bg-border select-none touch-none opacity-0 group-hover:opacity-100 transition-opacity ${
+                  header.column.getIsResizing() ? 'bg-primary opacity-100 w-1.5' : ''
+                }`}
+              ></div>
             </TableHead>
           )
         })}
