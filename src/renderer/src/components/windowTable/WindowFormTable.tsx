@@ -1,6 +1,5 @@
 import { Marker, MarkerContent } from '@/components/ui/marker'
 import { getWindowFormTableColumnDefinition } from '@/components/windowTable/utility/columnDefinitions'
-import { editableDefaultColumnId } from '@/components/windowTable/utility/columnDefinitions/defaultDefinition'
 import { windowFormTableFeatures } from '@/components/windowTable/utility/features'
 import WindowFormTableFooter from '@/components/windowTable/WindowFormTableFooter'
 import WindowTable from '@/components/windowTable/WindowTable'
@@ -38,6 +37,23 @@ function WindowFormTable(props: Props) {
 
   const [data, setData] = useState(initialTableData)
 
+  async function updateData(rowIndex: number, columnId: string, value: unknown) {
+    setData((prev) => {
+      return prev.map((row, index) => {
+        if (index !== rowIndex) return row
+        return {
+          ...row,
+          tableEntry: {
+            ...row.tableEntry,
+            [columnId]: value
+          }
+        }
+      })
+    })
+
+    // handle update pricing of tableEntry
+  }
+
   const table = useTable({
     features: windowFormTableFeatures,
     columns: getWindowFormTableColumnDefinition(blindType),
@@ -49,31 +65,7 @@ function WindowFormTable(props: Props) {
       maxSize: 350
     },
     meta: {
-      updateData: (rowIndex, columnId, value) => {
-        setData((prev) => {
-          return prev.map((row, index) => {
-            if (index !== rowIndex) return row
-
-            if (editableDefaultColumnId.includes(columnId)) {
-              return {
-                ...row,
-                windowDisplay: {
-                  ...row.windowDisplay,
-                  [columnId]: value
-                }
-              }
-            }
-
-            return {
-              ...row,
-              tableEntry: {
-                ...row.tableEntry,
-                [columnId]: value
-              }
-            }
-          })
-        })
-      }
+      updateData
     },
     onRowSelectionChange: setRowSelection,
     state: {
