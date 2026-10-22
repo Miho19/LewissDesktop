@@ -35,7 +35,7 @@ function SelectValueCell(
       <SelectTrigger>
         <SelectValue />
       </SelectTrigger>
-      <SelectContent alignItemWithTrigger>{selectableList}</SelectContent>
+      <SelectContent className="min-w-0 w-full ">{selectableList}</SelectContent>
     </Select>
   )
 }

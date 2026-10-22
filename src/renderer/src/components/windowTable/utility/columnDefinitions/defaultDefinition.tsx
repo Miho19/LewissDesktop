@@ -37,6 +37,9 @@ export const windowTableColumnBase = windowTableColumnHelper.columns([
   }),
 
   windowTableColumnHelper.accessor((row) => row.tableEntry.location, {
+    size: 250,
+    minSize: 200,
+    maxSize: 350,
     id: 'location',
     header: 'Location',
     cell: EditableCell

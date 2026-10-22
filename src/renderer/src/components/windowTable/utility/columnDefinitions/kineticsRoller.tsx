@@ -3,7 +3,11 @@ import EditableCell from '@/components/windowTable/utility/columnDefinitions/Edi
 import SelectValueCell from '@/components/windowTable/utility/columnDefinitions/SelectValueCell'
 import { WindowFormTableFeatures } from '@/components/windowTable/utility/features'
 import { isKineticsRollerTableEntry } from '@shared/types/tableEntry/kineticsRoller.types'
-import { ControlSideOption, WindowTableEntry } from '@shared/types/WindowTableForm.types'
+import {
+  ControlSideOption,
+  kineticsRollerBracketOption,
+  WindowTableEntry
+} from '@shared/types/WindowTableForm.types'
 import { createColumnHelper } from '@tanstack/react-table'
 
 const columnHelper = createColumnHelper<WindowFormTableFeatures, WindowTableEntry>()
@@ -39,6 +43,9 @@ export const kineticsRollerWindowTableColumnDefinition = columnHelper.columns([
       return row.tableEntry.control
     },
     {
+      size: 200,
+      minSize: 150,
+      maxSize: 300,
       id: 'control',
       header: 'Control',
       cell: EditableCell
@@ -76,9 +83,17 @@ export const kineticsRollerWindowTableColumnDefinition = columnHelper.columns([
       return row.tableEntry.bracket
     },
     {
+      size: 200,
+      minSize: 150,
+      maxSize: 250,
       id: 'bracket',
       header: 'Bracket',
-      cell: EditableCell
+      cell: (props) => (
+        <SelectValueCell
+          {...props}
+          validOptions={kineticsRollerBracketOption as readonly string[]}
+        />
+      )
     }
   ),
 
