@@ -3,7 +3,8 @@ import EditableCell from '@/components/windowTable/utility/columnDefinitions/Edi
 import { WindowFormTableFeatures } from '@/components/windowTable/utility/features'
 import { isKineticsCellularTableEntry } from '@shared/types/tableEntry/kineticsCellular.types'
 import { WindowTableEntry } from '@shared/types/WindowTableForm.types'
-import { createColumnHelper } from '@tanstack/react-table'
+import { CellContext, createColumnHelper } from '@tanstack/react-table'
+import SelectValueCell from '@/components/windowTable/utility/columnDefinitions/SelectValueCell'
 
 // align column id so we can set using object notation
 // issue is that some values are in window display and not table entry
@@ -53,7 +54,8 @@ export const kineticsCellularWindowTableColumnDefinition = columnHelper.columns(
     },
     {
       id: 'control side',
-      header: 'Control Side'
+      header: 'Control Side',
+      cell: (props) => <SelectValueCell {...props} validOptions={['left', 'right']} />
     }
   ),
 
