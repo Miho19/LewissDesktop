@@ -31,5 +31,3 @@ export function isKineticsRollerSpec(spec: Spec): spec is KineticsRollerSpec {
 
   return (KineticsRollerBlindOptions as readonly string[]).includes(blindType)
 }
-
-export const KineticsRollerRollOption = ['front', 'back'] as const

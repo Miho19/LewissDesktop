@@ -22,5 +22,3 @@ export type SpecDisplayList = {
   title: string
   description: string
 }
-
-export const ControlSideOption = ['left', 'right'] as const

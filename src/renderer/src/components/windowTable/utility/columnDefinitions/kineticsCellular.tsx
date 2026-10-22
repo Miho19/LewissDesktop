@@ -2,13 +2,9 @@ import { windowTableColumnBase } from '@/components/windowTable/utility/columnDe
 import EditableCell from '@/components/windowTable/utility/columnDefinitions/EditableCell'
 import { WindowFormTableFeatures } from '@/components/windowTable/utility/features'
 import { isKineticsCellularTableEntry } from '@shared/types/tableEntry/kineticsCellular.types'
-import { WindowTableEntry } from '@shared/types/WindowTableForm.types'
-import { CellContext, createColumnHelper } from '@tanstack/react-table'
+import { ControlSideOption, WindowTableEntry } from '@shared/types/WindowTableForm.types'
+import { createColumnHelper } from '@tanstack/react-table'
 import SelectValueCell from '@/components/windowTable/utility/columnDefinitions/SelectValueCell'
-import { ControlSideOption } from '@shared/types/spec/Spec.types'
-
-// align column id so we can set using object notation
-// issue is that some values are in window display and not table entry
 
 const columnHelper = createColumnHelper<WindowFormTableFeatures, WindowTableEntry>()
 
