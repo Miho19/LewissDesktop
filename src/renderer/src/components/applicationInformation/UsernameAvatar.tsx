@@ -13,7 +13,7 @@ function UsernameAvatar() {
   const { userName } = data
 
   return (
-    <div className="w-full flex gap-2 justify-end h-full items-center">
+    <div className="w-full flex gap-4 justify-end h-full items-center">
       <ConsultantAvatar name={userName} />
     </div>
   )

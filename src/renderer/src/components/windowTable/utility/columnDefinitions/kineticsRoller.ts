@@ -39,7 +39,8 @@ export const kineticsRollerWindowTableColumnDefinition = columnHelper.columns([
     },
     {
       id: 'control',
-      header: 'Control'
+      header: 'Control',
+      cell: EditableCell
     }
   ),
 
@@ -50,7 +51,8 @@ export const kineticsRollerWindowTableColumnDefinition = columnHelper.columns([
     },
     {
       id: 'controlSide',
-      header: 'Control Side'
+      header: 'Control Side',
+      cell: EditableCell
     }
   ),
 

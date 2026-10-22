@@ -1,8 +1,16 @@
 import { WindowTableMeta } from '@shared/types/WindowTableForm.types'
-import { metaHelper, rowSelectionFeature, tableFeatures } from '@tanstack/react-table'
+import {
+  columnResizingFeature,
+  columnSizingFeature,
+  metaHelper,
+  rowSelectionFeature,
+  tableFeatures
+} from '@tanstack/react-table'
 
 export const windowFormTableFeatures = tableFeatures({
   rowSelectionFeature,
+  columnSizingFeature,
+  columnResizingFeature,
   tableMeta: metaHelper<WindowTableMeta>()
 })
 
