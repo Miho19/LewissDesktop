@@ -700,7 +700,7 @@
             "id": "w1789081797082-336",
             "number": 1,
             "name": "Window 1",
-            "measuredDate": "2026-09-11",
+            "measuredDate": "2026-09-17",
             "internalWidth": 1200,
             "internalHeightL": 900,
             "internalHeightR": 900,
@@ -778,13 +778,14 @@
             "outsideBlind2Type": "",
             "outsideBlind2Fabric": "",
             "squareDiff": 0,
-            "windowSquare": "Yes"
+            "windowSquare": "Yes",
+            "existingTrackIsMotorised": false
           },
           {
             "id": "w1789081831908-242",
             "number": 2,
             "name": "Window 2",
-            "measuredDate": "2026-09-11",
+            "measuredDate": "2026-09-17",
             "internalWidth": 1200,
             "internalHeightL": 900,
             "internalHeightR": 900,
@@ -862,7 +863,8 @@
             "outsideBlind2Type": "",
             "outsideBlind2Fabric": "",
             "squareDiff": 0,
-            "windowSquare": "Yes"
+            "windowSquare": "Yes",
+            "existingTrackIsMotorised": false
           }
         ],
         "curtains": []
@@ -896,7 +898,7 @@
                 "chipImageUrl": "https://www.windoware.co.nz/wp-content/uploads/2025/09/Glacier-White-300x300.jpg"
               },
               "rollDirection": "Back Roll",
-              "bracketColour": "Black",
+              "bracketColour": "Cream",
               "bottomRailType": "Oval",
               "bottomRailColour": "Spice",
               "chainColour": "Nickel",
@@ -931,14 +933,14 @@
               "bracketColour": "Black",
               "bottomRailType": "Round",
               "bottomRailColour": "Canvas Cloth",
-              "chainColour": "Black",
-              "controlSide": "Left",
+              "chainColour": "Nickel",
+              "controlSide": "Right",
               "motorisation": null,
               "pelmetType": "160 O/S",
               "customColour": false,
               "inlineBracket": false,
               "intermediateBracket": false,
-              "combaBracket": false,
+              "combaBracket": true,
               "remoteQty": 0,
               "usbCableQty": 0,
               "smartLinkHubQty": 0
@@ -968,7 +970,7 @@
             "id": "w1789081947520-433",
             "number": 1,
             "name": "Window 1",
-            "measuredDate": "2026-09-11",
+            "measuredDate": "2026-10-16",
             "internalWidth": 1200,
             "internalHeightL": 900,
             "internalHeightR": 900,
@@ -1046,13 +1048,19 @@
             "outsideBlind2Type": "",
             "outsideBlind2Fabric": "",
             "squareDiff": 0,
-            "windowSquare": "Yes"
+            "windowSquare": "Yes",
+            "curtainLengths": [],
+            "curtainLengthNote": "",
+            "curtainControlSide": "",
+            "curtainCordLength": "",
+            "curtainCordLengthOther": "",
+            "existingTrackIsMotorised": false
           },
           {
             "id": "w1789081975785-68",
             "number": 2,
             "name": "Window 2",
-            "measuredDate": "2026-09-11",
+            "measuredDate": "2026-10-16",
             "internalWidth": 1200,
             "internalHeightL": 900,
             "internalHeightR": 900,
@@ -1062,8 +1070,8 @@
             "curtainFixingTypeOther": "",
             "blindFixingType": "Timber",
             "blindFixingTypeOther": "",
-            "controlSide": "",
-            "controlLength": "",
+            "controlSide": "Left",
+            "controlLength": "1000",
             "controlLengthOther": "",
             "controlSideLeft": "",
             "controlSideRight": "",
@@ -1131,7 +1139,12 @@
             "blindLeft": 100,
             "blindRight": 100,
             "blindUnderhang": 100,
-            "existingTrackIsMotorised": false
+            "existingTrackIsMotorised": false,
+            "curtainLengths": [],
+            "curtainLengthNote": "",
+            "curtainControlSide": "",
+            "curtainCordLength": "",
+            "curtainCordLengthOther": ""
           }
         ],
         "curtains": []
@@ -2244,7 +2257,7 @@
             "id": "w1789102755819-693",
             "number": 1,
             "name": "Window 1",
-            "measuredDate": "2026-09-11",
+            "measuredDate": "2026-09-17",
             "internalWidth": 1200,
             "internalHeightL": 900,
             "internalHeightR": 900,
@@ -2318,7 +2331,8 @@
             "outsideBlind2Type": "",
             "outsideBlind2Fabric": "",
             "squareDiff": 0,
-            "windowSquare": "Yes"
+            "windowSquare": "Yes",
+            "existingTrackIsMotorised": false
           }
         ],
         "curtains": []
@@ -2330,13 +2344,18 @@
   "createdBy": "Terry Donald",
   "createdAt": "2026-09-11",
   "lastEditedBy": "Terry Donald",
-  "lastEditedAt": "2026-09-11T05:00:11.805Z",
+  "lastEditedAt": "2026-10-22T02:08:24.387Z",
   "cloudFolderId": "01VFVMOAEMGNU2CGTZBNH2X4UH47IH5MR4",
   "cloudFolderName": "Terry Donald",
   "cloudItemId": "01VFVMOAHV6D22OIMYS5E23NXKZUI2VX6G",
-  "cloudLastPushed": "2026-09-11T05:00:15.990Z",
+  "cloudLastPushed": "2026-10-22T02:08:30.740Z",
   "placeId": "ChIJ-QCIQb2qOG0Rkc3Yefp7j54",
   "latitude": -41.1885753,
   "longitude": 174.928548,
-  "addressValidatedAt": "2026-09-11T00:30:12.821Z"
+  "addressValidatedAt": "2026-09-11T00:30:12.821Z",
+  "cloudLastModified": "2026-10-22T02:08:30Z",
+  "cloudETag": "\"{A7F5F0F5-9821-4997-ADB6-EACD11AADFC6},137\"",
+  "cloudCTag": "\"c:{A7F5F0F5-9821-4997-ADB6-EACD11AADFC6},137\"",
+  "cloudSaveToken": "mviwjja6-7iwei235",
+  "cloudSavedBy": "Terry Donald"
 }

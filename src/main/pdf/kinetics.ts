@@ -2,15 +2,22 @@ import { Blind } from '@shared/types/blind/blind.types'
 import { Column, Content, ContentImage } from 'pdfmake/interfaces'
 
 export async function createWindowWareHeaderAsync() {
-  const logo = await import('../../../resources/Windoware-Logo-1.png?inline')
+  const windoware = await import('../../../resources/Windoware-Logo-1.png?inline')
+  const kinetics = await import('../../../resources/Kinetics Black Text Logo.png?inline')
 
-  const image: ContentImage = {
-    image: logo.default,
+  const windowareLogo: ContentImage = {
+    image: windoware.default,
+    width: 100
+  }
+
+  const kineticsLogo: ContentImage = {
+    image: kinetics.default,
     width: 100
   }
 
   const column: Column = {
-    columns: [{ width: '*', text: ' ' }, image]
+    marginBottom: 10,
+    columns: [kineticsLogo, { width: '*', text: ' ' }, windowareLogo]
   }
 
   return column
