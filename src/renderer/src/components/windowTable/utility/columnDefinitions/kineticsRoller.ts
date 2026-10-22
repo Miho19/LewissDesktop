@@ -74,7 +74,8 @@ export const kineticsRollerWindowTableColumnDefinition = columnHelper.columns([
     },
     {
       id: 'bracket',
-      header: 'Bracket'
+      header: 'Bracket',
+      cell: EditableCell
     }
   ),
 
