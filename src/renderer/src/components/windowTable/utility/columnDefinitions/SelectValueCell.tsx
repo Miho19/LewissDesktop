@@ -12,7 +12,7 @@ import { CellContext } from '@tanstack/react-table'
 
 function SelectValueCell(
   props: CellContext<WindowFormTableFeatures, WindowTableEntry, string | undefined> & {
-    validOptions: string[]
+    validOptions: readonly string[]
   }
 ) {
   const { getValue, row, column, table, validOptions } = props

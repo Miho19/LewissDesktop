@@ -5,6 +5,7 @@ import { isKineticsCellularTableEntry } from '@shared/types/tableEntry/kineticsC
 import { WindowTableEntry } from '@shared/types/WindowTableForm.types'
 import { CellContext, createColumnHelper } from '@tanstack/react-table'
 import SelectValueCell from '@/components/windowTable/utility/columnDefinitions/SelectValueCell'
+import { ControlSideOption } from '@shared/types/spec/Spec.types'
 
 // align column id so we can set using object notation
 // issue is that some values are in window display and not table entry
@@ -55,7 +56,9 @@ export const kineticsCellularWindowTableColumnDefinition = columnHelper.columns(
     {
       id: 'control side',
       header: 'Control Side',
-      cell: (props) => <SelectValueCell {...props} validOptions={['left', 'right']} />
+      cell: (props) => (
+        <SelectValueCell {...props} validOptions={ControlSideOption as readonly string[]} />
+      )
     }
   ),
 

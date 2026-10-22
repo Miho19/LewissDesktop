@@ -1,6 +1,8 @@
 import { windowTableColumnBase } from '@/components/windowTable/utility/columnDefinitions/defaultDefinition'
 import EditableCell from '@/components/windowTable/utility/columnDefinitions/EditableCell'
+import SelectValueCell from '@/components/windowTable/utility/columnDefinitions/SelectValueCell'
 import { WindowFormTableFeatures } from '@/components/windowTable/utility/features'
+import { ControlSideOption } from '@shared/types/spec/Spec.types'
 import { isKineticsMikronwoodTableEntry } from '@shared/types/tableEntry/kineticsMikronwood.types'
 import { WindowTableEntry } from '@shared/types/WindowTableForm.types'
 import { createColumnHelper } from '@tanstack/react-table'
@@ -39,7 +41,10 @@ export const kineticsMikronwoodWindowTableColumnDefinition = columnHelper.column
     },
     {
       id: 'controlSide',
-      header: 'Control Side'
+      header: 'Control Side',
+      cell: (props) => (
+        <SelectValueCell {...props} validOptions={ControlSideOption as readonly string[]} />
+      )
     }
   ),
 

@@ -1,6 +1,8 @@
 import { windowTableColumnBase } from '@/components/windowTable/utility/columnDefinitions/defaultDefinition'
 import EditableCell from '@/components/windowTable/utility/columnDefinitions/EditableCell'
+import SelectValueCell from '@/components/windowTable/utility/columnDefinitions/SelectValueCell'
 import { WindowFormTableFeatures } from '@/components/windowTable/utility/features'
+import { ControlSideOption } from '@shared/types/spec/Spec.types'
 import { isKineticsRollerTableEntry } from '@shared/types/tableEntry/kineticsRoller.types'
 import { WindowTableEntry } from '@shared/types/WindowTableForm.types'
 import { createColumnHelper } from '@tanstack/react-table'
@@ -52,7 +54,9 @@ export const kineticsRollerWindowTableColumnDefinition = columnHelper.columns([
     {
       id: 'controlSide',
       header: 'Control Side',
-      cell: EditableCell
+      cell: (props) => (
+        <SelectValueCell {...props} validOptions={ControlSideOption as readonly string[]} />
+      )
     }
   ),
 
