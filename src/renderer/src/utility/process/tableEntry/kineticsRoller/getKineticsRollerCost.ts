@@ -6,6 +6,7 @@ import { getKineticsRollerDimensionCost } from '@renderer/utility/process/tableE
 import { getKineticsRollerControlCost } from '@renderer/utility/process/tableEntry/kineticsRoller/getKineticsRollerControlCost'
 import { getKineticsRollerBottomRailCost } from '@renderer/utility/process/tableEntry/kineticsRoller/getKineticsRollerBottomRailCost'
 import { getKineticsRollerPelmetCost } from '@renderer/utility/process/tableEntry/kineticsRoller/getKineticsRollerPelmetCost'
+import { getKineticsRollerBracketCost } from '@/utility/process/tableEntry/kineticsRoller/getKineticsBracketCost'
 
 export async function getKineticsRollerCostAsync(
   blindType: Blind,
@@ -14,7 +15,8 @@ export async function getKineticsRollerCostAsync(
   fabric: Fabric,
   control: string,
   bottomRail: string,
-  pelmet: string
+  pelmet: string,
+  bracket: string
 ) {
   try {
     const pricingSchedule = await retrievePricingScheduleAsync(blindType)
@@ -35,7 +37,9 @@ export async function getKineticsRollerCostAsync(
     const pelmetCost = getKineticsRollerPelmetCost(width, pelmet, pricingSchedule)
     if (typeof pelmetCost === 'undefined') throw new Error('pelemt cost failure')
 
-    return dimensionCost + controlCost + bottomRailCost + pelmetCost
+    const bracketCost = getKineticsRollerBracketCost(bracket, pricingSchedule)
+
+    return dimensionCost + controlCost + bottomRailCost + pelmetCost + bracketCost
   } catch (error) {
     console.error(error)
     return undefined

@@ -21,7 +21,7 @@ const bracketInput: {
   { colour: 'cream', size: 'standard', expected: 0 }
 ]
 
-describe('', () => {
+describe('getKineticsRollerBracketCost', () => {
   const pricingSchedule = getExamplePricingSchedule('Kinetics Blockout Roller Blind')
 
   it.each(bracketInput)(
