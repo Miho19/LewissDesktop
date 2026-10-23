@@ -9,6 +9,7 @@ import { KineticsRollerTableEntry } from '@shared/types/tableEntry/kineticsRolle
 import { getKineticsRollerCostAsync } from '@renderer/utility/process/tableEntry/kineticsRoller/getKineticsRollerCost'
 import { getKineticsRollerPelmet } from '@renderer/utility/process/tableEntry/kineticsRoller/getKineticsRollerPelmetCost'
 import { getKineticsRollerControl } from '@renderer/utility/process/tableEntry/kineticsRoller/getKineticsRollerControlCost'
+import { getKineticsRollerBracket } from '@/utility/process/tableEntry/kineticsRoller/getKineticsBracketCost'
 
 export async function getKineticsRollerTableEntryAsync(
   blindType: Blind,
@@ -49,7 +50,7 @@ export async function getKineticsRollerTableEntryAsync(
 
   const bracketSize = `Standard`
   const bracketColour = spec.bracketColour
-  const bracket = `${bracketSize} - ${bracketColour}`
+  const bracket = getKineticsRollerBracket(bracketColour, bracketSize)
 
   const pelmet = getKineticsRollerPelmet(pelmetType)
 

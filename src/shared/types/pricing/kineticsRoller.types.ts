@@ -7,6 +7,7 @@ export type KineticsRollerPricingSchedule = {
   control: Control
   bottomRail: BottomRail
   pelmet: Pelmet
+  bracket: Base[]
 }
 
 type Control = {

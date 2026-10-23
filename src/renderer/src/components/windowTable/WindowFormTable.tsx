@@ -41,13 +41,16 @@ function WindowFormTable(props: Props) {
     setData((prev) => {
       return prev.map((row, index) => {
         if (index !== rowIndex) return row
-        return {
+
+        const updatedRow: WindowTableEntry = {
           ...row,
           tableEntry: {
             ...row.tableEntry,
             [columnId]: value
           }
         }
+
+        return updatedRow
       })
     })
 

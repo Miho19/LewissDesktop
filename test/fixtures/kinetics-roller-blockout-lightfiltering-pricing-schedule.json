@@ -59,9 +59,7 @@
     ],
     "customColour": { "id": "", "name": "Bottom Rail Custom Colour", "cost": 51.5 }
   },
-  "bracket": {
-    "combo": 54.0
-  },
+  "bracket": [{ "id": "", "name": "double bracket front", "cost": 54 }],
   "pelmet": {
     "customColour": { "id": "", "name": "custom colour pelmet", "cost": 103 },
     "widthHeader": [
