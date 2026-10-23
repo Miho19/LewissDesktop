@@ -27,7 +27,7 @@ describe('', () => {
   it.each(bracketInput)(
     'given the colour $colour at size $size expect $expected',
     ({ colour, size, expected }) => {
-      const bracket = getKineticsRollerBracket(colour, size)
+      const bracket = `${size} - ${colour}`
       const result = getKineticsRollerBracketCost(bracket, pricingSchedule)
 
       if (typeof expected === 'undefined') {

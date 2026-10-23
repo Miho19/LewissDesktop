@@ -22,7 +22,7 @@ export function getKineticsRollerControlCost(control: string, pricingSchedule: P
 function isControlLengthValid(controlLength: string) {
   if (!controlLength) return false
 
-  const lengthParsed = Number(controlLength)
+  const lengthParsed = parseInt(controlLength)
   if (isNaN(lengthParsed)) return false
   if (lengthParsed <= 0) return false
   if (lengthParsed > 5000) return false
@@ -49,7 +49,7 @@ function getChainCost(control: string, pricingSchedule: KineticsRollerPricingSch
   )
   if (typeof foundColour === 'undefined') return baseCost
 
-  const lengthParsed = Number(length)
+  const lengthParsed = parseInt(length)
 
   return foundColour.cost * (lengthParsed / 1000) + baseCost
 }
@@ -96,7 +96,7 @@ export function getKineticsRollerControl(
   const controlLength = windowMeasurement.controlLength || '1000'
 
   if (spec.motorisation == null) {
-    return `Chain FastRise - ${spec.chainColour} - ${controlLength}`
+    return `Chain FastRise - ${spec.chainColour} - ${controlLength}mm`
   }
 
   const motorisation = spec.motorisation

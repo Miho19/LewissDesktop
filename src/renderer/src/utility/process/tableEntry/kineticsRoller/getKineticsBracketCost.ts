@@ -3,6 +3,7 @@ import {
   KineticsRollerPricingSchedule
 } from '@shared/types/pricing/kineticsRoller.types'
 import { PricingSchedule } from '@shared/types/pricing/pricingSchedule.types'
+import { KineticsRollerSpec } from '@shared/types/spec/kineticsRoller.types'
 
 export function getKineticsRollerBracketCost(bracket: string, pricingSchedule: PricingSchedule) {
   if (!isKineticsRollerPricingSchedule(pricingSchedule))
@@ -13,7 +14,9 @@ export function getKineticsRollerBracketCost(bracket: string, pricingSchedule: P
   return cost
 }
 
-export function getKineticsRollerBracket(colour: string, size: string) {
+export function getKineticsRollerBracket(spec: KineticsRollerSpec) {
+  const size = `Standard`
+  const colour = spec.bracketColour
   return `${size} - ${colour}`
 }
 

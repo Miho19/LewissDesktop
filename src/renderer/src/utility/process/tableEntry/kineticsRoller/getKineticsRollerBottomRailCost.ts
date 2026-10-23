@@ -4,24 +4,38 @@ import {
   KineticsRollerPricingSchedule
 } from '@shared/types/pricing/kineticsRoller.types'
 import { roundMeasurementUp } from '@renderer/utility/process/tableEntry/shared/roundMeasurementUp'
+import { KineticsRollerSpec } from '@shared/types/spec/kineticsRoller.types'
 
 export function getKineticsRollerBottomRailCost(
   width: number,
-  bottomRailType: string,
-  bottomRailColour: string,
+  bottomRail: string,
   pricingSchedule: PricingSchedule
 ) {
   if (!isKineticsRollerPricingSchedule(pricingSchedule)) return undefined
   if (!isWidthValid(width)) return undefined
-  if (!isBottomRailTypeValid(bottomRailType) || !isBottomRailColourValid(bottomRailColour))
-    return undefined
+  const splitBottomRail = destructureBottomRail(bottomRail)
+  if (typeof splitBottomRail === 'undefined') return undefined
+  const { type, colour } = splitBottomRail
+  if (!isBottomRailTypeValid(type) || !isBottomRailColourValid(colour)) return undefined
 
-  const baseCost = getBottomRailTypeCost(width, bottomRailType, pricingSchedule)
+  const baseCost = getBottomRailTypeCost(width, type, pricingSchedule)
   if (typeof baseCost === 'undefined') return undefined
 
-  const colourCost = getColourCost(bottomRailColour, pricingSchedule)
+  const colourCost = getColourCost(colour, pricingSchedule)
 
   return baseCost + colourCost
+}
+
+function destructureBottomRail(bottomRail: string): { type: string; colour: string } | undefined {
+  const split = bottomRail.split('-').map((b) => b.trim())
+  if (split.length !== 2) return undefined
+
+  return { type: split[0], colour: split[1] }
+}
+
+export function getKineticsRollerBottomRail(spec: KineticsRollerSpec) {
+  const { bottomRailType, bottomRailColour } = spec
+  return `${bottomRailType} - ${bottomRailColour}`
 }
 
 function isWidthValid(width: number) {

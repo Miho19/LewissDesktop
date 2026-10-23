@@ -88,12 +88,9 @@ describe('getKineticsRollerBottomRailCost', () => {
   it.each(bottomRailInput)(
     'given the width $width with bottom rail $bottomRailType - $bottomRailColour should return $expected',
     ({ width, bottomRailType, bottomRailColour, expected }) => {
-      const result = getKineticsRollerBottomRailCost(
-        width,
-        bottomRailType,
-        bottomRailColour,
-        pricingSchedule
-      )
+      const bottomRail = `${bottomRailType} - ${bottomRailColour}`
+
+      const result = getKineticsRollerBottomRailCost(width, bottomRail, pricingSchedule)
       if (typeof expected === 'undefined') {
         expect(result).toBeUndefined()
       } else {

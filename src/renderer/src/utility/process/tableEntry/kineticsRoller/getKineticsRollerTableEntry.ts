@@ -10,6 +10,7 @@ import { getKineticsRollerCostAsync } from '@renderer/utility/process/tableEntry
 import { getKineticsRollerPelmet } from '@renderer/utility/process/tableEntry/kineticsRoller/getKineticsRollerPelmetCost'
 import { getKineticsRollerControl } from '@renderer/utility/process/tableEntry/kineticsRoller/getKineticsRollerControlCost'
 import { getKineticsRollerBracket } from '@/utility/process/tableEntry/kineticsRoller/getKineticsBracketCost'
+import { getKineticsRollerBottomRail } from '@/utility/process/tableEntry/kineticsRoller'
 
 export async function getKineticsRollerTableEntryAsync(
   blindType: Blind,
@@ -40,12 +41,10 @@ export async function getKineticsRollerTableEntryAsync(
   const controlSide =
     fit === 'inside' ? windowMeasurement.controlSide : windowMeasurement.outsideControlSide
 
-  const { bottomRailType, bottomRailColour, pelmetType } = spec
-  const bottomRail = `${bottomRailType} - ${bottomRailColour}`
+  const { pelmetType } = spec
 
-  const bracketSize = `Standard`
-  const bracketColour = spec.bracketColour
-  const bracket = getKineticsRollerBracket(bracketColour, bracketSize)
+  const bottomRail = getKineticsRollerBottomRail(spec)
+  const bracket = getKineticsRollerBracket(spec)
 
   const pelmet = getKineticsRollerPelmet(pelmetType)
 
@@ -57,8 +56,7 @@ export async function getKineticsRollerTableEntryAsync(
     height,
     fabric,
     control,
-    bottomRailType,
-    bottomRailColour,
+    bottomRail,
     pelmetType ?? ''
   )
 

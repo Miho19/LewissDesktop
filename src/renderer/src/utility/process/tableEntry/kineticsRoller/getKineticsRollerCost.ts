@@ -13,31 +13,31 @@ export async function getKineticsRollerCostAsync(
   height: number,
   fabric: Fabric,
   control: string,
-  bottomRailType: string,
-  bottomRailColour: string,
+  bottomRail: string,
   pelmet: string
 ) {
-  const pricingSchedule = await retrievePricingScheduleAsync(blindType)
-  if (typeof pricingSchedule === 'undefined') return undefined
-  if (!isKineticsRollerPricingSchedule(pricingSchedule)) return undefined
+  try {
+    const pricingSchedule = await retrievePricingScheduleAsync(blindType)
+    if (typeof pricingSchedule === 'undefined') throw new Error('pricing schedule undefined')
+    if (!isKineticsRollerPricingSchedule(pricingSchedule))
+      throw new Error('incorrect pricing schedule')
 
-  const dimensionCost = getKineticsRollerDimensionCost(width, height, fabric, pricingSchedule)
-  if (typeof dimensionCost === 'undefined') return undefined
+    const dimensionCost = getKineticsRollerDimensionCost(width, height, fabric, pricingSchedule)
+    if (typeof dimensionCost === 'undefined') throw new Error('dimension cost failure')
 
-  const controlCost = getKineticsRollerControlCost(control, pricingSchedule)
+    const controlCost = getKineticsRollerControlCost(control, pricingSchedule)
 
-  if (typeof controlCost === 'undefined') return undefined
+    if (typeof controlCost === 'undefined') throw new Error('control cost failure')
 
-  const bottomRailCost = getKineticsRollerBottomRailCost(
-    width,
-    bottomRailType,
-    bottomRailColour,
-    pricingSchedule
-  )
-  if (typeof bottomRailCost === 'undefined') return undefined
+    const bottomRailCost = getKineticsRollerBottomRailCost(width, bottomRail, pricingSchedule)
+    if (typeof bottomRailCost === 'undefined') throw new Error('bottom rail cost failure')
 
-  const pelmetCost = getKineticsRollerPelmetCost(width, pelmet, pricingSchedule)
-  if (typeof pelmetCost === 'undefined') return undefined
+    const pelmetCost = getKineticsRollerPelmetCost(width, pelmet, pricingSchedule)
+    if (typeof pelmetCost === 'undefined') throw new Error('pelemt cost failure')
 
-  return dimensionCost + controlCost + bottomRailCost + pelmetCost
+    return dimensionCost + controlCost + bottomRailCost + pelmetCost
+  } catch (error) {
+    console.error(error)
+    return undefined
+  }
 }
