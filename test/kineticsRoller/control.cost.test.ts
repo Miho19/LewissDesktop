@@ -9,40 +9,40 @@ const controlInput: {
   expected: number | undefined
 }[] = [
   {
-    control: 'Chain FastRise White',
+    control: 'Chain FastRise - White',
     length: '1000',
     expected: 21
   },
   {
-    control: 'Chain FastRise White',
+    control: 'Chain FastRise - White',
     length: '2000',
     expected: 21
   },
   {
-    control: 'Chain FastRise White',
+    control: 'Chain FastRise - White',
     length: '10000000',
     expected: undefined
   },
 
   {
-    control: 'Chain FastRise Black',
+    control: 'Chain FastRise - Black',
     length: '   ',
     expected: undefined
   },
 
   {
-    control: 'Chain FastRise Black',
+    control: 'Chain FastRise - Black',
     length: '',
     expected: undefined
   },
   {
-    control: 'Chain FastRise White',
+    control: 'Chain FastRise - White',
     length: '0',
     expected: undefined
   },
 
   {
-    control: 'Chain FastRise White',
+    control: 'Chain FastRise - White',
     length: '-1',
     expected: undefined
   },
@@ -101,7 +101,8 @@ describe('getKineticsRollerControlCost', () => {
   it.each(controlInput)(
     'given the control: $control with length: $length should return $expected',
     ({ control, length, expected }) => {
-      const result = getKineticsRollerControlCost(control, length, pricingSchedule)
+      const controlString = `${control} - ${length}`
+      const result = getKineticsRollerControlCost(controlString, pricingSchedule)
       if (typeof expected === 'undefined') {
         expect(result).toBeUndefined()
       } else {

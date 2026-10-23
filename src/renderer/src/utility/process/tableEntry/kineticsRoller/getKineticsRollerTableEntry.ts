@@ -35,12 +35,7 @@ export async function getKineticsRollerTableEntryAsync(
 
   const fabricName = fabric.name
 
-  const control = getKineticsRollerControl(spec)
-  const controlLength = windowMeasurement.controlLength || '1000'
-
-  const controlString = control.toLocaleLowerCase().includes('chain')
-    ? `${control} ${controlLength}mm`
-    : control
+  const control = getKineticsRollerControl(spec, windowMeasurement)
 
   const controlSide =
     fit === 'inside' ? windowMeasurement.controlSide : windowMeasurement.outsideControlSide
@@ -62,7 +57,6 @@ export async function getKineticsRollerTableEntryAsync(
     height,
     fabric,
     control,
-    controlLength,
     bottomRailType,
     bottomRailColour,
     pelmetType ?? ''
@@ -78,7 +72,7 @@ export async function getKineticsRollerTableEntryAsync(
     fit: fitCapitalised,
     roll,
     fabric: fabricName,
-    control: controlString,
+    control,
     'control side': controlSide,
     'bottom rail': bottomRail,
     bracket,

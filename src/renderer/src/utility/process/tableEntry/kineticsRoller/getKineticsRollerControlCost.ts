@@ -3,17 +3,16 @@ import {
   KineticsRollerPricingSchedule
 } from '@shared/types/pricing/kineticsRoller.types'
 import { PricingSchedule } from '@shared/types/pricing/pricingSchedule.types'
+import { WindowMeasurement } from '@shared/types/Project.types'
 import { KineticsRollerSpec } from '@shared/types/spec/kineticsRoller.types'
 
-export function getKineticsRollerControlCost(
-  control: string,
-  controlLength: string,
-  pricingSchedule: PricingSchedule
-) {
+export function getKineticsRollerControlCost(control: string, pricingSchedule: PricingSchedule) {
   if (!isKineticsRollerPricingSchedule(pricingSchedule)) return undefined
   if (!control || control.trim().length === 0) return undefined
 
-  if (isChain(control)) return getChainCost(control, controlLength, pricingSchedule)
+  if (isChain(control)) {
+    return getChainCost(control, pricingSchedule)
+  }
 
   return getMotorisationCost(control, pricingSchedule)
 }
@@ -35,18 +34,14 @@ function isChain(control: string) {
   return control.trim().toLocaleLowerCase().includes('chain')
 }
 
-function getChainCost(
-  control: string,
-  controlLength: string,
-  pricingSchedule: KineticsRollerPricingSchedule
-) {
-  if (!isControlLengthValid(controlLength)) return undefined
+function getChainCost(control: string, pricingSchedule: KineticsRollerPricingSchedule) {
+  const splitChain = destructureChain(control)
+  if (typeof splitChain === 'undefined') return undefined
+
+  const { type, colour, length } = splitChain
+  if (!isControlLengthValid(length)) return undefined
 
   const baseCost = pricingSchedule.control.chain.cost
-
-  const controlSplit = control.split(' ')
-  if (controlSplit.length !== 3) return undefined
-  const colour = controlSplit[2]
 
   const surchargeColours = pricingSchedule.control.chain.colours
   const foundColour = surchargeColours.find(
@@ -54,14 +49,37 @@ function getChainCost(
   )
   if (typeof foundColour === 'undefined') return baseCost
 
-  const lengthParsed = Number(controlLength)
+  const lengthParsed = Number(length)
 
   return foundColour.cost * (lengthParsed / 1000) + baseCost
 }
 
+function destructureChain(
+  control: string
+): { type: string; colour: string; length: string } | undefined {
+  const split = control.split('-').map((s) => s.trim())
+  if (split.length !== 3) return undefined
+  return { type: split[0], colour: split[1], length: split[2] }
+}
+
+function destructureMotor(control: string): { type: string } | undefined {
+  const split = control.split('-').map((c) => c.trim())
+
+  if (split.length <= 0) return undefined
+
+  if (split[0].toLocaleLowerCase().includes('lithium')) split[0] = 'Lithium-ion'
+
+  return { type: split[0] }
+}
+
 function getMotorisationCost(control: string, pricingSchedule: KineticsRollerPricingSchedule) {
+  const splitMotor = destructureMotor(control)
+  if (typeof splitMotor === 'undefined') return undefined
+
+  const { type } = splitMotor
+
   const foundMotor = Object.entries(pricingSchedule.control).find(
-    ([_, value]) => value.name.localeCompare(control, undefined, { sensitivity: 'base' }) === 0
+    ([_, value]) => value.name.localeCompare(type, undefined, { sensitivity: 'base' }) === 0
   )
 
   if (typeof foundMotor === 'undefined') return undefined
@@ -71,9 +89,14 @@ function getMotorisationCost(control: string, pricingSchedule: KineticsRollerPri
   return motor.cost
 }
 
-export function getKineticsRollerControl(spec: KineticsRollerSpec) {
+export function getKineticsRollerControl(
+  spec: KineticsRollerSpec,
+  windowMeasurement: WindowMeasurement
+) {
+  const controlLength = windowMeasurement.controlLength || '1000'
+
   if (spec.motorisation == null) {
-    return `Chain FastRise ${spec.chainColour}`
+    return `Chain FastRise - ${spec.chainColour} - ${controlLength}`
   }
 
   const motorisation = spec.motorisation

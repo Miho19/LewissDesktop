@@ -13,7 +13,6 @@ export async function getKineticsRollerCostAsync(
   height: number,
   fabric: Fabric,
   control: string,
-  controlLength: string,
   bottomRailType: string,
   bottomRailColour: string,
   pelmet: string
@@ -25,7 +24,7 @@ export async function getKineticsRollerCostAsync(
   const dimensionCost = getKineticsRollerDimensionCost(width, height, fabric, pricingSchedule)
   if (typeof dimensionCost === 'undefined') return undefined
 
-  const controlCost = getKineticsRollerControlCost(control, controlLength, pricingSchedule)
+  const controlCost = getKineticsRollerControlCost(control, pricingSchedule)
 
   if (typeof controlCost === 'undefined') return undefined
 
