@@ -1,3 +1,4 @@
+import { capitalise } from '@/utility/general/capitalise'
 import {
   isKineticsRollerPricingSchedule,
   KineticsRollerPricingSchedule
@@ -55,7 +56,7 @@ export function getKineticsRollerPelmet(pelmetType?: string) {
   if (pelmetType.trim().length === 0) return ''
 
   const size = getPelmetSize(pelmetType)
-  const fit = getPelmetFit(pelmetType)
+  const fit = capitalise(getPelmetFit(pelmetType))
 
   return `${size}mm - ${fit}`
 }
