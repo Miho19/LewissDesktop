@@ -5,6 +5,7 @@ import { isKineticsCellularTableEntry } from '@shared/types/tableEntry/kineticsC
 import { ControlSideOption, WindowTableEntry } from '@shared/types/WindowTableForm.types'
 import { createColumnHelper } from '@tanstack/react-table'
 import SelectValueCell from '@/components/windowTable/utility/columnDefinitions/SelectValueCell'
+import { getSelectItemList } from '@/components/windowTable/utility/columnDefinitions'
 
 const columnHelper = createColumnHelper<WindowFormTableFeatures, WindowTableEntry>()
 
@@ -53,7 +54,10 @@ export const kineticsCellularWindowTableColumnDefinition = columnHelper.columns(
       id: 'control side',
       header: 'Control Side',
       cell: (props) => (
-        <SelectValueCell {...props} validOptions={ControlSideOption as readonly string[]} />
+        <SelectValueCell
+          {...props}
+          selectOptions={getSelectItemList(ControlSideOption as readonly string[])}
+        />
       )
     }
   ),

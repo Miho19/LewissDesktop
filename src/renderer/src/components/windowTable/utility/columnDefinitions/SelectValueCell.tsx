@@ -1,31 +1,16 @@
-import {
-  Select,
-  SelectContent,
-  SelectTrigger,
-  SelectItem,
-  SelectValue
-} from '@/components/ui/select'
+import { Select, SelectContent, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { WindowFormTableFeatures } from '@/components/windowTable/utility/features'
-import { capitalise } from '@/utility/general/capitalise'
 import { WindowTableEntry } from '@shared/types/WindowTableForm.types'
 import { CellContext } from '@tanstack/react-table'
 
 function SelectValueCell(
   props: CellContext<WindowFormTableFeatures, WindowTableEntry, string | undefined> & {
-    validOptions: readonly string[]
+    selectOptions: React.JSX.Element[]
   }
 ) {
-  const { getValue, row, column, table, validOptions } = props
+  const { getValue, row, column, table, selectOptions } = props
 
   const initialValue = getValue()
-
-  const selectableList = validOptions
-    .map((option) => capitalise(option))
-    .map((option, index) => (
-      <SelectItem key={`${option} ${index}`} value={option}>
-        {option}
-      </SelectItem>
-    ))
 
   return (
     <Select
@@ -35,7 +20,7 @@ function SelectValueCell(
       <SelectTrigger>
         <SelectValue />
       </SelectTrigger>
-      <SelectContent className="min-w-0 w-full ">{selectableList}</SelectContent>
+      <SelectContent className="min-w-0 w-full ">{selectOptions}</SelectContent>
     </Select>
   )
 }

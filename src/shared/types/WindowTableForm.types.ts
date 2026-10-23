@@ -21,15 +21,11 @@ export const ControlSideOption = ['left', 'right'] as const
 
 export const KineticsRollerRollOption = ['front', 'back'] as const
 
-const kineticsRollerBracketColourOption = ['white', 'cream', 'grey', 'black'] as const
+export const kineticsRollerBracketColourOption = ['white', 'cream', 'grey', 'black'] as const
 
-const kineticsRollerBracketSizeOption = [
+export const kineticsRollerBracketSizeOption = [
   'standard',
   'extra large',
   'double bracket front',
   'double bracket back'
 ] as const
-
-export const kineticsRollerBracketOption = kineticsRollerBracketColourOption
-  .map((colour) => kineticsRollerBracketSizeOption.map((size) => `${size} - ${colour}`))
-  .flat()

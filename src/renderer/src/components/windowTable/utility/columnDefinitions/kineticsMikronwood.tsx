@@ -1,3 +1,4 @@
+import { getSelectItemList } from '@/components/windowTable/utility/columnDefinitions'
 import { windowTableColumnBase } from '@/components/windowTable/utility/columnDefinitions/defaultDefinition'
 import EditableCell from '@/components/windowTable/utility/columnDefinitions/EditableCell'
 import SelectValueCell from '@/components/windowTable/utility/columnDefinitions/SelectValueCell'
@@ -42,7 +43,10 @@ export const kineticsMikronwoodWindowTableColumnDefinition = columnHelper.column
       id: 'control side',
       header: 'Control Side',
       cell: (props) => (
-        <SelectValueCell {...props} validOptions={ControlSideOption as readonly string[]} />
+        <SelectValueCell
+          {...props}
+          selectOptions={getSelectItemList(ControlSideOption as readonly string[])}
+        />
       )
     }
   ),

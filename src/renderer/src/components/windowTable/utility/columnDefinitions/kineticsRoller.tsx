@@ -1,13 +1,13 @@
+import {
+  getKineticsRollerBracketSelectItemList,
+  getSelectItemList
+} from '@/components/windowTable/utility/columnDefinitions'
 import { windowTableColumnBase } from '@/components/windowTable/utility/columnDefinitions/defaultDefinition'
 import EditableCell from '@/components/windowTable/utility/columnDefinitions/EditableCell'
 import SelectValueCell from '@/components/windowTable/utility/columnDefinitions/SelectValueCell'
 import { WindowFormTableFeatures } from '@/components/windowTable/utility/features'
 import { isKineticsRollerTableEntry } from '@shared/types/tableEntry/kineticsRoller.types'
-import {
-  ControlSideOption,
-  kineticsRollerBracketOption,
-  WindowTableEntry
-} from '@shared/types/WindowTableForm.types'
+import { ControlSideOption, WindowTableEntry } from '@shared/types/WindowTableForm.types'
 import { createColumnHelper } from '@tanstack/react-table'
 
 const columnHelper = createColumnHelper<WindowFormTableFeatures, WindowTableEntry>()
@@ -61,7 +61,10 @@ export const kineticsRollerWindowTableColumnDefinition = columnHelper.columns([
       id: 'control side',
       header: 'Control Side',
       cell: (props) => (
-        <SelectValueCell {...props} validOptions={ControlSideOption as readonly string[]} />
+        <SelectValueCell
+          {...props}
+          selectOptions={getSelectItemList(ControlSideOption as readonly string[])}
+        />
       )
     }
   ),
@@ -89,10 +92,7 @@ export const kineticsRollerWindowTableColumnDefinition = columnHelper.columns([
       id: 'bracket',
       header: 'Bracket',
       cell: (props) => (
-        <SelectValueCell
-          {...props}
-          validOptions={kineticsRollerBracketOption as readonly string[]}
-        />
+        <SelectValueCell {...props} selectOptions={getKineticsRollerBracketSelectItemList()} />
       )
     }
   ),
