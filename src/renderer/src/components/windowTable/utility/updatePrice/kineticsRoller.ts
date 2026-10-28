@@ -24,5 +24,12 @@ export async function updateKineticsRollerCellPriceAsync(windowTableEntry: Windo
     bracket
   )
 
+  if (typeof priceUpdated === 'undefined') {
+    console.error(`failed to update price for ${windowTableEntry}`)
+    return windowTableEntry
+  }
+
+  windowTableEntry.tableEntry.price = priceUpdated.toFixed(2)
+
   return windowTableEntry
 }

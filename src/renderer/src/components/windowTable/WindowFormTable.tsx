@@ -1,6 +1,7 @@
 import { Marker, MarkerContent } from '@/components/ui/marker'
 import { getWindowFormTableColumnDefinition } from '@/components/windowTable/utility/columnDefinitions'
 import { windowFormTableFeatures } from '@/components/windowTable/utility/features'
+import { updateWindowTableEntryCost } from '@/components/windowTable/utility/updatePrice'
 import WindowFormTableFooter from '@/components/windowTable/WindowFormTableFooter'
 import WindowTable from '@/components/windowTable/WindowTable'
 import { ToastDisplayOptions } from '@/components/windowTable/WindowTableContainer'
@@ -38,23 +39,25 @@ function WindowFormTable(props: Props) {
   const [data, setData] = useState(initialTableData)
 
   async function updateData(rowIndex: number, columnId: string, value: unknown) {
+    const prevData = data.find((row, index) => index === rowIndex)
+    if (typeof prevData === 'undefined') return
+
+    const updatedData: WindowTableEntry = {
+      ...prevData,
+      tableEntry: {
+        ...prevData.tableEntry,
+        [columnId]: value
+      }
+    }
+
+    const priceUpdatedWindowTableEntry = await updateWindowTableEntryCost(updatedData)
+
     setData((prev) => {
       return prev.map((row, index) => {
         if (index !== rowIndex) return row
-
-        const updatedRow: WindowTableEntry = {
-          ...row,
-          tableEntry: {
-            ...row.tableEntry,
-            [columnId]: value
-          }
-        }
-
-        return updatedRow
+        return priceUpdatedWindowTableEntry
       })
     })
-
-    // handle update pricing of tableEntry
   }
 
   const table = useTable({
