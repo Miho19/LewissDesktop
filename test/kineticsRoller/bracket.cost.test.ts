@@ -1,7 +1,4 @@
-import {
-  getKineticsRollerBracket,
-  getKineticsRollerBracketCost
-} from '@/utility/process/tableEntry/kineticsRoller/getKineticsBracketCost'
+import { getKineticsRollerBracketCost } from '@/utility/process/tableEntry/kineticsRoller/getKineticsBracketCost'
 import {
   kineticsRollerBracketColourOption,
   kineticsRollerBracketSizeOption

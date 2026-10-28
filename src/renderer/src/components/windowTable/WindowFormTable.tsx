@@ -39,7 +39,7 @@ function WindowFormTable(props: Props) {
   const [data, setData] = useState(initialTableData)
 
   async function updateData(rowIndex: number, columnId: string, value: unknown) {
-    const prevData = data.find((row, index) => index === rowIndex)
+    const prevData = data.find((_, index) => index === rowIndex)
     if (typeof prevData === 'undefined') return
 
     const updatedData: WindowTableEntry = {

@@ -1,4 +1,4 @@
-import CustomerCard from '@/components/customerCard/CustomerCard'
+import CustomerCard from '@/components/customercard/CustomerCard'
 
 type Props = {
   name: string

@@ -10,12 +10,11 @@ import {
 } from '@/components/windowTable/utility/columnDefinitions/venetian'
 import { SantaFeShutterWindowTableColumnDefinition } from '@/components/windowTable/utility/columnDefinitions/santaFeShutter'
 import { capitalise } from '@/utility/general/capitalise'
-import { SelectGroup, SelectItem, SelectLabel, SelectSeparator } from '@/components/ui/select'
+import { SelectGroup, SelectItem, SelectLabel } from '@/components/ui/select'
 import {
   kineticsRollerBracketColourOption,
   kineticsRollerBracketSizeOption
 } from '@shared/types/WindowTableForm.types'
-import { Select } from '@base-ui/react'
 
 export * from './kineticsCellular'
 export * from './kineticsRoller'

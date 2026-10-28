@@ -35,7 +35,7 @@ function destructureBracket(bracket: string): { size: string; colour: string } {
 }
 
 function getBracketCost(bracketString: string, pricingSchedule: KineticsRollerPricingSchedule) {
-  const { size, colour } = destructureBracket(bracketString)
+  const { size } = destructureBracket(bracketString)
 
   const { bracket } = pricingSchedule
   if (typeof bracket === 'undefined')

@@ -38,7 +38,7 @@ function getChainCost(control: string, pricingSchedule: KineticsRollerPricingSch
   const splitChain = destructureChain(control)
   if (typeof splitChain === 'undefined') return undefined
 
-  const { type, colour, length } = splitChain
+  const { colour, length } = splitChain
   if (!isControlLengthValid(length)) return undefined
 
   const baseCost = pricingSchedule.control.chain.cost
