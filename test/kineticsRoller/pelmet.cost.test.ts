@@ -22,29 +22,29 @@ const petlmetInput: {
 }[] = [
   {
     width: 1200,
-    pelmet: '110 I/S',
+    pelmet: '110 - inside',
     expected: 57.91
   },
   {
     width: 0,
-    pelmet: '"110 I/S"',
+    pelmet: '110 - Inside',
     expected: undefined
   },
 
   {
     width: -1,
-    pelmet: '"110 I/S"',
+    pelmet: '110 - inside',
     expected: undefined
   },
   {
     width: 10000,
-    pelmet: '"110 I/S"',
+    pelmet: '110 - inside',
     expected: undefined
   },
 
   {
     width: 1200,
-    pelmet: '"110',
+    pelmet: '110',
     expected: undefined
   },
 
@@ -73,8 +73,8 @@ const petlmetInput: {
     pelmet: '110  ',
     expected: undefined
   },
-  { width: 240, pelmet: '110 I/S', expected: 46.33 },
-  { width: 1200, pelmet: '150 I/S', expected: undefined }
+  { width: 240, pelmet: '110 - inside', expected: 46.33 },
+  { width: 1200, pelmet: '150 - inside', expected: undefined }
 ]
 
 describe('getKineticsRollerPelmetCost', () => {
@@ -83,11 +83,10 @@ describe('getKineticsRollerPelmetCost', () => {
   it.each(petlmetInput)(
     'given the width $width with pelmet $pelmet should return $expected',
     ({ width, pelmet, expected }) => {
-      const result = getKineticsRollerPelmetCost(width, pelmet, pricingSchedule)
       if (typeof expected === 'undefined') {
-        expect(result).toBeUndefined()
+        expect(() => getKineticsRollerPelmetCost(width, pelmet, pricingSchedule)).toThrow()
       } else {
-        expect(result).toBeCloseTo(expected)
+        expect(getKineticsRollerPelmetCost(width, pelmet, pricingSchedule)).toBeCloseTo(expected)
       }
     }
   )

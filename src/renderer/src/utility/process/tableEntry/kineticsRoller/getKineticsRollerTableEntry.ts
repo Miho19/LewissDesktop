@@ -41,12 +41,10 @@ export async function getKineticsRollerTableEntryAsync(
   const controlSide =
     fit === 'inside' ? windowMeasurement.controlSide : windowMeasurement.outsideControlSide
 
-  const { pelmetType } = spec
-
   const bottomRail = getKineticsRollerBottomRail(spec)
   const bracket = getKineticsRollerBracket(spec)
 
-  const pelmet = getKineticsRollerPelmet(pelmetType)
+  const pelmet = getKineticsRollerPelmet(spec)
 
   const { remote, channel } = getRemoteAndChannel(location, control, entries)
 
@@ -57,7 +55,7 @@ export async function getKineticsRollerTableEntryAsync(
     fabric,
     control,
     bottomRail,
-    pelmetType ?? '',
+    pelmet,
     bracket
   )
 
