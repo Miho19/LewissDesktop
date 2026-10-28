@@ -38,6 +38,7 @@ export async function getKineticsRollerCostAsync(
     if (typeof pelmetCost === 'undefined') throw new Error('pelemt cost failure')
 
     const bracketCost = getKineticsRollerBracketCost(bracket, pricingSchedule)
+    if (typeof bracketCost === 'undefined') throw new Error('bracket cost failure')
 
     return dimensionCost + controlCost + bottomRailCost + pelmetCost + bracketCost
   } catch (error) {

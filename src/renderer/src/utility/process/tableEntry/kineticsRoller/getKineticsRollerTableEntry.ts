@@ -57,7 +57,8 @@ export async function getKineticsRollerTableEntryAsync(
     fabric,
     control,
     bottomRail,
-    pelmetType ?? ''
+    pelmetType ?? '',
+    bracket
   )
 
   if (typeof leftBlindCost === 'undefined') throw new Error(`failed to get cost of blind`)

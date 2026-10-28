@@ -18,7 +18,12 @@ const bracketInput: {
   { colour: 'black', size: 'double bracket front', expected: 54 },
   { colour: 'black', size: 'double bracket back', expected: 0 },
   { colour: 'black', size: 'extra large', expected: 0 },
-  { colour: 'cream', size: 'standard', expected: 0 }
+  { colour: 'cream', size: 'standard', expected: 0 },
+  {
+    colour: '' as (typeof kineticsRollerBracketColourOption)[number],
+    size: '' as (typeof kineticsRollerBracketSizeOption)[number],
+    expected: undefined
+  }
 ]
 
 describe('getKineticsRollerBracketCost', () => {
@@ -28,12 +33,11 @@ describe('getKineticsRollerBracketCost', () => {
     'given the colour $colour at size $size expect $expected',
     ({ colour, size, expected }) => {
       const bracket = `${size} - ${colour}`
-      const result = getKineticsRollerBracketCost(bracket, pricingSchedule)
 
       if (typeof expected === 'undefined') {
-        expect(result).toBeUndefined()
+        expect(() => getKineticsRollerBracketCost(bracket, pricingSchedule)).toThrow()
       } else {
-        expect(result).toBeCloseTo(expected)
+        expect(getKineticsRollerBracketCost(bracket, pricingSchedule)).toBeCloseTo(expected)
       }
     }
   )
