@@ -6,7 +6,7 @@ const controlInput: [string, number | undefined][] = [
   ['a', undefined],
   ['', undefined],
   [' ', undefined],
-  ['cord', undefined],
+  ['cord', 0],
   ['lithium-ion', 154]
 ]
 

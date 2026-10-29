@@ -5,7 +5,7 @@ export function getKineticsCellularControlCost(control: string, pricingSchedule:
   if (!isKineticsCellularPricingSchedule(pricingSchedule)) return undefined
 
   if (!isControlValid(control)) return undefined
-  if (isControlCord(control)) return undefined
+  if (isControlCord(control)) return 0
   if (isControlMotorised(control)) return pricingSchedule.control['Lithium-ion'].cost
 
   return undefined

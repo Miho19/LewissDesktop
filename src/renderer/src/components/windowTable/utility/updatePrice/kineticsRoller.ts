@@ -6,7 +6,7 @@ export async function updateKineticsRollerCellPriceAsync(windowTableEntry: Windo
   const { blindType, windowDisplay, tableEntry } = windowTableEntry
 
   const fabric = windowDisplay.spec.fabric
-  if (typeof fabric === 'undefined') return windowTableEntry
+  if (fabric == null) return windowTableEntry
 
   if (!isKineticsRollerTableEntry(tableEntry)) return windowTableEntry
 
