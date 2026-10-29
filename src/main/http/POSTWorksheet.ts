@@ -1,5 +1,5 @@
 import { Blind } from '@shared/types/blind/blind.types'
-import { POSTJSONResponse } from '@shared/types/Folder.types'
+import { POSTFileResponse } from '@shared/types/Folder.types'
 import { ProjectFile } from '@shared/types/Project.types'
 import { Worksheet } from '@shared/types/worksheet/Worksheet.types'
 
@@ -40,7 +40,7 @@ export async function POSTWorksheet(
   const response = await fetch(endpoint, fetchOption)
   if (!response.ok) throw new Error(response.statusText)
 
-  const jsonBody: POSTJSONResponse = await response.json()
+  const jsonBody: POSTFileResponse = await response.json()
 
   return jsonBody
 }

@@ -16,7 +16,8 @@ import fs from 'node:fs/promises'
 import { ApplicationInformation } from '@shared/types/Application.types'
 import { ProjectFile } from '@shared/types/Project.types'
 import { POSTWorksheet } from '@main/http/POSTWorksheet'
-import { POSTJSONResponse } from '@shared/types/Folder.types'
+import { POSTFileResponse } from '@shared/types/Folder.types'
+import { POSTHistoryPDF } from '@main/http/POSTHistoryPDF'
 
 function createWindow(): void {
   // Create the browser window.
@@ -189,7 +190,7 @@ ipcMain.handle(
         errorMessage = error.message
       }
 
-      const response: POSTJSONResponse = {
+      const response: POSTFileResponse = {
         ok: false,
         filename: '',
         itemId: '',
@@ -202,32 +203,70 @@ ipcMain.handle(
   }
 )
 
-ipcMain.handle('write-worksheet-pdf-sharepoint', async (_event, worksheet: Worksheet) => {
-  try {
-  } catch (error) {
-    if (error instanceof Error && log) console.error(error)
-    throw new Error(`Failed to write ${worksheet.customer.reference} worksheet pdf to sharepoint`, {
-      cause: error
-    })
-  }
-})
+ipcMain.handle(
+  'write-worksheet-pdf-sharepoint',
+  async (_event, worksheet: Worksheet, pdfBase64: string) => {
+    try {
+      const response = await POSTHistoryPDF(worksheet, pdfBase64)
+      return response
+    } catch (error) {
+      if (error instanceof Error && log) console.error(error)
+      let errorMessage = 'failed to write worksheet pdf to sharepoint'
+      if (error instanceof Error) errorMessage = error.message
 
-ipcMain.handle('write-worksheet-pdf-to-orders', async (_event, worksheet: Worksheet) => {
-  try {
-  } catch (error) {
-    if (error instanceof Error && log) console.error(error)
-    throw new Error(`Failed to write ${worksheet.customer.reference} worksheet pdf to orders`, {
-      cause: error
-    })
-  }
-})
+      const response: POSTFileResponse = {
+        ok: false,
+        filename: '',
+        itemId: '',
+        error: errorMessage,
+        webUrl: ''
+      }
 
-ipcMain.handle('write-worksheet-pdf-to-pending', async (_event, worksheet: Worksheet) => {
-  try {
-  } catch (error) {
-    if (error instanceof Error && log) console.error(error)
-    throw new Error(`Failed to write ${worksheet.customer.reference} worksheet pdf to pending`, {
-      cause: error
-    })
+      return response
+    }
   }
-})
+)
+
+ipcMain.handle(
+  'write-worksheet-pdf-orders',
+  async (_event, worksheet: Worksheet, pdfBase64: string) => {
+    try {
+    } catch (error) {
+      if (error instanceof Error && log) console.error(error)
+      let errorMessage = 'failed to write worksheet pdf to orders'
+      if (error instanceof Error) errorMessage = error.message
+
+      const response: POSTFileResponse = {
+        ok: false,
+        filename: '',
+        itemId: '',
+        error: errorMessage,
+        webUrl: ''
+      }
+
+      return response
+    }
+  }
+)
+
+ipcMain.handle(
+  'write-worksheet-pdf-pending',
+  async (_event, worksheet: Worksheet, pdfBase64: string) => {
+    try {
+    } catch (error) {
+      if (error instanceof Error && log) console.error(error)
+      let errorMessage = 'failed to write worksheet pdf to pending'
+      if (error instanceof Error) errorMessage = error.message
+
+      const response: POSTFileResponse = {
+        ok: false,
+        filename: '',
+        itemId: '',
+        error: errorMessage,
+        webUrl: ''
+      }
+
+      return response
+    }
+  }
+)

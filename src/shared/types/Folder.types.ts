@@ -12,7 +12,7 @@ export type GETFolderResponse = {
   children: FolderItem[]
 }
 
-export type POSTJSONResponse = {
+export type POSTFileResponse = {
   ok: boolean
   filename: string
   itemId: string

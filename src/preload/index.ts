@@ -13,7 +13,13 @@ const api: Api = {
   openPDF: (fileName, pdfBase64) => ipcRenderer.invoke('open-base64-pdf', fileName, pdfBase64),
   getApplicationInformation: () => ipcRenderer.invoke('get-application-information'),
   writeWorksheetToSharePoint: (worksheet, file) =>
-    ipcRenderer.invoke('write-worksheet-sharepoint', worksheet, file)
+    ipcRenderer.invoke('write-worksheet-sharepoint', worksheet, file),
+  writeWorksheetPDFToSharePoint: (worksheet, pdfBase64) =>
+    ipcRenderer.invoke('write-worksheet-pdf-sharepoint', worksheet, pdfBase64),
+  writeWorksheetPDFToOrder: (worksheet, pdfBase64) =>
+    ipcRenderer.invoke('write-worksheet-pdf-orders', worksheet, pdfBase64),
+  writeWorksheetPDFToPending: (worksheet, pdfBase64) =>
+    ipcRenderer.invoke('write-worksheet-pdf-pending', worksheet, pdfBase64)
 }
 
 // Use `contextBridge` APIs to expose Electron APIs to
