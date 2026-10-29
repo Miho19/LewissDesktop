@@ -17,6 +17,7 @@ import { ToastDisplayOptions } from '@/components/windowTable/WindowTableContain
 import { createWorksheetPDF } from '@/utility/process/pdf/createWorksheetPDF'
 import { openWorksheetPDF } from '@/utility/process/pdf/openWorksheetPDF'
 import { kineticsGetWorksheetCostAsync } from '@/utility/process/worksheet/cost'
+import { uploadWorksheet } from '@/utility/process/worksheet/uploadWorksheet'
 import { ProjectFile } from '@shared/types/Project.types'
 import { WindowTableEntry } from '@shared/types/WindowTableForm.types'
 import { Customer } from '@shared/types/worksheet/Customer.types'
@@ -148,10 +149,20 @@ function SubmitSheet(props: Props) {
 
       worksheet.customer.reference = newRef
 
+      // upload worksheet to share point
+      const uploadWorksheetResponse = await uploadWorksheet(worksheet, file)
+
+      if (!uploadWorksheetResponse.ok) {
+        showToast(uploadWorksheetResponse.error, 'error')
+        closeSheet()
+        return
+      }
+
       const pdfResponse = await createWorksheetPDF(worksheet)
 
       await openWorksheetPDF(worksheet, pdfResponse)
       showToast('PDF created', 'success')
+
       closeSheet()
     } catch (error) {
     } finally {

@@ -16,6 +16,7 @@ import fs from 'node:fs/promises'
 import { ApplicationInformation } from '@shared/types/Application.types'
 import { ProjectFile } from '@shared/types/Project.types'
 import { POSTWorksheet } from '@main/http/POSTWorksheet'
+import { POSTJSONResponse } from '@shared/types/Folder.types'
 
 function createWindow(): void {
   // Create the browser window.
@@ -180,16 +181,23 @@ ipcMain.handle(
   async (_event, worksheet: Worksheet, file: ProjectFile) => {
     try {
       const response = await POSTWorksheet(worksheet, file)
-
-      if (!response.ok) {
-        throw new Error(response.error)
-      }
-      return
+      return response
     } catch (error) {
       if (error instanceof Error && log) console.error(error)
-      throw new Error(`Failed to write ${worksheet.customer.reference} worksheet to sharepoint`, {
-        cause: error
-      })
+      let errorMessage = 'failed to upload worksheet to share point'
+      if (error instanceof Error) {
+        errorMessage = error.message
+      }
+
+      const response: POSTJSONResponse = {
+        ok: false,
+        filename: '',
+        itemId: '',
+        error: errorMessage,
+        webUrl: ''
+      }
+
+      return response
     }
   }
 )

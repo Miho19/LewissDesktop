@@ -5,7 +5,7 @@ function POSTSharePointOrderPDFFetchOptions(
 ): RequestInit {
   const fetchOptions: RequestInit = {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: { 'Content-Type': 'application/json', Cookie: import.meta.env.MAIN_VITE_COOKIE },
     body: JSON.stringify({
       action: 'uploadPDF',
       folderId: folderId,

@@ -11,7 +11,9 @@ const api: Api = {
   getAccessorySchedule: (blindType) => ipcRenderer.invoke('get-accessory-schedule', blindType),
   createWorksheetPDF: (worksheet) => ipcRenderer.invoke('create-worksheet-pdf', worksheet),
   openPDF: (fileName, pdfBase64) => ipcRenderer.invoke('open-base64-pdf', fileName, pdfBase64),
-  getApplicationInformation: () => ipcRenderer.invoke('get-application-information')
+  getApplicationInformation: () => ipcRenderer.invoke('get-application-information'),
+  writeWorksheetToSharePoint: (worksheet, file) =>
+    ipcRenderer.invoke('write-worksheet-sharepoint', worksheet, file)
 }
 
 // Use `contextBridge` APIs to expose Electron APIs to

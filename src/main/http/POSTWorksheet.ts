@@ -14,7 +14,7 @@ function POSTWorksheetFetchOption(
 ): RequestInit {
   const fetchOptions: RequestInit = {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: { 'Content-Type': 'application/json', Cookie: import.meta.env.MAIN_VITE_COOKIE },
     body: JSON.stringify({
       action: 'uploadJson',
       folderId: folderId,
@@ -31,22 +31,18 @@ export async function POSTWorksheet(
   file: ProjectFile,
   endpoint: URL = POSTWorksheetEndpoint()
 ) {
-  try {
-    const fileName = getFileName(worksheet)
-    const data = JSON.stringify({ worksheet: worksheet, projectFile: file }, null, 2)
-    const folderId = '01VFVMOABI7QI3JZ3NQZBZF7PVNERWE6G4' // root/history/processed orders/
+  const fileName = getFileName(worksheet)
+  const data = JSON.stringify({ worksheet: worksheet, projectFile: file }, null, 2)
+  const folderId = '01VFVMOABI7QI3JZ3NQZBZF7PVNERWE6G4' // root/history/processed orders/
 
-    const fetchOption = POSTWorksheetFetchOption(fileName, data, folderId)
+  const fetchOption = POSTWorksheetFetchOption(fileName, data, folderId)
 
-    const response = await fetch(endpoint, fetchOption)
-    if (!response.ok) throw new Error(response.statusText)
+  const response = await fetch(endpoint, fetchOption)
+  if (!response.ok) throw new Error(response.statusText)
 
-    const jsonBody: POSTJSONResponse = await response.json()
+  const jsonBody: POSTJSONResponse = await response.json()
 
-    return jsonBody
-  } catch (error) {
-    throw new Error('Failed to upload worksheet to sharepoint', { cause: error })
-  }
+  return jsonBody
 }
 
 function getFileName(worksheet: Worksheet) {
