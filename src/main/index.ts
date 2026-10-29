@@ -14,6 +14,8 @@ import { Worksheet } from '@shared/types/worksheet/Worksheet.types'
 import { generateWorksheetPDF } from '@main/pdf/generateWorksheetPDF'
 import fs from 'node:fs/promises'
 import { ApplicationInformation } from '@shared/types/Application.types'
+import { ProjectFile } from '@shared/types/Project.types'
+import { POSTWorksheet } from '@main/http/POSTWorksheet'
 
 function createWindow(): void {
   // Create the browser window.
@@ -170,5 +172,54 @@ ipcMain.handle('get-application-information', async () => {
   } catch (error) {
     if (error instanceof Error && log) console.error(error)
     throw new Error('Failed to get application information', { cause: error })
+  }
+})
+
+ipcMain.handle(
+  'write-worksheet-sharepoint',
+  async (_event, worksheet: Worksheet, file: ProjectFile) => {
+    try {
+      const response = await POSTWorksheet(worksheet, file)
+
+      if (!response.ok) {
+        throw new Error(response.error)
+      }
+      return
+    } catch (error) {
+      if (error instanceof Error && log) console.error(error)
+      throw new Error(`Failed to write ${worksheet.customer.reference} worksheet to sharepoint`, {
+        cause: error
+      })
+    }
+  }
+)
+
+ipcMain.handle('write-worksheet-pdf-sharepoint', async (_event, worksheet: Worksheet) => {
+  try {
+  } catch (error) {
+    if (error instanceof Error && log) console.error(error)
+    throw new Error(`Failed to write ${worksheet.customer.reference} worksheet pdf to sharepoint`, {
+      cause: error
+    })
+  }
+})
+
+ipcMain.handle('write-worksheet-pdf-to-orders', async (_event, worksheet: Worksheet) => {
+  try {
+  } catch (error) {
+    if (error instanceof Error && log) console.error(error)
+    throw new Error(`Failed to write ${worksheet.customer.reference} worksheet pdf to orders`, {
+      cause: error
+    })
+  }
+})
+
+ipcMain.handle('write-worksheet-pdf-to-pending', async (_event, worksheet: Worksheet) => {
+  try {
+  } catch (error) {
+    if (error instanceof Error && log) console.error(error)
+    throw new Error(`Failed to write ${worksheet.customer.reference} worksheet pdf to pending`, {
+      cause: error
+    })
   }
 })

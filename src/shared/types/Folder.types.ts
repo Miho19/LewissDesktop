@@ -11,3 +11,11 @@ export type GETFolderResponse = {
   ok: boolean
   children: FolderItem[]
 }
+
+export type POSTJSONResponse = {
+  ok: boolean
+  filename: string
+  itemId: string
+  error: string
+  webUrl: string
+}
