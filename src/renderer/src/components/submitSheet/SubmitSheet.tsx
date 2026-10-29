@@ -16,7 +16,11 @@ import { Spinner } from '@/components/ui/spinner'
 import { ToastDisplayOptions } from '@/components/windowTable/WindowTableContainer'
 import { createWorksheetPDF } from '@/utility/process/pdf/createWorksheetPDF'
 import { openWorksheetPDF } from '@/utility/process/pdf/openWorksheetPDF'
-import { uploadWorksheetPDFToSharePoint } from '@/utility/process/pdf/uploadWorksheetPDF'
+import {
+  uploadWorksheetPDFToOrder,
+  uploadWorksheetPDFToPending,
+  uploadWorksheetPDFToSharePoint
+} from '@/utility/process/pdf/uploadWorksheetPDF'
 import { kineticsGetWorksheetCostAsync } from '@/utility/process/worksheet/cost'
 import { uploadWorksheet } from '@/utility/process/worksheet/uploadWorksheet'
 import { ProjectFile } from '@shared/types/Project.types'
@@ -150,7 +154,6 @@ function SubmitSheet(props: Props) {
 
       worksheet.customer.reference = newRef
 
-      // upload worksheet to share point
       const uploadWorksheetResponse = await uploadWorksheet(worksheet, file)
 
       if (!uploadWorksheetResponse.ok) {
@@ -165,10 +168,25 @@ function SubmitSheet(props: Props) {
       if (!pdfToSharePointResponse.ok) {
         showToast(pdfToSharePointResponse.error, 'error')
         closeSheet()
+        return
       }
 
-      //await openWorksheetPDF(worksheet, pdfResponse)
-      //showToast('PDF created', 'success')
+      const writeToOrderResponse = await uploadWorksheetPDFToOrder(worksheet, pdfResponse)
+      if (!writeToOrderResponse.ok) {
+        showToast(writeToOrderResponse.error, 'error')
+        closeSheet()
+        return
+      }
+
+      const writeToPendingResponse = await uploadWorksheetPDFToPending(worksheet, pdfResponse)
+      if (!writeToPendingResponse.ok) {
+        showToast(writeToPendingResponse.error, 'error')
+        closeSheet()
+        return
+      }
+
+      await openWorksheetPDF(worksheet, pdfResponse)
+      showToast('PDF created', 'success')
 
       closeSheet()
     } catch (error) {

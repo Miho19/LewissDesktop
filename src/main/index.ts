@@ -17,7 +17,7 @@ import { ApplicationInformation } from '@shared/types/Application.types'
 import { ProjectFile } from '@shared/types/Project.types'
 import { POSTWorksheet } from '@main/http/POSTWorksheet'
 import { POSTFileResponse } from '@shared/types/Folder.types'
-import { POSTHistoryPDF } from '@main/http/POSTHistoryPDF'
+import { POSTHistoryPDF, writePDFToDisk } from '@main/http/POSTHistoryPDF'
 
 function createWindow(): void {
   // Create the browser window.
@@ -231,6 +231,17 @@ ipcMain.handle(
   'write-worksheet-pdf-orders',
   async (_event, worksheet: Worksheet, pdfBase64: string) => {
     try {
+      const fileName = await writePDFToDisk(worksheet, pdfBase64, 'order')
+
+      const response: POSTFileResponse = {
+        ok: true,
+        filename: fileName,
+        itemId: '',
+        error: '',
+        webUrl: ''
+      }
+
+      return response
     } catch (error) {
       if (error instanceof Error && log) console.error(error)
       let errorMessage = 'failed to write worksheet pdf to orders'
@@ -253,6 +264,17 @@ ipcMain.handle(
   'write-worksheet-pdf-pending',
   async (_event, worksheet: Worksheet, pdfBase64: string) => {
     try {
+      const fileName = await writePDFToDisk(worksheet, pdfBase64, 'pending')
+
+      const response: POSTFileResponse = {
+        ok: true,
+        filename: fileName,
+        itemId: '',
+        error: '',
+        webUrl: ''
+      }
+
+      return response
     } catch (error) {
       if (error instanceof Error && log) console.error(error)
       let errorMessage = 'failed to write worksheet pdf to pending'

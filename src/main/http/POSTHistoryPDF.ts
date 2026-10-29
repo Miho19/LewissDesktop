@@ -1,5 +1,7 @@
 import { Blind } from '@shared/types/blind/blind.types'
 import { Worksheet } from '@shared/types/worksheet/Worksheet.types'
+import path from 'node:path'
+import fs from 'node:fs/promises'
 
 function POSTHistoryPDFEndpoint() {
   return new URL(``, 'https://lewiss-measure-pro.netlify.app/.netlify/functions/graph')
@@ -94,4 +96,27 @@ const productSuffix: Record<Blind, string> = {
   'Santa Fe Woodlore Plus Shutter': 'SH',
   'Santa Fe Waterproof Woodlore Plus Shutter': 'SH',
   'Santa Fe Normandy Shutter': 'SH'
+}
+
+type WriteToDiskOption = 'pending' | 'order'
+
+const filePathMappedToWriteTo: Record<WriteToDiskOption, string> = {
+  pending: 'K:/Data/Process/Wip/Pending',
+  order: 'K:/Data/Process/Wip/Orders'
+}
+
+export async function writePDFToDisk(
+  worksheet: Worksheet,
+  pdfBase64: string,
+  type: WriteToDiskOption
+) {
+  const fileName = getFileName(worksheet)
+
+  const baseAddress = filePathMappedToWriteTo[type]
+  if (typeof baseAddress === 'undefined') throw new Error('Incorrect path')
+
+  const file = path.join(baseAddress, `${fileName}.pdf`)
+  await fs.writeFile(file, pdfBase64, 'base64')
+
+  return file
 }
