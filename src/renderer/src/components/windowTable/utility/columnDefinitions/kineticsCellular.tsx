@@ -57,7 +57,10 @@ export const kineticsCellularWindowTableColumnDefinition = columnHelper.columns(
       cell: (props) => (
         <SelectValueCell
           {...props}
-          selectOptions={getSelectItemList(ControlSideOption as readonly string[])}
+          selectOptions={getSelectItemList(
+            props.cell.row.original.blindType,
+            ControlSideOption as readonly string[]
+          )}
         />
       )
     }

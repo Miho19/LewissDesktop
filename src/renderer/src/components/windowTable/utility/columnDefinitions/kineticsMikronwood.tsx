@@ -45,7 +45,10 @@ export const kineticsMikronwoodWindowTableColumnDefinition = columnHelper.column
       cell: (props) => (
         <SelectValueCell
           {...props}
-          selectOptions={getSelectItemList(ControlSideOption as readonly string[])}
+          selectOptions={getSelectItemList(
+            props.cell.row.original.blindType,
+            ControlSideOption as readonly string[]
+          )}
         />
       )
     }

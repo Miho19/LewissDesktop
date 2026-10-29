@@ -24,10 +24,10 @@ export const KineticsRollerRollOption = ['front', 'back'] as const
 export const kineticsRollerBracketColourOption = ['white', 'cream', 'grey', 'black'] as const
 
 export const kineticsRollerBracketSizeOption = [
-  'standard',
-  'extra large',
-  'double bracket front',
-  'double bracket back'
+  '40mm',
+  '55mm',
+  'combo front',
+  'combo back'
 ] as const
 
 export const KineticsCellularHeadrailColour = ['white', 'off white', 'silver', 'black'] as const

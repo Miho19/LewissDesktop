@@ -56,13 +56,17 @@ export function getWindowFormTableColumnDefinition(blindType: Blind) {
 }
 
 // we are coupled to shadcn very heavily...
-export function getSelectItemList(arr: readonly string[]) {
+export function getSelectItemList(blindType: Blind, arr: readonly string[]) {
   return arr
     .map((option) => capitalise(option))
-    .map((option) => <SelectItem value={option}>{option}</SelectItem>)
+    .map((option) => (
+      <SelectItem value={option} key={`${blindType} ${option}`}>
+        {option}
+      </SelectItem>
+    ))
 }
 
-export function getKineticsRollerBracketSelectItemList() {
+export function getKineticsRollerBracketSelectItemList(blindType: Blind) {
   const bracketColour = kineticsRollerBracketColourOption.map((colour) => capitalise(colour))
   const bracketSize = kineticsRollerBracketSizeOption.map((size) => capitalise(size))
 
@@ -70,10 +74,12 @@ export function getKineticsRollerBracketSelectItemList() {
 
   for (const colour of bracketColour) {
     output.push(
-      <SelectGroup>
+      <SelectGroup key={`${blindType} bracket ${colour}`}>
         <SelectLabel>{colour}</SelectLabel>
         {bracketSize.map((size) => (
-          <SelectItem value={getBracket(size, colour)}>{getBracket(size, colour)}</SelectItem>
+          <SelectItem value={getBracket(size, colour)} key={`${blindType} ${size} ${colour}`}>
+            {getBracket(size, colour)}
+          </SelectItem>
         ))}
       </SelectGroup>
     )

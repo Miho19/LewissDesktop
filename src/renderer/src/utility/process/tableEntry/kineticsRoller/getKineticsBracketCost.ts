@@ -15,7 +15,7 @@ export function getKineticsRollerBracketCost(bracket: string, pricingSchedule: P
 }
 
 export function getKineticsRollerBracket(spec: KineticsRollerSpec) {
-  const size = `Standard` // measure pro does not supply the bracket type currently
+  const size = `40mm` // measure pro does not supply the bracket type currently
   const colour = spec.bracketColour
   return `${size} - ${colour}`
 }

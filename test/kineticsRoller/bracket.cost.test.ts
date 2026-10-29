@@ -11,11 +11,11 @@ const bracketInput: {
   size: (typeof kineticsRollerBracketSizeOption)[number]
   expected: number | undefined
 }[] = [
-  { colour: 'black', size: 'standard', expected: 0 },
-  { colour: 'black', size: 'double bracket front', expected: 54 },
-  { colour: 'black', size: 'double bracket back', expected: 0 },
-  { colour: 'black', size: 'extra large', expected: 0 },
-  { colour: 'cream', size: 'standard', expected: 0 },
+  { colour: 'black', size: '40mm', expected: 0 },
+  { colour: 'black', size: 'combo front', expected: 54 },
+  { colour: 'black', size: 'combo back', expected: 0 },
+  { colour: 'black', size: '55mm', expected: 0 },
+  { colour: 'cream', size: '40mm', expected: 0 },
   {
     colour: '' as (typeof kineticsRollerBracketColourOption)[number],
     size: '' as (typeof kineticsRollerBracketSizeOption)[number],

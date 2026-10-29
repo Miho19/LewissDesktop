@@ -63,7 +63,10 @@ export const kineticsRollerWindowTableColumnDefinition = columnHelper.columns([
       cell: (props) => (
         <SelectValueCell
           {...props}
-          selectOptions={getSelectItemList(ControlSideOption as readonly string[])}
+          selectOptions={getSelectItemList(
+            props.cell.row.original.blindType,
+            ControlSideOption as readonly string[]
+          )}
         />
       )
     }
@@ -92,7 +95,10 @@ export const kineticsRollerWindowTableColumnDefinition = columnHelper.columns([
       id: 'bracket',
       header: 'Bracket',
       cell: (props) => (
-        <SelectValueCell {...props} selectOptions={getKineticsRollerBracketSelectItemList()} />
+        <SelectValueCell
+          {...props}
+          selectOptions={getKineticsRollerBracketSelectItemList(props.cell.row.original.blindType)}
+        />
       )
     }
   ),
