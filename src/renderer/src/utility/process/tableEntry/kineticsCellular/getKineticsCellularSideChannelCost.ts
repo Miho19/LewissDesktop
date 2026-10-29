@@ -3,7 +3,7 @@ import {
   KineticsCellularPricingSchedule
 } from '@shared/types/pricing/kineticsCellular.types'
 import { PricingSchedule } from '@shared/types/pricing/pricingSchedule.types'
-import { sideChannelColourOptions } from '@shared/types/spec/kineticsCellular.types'
+import { KineticsCellularSideChannelColourOption } from '@shared/types/spec/kineticsCellular.types'
 import { roundMeasurementUp } from '@renderer/utility/process/tableEntry/shared/roundMeasurementUp'
 
 export function getKineticsCellularSideChannelCost(
@@ -42,7 +42,7 @@ function isSideChannelColourValid(sideChannelColour: string) {
 function isSideChannelColourOptionValid(sideChannelColour: string) {
   const sideChannelColourAdjusted = sideChannelColour.trim()
 
-  const found = sideChannelColourOptions.find(
+  const found = KineticsCellularSideChannelColourOption.find(
     (c) => c.localeCompare(sideChannelColourAdjusted, undefined, { sensitivity: 'base' }) === 0
   )
 

@@ -41,7 +41,8 @@ export const kineticsCellularWindowTableColumnDefinition = columnHelper.columns(
     },
     {
       id: 'control',
-      header: 'Control'
+      header: 'Control',
+      cell: EditableCell
     }
   ),
 
@@ -70,6 +71,17 @@ export const kineticsCellularWindowTableColumnDefinition = columnHelper.columns(
     {
       id: 'headrail colour',
       header: 'Headrail Colour'
+    }
+  ),
+
+  columnHelper.accessor(
+    (row) => {
+      if (!isKineticsCellularTableEntry(row.tableEntry)) return
+      return row.tableEntry['side channel']
+    },
+    {
+      id: 'side channel',
+      header: 'Side Channel'
     }
   ),
 

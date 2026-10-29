@@ -27,4 +27,4 @@ export function isKineticsCellularSpec(spec: Spec): spec is KineticsCellularSpec
 
 export const opacityOptions = ['translucent', 'blockout'] as const
 
-export const sideChannelColourOptions = ['white', 'custom', 'none'] as const
+export const KineticsCellularSideChannelColourOption = ['white', 'custom', 'none'] as const

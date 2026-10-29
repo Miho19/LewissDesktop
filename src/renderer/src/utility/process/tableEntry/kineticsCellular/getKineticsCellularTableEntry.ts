@@ -33,7 +33,7 @@ export async function getKineticsCellularTableEntryAsync(
   const comb = getKineticsCellularCombSize(blindType)
 
   const { fabric } = spec
-  if (typeof fabric === 'undefined') throw new Error(`${blindType} fabric information missing`)
+  if (fabric == null) throw new Error(`${blindType} fabric information missing`)
 
   const fabricName = fabric.name
 
@@ -73,7 +73,7 @@ export async function getKineticsCellularTableEntryAsync(
     control,
     'control side': controlSide,
     'headrail colour': 'White',
-    'side channel colour': sideChannelColour,
+    'side channel': sideChannelColour,
     butting: leftBlindButting,
     remote: remote,
     channel: channel,

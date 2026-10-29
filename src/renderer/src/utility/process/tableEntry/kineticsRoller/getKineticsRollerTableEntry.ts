@@ -32,8 +32,7 @@ export async function getKineticsRollerTableEntryAsync(
   const roll = spec.rollDirection.replace(/roll/gi, '')
 
   const fabric = spec.fabric
-  if (typeof fabric === 'undefined') return []
-
+  if (fabric == null) return []
   const fabricName = fabric.name
 
   const control = getKineticsRollerControl(spec, windowMeasurement)

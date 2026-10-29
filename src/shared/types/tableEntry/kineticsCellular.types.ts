@@ -12,7 +12,7 @@ export type KineticsCellularTableEntry = {
   control: string
   'control side': string
   'headrail colour': string
-  'side channel colour': string
+  'side channel': string
   butting: string
   remote: number
   channel: number
@@ -34,6 +34,6 @@ export function isKineticsCellularTableEntry(
   if (typeof tableEntry === 'undefined') return false
   if (!('comb' in tableEntry)) return false
   if (!('headrail colour' in tableEntry)) return false
-  if (!('side channel colour' in tableEntry)) return false
+  if (!('side channel' in tableEntry)) return false
   return true
 }
