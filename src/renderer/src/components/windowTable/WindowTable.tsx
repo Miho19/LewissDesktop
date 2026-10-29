@@ -22,16 +22,15 @@ function WindowTable(props: Props) {
   const headerList = getTableHeader(table)
 
   const bodyList = getTableBody(table)
-
+  // w-auto max-w-screen whitespace-nowrap
   return (
-    <ScrollArea className="h-auto max-h-128 rounded-md border w-auto max-w-screen whitespace-nowrap">
+    <ScrollArea className="rounded-md border min-h-0">
       <Table nowrapper className="table-auto" style={{ width: table.getCenterTotalSize() }}>
         <TableHeader className="sticky top-0 z-10 bg-background shadow-xs">
           {headerList}
         </TableHeader>
         <TableBody>{bodyList}</TableBody>
       </Table>
-
       <ScrollBar orientation="horizontal" />
     </ScrollArea>
   )
