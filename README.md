@@ -21,3 +21,36 @@
     - have to different sheets
         - on click row --> editable form
         - on submit --> process window
+
+sunscreen
+337
+fen 2% 0.9 | 303.3
+
+110 inside
+57.91
+
+lithium
+170 ---> 531.21
+
+light filtering
+
+btN- lacebark -> 0.9
+409.463667254343 | 368.5173005289087
+
+160 outside
+142.84
+
+chain
+21.00
+
+| 532.3573005289087
+
+cellular
+387.109107206771
+blockout 1.15
+| 445.1754732877867
+
+lithium
+154
+|
+599.1754732877867
