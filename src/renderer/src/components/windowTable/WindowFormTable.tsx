@@ -1,13 +1,22 @@
 import { Marker, MarkerContent } from '@/components/ui/marker'
-import { getWindowFormTableColumnDefinition } from '@/components/windowTable/utility/columnDefinitions'
+import {
+  getWindowFormTableColumnDefinition,
+  kineticsRollerControlSplitName,
+  KineticsRollerControlSplitType
+} from '@/components/windowTable/utility/columnDefinitions'
 import { windowFormTableFeatures } from '@/components/windowTable/utility/features'
 import { updateWindowTableEntryCost } from '@/components/windowTable/utility/updatePrice'
 import WindowFormTableFooter from '@/components/windowTable/WindowFormTableFooter'
 import WindowTable from '@/components/windowTable/WindowTable'
 import { ToastDisplayOptions } from '@/components/windowTable/WindowTableContainer'
 import { getTableEntryListAsync } from '@/utility/process/tableEntry'
+import { kineticsRollerDestructureControlString } from '@/utility/process/tableEntry/kineticsRoller'
 import { Blind } from '@shared/types/blind/blind.types'
 import { ProjectFile } from '@shared/types/Project.types'
+import {
+  isKineticsRollerTableEntry,
+  KineticsRollerTableEntry
+} from '@shared/types/tableEntry/kineticsRoller.types'
 import { WindowDisplay } from '@shared/types/WindowDisplay.types'
 import { WindowTableEntry } from '@shared/types/WindowTableForm.types'
 import { useSuspenseQuery } from '@tanstack/react-query'
@@ -48,6 +57,30 @@ function WindowFormTable(props: Props) {
         ...prevData.tableEntry,
         [columnId]: value
       }
+    }
+
+    // this is a quick get it working solution -- need to update meta signature to pass in blind type to expand this
+
+    if ((kineticsRollerControlSplitName as readonly string[]).includes(columnId)) {
+      const tableEntry = prevData.tableEntry
+      if (!isKineticsRollerTableEntry(tableEntry)) return updatedData
+      const controlObject = kineticsRollerDestructureControlString(tableEntry.control)
+      if (typeof controlObject === 'undefined') return updatedData
+
+      const map: Record<KineticsRollerControlSplitType, string> = {
+        controlType: controlObject.type,
+        controlColour: controlObject.colour,
+        controlLength: controlObject.length
+      }
+
+      const updatedMap = {
+        ...map,
+        [columnId]: value
+      }
+
+      const controlOutput = Object.values(updatedMap)
+        .map((s) => s)
+        .join('-')
     }
 
     const priceUpdatedWindowTableEntry = await updateWindowTableEntryCost(updatedData)

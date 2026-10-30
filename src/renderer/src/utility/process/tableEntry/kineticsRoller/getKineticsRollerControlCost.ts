@@ -6,6 +6,40 @@ import { PricingSchedule } from '@shared/types/pricing/pricingSchedule.types'
 import { WindowMeasurement } from '@shared/types/Project.types'
 import { KineticsRollerSpec } from '@shared/types/spec/kineticsRoller.types'
 
+export const KineticsRollerControlOption = [
+  'Chain FastRise',
+  'Lithium-ion',
+  'Hardwired Smart Home',
+  'Hardwired WiFi Remote Control'
+] as const
+
+export const KineticsRollerChainColour = [
+  'white',
+  'black',
+  'grey',
+  'cream',
+  'nickel',
+  'white metal',
+  'black metal',
+  'stainless steel'
+] as const
+
+export const KineticsRollerChainLength = [
+  '500',
+  '750',
+  '1000',
+  '1250',
+  '1500',
+  '1750',
+  '2000',
+  '2250',
+  '2500',
+  '2750',
+  '3000'
+] as const
+
+// control input is type - colour - length
+
 export function getKineticsRollerControlCost(control: string, pricingSchedule: PricingSchedule) {
   if (!isKineticsRollerPricingSchedule(pricingSchedule)) return undefined
   if (!control || control.trim().length === 0) return undefined
@@ -35,7 +69,7 @@ function isChain(control: string) {
 }
 
 function getChainCost(control: string, pricingSchedule: KineticsRollerPricingSchedule) {
-  const splitChain = destructureChain(control)
+  const splitChain = kineticsRollerDestructureControlString(control)
   if (typeof splitChain === 'undefined') return undefined
 
   const { colour, length } = splitChain
@@ -54,9 +88,13 @@ function getChainCost(control: string, pricingSchedule: KineticsRollerPricingSch
   return foundColour.cost * (lengthParsed / 1000) + baseCost
 }
 
-function destructureChain(
-  control: string
-): { type: string; colour: string; length: string } | undefined {
+export function kineticsRollerDestructureControlString(control: string):
+  | {
+      type: string
+      colour: string
+      length: string
+    }
+  | undefined {
   const split = control.split('-').map((s) => s.trim())
   if (split.length !== 3) return undefined
   return { type: split[0], colour: split[1], length: split[2] }
