@@ -429,7 +429,13 @@ function createInstructionStack(blindType: Blind, instruction: string) {
     'Santa Fe Woodlore Shutter': '',
     'Santa Fe Woodlore Plus Shutter': '',
     'Santa Fe Waterproof Woodlore Plus Shutter': '',
-    'Santa Fe Normandy Shutter': ''
+    'Santa Fe Normandy Shutter': '',
+    'Roman Blind': '',
+    'Separate Lining': '',
+    'Unlined Curtain': '',
+    'Lined Curtain': '',
+    'Sheer Curtain': '',
+    'Interlined Curtain': ''
   }
 
   const defaultText = defaultLineMap[blindType]

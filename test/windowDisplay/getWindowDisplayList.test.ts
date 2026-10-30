@@ -13,11 +13,11 @@ describe.skip('getWindowDisplayList', () => {
     expect(Array.isArray(list)).toBeTruthy()
     expect(list.length).toBeGreaterThan(0)
 
-    const output = list.map((wd) => {
-      return `${wd.roomId}-${wd.windowId}-${wd.width}-${wd.height}-${wd.fit}-${wd.spec.fabric?.name}`
-    })
+    // const output = list.map((wd) => {
+    //   return `${wd.roomId}-${wd.windowId}-${wd.width}-${wd.height}-${wd.fit}-${wd.spec.fabric?.name}`
+    // })
 
-    console.log(output)
+    // console.log(output)
   })
 })
 

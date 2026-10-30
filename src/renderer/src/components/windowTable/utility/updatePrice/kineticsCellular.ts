@@ -1,11 +1,15 @@
 import { getKineticsCellularCost } from '@/utility/process/tableEntry/kineticsCellular'
+import { isKineticsCellularSpec } from '@shared/types/spec/kineticsCellular.types'
 import { isKineticsCellularTableEntry } from '@shared/types/tableEntry/kineticsCellular.types'
 import { WindowTableEntry } from '@shared/types/WindowTableForm.types'
 
 export async function updateKineticsCellularCellPriceAsync(windowTableEntry: WindowTableEntry) {
   const { blindType, windowDisplay, tableEntry } = windowTableEntry
+  const { spec } = windowDisplay
 
-  const fabric = windowDisplay.spec.fabric
+  if (!isKineticsCellularSpec(spec)) throw new Error('must be kinetics cellular spec')
+
+  const fabric = spec.fabric
   if (fabric == null) return windowTableEntry
 
   if (!isKineticsCellularTableEntry(tableEntry)) return windowTableEntry

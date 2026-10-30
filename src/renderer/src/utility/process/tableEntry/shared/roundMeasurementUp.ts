@@ -27,5 +27,11 @@ const nearestRoundingMap: Record<Blind, number> = {
   'Santa Fe Woodlore Shutter': 50,
   'Santa Fe Woodlore Plus Shutter': 50,
   'Santa Fe Waterproof Woodlore Plus Shutter': 50,
-  'Santa Fe Normandy Shutter': 50
+  'Santa Fe Normandy Shutter': 50,
+  'Roman Blind': 100,
+  'Separate Lining': 100,
+  'Unlined Curtain': 100,
+  'Lined Curtain': 100,
+  'Sheer Curtain': 100,
+  'Interlined Curtain': 100
 }

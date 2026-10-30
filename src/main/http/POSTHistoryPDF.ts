@@ -76,7 +76,13 @@ const manufacturerMap: Record<Blind, string> = {
   'Santa Fe Woodlore Shutter': 'SantaFe',
   'Santa Fe Woodlore Plus Shutter': 'SantaFe',
   'Santa Fe Waterproof Woodlore Plus Shutter': 'SantaFe',
-  'Santa Fe Normandy Shutter': 'SantaFe'
+  'Santa Fe Normandy Shutter': 'SantaFe',
+  'Roman Blind': 'Lewiss',
+  'Separate Lining': 'Lewiss',
+  'Unlined Curtain': 'Lewiss',
+  'Lined Curtain': 'Lewiss',
+  'Sheer Curtain': 'Lewiss',
+  'Interlined Curtain': 'Lewiss'
 }
 
 const productSuffix: Record<Blind, string> = {
@@ -95,7 +101,13 @@ const productSuffix: Record<Blind, string> = {
   'Santa Fe Woodlore Shutter': 'SH',
   'Santa Fe Woodlore Plus Shutter': 'SH',
   'Santa Fe Waterproof Woodlore Plus Shutter': 'SH',
-  'Santa Fe Normandy Shutter': 'SH'
+  'Santa Fe Normandy Shutter': 'SH',
+  'Roman Blind': 'LE',
+  'Separate Lining': 'LE',
+  'Unlined Curtain': 'LE',
+  'Lined Curtain': 'LE',
+  'Sheer Curtain': 'LE',
+  'Interlined Curtain': 'LE'
 }
 
 type WriteToDiskOption = 'pending' | 'order'

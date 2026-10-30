@@ -68,6 +68,24 @@ const updateFnMap: Record<Blind, updateFn> = {
     _windowTableEntry: WindowTableEntry
   ): Promise<WindowTableEntry> {
     throw new Error('Function not implemented.')
+  },
+  'Roman Blind': function (_windowTableEntry: WindowTableEntry): Promise<WindowTableEntry> {
+    throw new Error('Function not implemented.')
+  },
+  'Separate Lining': function (_windowTableEntry: WindowTableEntry): Promise<WindowTableEntry> {
+    throw new Error('Function not implemented.')
+  },
+  'Unlined Curtain': function (_windowTableEntry: WindowTableEntry): Promise<WindowTableEntry> {
+    throw new Error('Function not implemented.')
+  },
+  'Lined Curtain': function (_windowTableEntry: WindowTableEntry): Promise<WindowTableEntry> {
+    throw new Error('Function not implemented.')
+  },
+  'Sheer Curtain': function (_windowTableEntry: WindowTableEntry): Promise<WindowTableEntry> {
+    throw new Error('Function not implemented.')
+  },
+  'Interlined Curtain': function (_windowTableEntry: WindowTableEntry): Promise<WindowTableEntry> {
+    throw new Error('Function not implemented.')
   }
 }
 

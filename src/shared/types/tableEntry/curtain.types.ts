@@ -6,4 +6,5 @@ export type CurtainTableEntry = {
   width: number
   height: number
   fit: Fit
+  price: string
 }

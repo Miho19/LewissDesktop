@@ -1,4 +1,5 @@
 import { createWindowWareHeaderAsync, getKineticsTitle } from '@main/pdf/kinetics'
+import { createLewissHeaderAsync, getLewissTitle } from '@main/pdf/lewiss'
 import { createSantaFeOrderLogoAsync, getSantaFeTitle } from '@main/pdf/santaFe'
 import {
   createCostTotalColumn,
@@ -61,7 +62,14 @@ const createPDFHeaderLogoFunctionMap: Record<Blind, GetLogoHeaderFn> = {
   'Santa Fe Woodlore Shutter': createSantaFeOrderLogoAsync,
   'Santa Fe Woodlore Plus Shutter': createSantaFeOrderLogoAsync,
   'Santa Fe Waterproof Woodlore Plus Shutter': createSantaFeOrderLogoAsync,
-  'Santa Fe Normandy Shutter': createSantaFeOrderLogoAsync
+  'Santa Fe Normandy Shutter': createSantaFeOrderLogoAsync,
+
+  'Roman Blind': createLewissHeaderAsync,
+  'Separate Lining': createLewissHeaderAsync,
+  'Unlined Curtain': createLewissHeaderAsync,
+  'Lined Curtain': createLewissHeaderAsync,
+  'Sheer Curtain': createLewissHeaderAsync,
+  'Interlined Curtain': createLewissHeaderAsync
 }
 
 const createPDFTitleFunctionMap: Record<Blind, GetPDFTitleFn> = {
@@ -82,5 +90,12 @@ const createPDFTitleFunctionMap: Record<Blind, GetPDFTitleFn> = {
   'Santa Fe Woodlore Shutter': getSantaFeTitle,
   'Santa Fe Woodlore Plus Shutter': getSantaFeTitle,
   'Santa Fe Waterproof Woodlore Plus Shutter': getSantaFeTitle,
-  'Santa Fe Normandy Shutter': getSantaFeTitle
+  'Santa Fe Normandy Shutter': getSantaFeTitle,
+
+  'Roman Blind': getLewissTitle,
+  'Separate Lining': getLewissTitle,
+  'Unlined Curtain': getLewissTitle,
+  'Lined Curtain': getLewissTitle,
+  'Sheer Curtain': getLewissTitle,
+  'Interlined Curtain': getLewissTitle
 }

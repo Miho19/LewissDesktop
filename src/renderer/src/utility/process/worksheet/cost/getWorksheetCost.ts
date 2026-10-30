@@ -67,7 +67,55 @@ const blindTypeMappedToGetWorksheetExtraCostFn: Record<Blind, GetWorksheetExtraC
   "Lewis's 50mm Fauxwood Venetian": getLewissFauxwoodWorksheetExtraCostAsync,
   "Lewis's 63mm Fauxwood Venetian": getLewissFauxwoodWorksheetExtraCostAsync,
   "Lewis's 50mm Phoenixwood Venetian": getLewissPhoenixwoodWorksheetExtraCostAsync,
-  "Lewis's 63mm Phoenixwood Venetian": getLewissPhoenixwoodWorksheetExtraCostAsync
+  "Lewis's 63mm Phoenixwood Venetian": getLewissPhoenixwoodWorksheetExtraCostAsync,
+  'Roman Blind': function (
+    _blindType: Blind,
+    _tableEntryList: TableEntry[],
+    _windowDisplayList: WindowDisplay[],
+    _file: ProjectFile
+  ): Promise<Extra[] | undefined> {
+    throw new Error('Function not implemented.')
+  },
+  'Separate Lining': function (
+    _blindType: Blind,
+    _tableEntryList: TableEntry[],
+    _windowDisplayList: WindowDisplay[],
+    _file: ProjectFile
+  ): Promise<Extra[] | undefined> {
+    throw new Error('Function not implemented.')
+  },
+  'Unlined Curtain': function (
+    _blindType: Blind,
+    _tableEntryList: TableEntry[],
+    _windowDisplayList: WindowDisplay[],
+    _file: ProjectFile
+  ): Promise<Extra[] | undefined> {
+    throw new Error('Function not implemented.')
+  },
+  'Lined Curtain': function (
+    _blindType: Blind,
+    _tableEntryList: TableEntry[],
+    _windowDisplayList: WindowDisplay[],
+    _file: ProjectFile
+  ): Promise<Extra[] | undefined> {
+    throw new Error('Function not implemented.')
+  },
+  'Sheer Curtain': function (
+    _blindType: Blind,
+    _tableEntryList: TableEntry[],
+    _windowDisplayList: WindowDisplay[],
+    _file: ProjectFile
+  ): Promise<Extra[] | undefined> {
+    throw new Error('Function not implemented.')
+  },
+  'Interlined Curtain': function (
+    _blindType: Blind,
+    _tableEntryList: TableEntry[],
+    _windowDisplayList: WindowDisplay[],
+    _file: ProjectFile
+  ): Promise<Extra[] | undefined> {
+    throw new Error('Function not implemented.')
+  }
 }
 
 export function getTableEntryCost(tableEntryList: TableEntry[]) {

@@ -5,12 +5,12 @@ import { TableEntry } from '@shared/types/tableEntry/TableEntry.types'
 import { WindowDisplay } from '@shared/types/WindowDisplay.types'
 
 export async function getRomanTableEntryAsync(
-  blindType: Blind,
-  index: number,
-  windowDisplay: WindowDisplay,
+  _blindType: Blind,
+  _index: number,
+  _windowDisplay: WindowDisplay,
   _room: Room,
-  windowMeasurement: WindowMeasurement,
-  entries: TableEntry[],
+  _windowMeasurement: WindowMeasurement,
+  _entries: TableEntry[],
   _file: ProjectFile
 ): Promise<RomanTableEntry[]> {
   return []

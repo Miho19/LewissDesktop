@@ -79,5 +79,11 @@ const fileTagMappedToBlindType: Record<Blind, string> = {
   'Santa Fe Woodlore Shutter': 'woodlore',
   'Santa Fe Woodlore Plus Shutter': 'woodlore-plus',
   'Santa Fe Waterproof Woodlore Plus Shutter': 'waterproof-woodlore-plus',
-  'Santa Fe Normandy Shutter': 'normandy'
+  'Santa Fe Normandy Shutter': 'normandy',
+  'Roman Blind': 'roman',
+  'Separate Lining': 'curtain',
+  'Unlined Curtain': 'curtain',
+  'Lined Curtain': 'curtain',
+  'Sheer Curtain': 'curtain',
+  'Interlined Curtain': 'curtain'
 }
