@@ -1,6 +1,8 @@
 import { isKineticsCellularPricingSchedule } from '@shared/types/pricing/kineticsCellular.types'
 import { PricingSchedule } from '@shared/types/pricing/pricingSchedule.types'
 
+export const KineticsCellularControlOption = ['cord', 'lithium-ion'] as const
+
 export function getKineticsCellularControlCost(control: string, pricingSchedule: PricingSchedule) {
   if (!isKineticsCellularPricingSchedule(pricingSchedule)) return undefined
 

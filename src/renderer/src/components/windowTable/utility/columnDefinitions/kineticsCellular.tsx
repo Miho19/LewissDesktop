@@ -6,6 +6,7 @@ import { ControlSideOption, WindowTableEntry } from '@shared/types/WindowTableFo
 import { createColumnHelper } from '@tanstack/react-table'
 import SelectValueCell from '@/components/windowTable/utility/columnDefinitions/SelectValueCell'
 import { getSelectItemList } from '@/components/windowTable/utility/columnDefinitions'
+import { KineticsCellularControlOption } from '@/utility/process/tableEntry/kineticsCellular'
 
 const columnHelper = createColumnHelper<WindowFormTableFeatures, WindowTableEntry>()
 
@@ -42,7 +43,15 @@ export const kineticsCellularWindowTableColumnDefinition = columnHelper.columns(
     {
       id: 'control',
       header: 'Control',
-      cell: EditableCell
+      cell: (props) => (
+        <SelectValueCell
+          {...props}
+          selectOptions={getSelectItemList(
+            props.cell.row.original.blindType,
+            KineticsCellularControlOption
+          )}
+        />
+      )
     }
   ),
 
