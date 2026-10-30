@@ -95,23 +95,15 @@ export function kineticsRollerDestructureControlString(control: string):
       length: string
     }
   | undefined {
-  const split = control.split('-').map((s) => s.trim())
-  if (split.length !== 3) return undefined
+  const split = control.split('/').map((s) => s.trim())
+  if (split.length !== 3) {
+    return undefined
+  }
   return { type: split[0], colour: split[1], length: split[2] }
 }
 
-function destructureMotor(control: string): { type: string } | undefined {
-  const split = control.split('-').map((c) => c.trim())
-
-  if (split.length <= 0) return undefined
-
-  if (split[0].toLocaleLowerCase().includes('lithium')) split[0] = 'Lithium-ion'
-
-  return { type: split[0] }
-}
-
 function getMotorisationCost(control: string, pricingSchedule: KineticsRollerPricingSchedule) {
-  const splitMotor = destructureMotor(control)
+  const splitMotor = kineticsRollerDestructureControlString(control)
   if (typeof splitMotor === 'undefined') return undefined
 
   const { type } = splitMotor
@@ -134,12 +126,12 @@ export function getKineticsRollerControl(
   const controlLength = windowMeasurement.controlLength || '1000'
 
   if (spec.motorisation == null) {
-    return `Chain FastRise - ${spec.chainColour} - ${controlLength}mm`
+    return `Chain FastRise / ${spec.chainColour} / ${controlLength}mm`
   }
 
   const motorisation = spec.motorisation
   if (motorisation.localeCompare('lithium', undefined, { sensitivity: 'base' }) === 0)
-    return 'Lithium-ion'
+    return `Lithium-ion / ${spec.chainColour} / ${controlLength}mm`
 
-  return motorisation
+  return `${motorisation} / ${spec.chainColour} / ${controlLength}mm`
 }

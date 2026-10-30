@@ -49,9 +49,10 @@ function WindowFormTable(props: Props) {
 
   async function updateData(rowIndex: number, columnId: string, value: unknown) {
     const prevData = data.find((_, index) => index === rowIndex)
+
     if (typeof prevData === 'undefined') return
 
-    const updatedData: WindowTableEntry = {
+    let updatedData: WindowTableEntry = {
       ...prevData,
       tableEntry: {
         ...prevData.tableEntry,
@@ -60,12 +61,13 @@ function WindowFormTable(props: Props) {
     }
 
     // this is a quick get it working solution -- need to update meta signature to pass in blind type to expand this
+    // this feels very bad and messy
 
     if ((kineticsRollerControlSplitName as readonly string[]).includes(columnId)) {
       const tableEntry = prevData.tableEntry
-      if (!isKineticsRollerTableEntry(tableEntry)) return updatedData
+      if (!isKineticsRollerTableEntry(tableEntry)) return
       const controlObject = kineticsRollerDestructureControlString(tableEntry.control)
-      if (typeof controlObject === 'undefined') return updatedData
+      if (typeof controlObject === 'undefined') return
 
       const map: Record<KineticsRollerControlSplitType, string> = {
         controlType: controlObject.type,
@@ -78,9 +80,16 @@ function WindowFormTable(props: Props) {
         [columnId]: value
       }
 
-      const controlOutput = Object.values(updatedMap)
-        .map((s) => s)
-        .join('-')
+      const controlArray = Object.values(updatedMap).map((s) => s)
+      const controlString = controlArray.join(' / ')
+
+      updatedData = {
+        ...updatedData,
+        tableEntry: {
+          ...updatedData.tableEntry,
+          ['control']: controlString
+        }
+      }
     }
 
     const priceUpdatedWindowTableEntry = await updateWindowTableEntryCost(updatedData)
