@@ -13,10 +13,7 @@ import { getTableEntryListAsync } from '@/utility/process/tableEntry'
 import { kineticsRollerDestructureControlString } from '@/utility/process/tableEntry/kineticsRoller'
 import { Blind } from '@shared/types/blind/blind.types'
 import { ProjectFile } from '@shared/types/Project.types'
-import {
-  isKineticsRollerTableEntry,
-  KineticsRollerTableEntry
-} from '@shared/types/tableEntry/kineticsRoller.types'
+import { isKineticsRollerTableEntry } from '@shared/types/tableEntry/kineticsRoller.types'
 import { WindowDisplay } from '@shared/types/WindowDisplay.types'
 import { WindowTableEntry } from '@shared/types/WindowTableForm.types'
 import { useSuspenseQuery } from '@tanstack/react-query'

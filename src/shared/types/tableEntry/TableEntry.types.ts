@@ -24,12 +24,18 @@ export type TableEntry =
   | RomanTableEntry
   | CurtainTableEntry
 
-export type createTableEntryFn = (
+export type CreateTableEntryFn = (
   blindType: Blind,
   index: number,
   windowDisplay: WindowDisplay,
   room: Room,
   windowMeasurement: WindowMeasurement,
   entries: TableEntry[],
+  file: ProjectFile
+) => Promise<TableEntry[]>
+
+export type PreprocessFn = (
+  blindType: Blind,
+  tableEntryList: TableEntry[],
   file: ProjectFile
 ) => Promise<TableEntry[]>

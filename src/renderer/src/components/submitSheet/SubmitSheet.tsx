@@ -125,6 +125,7 @@ function SubmitSheet(props: Props) {
       }
 
       const tableEntryList = windowTableEntryList.map((wt) => wt.tableEntry)
+      // pre process
 
       const worksheetCost = await kineticsGetWorksheetCostAsync(
         tableEntryList,

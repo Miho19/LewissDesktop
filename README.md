@@ -22,6 +22,9 @@
         - on click row --> editable form
         - on submit --> process window
 
+    - rendering pdf for kinetics roller, need to adjust the control field
+        - before running pdf want another function for all blinds to have the option to adjust table entry before being sent to backend
+
 sunscreen
 337
 fen 2% 0.9 | 303.3
