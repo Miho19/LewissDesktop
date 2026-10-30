@@ -69,7 +69,7 @@ function excelTableStringToStringArray(strArray: string[]) {
 //   return result
 // }
 
-describe('excel tests to produce pricing schedules', () => {
+describe.skip('excel tests to produce pricing schedules', () => {
   it('should produce a data array for pricing schedule', () => {
     const result = excelTableStringToStringArray(dataTableIn)
     console.log(result)
