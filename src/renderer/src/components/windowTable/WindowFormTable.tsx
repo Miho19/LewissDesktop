@@ -100,6 +100,8 @@ function WindowFormTable(props: Props) {
     openSheet(WindowTableEntryList)
   }
 
+  const unableToDisplayString = `Unable to display ${windowDisplayList.length} ${windowDisplayList.length > 1 ? 'windows' : 'window'}`
+
   return (
     <form className="flex flex-col w-full gap-8" onSubmit={onSubmitHandler}>
       <div className="flex w-full justify-between">
@@ -107,8 +109,17 @@ function WindowFormTable(props: Props) {
           <MarkerContent>{blindType}</MarkerContent>
         </Marker>
       </div>
-      <WindowTable table={table} />
-      <WindowFormTableFooter numberOfSelectedRowsString={numberOfSelectedRowsString} />
+
+      {data.length === 0 ? (
+        <p className="flex w-full items-center justify-center text-sm text-muted-foreground">
+          {unableToDisplayString}
+        </p>
+      ) : (
+        <>
+          <WindowTable table={table} />
+          <WindowFormTableFooter numberOfSelectedRowsString={numberOfSelectedRowsString} />
+        </>
+      )}
     </form>
   )
 }

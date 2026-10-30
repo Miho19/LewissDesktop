@@ -1,5 +1,5 @@
 import { Blind } from '@shared/types/blind/blind.types'
-import { ProjectFile } from '@shared/types/Project.types'
+import { ProjectFile, Room, WindowMeasurement } from '@shared/types/Project.types'
 import { createTableEntryFn, TableEntry } from '@shared/types/tableEntry/TableEntry.types'
 import { WindowDisplay } from '@shared/types/WindowDisplay.types'
 import { getRoom } from '../../windowDisplay/getRoom'
@@ -11,6 +11,8 @@ import { getKineticsMikronwoodTableEntryAsync } from '@/utility/process/tableEnt
 import { getLewissAluminiumTableEntryAsync } from '@/utility/process/tableEntry/lewissAluminium'
 import { getLewisPhoenixwoodTableEntryAsync } from '@/utility/process/tableEntry/lewissPhoenixwood'
 import { getLewissFauxwoodTableEntryAsync } from '@/utility/process/tableEntry/lewissFauxwood'
+import { getRomanTableEntryAsync } from '@/utility/process/tableEntry/roman'
+import { getCurtainTableEntryAsync } from '@/utility/process/tableEntry/curtain'
 
 export async function getTableEntryListAsync(
   blindType: Blind,
@@ -67,5 +69,11 @@ const getTableEntryFunctionMap: Record<Blind, createTableEntryFn> = {
   "Lewis's 50mm Fauxwood Venetian": getLewissFauxwoodTableEntryAsync,
   "Lewis's 63mm Fauxwood Venetian": getLewissFauxwoodTableEntryAsync,
   "Lewis's 50mm Phoenixwood Venetian": getLewisPhoenixwoodTableEntryAsync,
-  "Lewis's 63mm Phoenixwood Venetian": getLewisPhoenixwoodTableEntryAsync
+  "Lewis's 63mm Phoenixwood Venetian": getLewisPhoenixwoodTableEntryAsync,
+  'Roman Blind': getRomanTableEntryAsync,
+  'Separate Lining': getCurtainTableEntryAsync,
+  'Unlined Curtain': getCurtainTableEntryAsync,
+  'Lined Curtain': getCurtainTableEntryAsync,
+  'Sheer Curtain': getCurtainTableEntryAsync,
+  'Interlined Curtain': getCurtainTableEntryAsync
 }

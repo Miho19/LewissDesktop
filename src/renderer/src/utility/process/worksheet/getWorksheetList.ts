@@ -40,7 +40,8 @@ export function getWindowDisplayListAsMap(windowDisplayList: WindowDisplay[]) {
     const blindType = getBlindTypeFromSpec(spec)
 
     if (typeof blindType === 'undefined') {
-      throw new Error('Blind type is undefined')
+      continue
+      // throw new Error('Blind type is undefined')
     }
 
     const current = map.get(blindType)

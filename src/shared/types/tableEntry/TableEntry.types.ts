@@ -8,6 +8,8 @@ import { SantaFeShutterTableEntry } from './santaFeShutter.types'
 import { LewissPhoenixwoodTableEntry } from './lewissPhoenixwood.types'
 import { LewissAluminiumTableEntry } from '@shared/types/tableEntry/lewissAluminium.types'
 import { LewissFauxwoodTableEntry } from '@shared/types/tableEntry/lewissFauxwood.types'
+import { RomanTableEntry } from '@shared/types/tableEntry/roman'
+import { CurtainTableEntry } from '@shared/types/tableEntry/curtain.types'
 
 export type KineticsTableEntry =
   KineticsCellularTableEntry | KineticsRollerTableEntry | KineticsMikronwoodTableEntry
@@ -15,7 +17,12 @@ export type KineticsTableEntry =
 export type VenetianTableEntry =
   LewissAluminiumTableEntry | LewissFauxwoodTableEntry | LewissPhoenixwoodTableEntry
 
-export type TableEntry = KineticsTableEntry | VenetianTableEntry | SantaFeShutterTableEntry
+export type TableEntry =
+  | KineticsTableEntry
+  | VenetianTableEntry
+  | SantaFeShutterTableEntry
+  | RomanTableEntry
+  | CurtainTableEntry
 
 export type createTableEntryFn = (
   blindType: Blind,
