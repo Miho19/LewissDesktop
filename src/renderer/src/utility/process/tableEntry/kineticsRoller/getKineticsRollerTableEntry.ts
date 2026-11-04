@@ -34,6 +34,7 @@ export async function getKineticsRollerTableEntryAsync(
   const fabric = spec.fabric
   if (fabric == null) return []
   const fabricName = fabric.name
+  const fabricMultiplier = fabric.multiplier
 
   const control = getKineticsRollerControl(spec, windowMeasurement)
 
@@ -47,15 +48,18 @@ export async function getKineticsRollerTableEntryAsync(
 
   const { remote, channel } = getRemoteAndChannel(location, control, entries)
 
+  const butting = ''
+
   const leftBlindCost = await getKineticsRollerCostAsync(
     blindType,
     width[0],
     height,
-    fabric,
+    fabricMultiplier,
     control,
     bottomRail,
     pelmet,
-    bracket
+    bracket,
+    butting
   )
 
   if (typeof leftBlindCost === 'undefined') throw new Error(`failed to get cost of blind`)

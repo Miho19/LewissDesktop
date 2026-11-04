@@ -3,17 +3,17 @@ import { getWidthIndex } from '@renderer/utility/process/tableEntry/shared/getWi
 import { getToNearest } from '@renderer/utility/process/tableEntry/shared/roundMeasurementUp'
 import { isKineticsRollerPricingSchedule } from '@shared/types/pricing/kineticsRoller.types'
 import { PricingSchedule } from '@shared/types/pricing/pricingSchedule.types'
-import { Fabric } from '@shared/types/Project.types'
 
 export function getKineticsRollerDimensionCost(
   width: number,
   height: number,
-  fabric: Fabric,
+  fabricMultiplier: number,
   pricingSchedule: PricingSchedule
 ) {
   if (!isKineticsRollerPricingSchedule(pricingSchedule)) return undefined
 
   if (width <= 0 || height <= 0) return undefined
+  if (typeof fabricMultiplier !== 'number' || fabricMultiplier <= 0) return undefined
 
   const toNearest = getToNearest('Kinetics Blockout Roller Blind')
 
@@ -28,11 +28,5 @@ export function getKineticsRollerDimensionCost(
   const dimensionCost = data[heightIndex][widthIndex]
   if (dimensionCost === 0 || typeof dimensionCost === 'undefined') return undefined
 
-  const multiplier = getMultiplier(fabric)
-
-  return dimensionCost * multiplier
-}
-
-function getMultiplier(fabric: Fabric) {
-  return fabric.multiplier
+  return dimensionCost * fabricMultiplier
 }

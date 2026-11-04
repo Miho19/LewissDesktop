@@ -2,7 +2,7 @@ import { Blind } from '@shared/types/blind/blind.types'
 import { ProjectFile } from '@shared/types/Project.types'
 import {
   CreateTableEntryFn,
-  PreprocessFn,
+  PreProcessFn,
   TableEntry
 } from '@shared/types/tableEntry/TableEntry.types'
 import { WindowDisplay } from '@shared/types/WindowDisplay.types'
@@ -17,6 +17,8 @@ import { getLewisPhoenixwoodTableEntryAsync } from '@/utility/process/tableEntry
 import { getLewissFauxwoodTableEntryAsync } from '@/utility/process/tableEntry/lewissFauxwood'
 import { getRomanTableEntryAsync } from '@/utility/process/tableEntry/roman'
 import { getCurtainTableEntryAsync } from '@/utility/process/tableEntry/curtain'
+import { WindowTableEntry } from '@shared/types/WindowTableForm.types'
+import { preProcessKineticsRollerAsync } from '@/utility/process/tableEntry/kineticsRoller/preprocessKineticsRoller'
 
 export async function getTableEntryListAsync(
   blindType: Blind,
@@ -82,116 +84,40 @@ const getTableEntryFunctionMap: Record<Blind, CreateTableEntryFn> = {
   'Interlined Curtain': getCurtainTableEntryAsync
 }
 
-const getPreProcessFunctionMap: Record<Blind, PreprocessFn> = {
-  'Kinetics 10mm Cellular Blind': function (
-    blindType: Blind,
-    tableEntryList: TableEntry[],
-    file: ProjectFile
-  ): Promise<TableEntry[]> {
-    throw new Error('Function not implemented.')
-  },
-  'Kinetics 20mm Cellular Blind': function (
-    blindType: Blind,
-    tableEntryList: TableEntry[],
-    file: ProjectFile
-  ): Promise<TableEntry[]> {
-    throw new Error('Function not implemented.')
-  },
-  'Kinetics Sunscreen Roller Blind': function (
-    blindType: Blind,
-    tableEntryList: TableEntry[],
-    file: ProjectFile
-  ): Promise<TableEntry[]> {
-    throw new Error('Function not implemented.')
-  },
-  'Kinetics Blockout Roller Blind': function (
-    blindType: Blind,
-    tableEntryList: TableEntry[],
-    file: ProjectFile
-  ): Promise<TableEntry[]> {
-    throw new Error('Function not implemented.')
-  },
-  'Kinetics Light Filtering Roller Blind': function (
-    blindType: Blind,
-    tableEntryList: TableEntry[],
-    file: ProjectFile
-  ): Promise<TableEntry[]> {
-    throw new Error('Function not implemented.')
-  },
-  "Lewis's 25mm Aluminium Venetian": function (
-    blindType: Blind,
-    tableEntryList: TableEntry[],
-    file: ProjectFile
-  ): Promise<TableEntry[]> {
-    throw new Error('Function not implemented.')
-  },
-  "Lewis's 50mm Aluminium Venetian": function (
-    blindType: Blind,
-    tableEntryList: TableEntry[],
-    file: ProjectFile
-  ): Promise<TableEntry[]> {
-    throw new Error('Function not implemented.')
-  },
-  "Lewis's 50mm Fauxwood Venetian": function (
-    blindType: Blind,
-    tableEntryList: TableEntry[],
-    file: ProjectFile
-  ): Promise<TableEntry[]> {
-    throw new Error('Function not implemented.')
-  },
-  "Lewis's 63mm Fauxwood Venetian": function (
-    blindType: Blind,
-    tableEntryList: TableEntry[],
-    file: ProjectFile
-  ): Promise<TableEntry[]> {
-    throw new Error('Function not implemented.')
-  },
-  "Lewis's 50mm Phoenixwood Venetian": function (
-    blindType: Blind,
-    tableEntryList: TableEntry[],
-    file: ProjectFile
-  ): Promise<TableEntry[]> {
-    throw new Error('Function not implemented.')
-  },
-  "Lewis's 63mm Phoenixwood Venetian": function (
-    blindType: Blind,
-    tableEntryList: TableEntry[],
-    file: ProjectFile
-  ): Promise<TableEntry[]> {
-    throw new Error('Function not implemented.')
-  },
-  'Kinetics Mikronwood 50mm Venetian': function (
-    blindType: Blind,
-    tableEntryList: TableEntry[],
-    file: ProjectFile
-  ): Promise<TableEntry[]> {
-    throw new Error('Function not implemented.')
-  },
-  'Santa Fe Woodlore Shutter': function (
-    blindType: Blind,
-    tableEntryList: TableEntry[],
-    file: ProjectFile
-  ): Promise<TableEntry[]> {
-    throw new Error('Function not implemented.')
-  },
-  'Santa Fe Woodlore Plus Shutter': function (
-    blindType: Blind,
-    tableEntryList: TableEntry[],
-    file: ProjectFile
-  ): Promise<TableEntry[]> {
-    throw new Error('Function not implemented.')
-  },
-  'Santa Fe Waterproof Woodlore Plus Shutter': noPreProcess,
-  'Santa Fe Normandy Shutter': noPreProcess,
+const getPreProcessFunctionMap: Record<Blind, PreProcessFn> = {
   'Roman Blind': noPreProcess,
   'Separate Lining': noPreProcess,
   'Unlined Curtain': noPreProcess,
 
   'Lined Curtain': noPreProcess,
   'Sheer Curtain': noPreProcess,
-  'Interlined Curtain': noPreProcess
+  'Interlined Curtain': noPreProcess,
+
+  'Kinetics 10mm Cellular Blind': noPreProcess,
+  'Kinetics 20mm Cellular Blind': noPreProcess,
+
+  'Kinetics Sunscreen Roller Blind': preProcessKineticsRollerAsync,
+  'Kinetics Blockout Roller Blind': preProcessKineticsRollerAsync,
+  'Kinetics Light Filtering Roller Blind': preProcessKineticsRollerAsync,
+
+  "Lewis's 25mm Aluminium Venetian": noPreProcess,
+  "Lewis's 50mm Aluminium Venetian": noPreProcess,
+  "Lewis's 50mm Fauxwood Venetian": noPreProcess,
+  "Lewis's 63mm Fauxwood Venetian": noPreProcess,
+  "Lewis's 50mm Phoenixwood Venetian": noPreProcess,
+  "Lewis's 63mm Phoenixwood Venetian": noPreProcess,
+  'Kinetics Mikronwood 50mm Venetian': noPreProcess,
+
+  'Santa Fe Waterproof Woodlore Plus Shutter': noPreProcess,
+  'Santa Fe Normandy Shutter': noPreProcess,
+  'Santa Fe Woodlore Shutter': noPreProcess,
+  'Santa Fe Woodlore Plus Shutter': noPreProcess
 }
 
-async function noPreProcess(_blindType: Blind, tableEntryList: TableEntry[], _file: ProjectFile) {
-  return tableEntryList
+async function noPreProcess(
+  _blindType: Blind,
+  windowTableEntry: WindowTableEntry[],
+  _file: ProjectFile
+) {
+  return windowTableEntry.map((wt) => wt.tableEntry)
 }

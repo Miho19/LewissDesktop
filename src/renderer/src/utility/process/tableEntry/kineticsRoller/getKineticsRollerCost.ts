@@ -12,11 +12,12 @@ export async function getKineticsRollerCostAsync(
   blindType: Blind,
   width: number,
   height: number,
-  fabric: Fabric,
+  fabricMultiplier: number,
   control: string,
   bottomRail: string,
   pelmet: string,
-  bracket: string
+  bracket: string,
+  butting: string
 ) {
   try {
     const pricingSchedule = await retrievePricingScheduleAsync(blindType)
@@ -24,7 +25,12 @@ export async function getKineticsRollerCostAsync(
     if (!isKineticsRollerPricingSchedule(pricingSchedule))
       throw new Error('incorrect pricing schedule')
 
-    const dimensionCost = getKineticsRollerDimensionCost(width, height, fabric, pricingSchedule)
+    const dimensionCost = getKineticsRollerDimensionCost(
+      width,
+      height,
+      fabricMultiplier,
+      pricingSchedule
+    )
     if (typeof dimensionCost === 'undefined') throw new Error('dimension cost failure')
 
     const controlCost = getKineticsRollerControlCost(control, pricingSchedule)

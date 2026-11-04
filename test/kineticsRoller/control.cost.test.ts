@@ -9,40 +9,40 @@ const controlInput: {
   expected: number | undefined
 }[] = [
   {
-    control: 'Chain FastRise - White',
+    control: 'Chain FastRise / White',
     length: '1000',
     expected: 21
   },
   {
-    control: 'Chain FastRise - White',
+    control: 'Chain FastRise / White',
     length: '2000',
     expected: 21
   },
   {
-    control: 'Chain FastRise - White',
+    control: 'Chain FastRise / White',
     length: '10000000',
     expected: undefined
   },
 
   {
-    control: 'Chain FastRise - Black',
+    control: 'Chain FastRise / Black',
     length: '   ',
     expected: undefined
   },
 
   {
-    control: 'Chain FastRise - Black',
+    control: 'Chain FastRise / Black',
     length: '',
     expected: undefined
   },
   {
-    control: 'Chain FastRise - White',
+    control: 'Chain FastRise / White',
     length: '0',
     expected: undefined
   },
 
   {
-    control: 'Chain FastRise - White',
+    control: 'Chain FastRise / White',
     length: '-1',
     expected: undefined
   },
@@ -66,30 +66,30 @@ const controlInput: {
   },
 
   {
-    control: 'Lithium-ion',
+    control: 'Lithium-ion / white',
     length: '1000',
     expected: 170
   },
   {
-    control: 'Lithium-ion',
+    control: 'Lithium-ion / white',
     length: '',
     expected: 170
   },
 
   {
-    control: 'Lithium-ion',
+    control: 'Lithium-ion / white',
     length: '  ',
     expected: 170
   },
 
   {
-    control: 'Hardwired Smart Home',
+    control: 'Hardwired Smart Home / white',
     length: '1000',
     expected: 202
   },
 
   {
-    control: 'Hardwired WiFi Remote Control',
+    control: 'Hardwired WiFi Remote Control / white',
     length: '1000',
     expected: 202
   }
@@ -101,7 +101,7 @@ describe('getKineticsRollerControlCost', () => {
   it.each(controlInput)(
     'given the control: $control with length: $length should return $expected',
     ({ control, length, expected }) => {
-      const controlString = `${control} - ${length}`
+      const controlString = `${control} / ${length}`
       const result = getKineticsRollerControlCost(controlString, pricingSchedule)
       if (typeof expected === 'undefined') {
         expect(result).toBeUndefined()
