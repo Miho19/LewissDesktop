@@ -14,10 +14,8 @@ export async function updateKineticsRollerCellPriceAsync(windowTableEntry: Windo
 
   if (!isKineticsRollerTableEntry(tableEntry)) return windowTableEntry
 
-  const { width, height, control, pelmet, bracket } = tableEntry
+  const { width, height, control, pelmet, bracket, butting } = tableEntry
   const bottomRail = tableEntry['bottom rail']
-
-  const butting = ''
 
   const priceUpdated = await getKineticsRollerCostAsync(
     blindType,
