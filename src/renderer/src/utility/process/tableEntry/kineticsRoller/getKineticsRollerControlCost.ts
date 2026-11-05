@@ -126,12 +126,12 @@ export function getKineticsRollerControl(
   const controlLength = windowMeasurement.controlLength || '1000'
 
   if (spec.motorisation == null) {
-    return `Chain FastRise / ${spec.chainColour} / ${controlLength}mm`
+    return `Chain FastRise / ${spec.chainColour} / ${controlLength}`
   }
 
   const motorisation = spec.motorisation
   if (motorisation.localeCompare('lithium', undefined, { sensitivity: 'base' }) === 0)
-    return `Lithium-ion / ${spec.chainColour} / ${controlLength}mm`
+    return `Lithium-ion / ${spec.chainColour} / ${controlLength}`
 
-  return `${motorisation} / ${spec.chainColour} / ${controlLength}mm`
+  return `${motorisation} / ${spec.chainColour} / ${controlLength}`
 }

@@ -68,6 +68,8 @@ function SubmitSheet(props: Props) {
     smartHub: 0
   })
 
+  const [data, setData] = useState(() => windowTableEntryList.map((wt) => structuredClone(wt)))
+
   const [errorObject, setErrorObject] = useState<SubmitSheetErrorObject>({
     customerName: { isError: false, message: '' },
     reference: { isError: false, message: '' },
@@ -88,17 +90,20 @@ function SubmitSheet(props: Props) {
     })
   }, [])
 
-  if (windowTableEntryList == null || windowTableEntryList.length === 0) {
+  if (data.length === 0) {
     return <SheetContentEmpty />
   }
 
-  const blindType = windowTableEntryList[0].blindType
+  const blindType = data[0].blindType
 
   async function onSubmitHandler(event: React.SubmitEvent<HTMLFormElement>) {
     try {
       event.preventDefault()
 
-      if (isSubmitPending) return
+      if (isSubmitPending) {
+        console.error('already submitting')
+        return
+      }
 
       if (page !== 2) {
         setPage((prev) => prev + 1)
@@ -127,7 +132,9 @@ function SubmitSheet(props: Props) {
 
       // pre process here then get table entry list
 
-      const preProcessedList = await preProcessAsync(windowTableEntryList, file)
+      console.log(data)
+
+      const preProcessedList = await preProcessAsync(data, file)
 
       const tableEntryList = preProcessedList.map((wt) => wt.tableEntry)
 
@@ -195,6 +202,7 @@ function SubmitSheet(props: Props) {
 
       closeSheet()
     } catch (error) {
+      console.log(error)
     } finally {
       setIsSubmitPending(false)
     }

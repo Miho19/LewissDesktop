@@ -1,3 +1,4 @@
+import { preProcessKineticsRollerAsync } from '@/utility/process/tableEntry/kineticsRoller/preprocessKineticsRoller'
 import { Blind } from '@shared/types/blind/blind.types'
 import { ProjectFile } from '@shared/types/Project.types'
 import { WindowTableEntry, PreProcessFn } from '@shared/types/WindowTableForm.types'
@@ -14,9 +15,9 @@ const preProcessFunctionMap: Record<Blind, PreProcessFn> = {
   'Kinetics 10mm Cellular Blind': noPreProcess,
   'Kinetics 20mm Cellular Blind': noPreProcess,
 
-  'Kinetics Sunscreen Roller Blind': noPreProcess,
-  'Kinetics Blockout Roller Blind': noPreProcess,
-  'Kinetics Light Filtering Roller Blind': noPreProcess,
+  'Kinetics Sunscreen Roller Blind': preProcessKineticsRollerAsync,
+  'Kinetics Blockout Roller Blind': preProcessKineticsRollerAsync,
+  'Kinetics Light Filtering Roller Blind': preProcessKineticsRollerAsync,
 
   "Lewis's 25mm Aluminium Venetian": noPreProcess,
   "Lewis's 50mm Aluminium Venetian": noPreProcess,

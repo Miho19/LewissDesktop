@@ -14,22 +14,18 @@ export async function preProcessKineticsRollerAsync(
   _file: ProjectFile
 ) {
   const jobs = windowTableEntry.map(async (wt) => {
-    const tableEntry = structuredClone(wt.tableEntry)
+    const tableEntry = wt.tableEntry
     if (!isKineticsRollerTableEntry(tableEntry)) throw new Error(`Must be ${blindType} table entry`)
 
     tableEntry.control = adjustControlString(tableEntry.control)
 
     // recalc price code
 
-    return await updateKineticsRollerCellPriceAsync({
-      blindType: blindType,
-      tableEntry: tableEntry,
-      windowDisplay: wt.windowDisplay
-    })
+    return await updateKineticsRollerCellPriceAsync(wt)
   })
 
   const result = await Promise.allSettled(jobs)
-  const fulfilled = result.filter((r) => r.status === 'fulfilled').map((r) => r.value.tableEntry)
+  const fulfilled = result.filter((r) => r.status === 'fulfilled').map((r) => r.value)
 
   const rejected = result
     .filter((r) => r.status === 'rejected')
