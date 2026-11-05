@@ -10,7 +10,6 @@ import { LewissAluminiumTableEntry } from '@shared/types/tableEntry/lewissAlumin
 import { LewissFauxwoodTableEntry } from '@shared/types/tableEntry/lewissFauxwood.types'
 import { RomanTableEntry } from '@shared/types/tableEntry/roman'
 import { CurtainTableEntry } from '@shared/types/tableEntry/curtain.types'
-import { WindowTableEntry } from '@shared/types/WindowTableForm.types'
 
 export type KineticsTableEntry =
   KineticsCellularTableEntry | KineticsRollerTableEntry | KineticsMikronwoodTableEntry

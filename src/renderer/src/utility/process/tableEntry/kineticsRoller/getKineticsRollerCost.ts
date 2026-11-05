@@ -16,7 +16,7 @@ export async function getKineticsRollerCostAsync(
   bottomRail: string,
   pelmet: string,
   bracket: string,
-  butting: string
+  _butting: string
 ) {
   try {
     const pricingSchedule = await retrievePricingScheduleAsync(blindType)
