@@ -14,6 +14,7 @@ import { kineticsRollerDestructureControlString } from '@/utility/process/tableE
 import { Blind } from '@shared/types/blind/blind.types'
 import { ProjectFile } from '@shared/types/Project.types'
 import { isKineticsRollerTableEntry } from '@shared/types/tableEntry/kineticsRoller.types'
+import { TableEntry } from '@shared/types/tableEntry/TableEntry.types'
 import { WindowDisplay } from '@shared/types/WindowDisplay.types'
 import { WindowTableEntry } from '@shared/types/WindowTableForm.types'
 import { useSuspenseQuery } from '@tanstack/react-query'
@@ -167,20 +168,21 @@ async function getWindowTableEntryList(
 
   const entries: WindowTableEntry[] = []
 
-  await getTableEntryListAsync(
-    blindType,
-    windowDisplayList,
-    file,
-    (blindType, windowDisplay, tableEntry) => {
-      const newEntry: WindowTableEntry = {
-        blindType,
-        windowDisplay,
-        tableEntry
-      }
-
-      entries.push(newEntry)
+  function createWindowTableEntry(
+    blindType: Blind,
+    windowDisplay: WindowDisplay,
+    tableEntry: TableEntry
+  ) {
+    const newEntry: WindowTableEntry = {
+      blindType,
+      windowDisplay,
+      tableEntry
     }
-  )
+
+    entries.push(newEntry)
+  }
+
+  await getTableEntryListAsync(blindType, windowDisplayList, file, createWindowTableEntry)
 
   return entries
 }

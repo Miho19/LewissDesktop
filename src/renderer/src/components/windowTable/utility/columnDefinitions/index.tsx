@@ -13,7 +13,9 @@ import { capitalise } from '@/utility/general/capitalise'
 import { SelectGroup, SelectItem, SelectLabel } from '@/components/ui/select'
 import {
   kineticsRollerBracketColourOption,
-  kineticsRollerBracketSizeOption
+  kineticsRollerBracketSizeOption,
+  kineticsRollerConnectedBracketColourOption,
+  kineticsRollerConnectedBracketOption
 } from '@shared/types/WindowTableForm.types'
 
 export * from './kineticsCellular'
@@ -79,6 +81,30 @@ export function getKineticsRollerBracketSelectItemList(blindType: Blind) {
         {bracketSize.map((size) => (
           <SelectItem value={getBracket(size, colour)} key={`${blindType} ${size} ${colour}`}>
             {getBracket(size, colour)}
+          </SelectItem>
+        ))}
+      </SelectGroup>
+    )
+  }
+
+  const connectedBracketColour = kineticsRollerConnectedBracketColourOption.map((colour) =>
+    capitalise(colour)
+  )
+
+  const connectedBracketOption = kineticsRollerConnectedBracketOption.map((option) =>
+    capitalise(option)
+  )
+
+  for (const option of connectedBracketOption) {
+    output.push(
+      <SelectGroup key={`${blindType} connected bracket ${option}`}>
+        <SelectLabel>{option}</SelectLabel>
+        {connectedBracketColour.map((colour) => (
+          <SelectItem
+            value={getBracket(option, colour)}
+            key={`${blindType} ${option} ${colour} connected`}
+          >
+            {getBracket(option, colour)}
           </SelectItem>
         ))}
       </SelectGroup>

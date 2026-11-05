@@ -37,5 +37,8 @@ export const kineticsRollerBracketSizeOption = [
   'combo back'
 ] as const
 
+export const kineticsRollerConnectedBracketOption = ['inline', 'intermediate'] as const
+export const kineticsRollerConnectedBracketColourOption = ['white', 'black'] as const
+
 export const KineticsCellularHeadrailColour = ['white', 'off white', 'silver', 'black'] as const
 export const KineticsCellularBottomRailColour = ['white', 'off white', 'silver', 'black'] as const

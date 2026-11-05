@@ -17,6 +17,7 @@ export type KineticsRollerTableEntry = {
   remote: number
   channel: number
   price: string
+  buttingBlindRef: TableEntry | null
 }
 
 export function isKineticsRollerTableEntryList(
