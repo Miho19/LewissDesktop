@@ -18,7 +18,7 @@ function getRoomName(location: string) {
 }
 
 function filterForMotorisation(entries: KineticsTableEntry[]) {
-  return entries.filter((e) => e.control === 'Lithium-ion')
+  return entries.filter((e) => e.control.toLocaleLowerCase().includes('lithium-ion'))
 }
 
 function filterForRoomName(location: string, entries: KineticsTableEntry[]) {
@@ -30,7 +30,7 @@ export function getRemoteAndChannel(location: string, control: string, entries: 
   if (!isKineticsTableEntryList(entries)) throw new Error('Incorrect table entry type')
 
   const result = { remote: 0, channel: 0 }
-  if (control !== 'Lithium-ion') return result
+  if (!control.toLocaleLowerCase().includes('lithium-ion')) return result
 
   const roomEntryList = filterForRoomName(location, entries)
   const motorisedRoomEntryList = filterForMotorisation(roomEntryList)
