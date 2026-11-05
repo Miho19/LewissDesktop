@@ -25,6 +25,8 @@ export function preProcessKineticsRoller(
 // remove colour and length from motor option
 function adjustControlString(control: string) {
   if (kineticsRollerIsChain(control)) {
+    control = control.replaceAll('/', '-')
+
     if (!control.endsWith('mm')) return `${control}mm`
     return control
   }

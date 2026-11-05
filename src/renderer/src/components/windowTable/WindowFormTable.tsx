@@ -49,14 +49,6 @@ function WindowFormTable(props: Props) {
 
     if (typeof prevData === 'undefined') return
 
-    let updatedData: WindowTableEntry = {
-      ...prevData,
-      tableEntry: {
-        ...prevData.tableEntry,
-        [columnId]: value
-      }
-    }
-
     // this is a quick get it working solution -- need to update meta signature to pass in blind type to expand this
     // this feels very bad and messy
 
@@ -80,12 +72,15 @@ function WindowFormTable(props: Props) {
       const controlArray = Object.values(updatedMap).map((s) => s)
       const controlString = controlArray.join(' / ')
 
-      updatedData = {
-        ...updatedData,
-        tableEntry: {
-          ...updatedData.tableEntry,
-          ['control']: controlString
-        }
+      columnId = 'control'
+      value = controlString
+    }
+
+    const updatedData: WindowTableEntry = {
+      ...prevData,
+      tableEntry: {
+        ...prevData.tableEntry,
+        [columnId]: value
       }
     }
 
