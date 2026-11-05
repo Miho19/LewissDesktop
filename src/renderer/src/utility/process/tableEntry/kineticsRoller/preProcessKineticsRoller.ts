@@ -1,4 +1,3 @@
-import { updateKineticsRollerCellPriceAsync } from '@/components/windowTable/utility/updatePrice'
 import {
   kineticsRollerDestructureControlString,
   kineticsRollerIsChain
@@ -8,38 +7,27 @@ import { ProjectFile } from '@shared/types/Project.types'
 import { isKineticsRollerTableEntry } from '@shared/types/tableEntry/kineticsRoller.types'
 import { WindowTableEntry } from '@shared/types/WindowTableForm.types'
 
-export async function preProcessKineticsRollerAsync(
+export function preProcessKineticsRoller(
   blindType: Blind,
   windowTableEntry: WindowTableEntry[],
   _file: ProjectFile
 ) {
-  const jobs = windowTableEntry.map(async (wt) => {
+  return windowTableEntry.map((wt) => {
     const tableEntry = wt.tableEntry
-    if (!isKineticsRollerTableEntry(tableEntry)) throw new Error(`Must be ${blindType} table entry`)
 
+    if (!isKineticsRollerTableEntry(tableEntry)) throw new Error(`Must be ${blindType} table entry`)
     tableEntry.control = adjustControlString(tableEntry.control)
 
-    // recalc price code
-
-    return await updateKineticsRollerCellPriceAsync(wt)
+    return wt
   })
-
-  const result = await Promise.allSettled(jobs)
-  const fulfilled = result.filter((r) => r.status === 'fulfilled').map((r) => r.value)
-
-  const rejected = result
-    .filter((r) => r.status === 'rejected')
-    .map((r) => {
-      console.error(r.reason)
-      return r
-    })
-
-  return fulfilled
 }
 
 // remove colour and length from motor option
 function adjustControlString(control: string) {
-  if (kineticsRollerIsChain(control)) return control
+  if (kineticsRollerIsChain(control)) {
+    if (!control.endsWith('mm')) return `${control}mm`
+    return control
+  }
 
   const controlObject = kineticsRollerDestructureControlString(control)
   if (typeof controlObject === 'undefined') return control

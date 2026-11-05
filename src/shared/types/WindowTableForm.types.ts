@@ -13,7 +13,7 @@ export type PreProcessFn = (
   blindType: Blind,
   windowTableEntryList: WindowTableEntry[],
   file: ProjectFile
-) => Promise<WindowTableEntry[]>
+) => WindowTableEntry[]
 
 export type WindowTableMeta = {
   updateData: (rowIndex: number, columnId: string, value: unknown) => void

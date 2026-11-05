@@ -119,7 +119,7 @@ export const kineticsRollerWindowTableColumnDefinition = columnHelper.columns([
       minSize: 150,
       maxSize: 300,
       id: 'controlLength',
-      header: 'Control Length',
+      header: 'Control Length (mm)',
       cell: (props) => (
         <SelectValueCell
           {...props}

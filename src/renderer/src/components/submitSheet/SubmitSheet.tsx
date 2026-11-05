@@ -68,8 +68,6 @@ function SubmitSheet(props: Props) {
     smartHub: 0
   })
 
-  const [data, setData] = useState(() => windowTableEntryList.map((wt) => structuredClone(wt)))
-
   const [errorObject, setErrorObject] = useState<SubmitSheetErrorObject>({
     customerName: { isError: false, message: '' },
     reference: { isError: false, message: '' },
@@ -90,11 +88,11 @@ function SubmitSheet(props: Props) {
     })
   }, [])
 
-  if (data.length === 0) {
+  if (windowTableEntryList.length === 0) {
     return <SheetContentEmpty />
   }
 
-  const blindType = data[0].blindType
+  const blindType = windowTableEntryList[0].blindType
 
   async function onSubmitHandler(event: React.SubmitEvent<HTMLFormElement>) {
     try {
@@ -132,10 +130,7 @@ function SubmitSheet(props: Props) {
 
       // pre process here then get table entry list
 
-      console.log(data)
-
-      const preProcessedList = await preProcessAsync(data, file)
-
+      const preProcessedList = preProcessAsync(windowTableEntryList, file)
       const tableEntryList = preProcessedList.map((wt) => wt.tableEntry)
 
       const worksheetCost = await kineticsGetWorksheetCostAsync(
@@ -176,26 +171,26 @@ function SubmitSheet(props: Props) {
 
       const pdfResponse = await createWorksheetPDF(worksheet)
 
-      const pdfToSharePointResponse = await uploadWorksheetPDFToSharePoint(worksheet, pdfResponse)
-      if (!pdfToSharePointResponse.ok) {
-        showToast(pdfToSharePointResponse.error, 'error')
-        closeSheet()
-        return
-      }
+      // const pdfToSharePointResponse = await uploadWorksheetPDFToSharePoint(worksheet, pdfResponse)
+      // if (!pdfToSharePointResponse.ok) {
+      //   showToast(pdfToSharePointResponse.error, 'error')
+      //   closeSheet()
+      //   return
+      // }
 
-      const writeToOrderResponse = await uploadWorksheetPDFToOrder(worksheet, pdfResponse)
-      if (!writeToOrderResponse.ok) {
-        showToast(writeToOrderResponse.error, 'error')
-        closeSheet()
-        return
-      }
+      // const writeToOrderResponse = await uploadWorksheetPDFToOrder(worksheet, pdfResponse)
+      // if (!writeToOrderResponse.ok) {
+      //   showToast(writeToOrderResponse.error, 'error')
+      //   closeSheet()
+      //   return
+      // }
 
-      const writeToPendingResponse = await uploadWorksheetPDFToPending(worksheet, pdfResponse)
-      if (!writeToPendingResponse.ok) {
-        showToast(writeToPendingResponse.error, 'error')
-        closeSheet()
-        return
-      }
+      // const writeToPendingResponse = await uploadWorksheetPDFToPending(worksheet, pdfResponse)
+      // if (!writeToPendingResponse.ok) {
+      //   showToast(writeToPendingResponse.error, 'error')
+      //   closeSheet()
+      //   return
+      // }
 
       await openWorksheetPDF(worksheet, pdfResponse)
       showToast('PDF created', 'success')
