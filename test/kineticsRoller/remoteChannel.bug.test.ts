@@ -5,12 +5,14 @@ import { getWindowDisplayList } from '@/utility/windowDisplay/getWindowDisplayLi
 import { Blind } from '@shared/types/blind/blind.types'
 import { getExamplePricingSchedule, getExampleAccessorySchedule } from '../utility'
 import { getTableEntryListAsync } from '@/utility/process/tableEntry'
-import { isKineticsTableEntryList } from '@shared/types/tableEntry/kinetics'
 import { isKineticsRollerTableEntryList } from '@shared/types/tableEntry/kineticsRoller.types'
 
 // for this specfic file
 // remote and channel of lithium-ion blinds, first two are not being
 // allocated a remote and channel automatically
+
+// fixed - control string changed from lithium-ion to lithium-ion / white / 1000mm
+// so now we are using includes instead of a direct comparison i.e. control === 'lithium-ion'
 
 vi.mock(
   '@renderer/utility/process/pricingSchedule/retrievePricingSchedule',

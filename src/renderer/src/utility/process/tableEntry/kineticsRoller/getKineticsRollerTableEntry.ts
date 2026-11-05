@@ -50,6 +50,11 @@ export async function getKineticsRollerTableEntryAsync(
 
   const butting = ''
 
+  // we can add object to table entry and it wont be displayed on pdf now.
+  // do that to reference the butting blind
+  // index will be recalc during preProcess
+  // same with butting string
+
   const leftBlindCost = await getKineticsRollerCostAsync(
     blindType,
     width[0],
@@ -85,3 +90,10 @@ export async function getKineticsRollerTableEntryAsync(
 
   return [leftEntry]
 }
+
+function getKineticsRollerButtingString(
+  blindCount: string,
+  side: 'LHS' | 'RHS',
+  inlineBracket: boolean,
+  intermediateBracket: boolean
+) {}

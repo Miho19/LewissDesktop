@@ -128,13 +128,17 @@ export function createTable(
   return table
 }
 
+//
 export function createBlindTableTextData(tableEntryList: TableEntry[]): Content[][] {
   const entries: Content[][] = tableEntryList.map((entry) => {
     return Object.values(entry).map((value) => {
+      if (typeof value === 'object') return []
+
       let adjustedValue: string | number
 
       try {
         const parsedInt = parseInt(value as string)
+
         if (parsedInt === 0) {
           adjustedValue = ' '
         } else {
@@ -153,7 +157,7 @@ export function createBlindTableTextData(tableEntryList: TableEntry[]): Content[
     })
   })
 
-  return entries
+  return entries.filter((e) => e.length !== 0)
 }
 
 function createColumn(leftContent: Content, rightContent: Content) {

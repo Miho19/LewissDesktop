@@ -26,21 +26,30 @@ export async function getTableEntryListAsync(
 
   const entries: TableEntry[] = []
 
-  for (const w of windowDisplayList) {
-    const room = getRoom(w.roomId, file)
+  for (const windowDisplay of windowDisplayList) {
+    const room = getRoom(windowDisplay.roomId, file)
     if (typeof room === 'undefined')
       throw new Error('Window Display room Id did not return a valid room')
-    const windowMeasurement = getWindow(w.windowId, file)
+    const windowMeasurement = getWindow(windowDisplay.windowId, file)
     if (typeof windowMeasurement === 'undefined')
       throw new Error('Window Display window Id did not return a valid window measurement')
+
     const index = getCurrentTableEntryIndex(entries)
 
-    const result = await createFn(blindType, index, w, room, windowMeasurement, entries, file)
+    const result = await createFn(
+      blindType,
+      index,
+      windowDisplay,
+      room,
+      windowMeasurement,
+      entries,
+      file
+    )
 
     for (const newEntry of result) {
       if (typeof newEntry === 'undefined') continue
       entries.push(newEntry)
-      cb?.(blindType, w, newEntry)
+      cb?.(blindType, windowDisplay, newEntry)
     }
   }
 
