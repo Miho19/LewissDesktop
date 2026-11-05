@@ -44,7 +44,7 @@ export function getKineticsRollerControlCost(control: string, pricingSchedule: P
   if (!isKineticsRollerPricingSchedule(pricingSchedule)) return undefined
   if (!control || control.trim().length === 0) return undefined
 
-  if (isChain(control)) {
+  if (kineticsRollerIsChain(control)) {
     return getChainCost(control, pricingSchedule)
   }
 
@@ -64,7 +64,7 @@ function isControlLengthValid(controlLength: string) {
   return true
 }
 
-function isChain(control: string) {
+export function kineticsRollerIsChain(control: string) {
   return control.trim().toLocaleLowerCase().includes('chain')
 }
 

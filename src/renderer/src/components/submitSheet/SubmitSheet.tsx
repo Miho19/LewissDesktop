@@ -21,6 +21,7 @@ import {
   uploadWorksheetPDFToPending,
   uploadWorksheetPDFToSharePoint
 } from '@/utility/process/pdf/uploadWorksheetPDF'
+import { preProcessAsync } from '@/utility/process/tableEntry/shared/preProcess'
 import { kineticsGetWorksheetCostAsync } from '@/utility/process/worksheet/cost'
 import { uploadWorksheet } from '@/utility/process/worksheet/uploadWorksheet'
 import { ProjectFile } from '@shared/types/Project.types'
@@ -126,7 +127,9 @@ function SubmitSheet(props: Props) {
 
       // pre process here then get table entry list
 
-      const tableEntryList = windowTableEntryList.map((wt) => wt.tableEntry)
+      const preProcessedList = await preProcessAsync(windowTableEntryList, file)
+
+      const tableEntryList = preProcessedList.map((wt) => wt.tableEntry)
 
       const worksheetCost = await kineticsGetWorksheetCostAsync(
         tableEntryList,

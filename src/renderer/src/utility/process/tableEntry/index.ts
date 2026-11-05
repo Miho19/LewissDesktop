@@ -1,10 +1,6 @@
 import { Blind } from '@shared/types/blind/blind.types'
 import { ProjectFile } from '@shared/types/Project.types'
-import {
-  CreateTableEntryFn,
-  PreProcessFn,
-  TableEntry
-} from '@shared/types/tableEntry/TableEntry.types'
+import { CreateTableEntryFn, TableEntry } from '@shared/types/tableEntry/TableEntry.types'
 import { WindowDisplay } from '@shared/types/WindowDisplay.types'
 import { getRoom } from '../../windowDisplay/getRoom'
 import { getWindow } from '../../windowDisplay/getWindow'
@@ -17,8 +13,6 @@ import { getLewisPhoenixwoodTableEntryAsync } from '@/utility/process/tableEntry
 import { getLewissFauxwoodTableEntryAsync } from '@/utility/process/tableEntry/lewissFauxwood'
 import { getRomanTableEntryAsync } from '@/utility/process/tableEntry/roman'
 import { getCurtainTableEntryAsync } from '@/utility/process/tableEntry/curtain'
-import { WindowTableEntry } from '@shared/types/WindowTableForm.types'
-import { preProcessKineticsRollerAsync } from '@/utility/process/tableEntry/kineticsRoller/preprocessKineticsRoller'
 
 export async function getTableEntryListAsync(
   blindType: Blind,
@@ -82,42 +76,4 @@ const getTableEntryFunctionMap: Record<Blind, CreateTableEntryFn> = {
   'Lined Curtain': getCurtainTableEntryAsync,
   'Sheer Curtain': getCurtainTableEntryAsync,
   'Interlined Curtain': getCurtainTableEntryAsync
-}
-
-const getPreProcessFunctionMap: Record<Blind, PreProcessFn> = {
-  'Roman Blind': noPreProcess,
-  'Separate Lining': noPreProcess,
-  'Unlined Curtain': noPreProcess,
-
-  'Lined Curtain': noPreProcess,
-  'Sheer Curtain': noPreProcess,
-  'Interlined Curtain': noPreProcess,
-
-  'Kinetics 10mm Cellular Blind': noPreProcess,
-  'Kinetics 20mm Cellular Blind': noPreProcess,
-
-  'Kinetics Sunscreen Roller Blind': preProcessKineticsRollerAsync,
-  'Kinetics Blockout Roller Blind': preProcessKineticsRollerAsync,
-  'Kinetics Light Filtering Roller Blind': preProcessKineticsRollerAsync,
-
-  "Lewis's 25mm Aluminium Venetian": noPreProcess,
-  "Lewis's 50mm Aluminium Venetian": noPreProcess,
-  "Lewis's 50mm Fauxwood Venetian": noPreProcess,
-  "Lewis's 63mm Fauxwood Venetian": noPreProcess,
-  "Lewis's 50mm Phoenixwood Venetian": noPreProcess,
-  "Lewis's 63mm Phoenixwood Venetian": noPreProcess,
-  'Kinetics Mikronwood 50mm Venetian': noPreProcess,
-
-  'Santa Fe Waterproof Woodlore Plus Shutter': noPreProcess,
-  'Santa Fe Normandy Shutter': noPreProcess,
-  'Santa Fe Woodlore Shutter': noPreProcess,
-  'Santa Fe Woodlore Plus Shutter': noPreProcess
-}
-
-async function noPreProcess(
-  _blindType: Blind,
-  windowTableEntry: WindowTableEntry[],
-  _file: ProjectFile
-) {
-  return windowTableEntry.map((wt) => wt.tableEntry)
 }

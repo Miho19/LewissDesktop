@@ -77,7 +77,7 @@ export async function getKineticsRollerTableEntryAsync(
     'bottom rail': bottomRail,
     bracket,
     pelmet,
-    butting: '',
+    butting,
     remote: remote,
     channel: channel,
     price: leftBlindCost.toFixed(2)

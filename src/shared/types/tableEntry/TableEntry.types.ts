@@ -34,9 +34,3 @@ export type CreateTableEntryFn = (
   entries: TableEntry[],
   file: ProjectFile
 ) => Promise<TableEntry[]>
-
-export type PreProcessFn = (
-  blindType: Blind,
-  windowTableEntryList: WindowTableEntry[],
-  file: ProjectFile
-) => Promise<TableEntry[]>
