@@ -45,21 +45,10 @@ export const windowTableColumnBase = windowTableColumnHelper.columns([
     cell: EditableCell
   }),
 
-  windowTableColumnHelper.accessor(
-    (row) => {
-      if (row.windowDisplay.blindCount === 'butting') {
-        const { width } = row.windowDisplay
-
-        return `${width[0]}, ${width[1]}`
-      }
-
-      return row.tableEntry.width
-    },
-    {
-      id: 'width',
-      header: 'Width (mm)'
-    }
-  ),
+  windowTableColumnHelper.accessor((row) => row.tableEntry.width, {
+    id: 'width',
+    header: 'Width (mm)'
+  }),
 
   windowTableColumnHelper.accessor((row) => row.tableEntry.height, {
     id: 'height',

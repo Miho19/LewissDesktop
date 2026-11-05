@@ -48,14 +48,7 @@ export async function getKineticsRollerTableEntryAsync(
 
   const { remote, channel } = getRemoteAndChannel(location, control, entries)
 
-  const butting = ''
-
-  // we can add object to table entry and it wont be displayed on pdf now.
-  // do that to reference the butting blind
-  // index will be recalc during preProcess
-  // same with butting string
-
-  const buttingString = getKineticsRollerButting(blindCount, index, 'LHS', spec)
+  const leftBlindButting = getKineticsRollerButting(blindCount, 'LHS')
 
   const leftBlindCost = await getKineticsRollerCostAsync(
     blindType,
@@ -66,7 +59,7 @@ export async function getKineticsRollerTableEntryAsync(
     bottomRail,
     pelmet,
     bracket,
-    buttingString
+    leftBlindButting
   )
 
   if (typeof leftBlindCost === 'undefined') throw new Error(`failed to get cost of blind`)
@@ -84,29 +77,49 @@ export async function getKineticsRollerTableEntryAsync(
     'bottom rail': bottomRail,
     bracket,
     pelmet,
-    butting,
+    butting: leftBlindButting,
     remote: remote,
     channel: channel,
     price: leftBlindCost.toFixed(2),
     buttingBlindRef: null
   }
 
-  return [leftEntry]
-}
+  if (blindCount !== 'butting') return [leftEntry]
 
-function getKineticsRollerButting(
-  blindCount: BlindCount,
-  index: number,
-  side: 'LHS' | 'RHS',
-  spec: KineticsRollerSpec
-) {
-  if (blindCount !== 'butting') return ''
+  const rightBlindButting = getKineticsRollerButting(blindCount, 'RHS')
 
-  const { inlineBracket, intermediateBracket } = spec
-  let buttingType = ''
-  if (inlineBracket) {
-    buttingType = 'Inline'
+  const rightChannel = leftEntry.channel > 0 ? leftEntry.channel + 1 : 0
+
+  const rightBlindCost = await getKineticsRollerCostAsync(
+    blindType,
+    width[1],
+    height,
+    fabricMultiplier,
+    control,
+    bottomRail,
+    pelmet,
+    bracket,
+    rightBlindButting
+  )
+  if (typeof rightBlindCost === 'undefined') throw new Error(`failed to get cost of blind`)
+
+  const rightEntry: KineticsRollerTableEntry = {
+    ...leftEntry,
+    index: index + 1,
+    width: width[1],
+    butting: rightBlindButting,
+    channel: rightChannel,
+    price: rightBlindCost?.toFixed(2)
   }
 
-  return ''
+  leftEntry.buttingBlindRef = rightEntry
+  rightEntry.buttingBlindRef = leftEntry
+
+  return [leftEntry, rightEntry]
+}
+
+function getKineticsRollerButting(blindCount: BlindCount, side: 'LHS' | 'RHS') {
+  if (blindCount !== 'butting') return ''
+
+  return `${side}`
 }

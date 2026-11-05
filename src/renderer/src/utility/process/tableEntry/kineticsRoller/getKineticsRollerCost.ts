@@ -16,7 +16,7 @@ export async function getKineticsRollerCostAsync(
   bottomRail: string,
   pelmet: string,
   bracket: string,
-  _butting: string
+  butting: string
 ) {
   try {
     const pricingSchedule = await retrievePricingScheduleAsync(blindType)
@@ -42,7 +42,7 @@ export async function getKineticsRollerCostAsync(
     const pelmetCost = getKineticsRollerPelmetCost(width, pelmet, pricingSchedule)
     if (typeof pelmetCost === 'undefined') throw new Error('pelemt cost failure')
 
-    const bracketCost = getKineticsRollerBracketCost(bracket, pricingSchedule)
+    const bracketCost = getKineticsRollerBracketCost(bracket, butting, pricingSchedule)
     if (typeof bracketCost === 'undefined') throw new Error('bracket cost failure')
 
     return dimensionCost + controlCost + bottomRailCost + pelmetCost + bracketCost

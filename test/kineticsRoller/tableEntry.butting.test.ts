@@ -41,7 +41,6 @@ describe('Kinetics Roller Table Entry Butting', () => {
     expect(windowDisplayList.length).toBe(2)
 
     const tableEntryList = await getTableEntryListAsync(blindType, windowDisplayList, projectFile)
-    console.log(tableEntryList)
     expect(tableEntryList.length).toBe(4)
   })
 })
