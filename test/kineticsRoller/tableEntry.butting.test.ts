@@ -5,6 +5,9 @@ import { getWindowDisplayList } from '@/utility/windowDisplay/getWindowDisplayLi
 import { getTableEntryListAsync } from '@/utility/process/tableEntry'
 import { Blind } from '@shared/types/blind/blind.types'
 import { getExamplePricingSchedule, getExampleAccessorySchedule } from '../utility'
+import { TableEntry } from '@shared/types/tableEntry/TableEntry.types'
+import { WindowDisplay } from '@shared/types/WindowDisplay.types'
+import { WindowTableEntry } from '@shared/types/WindowTableForm.types'
 
 vi.mock(
   '@renderer/utility/process/pricingSchedule/retrievePricingSchedule',
@@ -42,5 +45,33 @@ describe('Kinetics Roller Table Entry Butting', () => {
 
     const tableEntryList = await getTableEntryListAsync(blindType, windowDisplayList, projectFile)
     expect(tableEntryList.length).toBe(4)
+  })
+
+  it('should return a windowTableEntry list for butting blinds', async () => {
+    const projectFile = getProjectFileFromJSON()
+    const blindType: Blind = 'Kinetics Sunscreen Roller Blind'
+
+    const windowDisplayList = getWindowDisplayList(projectFile)
+
+    expect(windowDisplayList).toBeDefined()
+    expect(windowDisplayList.length).toBe(2)
+
+    const entries: WindowTableEntry[] = []
+    function createWindowTableEntry(
+      blindType: Blind,
+      windowDisplay: WindowDisplay,
+      tableEntry: TableEntry
+    ) {
+      const newEntry: WindowTableEntry = {
+        blindType,
+        windowDisplay,
+        tableEntry
+      }
+
+      entries.push(newEntry)
+    }
+
+    await getTableEntryListAsync(blindType, windowDisplayList, projectFile, createWindowTableEntry)
+    expect(entries.length).toBe(4)
   })
 })

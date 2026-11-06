@@ -13,7 +13,8 @@ export function preProcessKineticsRoller(
   _file: ProjectFile
 ) {
   const indexAdded = windowTableEntry.map((wt, index) => {
-    wt.tableEntry.index = ++index
+    const updatedIndex = ++index
+    wt.tableEntry.index = updatedIndex
     return wt
   })
 
@@ -21,23 +22,15 @@ export function preProcessKineticsRoller(
     const tableEntry = wt.tableEntry
     if (!isKineticsRollerTableEntry(tableEntry)) throw new Error(`Must be ${blindType} table entry`)
 
-    if (tableEntry.butting.toLocaleLowerCase().includes('rhs')) return wt
+    const buttingBlindIndex = tableEntry.buttingBlindRef?.index ?? 0
 
-    const rhsTableEntry = tableEntry.buttingBlindRef
-    if (typeof rhsTableEntry === 'undefined') return wt
+    const currentButting = tableEntry.butting.toLocaleLowerCase()
 
-    if (!isKineticsRollerTableEntry(rhsTableEntry))
-      throw new Error(`Must be ${blindType} table entry`)
+    const updatedButting = currentButting.includes('lhs')
+      ? `LHS to #${buttingBlindIndex}`
+      : `RHS to #${buttingBlindIndex}`
 
-    if (rhsTableEntry.butting.toLocaleLowerCase().includes('lhs')) return wt
-
-    const lhsIndex = tableEntry.index
-    const rhsIndex = rhsTableEntry.index
-
-    tableEntry.butting = `LHS to #${rhsIndex}`
-    rhsTableEntry.butting = `RHS to #${lhsIndex}`
-
-    delete rhsTableEntry.buttingBlindRef
+    tableEntry.butting = updatedButting
     delete tableEntry.buttingBlindRef
 
     return wt
@@ -45,11 +38,11 @@ export function preProcessKineticsRoller(
 
   return buttingAdjusted.map((wt) => {
     const tableEntry = wt.tableEntry
-
     if (!isKineticsRollerTableEntry(tableEntry)) throw new Error(`Must be ${blindType} table entry`)
-    tableEntry.control = adjustControlString(tableEntry.control)
 
-    return wt
+    const updatedControlString = adjustControlString(tableEntry.control)
+
+    return { ...wt, tableEntry: { ...wt.tableEntry, ['control']: updatedControlString } }
   })
 }
 

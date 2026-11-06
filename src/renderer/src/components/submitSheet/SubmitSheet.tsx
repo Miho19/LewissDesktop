@@ -171,26 +171,26 @@ function SubmitSheet(props: Props) {
 
       const pdfResponse = await createWorksheetPDF(worksheet)
 
-      const pdfToSharePointResponse = await uploadWorksheetPDFToSharePoint(worksheet, pdfResponse)
-      if (!pdfToSharePointResponse.ok) {
-        showToast(pdfToSharePointResponse.error, 'error')
-        closeSheet()
-        return
-      }
+      // const pdfToSharePointResponse = await uploadWorksheetPDFToSharePoint(worksheet, pdfResponse)
+      // if (!pdfToSharePointResponse.ok) {
+      //   showToast(pdfToSharePointResponse.error, 'error')
+      //   closeSheet()
+      //   return
+      // }
 
-      const writeToOrderResponse = await uploadWorksheetPDFToOrder(worksheet, pdfResponse)
-      if (!writeToOrderResponse.ok) {
-        showToast(writeToOrderResponse.error, 'error')
-        closeSheet()
-        return
-      }
+      // const writeToOrderResponse = await uploadWorksheetPDFToOrder(worksheet, pdfResponse)
+      // if (!writeToOrderResponse.ok) {
+      //   showToast(writeToOrderResponse.error, 'error')
+      //   closeSheet()
+      //   return
+      // }
 
-      const writeToPendingResponse = await uploadWorksheetPDFToPending(worksheet, pdfResponse)
-      if (!writeToPendingResponse.ok) {
-        showToast(writeToPendingResponse.error, 'error')
-        closeSheet()
-        return
-      }
+      // const writeToPendingResponse = await uploadWorksheetPDFToPending(worksheet, pdfResponse)
+      // if (!writeToPendingResponse.ok) {
+      //   showToast(writeToPendingResponse.error, 'error')
+      //   closeSheet()
+      //   return
+      // }
 
       await openWorksheetPDF(worksheet, pdfResponse)
       showToast('PDF created', 'success')
