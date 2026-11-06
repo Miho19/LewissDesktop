@@ -4,7 +4,7 @@ import { ProjectFile, Room, WindowMeasurement } from '@shared/types/Project.type
 import { TableEntry } from '@shared/types/tableEntry/TableEntry.types'
 import { BlindCount, Fit, WindowDisplay } from '@shared/types/WindowDisplay.types'
 import { getRemoteAndChannel } from '../shared/kinetics'
-import { isKineticsRollerSpec, KineticsRollerSpec } from '@shared/types/spec/kineticsRoller.types'
+import { isKineticsRollerSpec } from '@shared/types/spec/kineticsRoller.types'
 import { KineticsRollerTableEntry } from '@shared/types/tableEntry/kineticsRoller.types'
 import { getKineticsRollerCostAsync } from '@renderer/utility/process/tableEntry/kineticsRoller/getKineticsRollerCost'
 import { getKineticsRollerPelmet } from '@renderer/utility/process/tableEntry/kineticsRoller/getKineticsRollerPelmetCost'
@@ -80,8 +80,7 @@ export async function getKineticsRollerTableEntryAsync(
     butting: leftBlindButting,
     remote: remote,
     channel: channel,
-    price: leftBlindCost.toFixed(2),
-    buttingBlindRef: null
+    price: leftBlindCost.toFixed(2)
   }
 
   if (blindCount !== 'butting') return [leftEntry]

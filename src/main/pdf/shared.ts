@@ -133,6 +133,7 @@ export function createBlindTableTextData(tableEntryList: TableEntry[]): Content[
   const entries: Content[][] = tableEntryList.map((entry) => {
     return Object.values(entry).map((value) => {
       if (typeof value === 'object') return []
+      if (value == null) return []
 
       let adjustedValue: string | number
 
