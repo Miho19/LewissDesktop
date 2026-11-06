@@ -3,14 +3,14 @@ import { getKineticsMikronwoodControl } from '@/utility/process/tableEntry/kinet
 import { getKineticsMikronwoodCostAsync } from '@/utility/process/tableEntry/kineticsMikronwood/getKineticsMikronwoodCost'
 import { getKineticsMikronwoodFascia } from '@/utility/process/tableEntry/kineticsMikronwood/getKineticsMikronwoodFasciaCost'
 import { getKineticsMikronwoodHoldDownBracket } from '@/utility/process/tableEntry/kineticsMikronwood/getKineticsMikronwoodHoldDownBracketCost'
-import { getButtingString } from '@/utility/process/tableEntry/shared/getButtingString'
+
 import { getRemoteAndChannel } from '@/utility/process/tableEntry/shared/kinetics'
 import { Blind } from '@shared/types/blind/blind.types'
 import { Room, WindowMeasurement, ProjectFile } from '@shared/types/Project.types'
 import { isVenetianSpec } from '@shared/types/spec/venetian.types'
 import { KineticsMikronwoodTableEntry } from '@shared/types/tableEntry/kineticsMikronwood.types'
 import { TableEntry } from '@shared/types/tableEntry/TableEntry.types'
-import { Fit, WindowDisplay } from '@shared/types/WindowDisplay.types'
+import { BlindCount, Fit, WindowDisplay } from '@shared/types/WindowDisplay.types'
 
 export async function getKineticsMikronwoodTableEntryAsync(
   blindType: Blind,
@@ -109,4 +109,9 @@ export async function getKineticsMikronwoodTableEntryAsync(
   }
 
   return [leftEntry, rightEntry]
+}
+
+function getButtingString(blindCountString: BlindCount, index: number, side: 'LHS' | 'RHS') {
+  if (blindCountString !== 'butting') return ''
+  return `${side}`
 }

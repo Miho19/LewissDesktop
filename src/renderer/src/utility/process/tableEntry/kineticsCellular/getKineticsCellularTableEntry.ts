@@ -8,10 +8,9 @@ import {
 } from '@shared/types/spec/kineticsCellular.types'
 import { KineticsCellularTableEntry } from '@shared/types/tableEntry/kineticsCellular.types'
 import { TableEntry } from '@shared/types/tableEntry/TableEntry.types'
-import { Fit, WindowDisplay } from '@shared/types/WindowDisplay.types'
+import { BlindCount, Fit, WindowDisplay } from '@shared/types/WindowDisplay.types'
 import { getRemoteAndChannel } from '../shared/kinetics'
 import { getKineticsCellularCost } from './getKineticsCellularCost'
-import { getButtingString } from '@/utility/process/tableEntry/shared/getButtingString'
 
 export async function getKineticsCellularTableEntryAsync(
   blindType: Blind,
@@ -80,6 +79,8 @@ export async function getKineticsCellularTableEntryAsync(
     price: leftBlindCost.toFixed(2)
   }
 
+  // `RHS / ${index}`
+
   if (blindCount !== 'butting') return [leftEntry]
 
   const rightBlindCost = await getKineticsCellularCost(
@@ -146,4 +147,9 @@ export function getFabricOpacity(fabricName: string) {
   if (typeof opacityFound === 'undefined') return undefined
 
   return capitalise(opacityFound)
+}
+
+function getButtingString(blindCountString: BlindCount, index: number, side: 'LHS' | 'RHS') {
+  if (blindCountString !== 'butting') return ''
+  return `${side} / ${index}`
 }
