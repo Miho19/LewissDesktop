@@ -29,7 +29,7 @@ export async function getKineticsRollerTableEntryAsync(
 
   const fitCapitalised = capitalise(fit) as Fit
 
-  const roll = spec.rollDirection.replace(/roll/gi, '')
+  const roll = spec.rollDirection.replace(/roll/gi, '').trim()
 
   const fabric = spec.fabric
   if (fabric == null) return []

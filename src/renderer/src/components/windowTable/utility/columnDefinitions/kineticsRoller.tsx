@@ -13,7 +13,11 @@ import {
   kineticsRollerDestructureControlString
 } from '@/utility/process/tableEntry/kineticsRoller'
 import { isKineticsRollerTableEntry } from '@shared/types/tableEntry/kineticsRoller.types'
-import { ControlSideOption, WindowTableEntry } from '@shared/types/WindowTableForm.types'
+import {
+  ControlSideOption,
+  KineticsRollerRollOption,
+  WindowTableEntry
+} from '@shared/types/WindowTableForm.types'
 import { createColumnHelper } from '@tanstack/react-table'
 
 const columnHelper = createColumnHelper<WindowFormTableFeatures, WindowTableEntry>()
@@ -36,7 +40,16 @@ export const kineticsRollerWindowTableColumnDefinition = columnHelper.columns([
     },
     {
       id: 'roll',
-      header: 'Roll'
+      header: 'Roll',
+      cell: (props) => (
+        <SelectValueCell
+          {...props}
+          selectOptions={getSelectItemList(
+            props.row.original.blindType,
+            KineticsRollerRollOption as readonly string[]
+          )}
+        />
+      )
     }
   ),
 
