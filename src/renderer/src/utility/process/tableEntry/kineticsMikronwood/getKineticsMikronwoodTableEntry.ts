@@ -113,5 +113,5 @@ export async function getKineticsMikronwoodTableEntryAsync(
 
 function getButtingString(blindCountString: BlindCount, index: number, side: 'LHS' | 'RHS') {
   if (blindCountString !== 'butting') return ''
-  return `${side}`
+  return `${side} / ${index}`
 }
