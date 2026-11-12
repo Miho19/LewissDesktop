@@ -100,8 +100,8 @@ function getAdjustedWidth(width: number) {
 export function getKineticsRollerPelmet(spec: KineticsRollerSpec) {
   const { pelmetType } = spec
 
-  if (pelmetType == null) return ''
-  if (pelmetType.trim().length === 0) return ''
+  if (pelmetType == null) return ' '
+  if (pelmetType.trim().length === 0) return ' '
 
   const size = getPelmetSizeFromSpec(pelmetType)
   const fit = capitalise(getPelmetFitFromSpec(pelmetType))

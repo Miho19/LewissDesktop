@@ -8,30 +8,39 @@ import {
   ContentTable,
   Column,
   ContentStack,
-  ContentColumns
+  ContentColumns,
+  TableCell
 } from 'pdfmake/interfaces'
 
 // This file will eventually be redo
 
 export function convertTableEntryToStringArray(tableEntry: TableEntry) {
-  return Object.keys(tableEntry).map((column) => {
-    const columnSplitCapitalised = column
-      .split(' ')
-      .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
-    return columnSplitCapitalised.join(' ')
-  })
+  return Object.keys(tableEntry)
+    .map((column) => {
+      if (typeof tableEntry[column] === 'object') return undefined
+
+      const columnSplitCapitalised = column
+        .split(' ')
+        .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+      return columnSplitCapitalised.join(' ')
+    })
+    .filter((k) => typeof k !== 'undefined')
 }
 
 function createWidthArray(tableEntry: TableEntry, evenCellLength: boolean) {
-  return Object.keys(tableEntry).map((key) => {
-    if (evenCellLength) return '*'
+  return Object.keys(tableEntry)
+    .map((key) => {
+      if (typeof tableEntry[key] === 'object') return undefined
 
-    if (key.localeCompare('fabric', undefined, { sensitivity: 'base' }) === 0) return '*'
+      if (evenCellLength) return '*'
 
-    if (key.localeCompare('colour', undefined, { sensitivity: 'base' }) === 0) return '*'
+      if (key.localeCompare('fabric', undefined, { sensitivity: 'base' }) === 0) return '*'
 
-    return 'auto'
-  })
+      if (key.localeCompare('colour', undefined, { sensitivity: 'base' }) === 0) return '*'
+
+      return 'auto'
+    })
+    .filter((k) => typeof k !== 'undefined')
 }
 
 export function generateTableHeader(tableEntry: TableEntry, centerOnPage: boolean) {
@@ -129,36 +138,38 @@ export function createTable(
 }
 
 //
-export function createBlindTableTextData(tableEntryList: TableEntry[]): Content[][] {
-  const entries: Content[][] = tableEntryList.map((entry) => {
-    return Object.values(entry).map((value) => {
-      if (typeof value === 'object') return []
-      if (typeof value === 'undefined') return []
+export function createBlindTableTextData(tableEntryList: TableEntry[]): TableCell[][] {
+  const entries: TableCell[][] = tableEntryList.map((entry) => {
+    const output = Object.values(entry)
+      .map((value) => {
+        if (typeof value === 'object') return undefined
 
-      let adjustedValue: string | number
-
-      try {
-        const parsedInt = parseInt(value as string)
-
-        if (parsedInt === 0) {
-          adjustedValue = ' '
-        } else {
-          adjustedValue = value
+        if (typeof value === 'undefined') {
+          console.log(value)
+          return undefined
         }
-      } catch {
-        adjustedValue = value
-      }
 
-      return {
-        text: adjustedValue,
-        alignment: 'center',
-        verticalAlignment: 'middle',
-        fontSize: 8
-      }
-    })
+        const adjustedValue = getAdjustedValue(value)
+
+        const tableCell: TableCell = {
+          text: adjustedValue,
+          alignment: 'center',
+          verticalAlignment: 'middle',
+          fontSize: 8
+        }
+
+        return tableCell
+      })
+      .filter((c) => typeof c !== 'undefined')
+
+    return output
   })
 
-  return entries.filter((e) => e.length !== 0)
+  return entries
+}
+
+function getAdjustedValue(value: string | number) {
+  return value === 0 ? ' ' : value.toString()
 }
 
 function createColumn(leftContent: Content, rightContent: Content) {

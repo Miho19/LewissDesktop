@@ -59,8 +59,8 @@ describe('generateWorksheetPDF', () => {
 
     if (windowDisplayList.length === 0) return
 
-    const map = new Map<Blind, WindowDisplay[]>()
-    map.set(blindType, windowDisplayList)
+    // const map = new Map<Blind, WindowDisplay[]>()
+    // map.set(blindType, windowDisplayList)
 
     const worksheet = await createWorksheetAsync(blindType, windowDisplayList, projectFile)
     expect(worksheet).toBeDefined()
