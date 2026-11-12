@@ -1,19 +1,14 @@
 import { Marker, MarkerContent } from '@/components/ui/marker'
-import {
-  getWindowFormTableColumnDefinition,
-  kineticsRollerControlSplitName,
-  KineticsRollerControlSplitType
-} from '@/components/windowTable/utility/columnDefinitions'
+import { getWindowFormTableColumnDefinition } from '@/components/windowTable/utility/columnDefinitions'
 import { windowFormTableFeatures } from '@/components/windowTable/utility/features'
+import { updateWindowTableEntryData } from '@/components/windowTable/utility/updateData'
 import { updateWindowTableEntryCost } from '@/components/windowTable/utility/updatePrice'
 import WindowFormTableFooter from '@/components/windowTable/WindowFormTableFooter'
 import WindowTable from '@/components/windowTable/WindowTable'
 import { ToastDisplayOptions } from '@/components/windowTable/WindowTableContainer'
 import { getTableEntryListAsync } from '@/utility/process/tableEntry'
-import { kineticsRollerDestructureControlString } from '@/utility/process/tableEntry/kineticsRoller'
 import { Blind } from '@shared/types/blind/blind.types'
 import { ProjectFile } from '@shared/types/Project.types'
-import { isKineticsRollerTableEntry } from '@shared/types/tableEntry/kineticsRoller.types'
 import { TableEntry } from '@shared/types/tableEntry/TableEntry.types'
 import { WindowDisplay } from '@shared/types/WindowDisplay.types'
 import { WindowTableEntry } from '@shared/types/WindowTableForm.types'
@@ -50,40 +45,7 @@ function WindowFormTable(props: Props) {
 
     if (typeof prevData === 'undefined') return
 
-    // this is a quick get it working solution -- need to update meta signature to pass in blind type to expand this
-    // this feels very bad and messy
-
-    if ((kineticsRollerControlSplitName as readonly string[]).includes(columnId)) {
-      const tableEntry = prevData.tableEntry
-      if (!isKineticsRollerTableEntry(tableEntry)) return
-      const controlObject = kineticsRollerDestructureControlString(tableEntry.control)
-      if (typeof controlObject === 'undefined') return
-
-      const map: Record<KineticsRollerControlSplitType, string> = {
-        controlType: controlObject.type,
-        controlColour: controlObject.colour,
-        controlLength: controlObject.length
-      }
-
-      const updatedMap = {
-        ...map,
-        [columnId]: value
-      }
-
-      const controlArray = Object.values(updatedMap).map((s) => s)
-      const controlString = controlArray.join(' / ')
-
-      columnId = 'control'
-      value = controlString
-    }
-
-    const updatedData: WindowTableEntry = {
-      ...prevData,
-      tableEntry: {
-        ...prevData.tableEntry,
-        [columnId]: value
-      }
-    }
+    const updatedData = updateWindowTableEntryData(prevData, columnId, value)
 
     const priceUpdatedWindowTableEntry = await updateWindowTableEntryCost(updatedData)
 

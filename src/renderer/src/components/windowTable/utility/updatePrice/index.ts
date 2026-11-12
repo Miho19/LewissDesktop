@@ -1,14 +1,12 @@
 import { updateKineticsCellularCellPriceAsync } from '@/components/windowTable/utility/updatePrice/kineticsCellular'
 import { updateKineticsRollerCellPriceAsync } from '@/components/windowTable/utility/updatePrice/kineticsRoller'
 import { Blind } from '@shared/types/blind/blind.types'
-import { WindowTableEntry } from '@shared/types/WindowTableForm.types'
+import { UpdateWindowTablePriceFn, WindowTableEntry } from '@shared/types/WindowTableForm.types'
 
 export * from './kineticsRoller'
 export * from './kineticsCellular'
 
-type updateFn = (windowTableEntry: WindowTableEntry) => Promise<WindowTableEntry>
-
-const updateFnMap: Record<Blind, updateFn> = {
+const updateFnMap: Record<Blind, UpdateWindowTablePriceFn> = {
   'Kinetics Sunscreen Roller Blind': updateKineticsRollerCellPriceAsync,
   'Kinetics Blockout Roller Blind': updateKineticsRollerCellPriceAsync,
   'Kinetics Light Filtering Roller Blind': updateKineticsRollerCellPriceAsync,

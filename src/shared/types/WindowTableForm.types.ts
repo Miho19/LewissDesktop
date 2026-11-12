@@ -15,9 +15,19 @@ export type PreProcessFn = (
   file: ProjectFile
 ) => WindowTableEntry[]
 
+export type UpdateWindowTablePriceFn = (
+  windowTableEntry: WindowTableEntry
+) => Promise<WindowTableEntry>
+
 export type WindowTableMeta = {
   updateData: (rowIndex: number, columnId: string, value: unknown) => void
 }
+
+export type UpdateWindowTableEntryFn = (
+  prevData: WindowTableEntry,
+  columnId: string,
+  value: unknown
+) => WindowTableEntry
 
 // These will be deleted once we no longer need window table form
 

@@ -22,14 +22,6 @@ import { createColumnHelper } from '@tanstack/react-table'
 
 const columnHelper = createColumnHelper<WindowFormTableFeatures, WindowTableEntry>()
 
-export const kineticsRollerControlSplitName = [
-  'controlType',
-  'controlColour',
-  'controlLength'
-] as const
-
-export type KineticsRollerControlSplitType = (typeof kineticsRollerControlSplitName)[number]
-
 export const kineticsRollerWindowTableColumnDefinition = columnHelper.columns([
   ...windowTableColumnBase,
 
