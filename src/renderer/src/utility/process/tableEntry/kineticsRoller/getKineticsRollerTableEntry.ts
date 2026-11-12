@@ -48,7 +48,7 @@ export async function getKineticsRollerTableEntryAsync(
 
   const { remote, channel } = getRemoteAndChannel(location, control, entries)
 
-  const leftBlindButting = getKineticsRollerButting(blindCount, 'LHS')
+  const leftBlindButting = getKineticsRollerButting(blindCount, 'LHS', index)
 
   const leftBlindCost = await getKineticsRollerCostAsync(
     blindType,
@@ -85,7 +85,7 @@ export async function getKineticsRollerTableEntryAsync(
 
   if (blindCount !== 'butting') return [leftEntry]
 
-  const rightBlindButting = getKineticsRollerButting(blindCount, 'RHS')
+  const rightBlindButting = getKineticsRollerButting(blindCount, 'RHS', index)
 
   const rightChannel = leftEntry.channel > 0 ? leftEntry.channel + 1 : 0
 
@@ -111,14 +111,11 @@ export async function getKineticsRollerTableEntryAsync(
     price: rightBlindCost?.toFixed(2)
   }
 
-  leftEntry.buttingBlindRef = rightEntry
-  rightEntry.buttingBlindRef = leftEntry
-
   return [leftEntry, rightEntry]
 }
 
-function getKineticsRollerButting(blindCount: BlindCount, side: 'LHS' | 'RHS') {
+function getKineticsRollerButting(blindCount: BlindCount, side: 'LHS' | 'RHS', index: number) {
   if (blindCount !== 'butting') return ''
 
-  return `${side}`
+  return `${side} / ${index}`
 }

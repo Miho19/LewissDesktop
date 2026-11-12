@@ -14,7 +14,7 @@ export function isKineticsTableEntryList(
   return tableEntryList.every((e) => isKineticsTableEntry(e))
 }
 
-function isKineticsTableEntry(tableEntry: TableEntry): tableEntry is KineticsTableEntry {
+export function isKineticsTableEntry(tableEntry: TableEntry): tableEntry is KineticsTableEntry {
   if (typeof tableEntry === 'undefined') return false
   if (isKineticsCellularTableEntry(tableEntry)) return true
   if (isKineticsRollerTableEntry(tableEntry)) return true

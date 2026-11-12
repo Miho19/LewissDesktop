@@ -210,7 +210,7 @@ export const kineticsRollerWindowTableColumnDefinition = columnHelper.columns([
   columnHelper.accessor(
     (row) => {
       if (!isKineticsRollerTableEntry(row.tableEntry)) return
-      return row.tableEntry.butting
+      return row.tableEntry.butting.slice(0, 3)
     },
     {
       id: 'butting',
