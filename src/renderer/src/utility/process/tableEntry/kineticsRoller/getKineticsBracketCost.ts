@@ -6,6 +6,9 @@ import { PricingSchedule } from '@shared/types/pricing/pricingSchedule.types'
 import { KineticsRollerSpec } from '@shared/types/spec/kineticsRoller.types'
 import { kineticsRollerConnectedBracketOption } from '@shared/types/WindowTableForm.types'
 
+// if the bracket is connected it must be butting blind to get a price
+// the price is then only added to rhs blind
+
 export function getKineticsRollerBracketCost(
   bracket: string,
   butting: string,

@@ -30,7 +30,7 @@ export async function updateKineticsRollerCellPriceAsync(windowTableEntry: Windo
   )
 
   if (typeof priceUpdated === 'undefined') {
-    console.error(`failed to update price for ${windowTableEntry}`)
+    console.error(`failed to update price for ${windowTableEntry.tableEntry}`)
     return windowTableEntry
   }
 
