@@ -55,3 +55,5 @@ export type FaceFabric = {
   wa: string
   bw: string
 }
+
+export const ControlSideOption = ['left', 'right'] as const

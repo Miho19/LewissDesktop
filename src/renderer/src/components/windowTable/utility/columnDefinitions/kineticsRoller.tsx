@@ -12,12 +12,10 @@ import {
   KineticsRollerControlOption,
   kineticsRollerDestructureControlString
 } from '@/utility/process/tableEntry/kineticsRoller'
+import { KineticsRollerRollOption } from '@shared/types/spec/kineticsRoller.types'
+import { ControlSideOption } from '@shared/types/spec/Spec.types'
 import { isKineticsRollerTableEntry } from '@shared/types/tableEntry/kineticsRoller.types'
-import {
-  ControlSideOption,
-  KineticsRollerRollOption,
-  WindowTableEntry
-} from '@shared/types/WindowTableForm.types'
+import { WindowTableEntry } from '@shared/types/WindowTableForm.types'
 import { createColumnHelper } from '@tanstack/react-table'
 
 const columnHelper = createColumnHelper<WindowFormTableFeatures, WindowTableEntry>()

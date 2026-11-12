@@ -12,11 +12,11 @@ import { SantaFeShutterWindowTableColumnDefinition } from '@/components/windowTa
 import { capitalise } from '@/utility/general/capitalise'
 import { SelectGroup, SelectItem, SelectLabel } from '@/components/ui/select'
 import {
-  kineticsRollerBracketColourOption,
-  kineticsRollerBracketSizeOption,
-  kineticsRollerConnectedBracketColourOption,
-  kineticsRollerConnectedBracketOption
-} from '@shared/types/WindowTableForm.types'
+  KineticsRollerBracketColourOption,
+  KineticsRollerBracketSizeOption,
+  KineticsRollerConnectedBracketColourOption,
+  KineticsRollerConnectedBracketOption
+} from '@shared/types/spec/kineticsRoller.types'
 
 export * from './kineticsCellular'
 export * from './kineticsRoller'
@@ -69,8 +69,8 @@ export function getSelectItemList(blindType: Blind, arr: readonly string[]) {
 }
 
 export function getKineticsRollerBracketSelectItemList(blindType: Blind) {
-  const bracketColour = kineticsRollerBracketColourOption.map((colour) => capitalise(colour))
-  const bracketSize = kineticsRollerBracketSizeOption.map((size) => capitalise(size))
+  const bracketColour = KineticsRollerBracketColourOption.map((colour) => capitalise(colour))
+  const bracketSize = KineticsRollerBracketSizeOption.map((size) => capitalise(size))
 
   const output: React.JSX.Element[] = []
 
@@ -87,11 +87,11 @@ export function getKineticsRollerBracketSelectItemList(blindType: Blind) {
     )
   }
 
-  const connectedBracketColour = kineticsRollerConnectedBracketColourOption.map((colour) =>
+  const connectedBracketColour = KineticsRollerConnectedBracketColourOption.map((colour) =>
     capitalise(colour)
   )
 
-  const connectedBracketOption = kineticsRollerConnectedBracketOption.map((option) =>
+  const connectedBracketOption = KineticsRollerConnectedBracketOption.map((option) =>
     capitalise(option)
   )
 

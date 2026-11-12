@@ -28,27 +28,3 @@ export type UpdateWindowTableEntryFn = (
   columnId: string,
   value: unknown
 ) => WindowTableEntry
-
-// These will be deleted once we no longer need window table form
-
-// General
-export const ControlSideOption = ['left', 'right'] as const
-
-// Kinetics
-
-export const KineticsRollerRollOption = ['front', 'back'] as const
-
-export const kineticsRollerBracketColourOption = ['white', 'cream', 'grey', 'black'] as const
-
-export const kineticsRollerBracketSizeOption = [
-  '40mm',
-  '55mm',
-  'combo front',
-  'combo back'
-] as const
-
-export const kineticsRollerConnectedBracketOption = ['inline', 'intermediate'] as const
-export const kineticsRollerConnectedBracketColourOption = ['white', 'black'] as const
-
-export const KineticsCellularHeadrailColour = ['white', 'off white', 'silver', 'black'] as const
-export const KineticsCellularBottomRailColour = ['white', 'off white', 'silver', 'black'] as const

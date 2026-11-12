@@ -2,11 +2,12 @@ import { windowTableColumnBase } from '@/components/windowTable/utility/columnDe
 import EditableCell from '@/components/windowTable/utility/columnDefinitions/EditableCell'
 import { WindowFormTableFeatures } from '@/components/windowTable/utility/features'
 import { isKineticsCellularTableEntry } from '@shared/types/tableEntry/kineticsCellular.types'
-import { ControlSideOption, WindowTableEntry } from '@shared/types/WindowTableForm.types'
+import { WindowTableEntry } from '@shared/types/WindowTableForm.types'
 import { createColumnHelper } from '@tanstack/react-table'
 import SelectValueCell from '@/components/windowTable/utility/columnDefinitions/SelectValueCell'
 import { getSelectItemList } from '@/components/windowTable/utility/columnDefinitions'
 import { KineticsCellularControlOption } from '@/utility/process/tableEntry/kineticsCellular'
+import { ControlSideOption } from '@shared/types/spec/Spec.types'
 
 const columnHelper = createColumnHelper<WindowFormTableFeatures, WindowTableEntry>()
 

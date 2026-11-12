@@ -1,6 +1,6 @@
 import { Blind } from '@shared/types/blind/blind.types'
 import { Room, WindowMeasurement, ProjectFile } from '@shared/types/Project.types'
-import { RomanTableEntry } from '@shared/types/tableEntry/roman'
+import { RomanTableEntry } from '@shared/types/tableEntry/roman.types'
 import { TableEntry } from '@shared/types/tableEntry/TableEntry.types'
 import { WindowDisplay } from '@shared/types/WindowDisplay.types'
 

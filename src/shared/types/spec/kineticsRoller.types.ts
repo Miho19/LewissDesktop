@@ -31,3 +31,17 @@ export function isKineticsRollerSpec(spec: Spec): spec is KineticsRollerSpec {
 
   return (KineticsRollerBlindOptions as readonly string[]).includes(blindType)
 }
+
+export const KineticsRollerRollOption = ['front', 'back'] as const
+
+export const KineticsRollerBracketColourOption = ['white', 'cream', 'grey', 'black'] as const
+
+export const KineticsRollerBracketSizeOption = [
+  '40mm',
+  '55mm',
+  'combo front',
+  'combo back'
+] as const
+
+export const KineticsRollerConnectedBracketOption = ['inline', 'intermediate'] as const
+export const KineticsRollerConnectedBracketColourOption = ['white', 'black'] as const

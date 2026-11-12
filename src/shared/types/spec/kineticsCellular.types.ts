@@ -25,6 +25,9 @@ export function isKineticsCellularSpec(spec: Spec): spec is KineticsCellularSpec
   return (KineticsCellularBlindOptions as readonly string[]).includes(blindType)
 }
 
-export const opacityOptions = ['translucent', 'blockout'] as const
-
 export const KineticsCellularSideChannelColourOption = ['white', 'custom', 'none'] as const
+
+export const KineticsCellularHeadrailColour = ['white', 'off white', 'silver', 'black'] as const
+export const KineticsCellularBottomRailColour = ['white', 'off white', 'silver', 'black'] as const
+
+export const KineticsCellularOpacityOption = ['translucent', 'blockout'] as const

@@ -3,8 +3,10 @@ import {
   KineticsRollerPricingSchedule
 } from '@shared/types/pricing/kineticsRoller.types'
 import { PricingSchedule } from '@shared/types/pricing/pricingSchedule.types'
-import { KineticsRollerSpec } from '@shared/types/spec/kineticsRoller.types'
-import { kineticsRollerConnectedBracketOption } from '@shared/types/WindowTableForm.types'
+import {
+  KineticsRollerConnectedBracketOption,
+  KineticsRollerSpec
+} from '@shared/types/spec/kineticsRoller.types'
 
 // if the bracket is connected it must be butting blind to get a price
 // the price is then only added to rhs blind
@@ -31,7 +33,7 @@ export function getKineticsRollerBracketCost(
 function isBracketConnected(bracket: string) {
   const { size } = destructureBracket(bracket)
 
-  const found = kineticsRollerConnectedBracketOption.find(
+  const found = KineticsRollerConnectedBracketOption.find(
     (option) => option.localeCompare(size, undefined, { sensitivity: 'base' }) === 0
   )
 

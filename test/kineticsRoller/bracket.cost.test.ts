@@ -1,16 +1,17 @@
 import { getKineticsRollerBracketCost } from '@/utility/process/tableEntry/kineticsRoller/getKineticsBracketCost'
-import {
-  kineticsRollerBracketColourOption,
-  kineticsRollerBracketSizeOption,
-  kineticsRollerConnectedBracketColourOption,
-  kineticsRollerConnectedBracketOption
-} from '@shared/types/WindowTableForm.types'
+
 import { getExamplePricingSchedule } from '../utility'
 import { describe, it, expect } from 'vitest'
+import {
+  KineticsRollerBracketColourOption,
+  KineticsRollerBracketSizeOption,
+  KineticsRollerConnectedBracketColourOption,
+  KineticsRollerConnectedBracketOption
+} from '@shared/types/spec/kineticsRoller.types'
 
 const bracketInput: {
-  colour: (typeof kineticsRollerBracketColourOption)[number]
-  size: (typeof kineticsRollerBracketSizeOption)[number]
+  colour: (typeof KineticsRollerBracketColourOption)[number]
+  size: (typeof KineticsRollerBracketSizeOption)[number]
   butting: string
   expected: number | undefined
 }[] = [
@@ -20,16 +21,16 @@ const bracketInput: {
   { colour: 'black', size: '55mm', butting: '', expected: 0 },
   { colour: 'cream', size: '40mm', butting: '', expected: 0 },
   {
-    colour: '' as (typeof kineticsRollerBracketColourOption)[number],
-    size: '' as (typeof kineticsRollerBracketSizeOption)[number],
+    colour: '' as (typeof KineticsRollerBracketColourOption)[number],
+    size: '' as (typeof KineticsRollerBracketSizeOption)[number],
     butting: '',
     expected: undefined
   }
 ]
 
 const connectedBracketInput: {
-  colour: (typeof kineticsRollerConnectedBracketColourOption)[number]
-  option: (typeof kineticsRollerConnectedBracketOption)[number]
+  colour: (typeof KineticsRollerConnectedBracketColourOption)[number]
+  option: (typeof KineticsRollerConnectedBracketOption)[number]
   butting: string
   expected: number | undefined
 }[] = [
@@ -38,14 +39,14 @@ const connectedBracketInput: {
   { colour: 'black', option: 'intermediate', butting: 'LHS', expected: 54 },
   { colour: 'black', option: 'intermediate', butting: 'RHS', expected: 0 },
   {
-    colour: '' as (typeof kineticsRollerConnectedBracketColourOption)[number],
+    colour: '' as (typeof KineticsRollerConnectedBracketColourOption)[number],
     option: 'inline',
     butting: 'LHS',
     expected: undefined
   },
   {
     colour: 'black',
-    option: '' as (typeof kineticsRollerConnectedBracketOption)[number],
+    option: '' as (typeof KineticsRollerConnectedBracketOption)[number],
     butting: 'LHS',
     expected: undefined
   }

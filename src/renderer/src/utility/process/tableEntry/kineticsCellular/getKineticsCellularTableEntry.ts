@@ -3,8 +3,8 @@ import { Blind } from '@shared/types/blind/blind.types'
 import { ProjectFile, Room, WindowMeasurement } from '@shared/types/Project.types'
 import {
   isKineticsCellularSpec,
-  KineticsCellularSpec,
-  opacityOptions
+  KineticsCellularOpacityOption,
+  KineticsCellularSpec
 } from '@shared/types/spec/kineticsCellular.types'
 import { KineticsCellularTableEntry } from '@shared/types/tableEntry/kineticsCellular.types'
 import { TableEntry } from '@shared/types/tableEntry/TableEntry.types'
@@ -48,13 +48,15 @@ export async function getKineticsCellularTableEntryAsync(
 
   const { remote, channel } = getRemoteAndChannel(location, control, entries)
 
+  const headrailColour = spec.bracketColour
+
   const leftBlindCost = await getKineticsCellularCost(
     blindType,
     width[0],
     height,
     fabricName,
     control,
-    'white',
+    headrailColour,
     sideChannelColour
   )
 
@@ -71,7 +73,7 @@ export async function getKineticsCellularTableEntryAsync(
     fabric: fabricName,
     control,
     'control side': controlSide,
-    'headrail colour': 'White',
+    'headrail colour': headrailColour,
     'side channel': sideChannelColour,
     butting: leftBlindButting,
     remote: remote,
@@ -89,7 +91,7 @@ export async function getKineticsCellularTableEntryAsync(
     height,
     fabricName,
     control,
-    'white',
+    headrailColour,
     sideChannelColour
   )
 
@@ -142,7 +144,7 @@ export function getFabricOpacity(fabricName: string) {
   const fabricStringArray = fabricName.split(' ')
 
   const opacityFound = fabricStringArray.find((word) =>
-    (opacityOptions as readonly string[]).includes(word.toLocaleLowerCase())
+    (KineticsCellularOpacityOption as readonly string[]).includes(word.toLocaleLowerCase())
   )
 
   if (typeof opacityFound === 'undefined') return undefined

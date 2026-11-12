@@ -8,7 +8,7 @@ import { SantaFeShutterTableEntry } from './santaFeShutter.types'
 import { LewissPhoenixwoodTableEntry } from './lewissPhoenixwood.types'
 import { LewissAluminiumTableEntry } from '@shared/types/tableEntry/lewissAluminium.types'
 import { LewissFauxwoodTableEntry } from '@shared/types/tableEntry/lewissFauxwood.types'
-import { RomanTableEntry } from '@shared/types/tableEntry/roman'
+import { RomanTableEntry } from '@shared/types/tableEntry/roman.types'
 import { CurtainTableEntry } from '@shared/types/tableEntry/curtain.types'
 
 export type KineticsTableEntry =
