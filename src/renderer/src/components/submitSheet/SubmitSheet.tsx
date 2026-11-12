@@ -129,6 +129,7 @@ function SubmitSheet(props: Props) {
       }
 
       // pre process here then get table entry list
+      // TODO ---> when there is an error should toast a message here at pre process
 
       const preProcessedList = preProcessAsync(windowTableEntryList, file)
       const tableEntryList = preProcessedList.map((wt) => wt.tableEntry)

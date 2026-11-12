@@ -11,7 +11,6 @@ export function preProcessKineticsCellular(
   windowTableEntry: WindowTableEntry[],
   _file: ProjectFile
 ) {
-  throw new Error('test')
   const updatedIndex = getKineticsUpdatedIndexPreProcessing(windowTableEntry)
 
   const updatedButting = getKineticsUpdatedButtingPreProcessing(updatedIndex)
