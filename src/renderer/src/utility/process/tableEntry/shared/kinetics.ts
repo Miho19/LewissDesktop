@@ -1,4 +1,3 @@
-import { Blind } from '@shared/types/blind/blind.types'
 import { isKineticsTableEntry, isKineticsTableEntryList } from '@shared/types/tableEntry/kinetics'
 import { KineticsTableEntry, TableEntry } from '@shared/types/tableEntry/TableEntry.types'
 import { WindowTableEntry } from '@shared/types/WindowTableForm.types'
