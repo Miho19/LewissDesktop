@@ -101,6 +101,7 @@ export async function getKineticsCellularTableEntryAsync(
 
   const rightEntry: KineticsCellularTableEntry = {
     ...leftEntry,
+    index: index + 1,
     width: width[1],
     butting: rightBlindButting,
     channel: rightBlindChannel,
@@ -151,5 +152,6 @@ export function getFabricOpacity(fabricName: string) {
 
 function getButtingString(blindCountString: BlindCount, index: number, side: 'LHS' | 'RHS') {
   if (blindCountString !== 'butting') return ''
+
   return `${side} / ${index}`
 }

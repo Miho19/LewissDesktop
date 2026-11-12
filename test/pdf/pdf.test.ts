@@ -5,7 +5,6 @@ import {
   getExampleAccessorySchedule,
   getWindowDisplayAndProjectFile
 } from '../utility'
-import { WindowDisplay } from '@shared/types/WindowDisplay.types'
 import { createWorksheetAsync } from '@/utility/process/worksheet/getWorksheetList'
 import { generateWorksheetPDF } from '@main/pdf/generateWorksheetPDF'
 

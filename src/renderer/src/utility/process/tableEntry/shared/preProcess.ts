@@ -1,3 +1,4 @@
+import { preProcessKineticsCellular } from '@/utility/process/tableEntry/kineticsCellular/preProcessKineticsCellular'
 import { preProcessKineticsRoller } from '@/utility/process/tableEntry/kineticsRoller'
 import { Blind } from '@shared/types/blind/blind.types'
 import { ProjectFile } from '@shared/types/Project.types'
@@ -8,8 +9,8 @@ function noPreProcess(_blindType: Blind, windowTableEntry: WindowTableEntry[], _
 }
 
 const preProcessFunctionMap: Record<Blind, PreProcessFn> = {
-  'Kinetics 10mm Cellular Blind': noPreProcess,
-  'Kinetics 20mm Cellular Blind': noPreProcess,
+  'Kinetics 10mm Cellular Blind': preProcessKineticsCellular,
+  'Kinetics 20mm Cellular Blind': preProcessKineticsCellular,
 
   'Kinetics Sunscreen Roller Blind': preProcessKineticsRoller,
   'Kinetics Blockout Roller Blind': preProcessKineticsRoller,
