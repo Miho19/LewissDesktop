@@ -19,6 +19,7 @@ import {
 import useFolder from '@/hook/useFolder'
 import { getLastModifiedFormatted } from '@/utility/general/getLastModifiedFormatted'
 import { FolderItem } from '@shared/types/Folder.types'
+import { useNavigate } from '@tanstack/react-router'
 import {
   columnFilteringFeature,
   createColumnHelper,
@@ -119,6 +120,7 @@ const pricingScheduleFolderId = '01VFVMOAGDZWNVJR6FLFDJXTBKZNOWGLNC'
 
 function SearchInvoiceTable() {
   const { data, isPending, isLoading, isError, error } = useFolder(pricingScheduleFolderId)
+  const navigate = useNavigate()
 
   const invoiceOnlyList: FolderItem[] = useMemo(() => {
     if (!data) return []
@@ -145,6 +147,10 @@ function SearchInvoiceTable() {
   if (isError) {
     toast.error(error.message)
     return <div className="w-full"></div>
+  }
+
+  function rowOnClickHandler(fileId: string) {
+    navigate({ from: '/process/$fileId', params: { fileId: fileId } })
   }
 
   return (
@@ -200,7 +206,7 @@ function SearchInvoiceTable() {
       <div className="w-full rounded-md border">
         <Table>
           <TableHeader>{getTableHeader(table)}</TableHeader>
-          <TableBody>{getTableBody(table)}</TableBody>
+          <TableBody>{getTableBody(table, rowOnClickHandler)}</TableBody>
         </Table>
       </div>
     </div>
@@ -225,7 +231,10 @@ function getTableHeader(table: ReactTable<typeof features, FolderItem>) {
   return headerList
 }
 
-function getTableBody(table: ReactTable<typeof features, FolderItem>) {
+function getTableBody(
+  table: ReactTable<typeof features, FolderItem>,
+  rowOnClick: (fileId: string) => void
+) {
   if (table.getRowModel().rows.length === 0)
     return (
       <TableRow>
@@ -237,7 +246,11 @@ function getTableBody(table: ReactTable<typeof features, FolderItem>) {
 
   const bodyList = table.getRowModel().rows.map((row) => {
     return (
-      <TableRow key={row.id} className="cursor-pointer hover:bg-muted/50 transition-colors">
+      <TableRow
+        key={row.id}
+        className="cursor-pointer hover:bg-muted/50 transition-colors"
+        onClick={() => rowOnClick(row.original.id)}
+      >
         {row.getAllCells().map((cell) => {
           return (
             <TableCell key={cell.id}>

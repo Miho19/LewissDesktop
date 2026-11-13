@@ -10,12 +10,18 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ProcessFileIdRouteImport } from './routes/process/$fileId'
 import { Route as ConsultantConsultantNameIndexRouteImport } from './routes/consultant/$consultantName/index'
 import { Route as ConsultantConsultantNameProjectProjectIdRouteImport } from './routes/consultant/$consultantName/project/$projectId'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProcessFileIdRoute = ProcessFileIdRouteImport.update({
+  id: '/process/$fileId',
+  path: '/process/$fileId',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ConsultantConsultantNameIndexRoute =
@@ -33,17 +39,20 @@ const ConsultantConsultantNameProjectProjectIdRoute =
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/process/$fileId': typeof ProcessFileIdRoute
   '/consultant/$consultantName/': typeof ConsultantConsultantNameIndexRoute
   '/consultant/$consultantName/project/$projectId': typeof ConsultantConsultantNameProjectProjectIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/process/$fileId': typeof ProcessFileIdRoute
   '/consultant/$consultantName': typeof ConsultantConsultantNameIndexRoute
   '/consultant/$consultantName/project/$projectId': typeof ConsultantConsultantNameProjectProjectIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/process/$fileId': typeof ProcessFileIdRoute
   '/consultant/$consultantName/': typeof ConsultantConsultantNameIndexRoute
   '/consultant/$consultantName/project/$projectId': typeof ConsultantConsultantNameProjectProjectIdRoute
 }
@@ -51,22 +60,26 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/process/$fileId'
     | '/consultant/$consultantName/'
     | '/consultant/$consultantName/project/$projectId'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/process/$fileId'
     | '/consultant/$consultantName'
     | '/consultant/$consultantName/project/$projectId'
   id:
     | '__root__'
     | '/'
+    | '/process/$fileId'
     | '/consultant/$consultantName/'
     | '/consultant/$consultantName/project/$projectId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ProcessFileIdRoute: typeof ProcessFileIdRoute
   ConsultantConsultantNameIndexRoute: typeof ConsultantConsultantNameIndexRoute
   ConsultantConsultantNameProjectProjectIdRoute: typeof ConsultantConsultantNameProjectProjectIdRoute
 }
@@ -78,6 +91,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/process/$fileId': {
+      id: '/process/$fileId'
+      path: '/process/$fileId'
+      fullPath: '/process/$fileId'
+      preLoaderRoute: typeof ProcessFileIdRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/consultant/$consultantName/': {
@@ -99,6 +119,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ProcessFileIdRoute: ProcessFileIdRoute,
   ConsultantConsultantNameIndexRoute: ConsultantConsultantNameIndexRoute,
   ConsultantConsultantNameProjectProjectIdRoute:
     ConsultantConsultantNameProjectProjectIdRoute,
