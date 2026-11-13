@@ -2,6 +2,7 @@ import { Link, useParams } from '@tanstack/react-router'
 import { FolderItem } from '@shared/types/Folder.types'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { ScrollArea } from '@/components/ui/scroll-area'
+import { getLastModifiedFormatted } from '@/utility/general/getLastModifiedFormatted'
 
 type Props = {
   folder: FolderItem[]
@@ -88,22 +89,12 @@ function getNavigationLinks(folder: FolderItem[], consultant: string) {
             <span className="text-sm text-muted-foreground">{reference}</span>
           </div>
           <div className="text-xs text-muted-foreground flex w-full justify-end">
-            {getFormattedLastModified(f.lastModified)}
+            {getLastModifiedFormatted(f.lastModified)}
           </div>
         </Link>
       )
     })
     .flat()
-}
-
-function getFormattedLastModified(dateString: string) {
-  const date = new Date(dateString)
-
-  return new Intl.DateTimeFormat('en-NZ', {
-    timeZone: 'Pacific/Auckland',
-    dateStyle: 'medium',
-    timeStyle: 'short'
-  }).format(date)
 }
 
 export default FileList
