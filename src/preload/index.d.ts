@@ -10,6 +10,7 @@ import type {
 } from '@shared/types/pricing/pricingSchedule.types'
 import { Worksheet } from '@shared/types/worksheet/Worksheet.types'
 import type { ApplicationInformation } from '@shared/types/Application.types'
+import { ProcessFile } from '@shared/types/process/Process.types'
 
 export interface Api {
   getStaffList: () => Promise<GETStaffResponse>
@@ -27,6 +28,7 @@ export interface Api {
   ) => Promise<POSTFileResponse>
   writeWorksheetPDFToOrder: (worksheet: Worksheet, pdfBase64: string) => Promise<POSTFileResponse>
   writeWorksheetPDFToPending: (worksheet: Worksheet, pdfBase64: string) => Promise<POSTFileResponse>
+  getProcessFile: (fileId: string) => Promise<ProcessFile>
 }
 
 declare global {

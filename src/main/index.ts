@@ -18,6 +18,7 @@ import { ProjectFile } from '@shared/types/Project.types'
 import { POSTWorksheet } from '@main/http/POSTWorksheet'
 import { POSTFileResponse } from '@shared/types/Folder.types'
 import { POSTHistoryPDF, writePDFToDisk } from '@main/http/POSTHistoryPDF'
+import { GETProcessFile } from '@main/http/GETProcessFile'
 
 function createWindow(): void {
   // Create the browser window.
@@ -292,3 +293,13 @@ ipcMain.handle(
     }
   }
 )
+
+ipcMain.handle('get-process-file', async (_event, fileId: string) => {
+  try {
+    const response = await GETProcessFile(fileId)
+    return response
+  } catch (error) {
+    if (error instanceof Error && log) console.error(error.message)
+    throw new Error('failed to fetch process file', { cause: error })
+  }
+})

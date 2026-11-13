@@ -19,7 +19,8 @@ const api: Api = {
   writeWorksheetPDFToOrder: (worksheet, pdfBase64) =>
     ipcRenderer.invoke('write-worksheet-pdf-orders', worksheet, pdfBase64),
   writeWorksheetPDFToPending: (worksheet, pdfBase64) =>
-    ipcRenderer.invoke('write-worksheet-pdf-pending', worksheet, pdfBase64)
+    ipcRenderer.invoke('write-worksheet-pdf-pending', worksheet, pdfBase64),
+  getProcessFile: (fileId) => ipcRenderer.invoke('get-process-file', fileId)
 }
 
 // Use `contextBridge` APIs to expose Electron APIs to
