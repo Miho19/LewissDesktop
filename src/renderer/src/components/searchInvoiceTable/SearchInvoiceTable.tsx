@@ -1,3 +1,12 @@
+import {
+  Field,
+  FieldDescription,
+  FieldGroup,
+  FieldLabel,
+  FieldLegend,
+  FieldSet
+} from '@/components/ui/field'
+import { Input } from '@/components/ui/input'
 import { Spinner } from '@/components/ui/spinner'
 import {
   Table,
@@ -11,8 +20,12 @@ import useFolder from '@/hook/useFolder'
 import { getLastModifiedFormatted } from '@/utility/general/getLastModifiedFormatted'
 import { FolderItem } from '@shared/types/Folder.types'
 import {
+  columnFilteringFeature,
   createColumnHelper,
+  createFilteredRowModel,
   createSortedRowModel,
+  filterFn_includesString,
+  filterFn_inNumberRange,
   ReactTable,
   rowSortingFeature,
   sortFn_alphanumeric,
@@ -26,6 +39,12 @@ import { useMemo } from 'react'
 import { toast } from 'sonner'
 
 const features = tableFeatures({
+  columnFilteringFeature,
+  filteredRowModel: createFilteredRowModel(),
+  filterFns: {
+    includesString: filterFn_includesString,
+    inNumberRange: filterFn_inNumberRange
+  },
   rowSortingFeature,
   sortedRowModel: createSortedRowModel(),
   sortFns: {
@@ -129,10 +148,62 @@ function SearchInvoiceTable() {
   }
 
   return (
-    <Table>
-      <TableHeader>{getTableHeader(table)}</TableHeader>
-      <TableBody>{getTableBody(table)}</TableBody>
-    </Table>
+    <div className="w-full flex flex-col gap-8">
+      <FieldSet>
+        <FieldLegend>Pricing Schedule</FieldLegend>
+        <FieldDescription>Select to process</FieldDescription>
+        <FieldGroup>
+          <div className="flex flex-col md:grid grid-cols-3 gap-4">
+            <Field>
+              <FieldLabel htmlFor="customerName">Customer Name</FieldLabel>
+              <Input
+                placeholder="Filter customer name"
+                value={(table.getColumn('customerName')?.getFilterValue() as string) ?? ''}
+                onChange={(event) =>
+                  table.getColumn('customerName')?.setFilterValue(event.target.value)
+                }
+                className="max-w-sm"
+                id="customerName"
+                name="customerName"
+              />
+            </Field>
+            <Field>
+              <FieldLabel htmlFor="customerNumber">Customer Number</FieldLabel>
+              <Input
+                placeholder="Filter customer number"
+                value={(table.getColumn('customerNumber')?.getFilterValue() as string) ?? ''}
+                onChange={(event) =>
+                  table.getColumn('customerNumber')?.setFilterValue(event.target.value)
+                }
+                className="max-w-sm"
+                id="customerNumber"
+                name="customerNumber"
+              />
+            </Field>
+            <Field>
+              <FieldLabel htmlFor="invoiceNumber">Invoice Number</FieldLabel>
+              <Input
+                placeholder="Filter invoice number"
+                value={(table.getColumn('invoiceNumber')?.getFilterValue() as string) ?? ''}
+                onChange={(event) =>
+                  table.getColumn('invoiceNumber')?.setFilterValue(event.target.value)
+                }
+                className="max-w-sm"
+                id="invoiceNumber"
+                name="invoiceNumber"
+              />
+            </Field>
+          </div>
+        </FieldGroup>
+      </FieldSet>
+
+      <div className="w-full rounded-md border">
+        <Table>
+          <TableHeader>{getTableHeader(table)}</TableHeader>
+          <TableBody>{getTableBody(table)}</TableBody>
+        </Table>
+      </div>
+    </div>
   )
 }
 
@@ -159,7 +230,7 @@ function getTableBody(table: ReactTable<typeof features, FolderItem>) {
     return (
       <TableRow>
         <TableCell colSpan={table.getAllColumns().length} className="text-center">
-          Nothing to process
+          No results
         </TableCell>
       </TableRow>
     )
