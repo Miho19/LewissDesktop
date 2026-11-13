@@ -58,7 +58,6 @@ function CustomerFieldSet(props: Props) {
   return (
     <FieldSet className="w-full">
       <FieldLegend>Customer</FieldLegend>
-      <FieldDescription></FieldDescription>
 
       <Field data-invalid={!!errorObject.customerName.isError}>
         <FieldLabel htmlFor="customerName">Full Name</FieldLabel>
