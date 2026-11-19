@@ -169,7 +169,16 @@ export function createBlindTableTextData(tableEntryList: TableEntry[]): TableCel
 }
 
 function getAdjustedValue(value: string | number) {
-  return value === 0 ? ' ' : value.toString()
+  if (typeof value === 'number') {
+    if (value === 0) return ' '
+    return value.toString()
+  }
+
+  if (typeof value !== 'string') throw new Error(`Incorrect value type`)
+
+  if (value.length === 0) return ' '
+  if (value === '0') return ' '
+  return value
 }
 
 function createColumn(leftContent: Content, rightContent: Content) {
