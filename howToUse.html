@@ -18,45 +18,193 @@
         width: 100%;
         min-height: 100vh;
       }
-
-      h1 {
-        font-size: 2.5rem;
-        font-weight: 700;
-        margin-bottom: 2rem;
-      }
-      main {
-        padding: 1rem;
-        display: flex;
-        flex-direction: column;
-        width: 100%;
-        height: 100%;
-        justify-content: center;
-        align-items: center;
-      }
-      .table-content-header {
-        margin-bottom: 1rem;
-        font-weight: 700;
-        font-size: 1.5rem;
-      }
     </style>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
   </head>
   <body>
-    <main>
-      <h1 class="">Lewis's Processing</h1>
-      <section id="content">
-        <h2 class="table-content-header">Table of Contents</h2>
-        <ol>
-          <li><a href="#getShortcut">Get Shortcut</a></li>
-        </ol>
-      </section>
-      <section id="getShortcut">
-        <h2>Get shortcut</h2>
-        <video width="1280" height="720" controls>
-          <source src="K:\Data\Process\Development\video\getShortcut.mp4" type="video/mp4" />
-          Your browser does not support the video tag.
-        </video>
-        <p></p>
-      </section>
+    <main class="flex flex-col gap-8 w-full items-center p-6 h-full">
+      <nav id="content" class="flex flex-col w-full items-center" aria-label="Main Navigation">
+        <ul class="flex flex-col gap-2">
+          <h2 class="font-semibold text-slate-900">Table of Contents</h2>
+
+          <li class="text-md hover:font-semibold transition-all duration-150">
+            <a href="#getShortcut">Get Shortcut</a>
+          </li>
+          <li class="text-md hover:font-semibold transition-all duration-150">
+            <a href="#selectBlind">Select Blind</a>
+          </li>
+          <li class="text-md hover:font-semibold transition-all duration-150">
+            <a href="#selectProject">Select Project</a>
+          </li>
+          <li class="text-md hover:font-semibold transition-all duration-150">
+            <a href="#editBlind">Edit Blind</a>
+          </li>
+          <li class="text-md hover:font-semibold transition-all duration-150">
+            <a href="#submitBlind">Submit Blind</a>
+          </li>
+          <li class="text-md hover:font-semibold transition-all duration-150">
+            <a href="#editCustomer">Edit Customer Details</a>
+          </li>
+          <li class="text-md hover:font-semibold transition-all duration-150">
+            <a href="#editInstructions">Edit Factory Instructions</a>
+          </li>
+          <li class="text-md hover:font-semibold transition-all duration-150">
+            <a href="#editMotor">Specify Motor Accessories</a>
+          </li>
+          <li class="text-md hover:font-semibold transition-all duration-150">
+            <a href="#processOrder">Process Order</a>
+          </li>
+          <li class="text-md hover:font-semibold transition-all duration-150">
+            <a href="#pdfCreated">PDF created</a>
+          </li>
+          <li class="text-md hover:font-semibold transition-all duration-150">
+            <a href="#outputLocation">Output Location</a>
+          </li>
+        </ul>
+      </nav>
+
+      <ul class="flex flex-col gap-16">
+        <li>
+          <section id="getShortcut" class="flex flex-col gap-4">
+            <h2 class="font-semibold text-md">Get shortcut</h2>
+            <video width="1280" height="720" controls>
+              <source src="K:\Data\Process\Development\video\getShortcut.mp4" type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+            <p>
+              Navigate to
+              <span class="font-semibold">K:\Data\Process\Development\processing</span> and copy the
+              shortcut to your desktop
+            </p>
+          </section>
+        </li>
+
+        <li>
+          <section id="selectProject" class="flex flex-col gap-4">
+            <h2 class="font-semibold text-md">Select Project</h2>
+            <video width="1280" height="720" controls>
+              <source src="K:\Data\Process\Development\video\selectProject.mp4" type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+            <p>Use the navigation bar on the left to select a consultant</p>
+            <p>A list of projects will be displayed and be selectable</p>
+            <p>Select a project to view all windows split into tables by their blind type</p>
+            <p class="text-sm text-slate-600">
+              If a window is missing, it either has information missing from the treatment or is a
+              roman/curtain
+            </p>
+          </section>
+        </li>
+
+        <li>
+          <section id="selectBlind" class="flex flex-col gap-4">
+            <h2 class="font-semibold text-md">Select Blind</h2>
+            <video width="1280" height="720" controls>
+              <source src="K:\Data\Process\Development\video\selectBlind.mp4" type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+            <p>Select the window(s) you wish to process</p>
+          </section>
+        </li>
+
+        <li>
+          <section id="editBlind" class="flex flex-col gap-4">
+            <h2 class="font-semibold text-md">Edit Blind</h2>
+            <video width="1280" height="720" controls>
+              <source src="K:\Data\Process\Development\video\editData.mp4" type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+            <p>Some fields are editable</p>
+            <p>Remote and channel are expected to be edited</p>
+          </section>
+        </li>
+
+        <li>
+          <section id="submitBlind" class="flex flex-col gap-4">
+            <h2 class="font-semibold text-md">Submit Blind</h2>
+            <video width="1280" height="720" controls>
+              <source src="K:\Data\Process\Development\video\submitBlind.mp4" type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+            <p>
+              Each blind type has a separate submit button as each blind type produces its own PDF
+            </p>
+          </section>
+        </li>
+
+        <li>
+          <section id="editCustomer" class="flex flex-col gap-4">
+            <h2 class="font-semibold text-md">Edit Customer Details</h2>
+            <video width="1280" height="720" controls>
+              <source src="K:\Data\Process\Development\video\customer.mp4" type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+            <p>These values are displayed on the PDF</p>
+            <p>
+              The reference number is taken from Measure Pro but should be adjusted to match the
+              current customer-invoice number you have
+            </p>
+          </section>
+        </li>
+
+        <li>
+          <section id="editInstructions" class="flex flex-col gap-4">
+            <h2 class="font-semibold text-md">Edit Factory Instructions</h2>
+            <video width="1280" height="720" controls>
+              <source src="K:\Data\Process\Development\video\instructions.mp4" type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+            <p>These instructions are for the factory</p>
+          </section>
+        </li>
+
+        <li>
+          <section id="editMotor" class="flex flex-col gap-4">
+            <h2 class="font-semibold text-md">Edit Motor Accessories</h2>
+            <video width="1280" height="720" controls>
+              <source src="K:\Data\Process\Development\video\motor.mp4" type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+            <p>You must manually specify how many remotes you require for this order</p>
+          </section>
+        </li>
+
+        <li>
+          <section id="processOrder" class="flex flex-col gap-4">
+            <h2 class="font-semibold text-md">Process Order</h2>
+            <video width="1280" height="720" controls>
+              <source src="K:\Data\Process\Development\video\submit.mp4" type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+            <p>You are able to go back and adjust details as needed</p>
+            <p>Clicking process will create PDFs and worksheets on SharePoint</p>
+          </section>
+        </li>
+
+        <li>
+          <section id="pdfCreated" class="flex flex-col gap-4">
+            <h2 class="font-semibold text-md">PDF Created</h2>
+            <video width="1280" height="720" controls>
+              <source src="K:\Data\Process\Development\video\pdfmade.mp4" type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+            <p>Once the process has finished, the PDF will be opened locally as a temporary file</p>
+            <p>You <span class="font-semibold">do not</span> need to save this file</p>
+            <p>This is simply to inspect the PDF for any errors</p>
+          </section>
+        </li>
+
+        <li>
+          <section id="outputLocation" class="flex flex-col gap-4">
+            <h2 class="font-semibold text-md">Output</h2>
+            <p>
+              PDFs created will be available at
+              <span class="font-semibold">K:\Data\Process\Wip\Pending</span>
+            </p>
+            <p>These are named in the same manner as the current system</p>
+          </section>
+        </li>
+      </ul>
     </main>
   </body>
 </html>
