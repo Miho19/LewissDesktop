@@ -1,12 +1,5 @@
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle
-} from '@/components/ui/card'
-import { Marker, MarkerContent } from '@/components/ui/marker'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+
 import { Separator } from '@/components/ui/separator'
 import { capitalise } from '@/utility/general/capitalise'
 import { getLastModifiedFormatted } from '@/utility/general/getLastModifiedFormatted'
@@ -29,15 +22,11 @@ function WorksheetHeader(props: Props) {
   const {
     blindCount,
     curtainCount,
-    callOutFee,
+
     deliveryWeeks,
     deposit,
     grandTotalNet,
-    colourSurchargeTotal,
-    extraChargesTotal,
-    installDiscount,
-    specialDiscount,
-    roomsNetTotal,
+
     isNewBuild
   } = order
 

@@ -5,6 +5,8 @@ describe.skip('Get Folder Test', () => {
   it('should return a list of folder items', async () => {
     const result = await GETFolder('01VFVMOAGDZWNVJR6FLFDJXTBKZNOWGLNC')
 
+    expect(result).toBeDefined()
+
     console.log(result)
   })
 })
