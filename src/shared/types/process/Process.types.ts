@@ -57,7 +57,7 @@ export type Order = {
   deposit: number
 }
 
-type Line = {
+export type Line = {
   line: number
   roomId: string
   room: string
