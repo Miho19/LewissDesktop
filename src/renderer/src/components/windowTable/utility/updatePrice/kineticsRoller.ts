@@ -1,16 +1,11 @@
 import { getKineticsRollerCostAsync } from '@/utility/process/tableEntry/kineticsRoller'
-import { isKineticsRollerSpec } from '@shared/types/spec/kineticsRoller.types'
 import { isKineticsRollerTableEntry } from '@shared/types/tableEntry/kineticsRoller.types'
 import { WindowTableEntry } from '@shared/types/WindowTableForm.types'
 
 export async function updateKineticsRollerCellPriceAsync(windowTableEntry: WindowTableEntry) {
-  const { blindType, windowDisplay, tableEntry } = windowTableEntry
-  const { spec } = windowDisplay
-  if (!isKineticsRollerSpec(spec)) throw new Error('must be kinetics roller spec')
+  const { blindType, tableEntry } = windowTableEntry
 
-  const fabric = spec.fabric
-  if (fabric == null) return windowTableEntry
-  const fabricMultiplier = fabric.multiplier
+  const fabricMultiplier = 1
 
   if (!isKineticsRollerTableEntry(tableEntry)) return windowTableEntry
 

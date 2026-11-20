@@ -16,6 +16,10 @@ import kineticsAccessorySchedule from './fixtures/kinetics-accessories.json'
 import venetianAccessorySchedule from './fixtures/venetian-accessories.json'
 import { AccessorySchedule, PricingSchedule } from '@shared/types/pricing/pricingSchedule.types'
 
+import kineticsCellularProcessFile from './fixtures/processFileCellular.json'
+import kineticsRollerProcessFile from './fixtures/processFileRoller.json'
+import { ProcessFile } from '@shared/types/process/Process.types'
+
 export function getWindowDisplayAndProjectFile(blindType: Blind) {
   const projectFile = getExampleProjectFile()
   const filteredList = getFilterWindowDisplay(blindType, projectFile)
@@ -26,6 +30,25 @@ export function getWindowDisplayAndProjectFile(blindType: Blind) {
 export function getExampleProjectFile() {
   const projectFile: ProjectFile = JSON.parse(JSON.stringify(exampleProjectFile))
   return projectFile
+}
+
+export function getExampleProcessFile(blindType: Blind): ProcessFile {
+  let fileType: unknown
+
+  switch (blindType) {
+    case 'Kinetics 10mm Cellular Blind':
+      fileType = kineticsCellularProcessFile
+      break
+    case 'Kinetics Blockout Roller Blind':
+    case 'Kinetics Light Filtering Roller Blind':
+    case 'Kinetics Sunscreen Roller Blind':
+      fileType = kineticsRollerProcessFile
+      break
+    default:
+      throw new Error(`${blindType} does not have an example process file`)
+  }
+
+  return JSON.parse(JSON.stringify(fileType))
 }
 
 function getFilterWindowDisplay(blindType: Blind, file: ProjectFile) {
