@@ -1,5 +1,5 @@
 import CustomerHeader from '@/components/processPageHeader/CustomerHeader'
-import { Item, ItemContent, ItemDescription, ItemHeader, ItemTitle } from '@/components/ui/item'
+import WorksheetHeader from '@/components/processPageHeader/worksheetHeader'
 import { ProcessFile } from '@shared/types/process/Process.types'
 
 type Props = {
@@ -24,10 +24,11 @@ function ProcessPageHeader(props: Props) {
   const { customer } = file
 
   console.log(file)
-
+  // lazy for now, will destruct objects later
   return (
     <div className="flex flex-col w-full gap-8">
       <CustomerHeader {...customer} />
+      <WorksheetHeader {...file} />
     </div>
   )
 }

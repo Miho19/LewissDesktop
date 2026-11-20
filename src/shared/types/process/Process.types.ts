@@ -36,7 +36,7 @@ type Customer = {
   longitude: number
 }
 
-type Order = {
+export type Order = {
   grandTotalNet: number
   roomsNetTotal: number
   callOutFee: number
