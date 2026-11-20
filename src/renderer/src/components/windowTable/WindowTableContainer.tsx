@@ -28,7 +28,7 @@ function WindowTableContainer(props: Props) {
   const [isSheetOpen, setIsSheetOpen] = useState(false)
   const [submitData, setSubmitData] = useState<WindowTableEntry[]>([])
 
-  const windowDisplayList = getWindowDisplayList(file)
+  const windowDisplayList = getWindowDisplayList(file) // redo this
   const map = getWindowDisplayListAsMap(windowDisplayList)
 
   if (map.size === 0) return <WindowTableContainerEmpty />
