@@ -24,10 +24,6 @@ type Props = {
   order: Order
 }
 
-// pricing types
-// estimate
-// final
-
 function WorksheetHeader(props: Props) {
   const { scheduleRef, pricingType, order, salesConsultant, measurer, createdBy, createdAt } = props
   const {
@@ -47,12 +43,23 @@ function WorksheetHeader(props: Props) {
 
   return (
     <Card className="border-0 shadow-none ring-0">
-      <CardHeader>
+      <CardHeader className="flex flex-col gap-2">
         <CardTitle className="flex w-full items-center justify-between">
           <p>{scheduleRef}</p>
           <p>{getOrderStatus(order)}</p>
         </CardTitle>
-        <CardDescription>{capitalise(pricingType)}</CardDescription>
+        <CardDescription className="flex w-full justify-between">
+          <div>{capitalise(pricingType)}</div>
+          <div className="grid grid-cols-[auto_1fr] gap-x-4 gap-y-2">
+            <div className="text-foreground font-semibold">Total</div>
+            <div className="text-right text-foreground font-semibold">
+              {grandTotalNet.toFixed(2)}
+            </div>
+
+            <div className="text-foreground">Deposit</div>
+            <div className="text-right text-muted-foreground">{deposit.toFixed(2)}</div>
+          </div>
+        </CardDescription>
       </CardHeader>
       <Separator orientation="horizontal" className="my-4" />
       <CardContent className="flex flex-col w-full gap-8">
@@ -87,8 +94,27 @@ function WorksheetHeader(props: Props) {
           </div>
         </section>
       </CardContent>
-      <CardFooter className="flex w-full justify-center bg-background">
-        <section className="grid grid-cols-[auto_1fr] gap-x-4 gap-y-2">
+    </Card>
+  )
+}
+
+function getOrderStatus(order: Order) {
+  switch (order.pricingType) {
+    case 'estimate':
+      return <Calculator className="text-red-500" />
+    case 'final':
+      return <CircleCheckBig className="text-green-500" />
+    default:
+      return <CircleQuestionMark className="text-yellow-500" />
+  }
+}
+
+export default WorksheetHeader
+
+// if i ever want to display full pricing information out
+
+{
+  /* <section className="grid grid-cols-[auto_1fr] gap-x-4 gap-y-2">
           <div className="text-foreground">Room Net Total</div>
           <div className="text-right text-foreground">{roomsNetTotal.toFixed(2)}</div>
           {colourSurchargeTotal > 0 && (
@@ -127,21 +153,5 @@ function WorksheetHeader(props: Props) {
 
           <div className="text-foreground font-semibold">Deposit</div>
           <div className="text-right text-foreground font-semibold">{deposit.toFixed(2)}</div>
-        </section>
-      </CardFooter>
-    </Card>
-  )
+        </section> */
 }
-
-function getOrderStatus(order: Order) {
-  switch (order.pricingType) {
-    case 'estimate':
-      return <Calculator className="text-red-500" />
-    case 'final':
-      return <CircleCheckBig className="text-green-500" />
-    default:
-      return <CircleQuestionMark className="text-yellow-500" />
-  }
-}
-
-export default WorksheetHeader
