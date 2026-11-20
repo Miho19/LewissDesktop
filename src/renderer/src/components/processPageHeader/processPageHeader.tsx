@@ -1,3 +1,5 @@
+import CustomerHeader from '@/components/processPageHeader/CustomerHeader'
+import { Item, ItemContent, ItemDescription, ItemHeader, ItemTitle } from '@/components/ui/item'
 import { ProcessFile } from '@shared/types/process/Process.types'
 
 type Props = {
@@ -19,12 +21,13 @@ type Props = {
 
 function ProcessPageHeader(props: Props) {
   const { file } = props
+  const { customer } = file
+
+  console.log(file)
 
   return (
-    <div>
-      {Object.values(file).map((s) => (
-        <p>{s.toString()}</p>
-      ))}
+    <div className="flex flex-col w-full gap-8">
+      <CustomerHeader {...customer} />
     </div>
   )
 }
