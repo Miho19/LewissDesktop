@@ -82,7 +82,7 @@ export type Line = {
   covers: Cover[]
 }
 
-type Cover = {
+export type Cover = {
   windowId: string
   name: string
   scheduleCode: any
