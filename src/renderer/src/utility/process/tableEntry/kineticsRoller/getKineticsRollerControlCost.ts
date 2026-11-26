@@ -82,11 +82,13 @@ function getChainCost(control: string, pricingSchedule: KineticsRollerPricingSch
   const foundColour = surchargeColours.find(
     (c) => c.name.localeCompare(colour, undefined, { sensitivity: 'base' }) === 0
   )
-  if (typeof foundColour === 'undefined') return baseCost
+  if (typeof foundColour === 'undefined') return baseCost * WHOLESALE_RATE_MAIN
 
   const lengthParsed = parseInt(length)
 
-  return (foundColour.cost * (lengthParsed / 1000) + baseCost) * WHOLESALE_RATE_MAIN
+  const surcharge = foundColour.cost * (lengthParsed / 1000)
+
+  return (surcharge + baseCost) * WHOLESALE_RATE_MAIN
 }
 
 export function kineticsRollerDestructureControlString(control: string):

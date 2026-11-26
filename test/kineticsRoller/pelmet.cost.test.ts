@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'vitest'
 import { getExamplePricingSchedule } from '../utility'
 import { getKineticsRollerPelmetCost } from '@renderer/utility/process/tableEntry/kineticsRoller'
+import { WHOLESALE_RATE_MAIN } from '@/utility/process/tableEntry'
 
 /**
  *  add these in later
@@ -86,7 +87,9 @@ describe('getKineticsRollerPelmetCost', () => {
       if (typeof expected === 'undefined') {
         expect(() => getKineticsRollerPelmetCost(width, pelmet, pricingSchedule)).toThrow()
       } else {
-        expect(getKineticsRollerPelmetCost(width, pelmet, pricingSchedule)).toBeCloseTo(expected)
+        expect(getKineticsRollerPelmetCost(width, pelmet, pricingSchedule)).toBeCloseTo(
+          expected * WHOLESALE_RATE_MAIN
+        )
       }
     }
   )
