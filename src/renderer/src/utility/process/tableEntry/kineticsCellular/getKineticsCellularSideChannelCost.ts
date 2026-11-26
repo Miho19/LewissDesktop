@@ -5,6 +5,7 @@ import {
 import { PricingSchedule } from '@shared/types/pricing/pricingSchedule.types'
 import { KineticsCellularSideChannelColourOption } from '@shared/types/spec/kineticsCellular.types'
 import { roundMeasurementUp } from '@renderer/utility/process/tableEntry/shared/roundMeasurementUp'
+import { WHOLESALE_RATE_MAIN } from '@/utility/process/tableEntry'
 
 export function getKineticsCellularSideChannelCost(
   height: number,
@@ -20,7 +21,7 @@ export function getKineticsCellularSideChannelCost(
   const colourSurchage = getColourSurcharge(sideChannelColour, pricingSchedule)
   const costPerMetreHeight = getCostPerMetreHeight(height, pricingSchedule)
 
-  return costPerMetreHeight + colourSurchage
+  return (costPerMetreHeight + colourSurchage) * WHOLESALE_RATE_MAIN
 }
 
 function isHeightValid(height: number) {

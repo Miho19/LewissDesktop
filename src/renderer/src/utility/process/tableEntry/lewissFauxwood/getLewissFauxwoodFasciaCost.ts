@@ -1,3 +1,4 @@
+import { WHOLESALE_RATE_MAIN } from '@/utility/process/tableEntry'
 import { getWidthIndex } from '@/utility/process/tableEntry/shared/getWidthIndex'
 import {
   getToNearest,
@@ -33,7 +34,7 @@ export function getLewissFauxwoodFasciaCost(
   const fasciaCost = getFasciaCost(pricingSchedule)
   if (typeof fasciaCost === 'undefined') return undefined
 
-  return (widthRounded / 1000) * fasciaCost
+  return (widthRounded / 1000) * fasciaCost * WHOLESALE_RATE_MAIN
 }
 
 // magic number 5000

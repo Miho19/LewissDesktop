@@ -1,4 +1,5 @@
 import { capitalise } from '@/utility/general/capitalise'
+import { WHOLESALE_RATE_MAIN } from '@/utility/process/tableEntry'
 import {
   isKineticsRollerPricingSchedule,
   KineticsRollerPricingSchedule
@@ -29,7 +30,7 @@ export function getKineticsRollerPelmetCost(
 
   const cost = costArray[widthIndex]
 
-  return cost
+  return cost * WHOLESALE_RATE_MAIN
 }
 
 function isWidthValid(width: number) {

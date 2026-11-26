@@ -1,3 +1,4 @@
+import { WHOLESALE_RATE_MAIN } from '@/utility/process/tableEntry'
 import { AccessorySchedule } from '@shared/types/pricing/pricingSchedule.types'
 import {
   isLewissAccessorySchedule,
@@ -24,8 +25,9 @@ export function getLewissVenetianSpacerBlockCost(
   if (typeof cost === 'undefined') return undefined
 
   const spacerBlockAdjusted = getSpacerBlockAdjusted(spacerBlock)
+  if (spacerBlockAdjusted !== 'yes') return 0
 
-  return spacerBlockAdjusted === 'yes' ? cost : 0
+  return cost * WHOLESALE_RATE_MAIN
 }
 
 function isInputValid(spacerBlock: string) {

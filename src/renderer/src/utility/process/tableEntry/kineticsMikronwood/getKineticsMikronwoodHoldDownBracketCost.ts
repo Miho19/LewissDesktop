@@ -1,3 +1,4 @@
+import { WHOLESALE_RATE_MAIN } from '@/utility/process/tableEntry'
 import {
   isKineticsMikronwoodPricingSchedule,
   KineticsMikronwoodPricingSchedule
@@ -14,8 +15,9 @@ export function getKineticsMikronwoodHoldDownBracketCost(
   if (holdDownBracket.trim().length === 0) return 0
 
   const holdDownBracketCost = getCost(holdDownBracket, pricingSchedule)
+  if (typeof holdDownBracketCost === 'undefined') return undefined
 
-  return holdDownBracketCost
+  return holdDownBracketCost * WHOLESALE_RATE_MAIN
 }
 
 function isInputValid(fascia: string) {

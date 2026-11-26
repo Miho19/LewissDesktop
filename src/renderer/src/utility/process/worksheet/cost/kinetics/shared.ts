@@ -9,6 +9,7 @@ import { retrieveAccessorySchedule } from '@renderer/utility/process/pricingSche
 import { Blind } from '@shared/types/blind/blind.types'
 import { ProjectFile } from '@shared/types/Project.types'
 import { WindowDisplay } from '@shared/types/WindowDisplay.types'
+import { WHOLESALE_RATE_MOTOR } from '@/utility/process/tableEntry'
 
 /**
  *
@@ -55,10 +56,12 @@ function getRemoteExtra(
 
   const maxRemote = getMaxRemote(tableEntryList)
 
+  const cost = remoteCostObject.cost * WHOLESALE_RATE_MOTOR
+
   const remoteExtra: Extra = {
     name: '15 Channel Remote',
     quantity: maxRemote,
-    cost: remoteCostObject.cost
+    cost: cost
   }
 
   return remoteExtra
@@ -75,7 +78,7 @@ function getChargerExtra(remoteExtra: Extra, accessorySchedule: KineticsAccessor
   const chargerCostObject = accessorySchedule.motorisation.find((m) => m.name === 'usbCharger')
   if (typeof chargerCostObject === 'undefined') return undefined
 
-  const cost = chargerCostObject.cost
+  const cost = chargerCostObject.cost * WHOLESALE_RATE_MOTOR
 
   const chargerExtra: Extra = {
     name: 'USB Charger Cable',
@@ -102,10 +105,12 @@ export async function kineticsGetExtraListAsync(
   )
   if (typeof remoteCostObject === 'undefined') return undefined
 
+  const remoteCost = remoteCostObject.cost * WHOLESALE_RATE_MOTOR
+
   const remoteExtra: Extra = {
     name: '15 Channel Remote',
     quantity: remoteNumber,
-    cost: remoteCostObject.cost
+    cost: remoteCost
   }
 
   output.push(remoteExtra)
@@ -113,10 +118,12 @@ export async function kineticsGetExtraListAsync(
   const chargerCostObject = accessorySchedule.motorisation.find((m) => m.name === 'usbCharger')
   if (typeof chargerCostObject === 'undefined') return undefined
 
+  const chargerCost = chargerCostObject.cost * WHOLESALE_RATE_MOTOR
+
   const chargerExtra: Extra = {
     name: 'USB Charger Cable',
     quantity: chargerNumber,
-    cost: chargerCostObject.cost
+    cost: chargerCost
   }
 
   output.push(chargerExtra)
@@ -124,10 +131,12 @@ export async function kineticsGetExtraListAsync(
   const smartHubObject = accessorySchedule.motorisation.find((m) => m.name === 'smartLinkHub')
   if (typeof smartHubObject === 'undefined') return undefined
 
+  const smartLinkHubCost = smartHubObject.cost * WHOLESALE_RATE_MOTOR
+
   const smartHubExtra: Extra = {
     name: 'Smart Link Hub',
     quantity: smartHubNumber,
-    cost: smartHubObject.cost
+    cost: smartLinkHubCost
   }
 
   output.push(smartHubExtra)

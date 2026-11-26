@@ -1,3 +1,4 @@
+import { WHOLESALE_RATE_MAIN } from '@/utility/process/tableEntry'
 import {
   isKineticsMikronwoodPricingSchedule,
   KineticsMikronwoodPricingSchedule
@@ -11,8 +12,9 @@ export function getKineticsMikronwoodFasciaCost(fascia: string, pricingSchedule:
   if (fascia.trim().length === 0) return 0
 
   const fasciaCost = getCost(fascia, pricingSchedule)
+  if (typeof fasciaCost === 'undefined') return undefined
 
-  return fasciaCost
+  return fasciaCost * WHOLESALE_RATE_MAIN
 }
 
 function isInputValid(fascia: string) {

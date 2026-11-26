@@ -1,3 +1,4 @@
+import { WHOLESALE_RATE_MOTOR } from '@/utility/process/tableEntry'
 import { isKineticsCellularPricingSchedule } from '@shared/types/pricing/kineticsCellular.types'
 import { PricingSchedule } from '@shared/types/pricing/pricingSchedule.types'
 
@@ -8,7 +9,8 @@ export function getKineticsCellularControlCost(control: string, pricingSchedule:
 
   if (!isControlValid(control)) return undefined
   if (isControlCord(control)) return 0
-  if (isControlMotorised(control)) return pricingSchedule.control['Lithium-ion'].cost
+  if (isControlMotorised(control))
+    return pricingSchedule.control['Lithium-ion'].cost * WHOLESALE_RATE_MOTOR
 
   return undefined
 }

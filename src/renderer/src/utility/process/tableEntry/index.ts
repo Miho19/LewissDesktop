@@ -14,6 +14,9 @@ import { getLewissFauxwoodTableEntryAsync } from '@/utility/process/tableEntry/l
 import { getRomanTableEntryAsync } from '@/utility/process/tableEntry/roman'
 import { getCurtainTableEntryAsync } from '@/utility/process/tableEntry/curtain'
 
+export const WHOLESALE_RATE_MAIN = 0.43
+export const WHOLESALE_RATE_MOTOR = 0.5
+
 export async function getTableEntryListAsync(
   blindType: Blind,
   windowDisplayList: WindowDisplay[],
