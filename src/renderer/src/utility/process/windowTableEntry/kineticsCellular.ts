@@ -35,7 +35,8 @@ export async function getKineticsCellularWindowTableEntryListAsync(
   const comb = getKineticsCellularCombSize(blindType)
 
   const { fabric } = spec
-  if (fabric == null) throw new Error(`Missing Fabric`)
+  if (fabric == null) return windowTableEntryThrowError(blindType, 'Fabric missing')
 
+  const fabricName = fabric.name
   return output
 }
