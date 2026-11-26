@@ -1,3 +1,4 @@
+import { WHOLESALE_RATE_MAIN } from '@/utility/process/tableEntry'
 import { getHeightIndex } from '@/utility/process/tableEntry/shared/getHeightIndex'
 import { getWidthIndex } from '@/utility/process/tableEntry/shared/getWidthIndex'
 import { getToNearest } from '@/utility/process/tableEntry/shared/roundMeasurementUp'
@@ -21,7 +22,7 @@ export function getKineticsMikronwoodDimensionCost(
 
   const cost = pricingSchedule.dimension.data[heightIndex][widthIndex]
 
-  return cost
+  return cost * WHOLESALE_RATE_MAIN
 }
 
 // magic number 5000

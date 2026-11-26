@@ -127,7 +127,7 @@ export async function writePDFToDisk(
   const baseAddress = filePathMappedToWriteTo[type]
   if (typeof baseAddress === 'undefined') throw new Error('Incorrect path')
 
-  const file = path.join(baseAddress, `${fileName}.pdf`)
+  const file = path.join(baseAddress, `${fileName}`)
   await fs.writeFile(file, pdfBase64, 'base64')
 
   return file

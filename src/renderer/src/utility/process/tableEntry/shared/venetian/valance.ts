@@ -1,3 +1,4 @@
+import { WHOLESALE_RATE_MAIN } from '@/utility/process/tableEntry'
 import { getBlindTypeFromSpec } from '@/utility/process/worksheet/getBlindTypeFromSpec'
 import { Blind } from '@shared/types/blind/blind.types'
 import { VenetianBlindOptions } from '@shared/types/blind/venetian.types'
@@ -61,8 +62,9 @@ export function getLewissVenetianValanceCost(
   if (!isValidValance(blindType, valance)) return undefined
 
   const cost = getValanceCost(pricingSchedule)
+  if (typeof cost === 'undefined') return undefined
 
-  return cost
+  return cost * WHOLESALE_RATE_MAIN
 }
 
 function isBlindTypeValid(blindType: Blind) {

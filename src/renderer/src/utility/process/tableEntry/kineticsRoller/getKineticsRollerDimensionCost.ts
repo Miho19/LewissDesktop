@@ -1,3 +1,4 @@
+import { WHOLESALE_RATE_MAIN } from '@/utility/process/tableEntry'
 import { getHeightIndex } from '@renderer/utility/process/tableEntry/shared/getHeightIndex'
 import { getWidthIndex } from '@renderer/utility/process/tableEntry/shared/getWidthIndex'
 import { getToNearest } from '@renderer/utility/process/tableEntry/shared/roundMeasurementUp'
@@ -28,5 +29,5 @@ export function getKineticsRollerDimensionCost(
   const dimensionCost = data[heightIndex][widthIndex]
   if (dimensionCost === 0 || typeof dimensionCost === 'undefined') return undefined
 
-  return dimensionCost * fabricMultiplier
+  return dimensionCost * fabricMultiplier * WHOLESALE_RATE_MAIN
 }

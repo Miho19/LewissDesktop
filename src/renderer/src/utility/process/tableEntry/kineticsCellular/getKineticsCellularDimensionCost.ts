@@ -7,6 +7,7 @@ import { getHeightIndex } from '@renderer/utility/process/tableEntry/shared/getH
 import { getWidthIndex } from '@renderer/utility/process/tableEntry/shared/getWidthIndex'
 import { getFabricOpacity } from '@renderer/utility/process/tableEntry/kineticsCellular/getKineticsCellularTableEntry'
 import { getToNearest } from '@renderer/utility/process/tableEntry/shared/roundMeasurementUp'
+import { WHOLESALE_RATE_MAIN } from '@/utility/process/tableEntry'
 
 export function getKineticsCellularDimensionCost(
   width: number,
@@ -34,7 +35,7 @@ export function getKineticsCellularDimensionCost(
   const multiplier = getMultiplier(fabricName, pricingSchedule)
   if (typeof multiplier === 'undefined') return undefined
 
-  return dimensionCost * multiplier
+  return dimensionCost * multiplier * WHOLESALE_RATE_MAIN
 }
 
 function getMultiplier(fabricName: string, pricingSchedule: KineticsCellularPricingSchedule) {

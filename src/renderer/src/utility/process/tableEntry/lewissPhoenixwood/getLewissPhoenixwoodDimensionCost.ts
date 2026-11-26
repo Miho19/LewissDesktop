@@ -1,3 +1,4 @@
+import { WHOLESALE_RATE_MAIN } from '@/utility/process/tableEntry'
 import { getHeightIndex } from '@/utility/process/tableEntry/shared/getHeightIndex'
 import { getWidthIndex } from '@/utility/process/tableEntry/shared/getWidthIndex'
 import { getToNearest } from '@/utility/process/tableEntry/shared/roundMeasurementUp'
@@ -35,5 +36,5 @@ export function getLewissPhoenixwoodDimensionCost(
   const controlMultiplier = getLewissVenetianControlMultiplier(blindType, control, pricingSchedule)
   if (typeof controlMultiplier === 'undefined') return undefined
 
-  return dimensionCost * controlMultiplier * fabricMultiplier
+  return dimensionCost * controlMultiplier * fabricMultiplier * WHOLESALE_RATE_MAIN
 }

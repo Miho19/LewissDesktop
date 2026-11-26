@@ -1,3 +1,4 @@
+import { WHOLESALE_RATE_MAIN } from '@/utility/process/tableEntry'
 import {
   isKineticsRollerPricingSchedule,
   KineticsRollerPricingSchedule
@@ -9,7 +10,7 @@ import {
 } from '@shared/types/spec/kineticsRoller.types'
 
 // if the bracket is connected it must be butting blind to get a price
-// the price is then only added to rhs blind
+// the price is then only added to lhs blind
 
 export function getKineticsRollerBracketCost(
   bracket: string,
@@ -27,7 +28,7 @@ export function getKineticsRollerBracketCost(
 
   const cost = getBracketCost(bracket, pricingSchedule)
 
-  return cost
+  return cost * WHOLESALE_RATE_MAIN
 }
 
 function isBracketConnected(bracket: string) {

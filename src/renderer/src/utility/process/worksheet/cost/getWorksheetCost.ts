@@ -148,7 +148,7 @@ export async function kineticsGetWorksheetCostAsync(
   const extraCostList = await kineticsGetExtraListAsync(remote, charger, smartHub)
   if (typeof extraCostList === 'undefined') return undefined
 
-  const gst = getGST(blindTotal, [])
+  const gst = getGST(blindTotal, extraCostList)
 
   const total = blindTotal + sumExtraList(extraCostList) + gst
 
