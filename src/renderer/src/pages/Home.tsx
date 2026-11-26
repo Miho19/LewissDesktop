@@ -1,4 +1,4 @@
-import SearchInvoiceTable from '@/components/searchInvoiceTable/SearchInvoiceTable'
+import SearchInvoiceTable from '@/components/fileList/SearchInvoiceTable'
 
 function Home() {
   return (
