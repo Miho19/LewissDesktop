@@ -1,4 +1,4 @@
-import { useNavigate, useParams } from '@tanstack/react-router'
+import { useNavigate } from '@tanstack/react-router'
 import { FolderItem } from '@shared/types/Folder.types'
 import {
   FileListTableFeatures,

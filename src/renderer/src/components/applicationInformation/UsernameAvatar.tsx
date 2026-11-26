@@ -1,4 +1,4 @@
-import ConsultantAvatar from '@/components/applicationInformation/ConsultantAvatar'
+import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import { Skeleton } from '@/components/ui/skeleton'
 import useApplicationInformation from '@/hook/useApplicationInformation'
 import { toast } from 'sonner'
@@ -12,9 +12,14 @@ function UsernameAvatar() {
 
   const { userName } = data
 
+  const fallback = getFallback(userName)
+
   return (
     <div className="w-full flex gap-4 justify-end h-full items-center">
-      <ConsultantAvatar name={userName} />
+      <Avatar className="flex justify-between">
+        <AvatarFallback className="w-8">{fallback}</AvatarFallback>
+      </Avatar>
+      <span className="text-md font-medium">{userName}</span>
     </div>
   )
 }
@@ -39,6 +44,12 @@ function errorToast(error: Error) {
     )
   })
   return <div className="w-full"></div>
+}
+
+function getFallback(name: string) {
+  const split = name.split(' ')
+  if (split.length >= 2) return `${split[0].charAt(0)} ${split[1].charAt(0)}`
+  return `${split[0].charAt(0)}`
 }
 
 export default UsernameAvatar
