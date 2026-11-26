@@ -1,7 +1,6 @@
 import { useParams, useRouterState } from '@tanstack/react-router'
 import useFolder from '@/hook/useFolder'
 import { Spinner } from '@/components/ui/spinner'
-import ConsultantAvatar from '@/components/applicationInformation/ConsultantAvatar'
 import { toast } from 'sonner'
 import { FolderItem } from '@shared/types/Folder.types'
 import { useMemo } from 'react'
@@ -27,11 +26,7 @@ function ConsultantPage() {
 
   return (
     <div className="w-full h-full flex flex-col p-6 gap-8 items-center">
-      <div className="flex w-full  focus:outline-none gap-4 items-center">
-        <ConsultantAvatar name={consultantName} />
-      </div>
-
-      <ConsultantFileList fileList={jsonFileOnlyList} />
+      <ConsultantFileList fileList={jsonFileOnlyList} consultantName={consultantName} />
     </div>
   )
 }

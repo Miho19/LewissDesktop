@@ -1,5 +1,8 @@
 import FileListTable from '@/components/fileList/FileListTable'
-import { FileListTableFeatures, FileTableColumn } from '@/components/fileList/FileListTableUtility'
+import {
+  FileListTableFeatures,
+  SearchInvoiceTableColumn
+} from '@/components/fileList/FileListTableUtility'
 import {
   Field,
   FieldDescription,
@@ -32,7 +35,7 @@ function SearchInvoiceTable() {
 
   const table = useTable({
     features: FileListTableFeatures,
-    columns: FileTableColumn,
+    columns: SearchInvoiceTableColumn,
     data: invoiceOnlyList,
     initialState: {
       sorting: [{ id: 'lastModified', desc: true }]

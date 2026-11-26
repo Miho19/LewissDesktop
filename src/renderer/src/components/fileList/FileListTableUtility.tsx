@@ -32,7 +32,7 @@ export const FileListTableFeatures = tableFeatures({
 
 const columnHelper = createColumnHelper<typeof FileListTableFeatures, FolderItem>()
 
-function splitFileName(fileName: string) {
+function invoiceFileSplitName(fileName: string) {
   if (!fileName) throw new Error(`Invalid file name`)
   const split = fileName
     .replace('.json', '')
@@ -42,10 +42,10 @@ function splitFileName(fileName: string) {
   return { customerNumber: split[0], invoiceNumber: split[1], customerName: split[2] }
 }
 
-export const FileTableColumn = columnHelper.columns([
+export const SearchInvoiceTableColumn = columnHelper.columns([
   columnHelper.accessor(
     (row) => {
-      const { customerName } = splitFileName(row.name)
+      const { customerName } = invoiceFileSplitName(row.name)
       return customerName
     },
     {
@@ -57,7 +57,7 @@ export const FileTableColumn = columnHelper.columns([
 
   columnHelper.accessor(
     (row) => {
-      const { customerNumber } = splitFileName(row.name)
+      const { customerNumber } = invoiceFileSplitName(row.name)
       return customerNumber
     },
     {
@@ -69,12 +69,59 @@ export const FileTableColumn = columnHelper.columns([
 
   columnHelper.accessor(
     (row) => {
-      const { invoiceNumber } = splitFileName(row.name)
+      const { invoiceNumber } = invoiceFileSplitName(row.name)
       return invoiceNumber
     },
     {
       id: 'invoiceNumber',
       header: 'Invoice Number',
+      sortFn: 'alphanumeric'
+    }
+  ),
+
+  columnHelper.accessor((row) => getLastModifiedFormatted(row.lastModified), {
+    id: 'lastModified',
+    header: 'Last Modified',
+    sortFn: (rowA, rowB) => {
+      const a: Date = new Date(rowA.original.lastModified)
+      const b: Date = new Date(rowB.original.lastModified)
+
+      return a.getTime() - b.getTime()
+    }
+  })
+])
+
+function projectFileSplitName(fileName: string) {
+  if (!fileName) throw new Error(`Invalid file name`)
+  const split = fileName
+    .replace('.json', '')
+    .split('-')
+    .map((s) => s.trim())
+  if (split.length !== 3) throw new Error(`${fileName} is invalid shape`)
+  return { customerName: split[0], customerNumber: split[1], createdAt: split[2] }
+}
+
+export const ConsultantFileListTableColumn = columnHelper.columns([
+  columnHelper.accessor(
+    (row) => {
+      const { customerName } = projectFileSplitName(row.name)
+      return customerName
+    },
+    {
+      id: 'customerName',
+      header: 'Name',
+      sortFn: 'alphanumeric'
+    }
+  ),
+
+  columnHelper.accessor(
+    (row) => {
+      const { customerNumber } = projectFileSplitName(row.name)
+      return customerNumber
+    },
+    {
+      id: 'customerNumber',
+      header: 'Customer Number',
       sortFn: 'alphanumeric'
     }
   ),

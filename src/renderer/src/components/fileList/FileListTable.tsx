@@ -20,7 +20,7 @@ function FileListTable(props: Props) {
 
   return (
     <div className="w-full rounded-md border">
-      <Table>
+      <Table className="w-full table-fixed">
         <TableHeader>{getTableHeader(table)}</TableHeader>
         <TableBody>{getTableBody(table, rowOnClick)}</TableBody>
       </Table>
