@@ -1,6 +1,6 @@
 import { kineticsRollerUpdateWindowTableEntry } from '@/components/windowTable/utility/updateData/kineticsRoller'
 import { Blind } from '@shared/types/blind/blind.types'
-import { UpdateWindowTableEntryFn, WindowTableEntry } from '@shared/types/WindowTableForm.types'
+import { UpdateWindowTableEntryFn, WindowTableEntry } from '@shared/types/WindowTableEntry.types'
 
 export function updateWindowTableEntryData(
   prevData: WindowTableEntry,

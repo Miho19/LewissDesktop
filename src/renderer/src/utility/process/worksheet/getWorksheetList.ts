@@ -1,38 +1,13 @@
 import { Blind } from '@shared/types/blind/blind.types'
 import { ProjectFile } from '@shared/types/Project.types'
 import { WindowDisplay } from '@shared/types/WindowDisplay.types'
-import { getBlindTypeFromSpec } from './getBlindTypeFromSpec'
+import { getBlindTypeFromSpec } from '../windowDisplay/getBlindTypeFromSpec'
 import { Worksheet } from '@shared/types/worksheet/Worksheet.types'
 import { Customer } from '@shared/types/worksheet/Customer.types'
 import { getTableEntryListAsync } from '../tableEntry'
 import { getWorksheetCostAsync } from '@renderer/utility/process/worksheet/cost/getWorksheetCost'
 
-export async function getWorksheetListAsync(
-  windowDisplayList: WindowDisplay[],
-  file: ProjectFile
-): Promise<[Worksheet[], any[]]> {
-  errorCheck(windowDisplayList, file)
-
-  const map = getWindowDisplayListAsMap(windowDisplayList)
-  if (map.size === 0) throw new Error('Failed to map window display list')
-
-  const [fulfilled, rejected] = await createWorksheetListAsync(map, file)
-
-  return [fulfilled, rejected] as const
-}
-
-function errorCheck(windowDisplayList: WindowDisplay[], file: ProjectFile) {
-  if (
-    typeof windowDisplayList === 'undefined' ||
-    !Array.isArray(windowDisplayList) ||
-    windowDisplayList.length === 0
-  )
-    throw new Error('No windows selected')
-
-  if (typeof file === 'undefined') throw new Error('Project file is undefined')
-}
-
-export function getWindowDisplayListAsMap(windowDisplayList: WindowDisplay[]) {
+export function mapWindowDisplayList(windowDisplayList: WindowDisplay[]) {
   const map: Map<Blind, WindowDisplay[]> = new Map()
 
   for (const w of windowDisplayList) {
@@ -53,35 +28,6 @@ export function getWindowDisplayListAsMap(windowDisplayList: WindowDisplay[]) {
   }
 
   return map
-}
-
-async function createWorksheetListAsync(map: Map<Blind, WindowDisplay[]>, file: ProjectFile) {
-  const entries = Array.from(map.entries())
-
-  const jobList = entries.map(async ([key, value]) => {
-    try {
-      if (value.length === 0) return undefined
-
-      return await createWorksheetAsync(key, value, file)
-    } catch (error) {
-      const newError = new Error()
-      newError.name = `${key}`
-      newError.message = error instanceof Error ? error.message : 'Something went wrong.'
-      newError.cause = error
-      throw newError
-    }
-  })
-
-  const result = await Promise.allSettled(jobList)
-
-  const fulfilled = result
-    .filter((j) => j.status === 'fulfilled')
-    .map((j) => j.value)
-    .filter((worksheet) => typeof worksheet !== 'undefined')
-
-  const rejected = result.filter((j) => j.status === 'rejected').map((j) => j.reason)
-
-  return [fulfilled, rejected] as const
 }
 
 export async function createWorksheetAsync(

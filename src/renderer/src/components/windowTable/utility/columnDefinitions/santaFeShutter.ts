@@ -2,7 +2,7 @@ import { windowTableColumnBase } from '@/components/windowTable/utility/columnDe
 import { WindowFormTableFeatures } from '@/components/windowTable/utility/features'
 import { isSantaFeShutterTableEntry } from '@shared/types/tableEntry/santaFeShutter.types'
 
-import { WindowTableEntry } from '@shared/types/WindowTableForm.types'
+import { WindowTableEntry } from '@shared/types/WindowTableEntry.types'
 import { createColumnHelper } from '@tanstack/react-table'
 
 const columnHelper = createColumnHelper<WindowFormTableFeatures, WindowTableEntry>()

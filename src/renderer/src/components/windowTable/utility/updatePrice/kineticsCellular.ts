@@ -1,6 +1,6 @@
 import { getKineticsCellularCost } from '@/utility/process/tableEntry/kineticsCellular'
 import { isKineticsCellularTableEntry } from '@shared/types/tableEntry/kineticsCellular.types'
-import { WindowTableEntry } from '@shared/types/WindowTableForm.types'
+import { WindowTableEntry } from '@shared/types/WindowTableEntry.types'
 
 export async function updateKineticsCellularCellPriceAsync(windowTableEntry: WindowTableEntry) {
   const { blindType, tableEntry } = windowTableEntry

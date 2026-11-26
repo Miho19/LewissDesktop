@@ -1,7 +1,7 @@
 import { describe, it, vi, afterAll, expect } from 'vitest'
 import jsonProjectFile from '../fixtures/project-file-bug-remote-channel.json'
 import { ProjectFile } from '@shared/types/Project.types'
-import { getWindowDisplayList } from '@/utility/windowDisplay/getWindowDisplayList'
+import { getWindowDisplayList } from '@/utility/process/windowDisplay/getWindowDisplayList'
 import { Blind } from '@shared/types/blind/blind.types'
 import { getExamplePricingSchedule, getExampleAccessorySchedule } from '../utility'
 import { getTableEntryListAsync } from '@/utility/process/tableEntry'

@@ -11,7 +11,7 @@ import { Blind } from '@shared/types/blind/blind.types'
 import { ProjectFile } from '@shared/types/Project.types'
 import { TableEntry } from '@shared/types/tableEntry/TableEntry.types'
 import { WindowDisplay } from '@shared/types/WindowDisplay.types'
-import { WindowTableEntry } from '@shared/types/WindowTableForm.types'
+import { WindowTableEntry } from '@shared/types/WindowTableEntry.types'
 import { useSuspenseQuery } from '@tanstack/react-query'
 import { RowSelectionState, useTable } from '@tanstack/react-table'
 import { useState } from 'react'
@@ -130,14 +130,9 @@ async function getWindowTableEntryList(
 
   const entries: WindowTableEntry[] = []
 
-  function createWindowTableEntry(
-    blindType: Blind,
-    windowDisplay: WindowDisplay,
-    tableEntry: TableEntry
-  ) {
+  function createWindowTableEntry(blindType: Blind, tableEntry: TableEntry) {
     const newEntry: WindowTableEntry = {
       blindType,
-      windowDisplay,
       tableEntry
     }
 

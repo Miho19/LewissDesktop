@@ -6,8 +6,8 @@ import {
   getWindowDisplayAndProjectFile
 } from '../utility'
 
-import { getRoom } from '@renderer/utility/windowDisplay/getRoom'
-import { getWindow } from '@renderer/utility/windowDisplay/getWindow'
+import { getRoom } from '@/utility/process/windowDisplay/getRoom'
+import { getWindow } from '@/utility/process/windowDisplay/getWindow'
 
 import type { Blind } from '@shared/types/blind/blind.types'
 import { getLewissAluminiumTableEntryAsync } from '@/utility/process/tableEntry/lewissAluminium'

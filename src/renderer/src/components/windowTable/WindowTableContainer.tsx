@@ -2,12 +2,12 @@ import SubmitSheet from '@/components/submitSheet/SubmitSheet'
 import { Sheet } from '@/components/ui/sheet'
 import { Spinner } from '@/components/ui/spinner'
 import WindowFormTable from '@/components/windowTable/WindowFormTable'
-import { getWindowDisplayListAsMap } from '@/utility/process/worksheet/getWorksheetList'
-import { getWindowDisplayList } from '@/utility/windowDisplay/getWindowDisplayList'
+import { mapWindowDisplayList } from '@/utility/process/worksheet/getWorksheetList'
+import { getWindowDisplayList } from '@/utility/process/windowDisplay/getWindowDisplayList'
 import { Blind } from '@shared/types/blind/blind.types'
 import { ProjectFile } from '@shared/types/Project.types'
 import { WindowDisplay } from '@shared/types/WindowDisplay.types'
-import { WindowTableEntry } from '@shared/types/WindowTableForm.types'
+import { WindowTableEntry } from '@shared/types/WindowTableEntry.types'
 import { Suspense, useState } from 'react'
 import { toast } from 'sonner'
 
@@ -29,7 +29,7 @@ function WindowTableContainer(props: Props) {
   const [submitData, setSubmitData] = useState<WindowTableEntry[]>([])
 
   const windowDisplayList = getWindowDisplayList(file) // redo this
-  const map = getWindowDisplayListAsMap(windowDisplayList)
+  const map = mapWindowDisplayList(windowDisplayList)
 
   if (map.size === 0) return <WindowTableContainerEmpty />
 

@@ -1,6 +1,6 @@
 import { Input } from '@/components/ui/input'
 import { WindowFormTableFeatures } from '@/components/windowTable/utility/features'
-import { WindowTableEntry } from '@shared/types/WindowTableForm.types'
+import { WindowTableEntry } from '@shared/types/WindowTableEntry.types'
 import { CellContext } from '@tanstack/react-table'
 import { useEffect, useState } from 'react'
 

@@ -1,7 +1,7 @@
 import { windowTableEntryDefaultUpdate } from '@/components/windowTable/utility/updateData'
 import { kineticsRollerDestructureControlString } from '@/utility/process/tableEntry/kineticsRoller'
 import { isKineticsRollerTableEntry } from '@shared/types/tableEntry/kineticsRoller.types'
-import { WindowTableEntry } from '@shared/types/WindowTableForm.types'
+import { WindowTableEntry } from '@shared/types/WindowTableEntry.types'
 
 const kineticsRollerControlSplitName = ['controlType', 'controlColour', 'controlLength'] as const
 type KineticsRollerControlSplit = (typeof kineticsRollerControlSplitName)[number]

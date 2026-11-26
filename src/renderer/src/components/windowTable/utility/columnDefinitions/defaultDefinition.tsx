@@ -1,4 +1,4 @@
-import { WindowTableEntry } from '@shared/types/WindowTableForm.types'
+import { WindowTableEntry } from '@shared/types/WindowTableEntry.types'
 import { createColumnHelper } from '@tanstack/react-table'
 import { Checkbox } from '@/components/ui/checkbox'
 

@@ -7,8 +7,8 @@ import {
 } from '../utility'
 
 import { getKineticsCellularTableEntryAsync } from '@renderer/utility/process/tableEntry/kineticsCellular/getKineticsCellularTableEntry'
-import { getRoom } from '@renderer/utility/windowDisplay/getRoom'
-import { getWindow } from '@renderer/utility/windowDisplay/getWindow'
+import { getRoom } from '@/utility/process/windowDisplay/getRoom'
+import { getWindow } from '@/utility/process/windowDisplay/getWindow'
 import { isKineticsCellularTableEntry } from '@shared/types/tableEntry/kineticsCellular.types'
 import type { Blind } from '@shared/types/blind/blind.types'
 

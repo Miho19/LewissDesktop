@@ -1,7 +1,7 @@
 import { updateKineticsCellularCellPriceAsync } from '@/components/windowTable/utility/updatePrice/kineticsCellular'
 import { updateKineticsRollerCellPriceAsync } from '@/components/windowTable/utility/updatePrice/kineticsRoller'
 import { Blind } from '@shared/types/blind/blind.types'
-import { UpdateWindowTablePriceFn, WindowTableEntry } from '@shared/types/WindowTableForm.types'
+import { UpdateWindowTablePriceFn, WindowTableEntry } from '@shared/types/WindowTableEntry.types'
 
 export * from './kineticsRoller'
 export * from './kineticsCellular'

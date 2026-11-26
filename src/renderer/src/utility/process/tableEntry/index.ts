@@ -2,8 +2,8 @@ import { Blind } from '@shared/types/blind/blind.types'
 import { ProjectFile } from '@shared/types/Project.types'
 import { CreateTableEntryFn, TableEntry } from '@shared/types/tableEntry/TableEntry.types'
 import { WindowDisplay } from '@shared/types/WindowDisplay.types'
-import { getRoom } from '../../windowDisplay/getRoom'
-import { getWindow } from '../../windowDisplay/getWindow'
+import { getRoom } from '../windowDisplay/getRoom'
+import { getWindow } from '../windowDisplay/getWindow'
 import { getKineticsCellularTableEntryAsync } from './kineticsCellular/getKineticsCellularTableEntry'
 import { getKineticsRollerTableEntryAsync } from '@renderer/utility/process/tableEntry/kineticsRoller'
 import { getSantaFeShutterTableEntryAsync } from '@renderer/utility/process/tableEntry/santaFeShutter'
@@ -21,7 +21,7 @@ export async function getTableEntryListAsync(
   blindType: Blind,
   windowDisplayList: WindowDisplay[],
   file: ProjectFile,
-  cb?: (blindType: Blind, windowDisplay: WindowDisplay, tableEntry: TableEntry) => void
+  cb?: (blindType: Blind, tableEntry: TableEntry) => void
 ) {
   const createFn = getTableEntryFunctionMap[blindType]
   if (typeof createFn === 'undefined')
@@ -52,7 +52,7 @@ export async function getTableEntryListAsync(
     for (const newEntry of result) {
       if (typeof newEntry === 'undefined') continue
       entries.push(newEntry)
-      cb?.(blindType, windowDisplay, newEntry)
+      cb?.(blindType, newEntry)
     }
   }
 

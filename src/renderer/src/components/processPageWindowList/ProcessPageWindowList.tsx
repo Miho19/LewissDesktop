@@ -1,5 +1,5 @@
 import { ProcessFile } from '@shared/types/process/Process.types'
-import { WindowTableEntry } from '@shared/types/WindowTableForm.types'
+import { WindowTableEntry } from '@shared/types/WindowTableEntry.types'
 
 type Props = {
   file: ProcessFile

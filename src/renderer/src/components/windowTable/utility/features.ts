@@ -1,4 +1,4 @@
-import { WindowTableMeta } from '@shared/types/WindowTableForm.types'
+import { WindowTableMeta } from '@shared/types/WindowTableEntry.types'
 import {
   columnResizingFeature,
   columnSizingFeature,

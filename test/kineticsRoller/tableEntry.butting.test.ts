@@ -1,13 +1,13 @@
 import { describe, expect, it, vi } from 'vitest'
 import jsonProjectFile from '../fixtures/project-file-kinetics-roller-butting.json'
 import { ProjectFile } from '@shared/types/Project.types'
-import { getWindowDisplayList } from '@/utility/windowDisplay/getWindowDisplayList'
+import { getWindowDisplayList } from '@/utility/process/windowDisplay/getWindowDisplayList'
 import { getTableEntryListAsync } from '@/utility/process/tableEntry'
 import { Blind } from '@shared/types/blind/blind.types'
 import { getExamplePricingSchedule, getExampleAccessorySchedule } from '../utility'
 import { TableEntry } from '@shared/types/tableEntry/TableEntry.types'
 import { WindowDisplay } from '@shared/types/WindowDisplay.types'
-import { WindowTableEntry } from '@shared/types/WindowTableForm.types'
+import { WindowTableEntry } from '@shared/types/WindowTableEntry.types'
 
 vi.mock(
   '@renderer/utility/process/pricingSchedule/retrievePricingSchedule',

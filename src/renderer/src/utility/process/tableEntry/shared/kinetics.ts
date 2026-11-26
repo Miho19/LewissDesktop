@@ -1,6 +1,6 @@
 import { isKineticsTableEntry, isKineticsTableEntryList } from '@shared/types/tableEntry/kinetics'
 import { KineticsTableEntry, TableEntry } from '@shared/types/tableEntry/TableEntry.types'
-import { WindowTableEntry } from '@shared/types/WindowTableForm.types'
+import { WindowTableEntry } from '@shared/types/WindowTableEntry.types'
 
 export function getMaxRemote(entries: KineticsTableEntry[]) {
   if (!isKineticsTableEntryList(entries)) throw new Error(`Type error`)

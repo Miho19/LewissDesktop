@@ -2,7 +2,7 @@ import { preProcessKineticsCellular } from '@/utility/process/tableEntry/kinetic
 import { preProcessKineticsRoller } from '@/utility/process/tableEntry/kineticsRoller'
 import { Blind } from '@shared/types/blind/blind.types'
 import { ProjectFile } from '@shared/types/Project.types'
-import { WindowTableEntry, PreProcessFn } from '@shared/types/WindowTableForm.types'
+import { WindowTableEntry, PreProcessFn } from '@shared/types/WindowTableEntry.types'
 
 function noPreProcess(_blindType: Blind, windowTableEntry: WindowTableEntry[], _file: ProjectFile) {
   return [...windowTableEntry]

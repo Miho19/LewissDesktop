@@ -1,6 +1,6 @@
 import { getKineticsRollerCostAsync } from '@/utility/process/tableEntry/kineticsRoller'
 import { isKineticsRollerTableEntry } from '@shared/types/tableEntry/kineticsRoller.types'
-import { WindowTableEntry } from '@shared/types/WindowTableForm.types'
+import { WindowTableEntry } from '@shared/types/WindowTableEntry.types'
 
 export async function updateKineticsRollerCellPriceAsync(windowTableEntry: WindowTableEntry) {
   const { blindType, tableEntry } = windowTableEntry

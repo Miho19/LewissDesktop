@@ -4,7 +4,7 @@ import {
 } from '@/utility/process/tableEntry/shared/kinetics'
 import { Blind } from '@shared/types/blind/blind.types'
 import { ProjectFile } from '@shared/types/Project.types'
-import { WindowTableEntry } from '@shared/types/WindowTableForm.types'
+import { WindowTableEntry } from '@shared/types/WindowTableEntry.types'
 
 export function preProcessKineticsCellular(
   _blindType: Blind,

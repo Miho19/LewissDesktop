@@ -1,5 +1,5 @@
 import { WHOLESALE_RATE_MAIN } from '@/utility/process/tableEntry'
-import { getBlindTypeFromSpec } from '@/utility/process/worksheet/getBlindTypeFromSpec'
+import { getBlindTypeFromSpec } from '@/utility/process/windowDisplay/getBlindTypeFromSpec'
 import { Blind } from '@shared/types/blind/blind.types'
 import { VenetianBlindOptions } from '@shared/types/blind/venetian.types'
 import {

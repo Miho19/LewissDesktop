@@ -1,4 +1,5 @@
 import { Blind } from '@shared/types/blind/blind.types'
+import { Line, ProcessFile } from '@shared/types/process/Process.types'
 import { ProjectFile } from '@shared/types/Project.types'
 import { TableEntry } from '@shared/types/tableEntry/TableEntry.types'
 
@@ -26,3 +27,8 @@ export type UpdateWindowTableEntryFn = (
   columnId: string,
   value: unknown
 ) => WindowTableEntry
+
+export type CreateWindowTableEntryListFn = (
+  lineList: Line[],
+  file: ProcessFile
+) => Promise<WindowTableEntry[]>

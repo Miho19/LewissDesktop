@@ -3,10 +3,19 @@ import ProcessPageWindowList from '@/components/processPageWindowList/ProcessPag
 import { Sheet } from '@/components/ui/sheet'
 import { Spinner } from '@/components/ui/spinner'
 import useProcessFile from '@/hook/useProcessFile'
-import { WindowTableEntry } from '@shared/types/WindowTableForm.types'
+import { WindowTableEntry } from '@shared/types/WindowTableEntry.types'
 import { useParams } from '@tanstack/react-router'
 import { useState } from 'react'
 
+/**
+ *
+ * @returns
+ *
+ *
+ * Seperate lines into blind type --> display table of window table entry -->
+ * when you submit you submit the entire list
+ *
+ */
 function ProcessPage() {
   const { fileId } = useParams({ from: '/process/$fileId' })
   const { data, isPending, isLoading, isError, error } = useProcessFile(fileId)

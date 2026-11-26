@@ -4,7 +4,7 @@ import { isLewissAluminiumTableEntry } from '@shared/types/tableEntry/lewissAlum
 import { isLewissFauxwoodTableEntry } from '@shared/types/tableEntry/lewissFauxwood.types'
 import { isLewissPhoenixwoodTableEntry } from '@shared/types/tableEntry/lewissPhoenixwood.types'
 
-import { WindowTableEntry } from '@shared/types/WindowTableForm.types'
+import { WindowTableEntry } from '@shared/types/WindowTableEntry.types'
 import { createColumnHelper } from '@tanstack/react-table'
 
 const columnHelper = createColumnHelper<WindowFormTableFeatures, WindowTableEntry>()

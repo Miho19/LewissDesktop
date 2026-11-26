@@ -5,7 +5,7 @@ import SelectValueCell from '@/components/windowTable/utility/columnDefinitions/
 import { WindowFormTableFeatures } from '@/components/windowTable/utility/features'
 import { ControlSideOption } from '@shared/types/spec/Spec.types'
 import { isKineticsMikronwoodTableEntry } from '@shared/types/tableEntry/kineticsMikronwood.types'
-import { WindowTableEntry } from '@shared/types/WindowTableForm.types'
+import { WindowTableEntry } from '@shared/types/WindowTableEntry.types'
 import { createColumnHelper } from '@tanstack/react-table'
 
 const columnHelper = createColumnHelper<WindowFormTableFeatures, WindowTableEntry>()

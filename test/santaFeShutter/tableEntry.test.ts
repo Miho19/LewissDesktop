@@ -5,8 +5,8 @@ import {
   getExampleAccessorySchedule,
   getWindowDisplayAndProjectFile
 } from '../utility'
-import { getRoom } from '@renderer/utility/windowDisplay/getRoom'
-import { getWindow } from '@renderer/utility/windowDisplay/getWindow'
+import { getRoom } from '@/utility/process/windowDisplay/getRoom'
+import { getWindow } from '@/utility/process/windowDisplay/getWindow'
 import { getSantaFeShutterTableEntryAsync } from '@renderer/utility/process/tableEntry/santaFeShutter'
 import { isSantaFeShutterTableEntry } from '@shared/types/tableEntry/santaFeShutter.types'
 

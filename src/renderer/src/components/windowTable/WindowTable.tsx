@@ -9,7 +9,7 @@ import {
 } from '@/components/ui/table'
 import { WindowFormTableFeatures } from '@/components/windowTable/utility/features'
 
-import { WindowTableEntry } from '@shared/types/WindowTableForm.types'
+import { WindowTableEntry } from '@shared/types/WindowTableEntry.types'
 import { ReactTable } from '@tanstack/react-table'
 
 type Props = {
