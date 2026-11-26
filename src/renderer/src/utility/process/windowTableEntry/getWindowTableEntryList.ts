@@ -23,13 +23,14 @@ export async function getWindowTableEntryListAsync(file: ProcessFile) {
 
   const map = mapLinesIntoBlindType(lines)
 
-  const output = []
+  const output: WindowTableEntry[] = []
 
   try {
     for (const [key, value] of map) {
       const createFn = createFnMap[key]
       if (typeof createFn === 'undefined') continue
       const result = await createFn(value, file)
+      output.push(...result)
     }
   } catch (error) {
     console.error(`${error}`)
@@ -65,105 +66,108 @@ const createFnMap: Record<Blind, CreateWindowTableEntryListFn> = {
   'Kinetics 10mm Cellular Blind': getKineticsCellularWindowTableEntryListAsync,
   'Kinetics 20mm Cellular Blind': getKineticsCellularWindowTableEntryListAsync,
   'Kinetics Sunscreen Roller Blind': function (
-    line: Line,
+    lineList: Line[],
     file: ProcessFile
   ): Promise<WindowTableEntry[]> {
     throw new Error('Function not implemented.')
   },
   'Kinetics Blockout Roller Blind': function (
-    line: Line,
+    lineList: Line[],
     file: ProcessFile
   ): Promise<WindowTableEntry[]> {
     throw new Error('Function not implemented.')
   },
   'Kinetics Light Filtering Roller Blind': function (
-    line: Line,
+    lineList: Line[],
     file: ProcessFile
   ): Promise<WindowTableEntry[]> {
     throw new Error('Function not implemented.')
   },
   "Lewis's 25mm Aluminium Venetian": function (
-    line: Line,
+    lineList: Line[],
     file: ProcessFile
   ): Promise<WindowTableEntry[]> {
     throw new Error('Function not implemented.')
   },
   "Lewis's 50mm Aluminium Venetian": function (
-    line: Line,
+    lineList: Line[],
     file: ProcessFile
   ): Promise<WindowTableEntry[]> {
     throw new Error('Function not implemented.')
   },
   "Lewis's 50mm Fauxwood Venetian": function (
-    line: Line,
+    lineList: Line[],
     file: ProcessFile
   ): Promise<WindowTableEntry[]> {
     throw new Error('Function not implemented.')
   },
   "Lewis's 63mm Fauxwood Venetian": function (
-    line: Line,
+    lineList: Line[],
     file: ProcessFile
   ): Promise<WindowTableEntry[]> {
     throw new Error('Function not implemented.')
   },
   "Lewis's 50mm Phoenixwood Venetian": function (
-    line: Line,
+    lineList: Line[],
     file: ProcessFile
   ): Promise<WindowTableEntry[]> {
     throw new Error('Function not implemented.')
   },
   "Lewis's 63mm Phoenixwood Venetian": function (
-    line: Line,
+    lineList: Line[],
     file: ProcessFile
   ): Promise<WindowTableEntry[]> {
     throw new Error('Function not implemented.')
   },
   'Kinetics Mikronwood 50mm Venetian': function (
-    line: Line,
+    lineList: Line[],
     file: ProcessFile
   ): Promise<WindowTableEntry[]> {
     throw new Error('Function not implemented.')
   },
   'Santa Fe Woodlore Shutter': function (
-    line: Line,
+    lineList: Line[],
     file: ProcessFile
   ): Promise<WindowTableEntry[]> {
     throw new Error('Function not implemented.')
   },
   'Santa Fe Woodlore Plus Shutter': function (
-    line: Line,
+    lineList: Line[],
     file: ProcessFile
   ): Promise<WindowTableEntry[]> {
     throw new Error('Function not implemented.')
   },
   'Santa Fe Waterproof Woodlore Plus Shutter': function (
-    line: Line,
+    lineList: Line[],
     file: ProcessFile
   ): Promise<WindowTableEntry[]> {
     throw new Error('Function not implemented.')
   },
   'Santa Fe Normandy Shutter': function (
-    line: Line,
+    lineList: Line[],
     file: ProcessFile
   ): Promise<WindowTableEntry[]> {
     throw new Error('Function not implemented.')
   },
-  'Roman Blind': function (line: Line, file: ProcessFile): Promise<WindowTableEntry[]> {
+  'Roman Blind': function (lineList: Line[], file: ProcessFile): Promise<WindowTableEntry[]> {
     throw new Error('Function not implemented.')
   },
-  'Separate Lining': function (line: Line, file: ProcessFile): Promise<WindowTableEntry[]> {
+  'Separate Lining': function (lineList: Line[], file: ProcessFile): Promise<WindowTableEntry[]> {
     throw new Error('Function not implemented.')
   },
-  'Unlined Curtain': function (line: Line, file: ProcessFile): Promise<WindowTableEntry[]> {
+  'Unlined Curtain': function (lineList: Line[], file: ProcessFile): Promise<WindowTableEntry[]> {
     throw new Error('Function not implemented.')
   },
-  'Lined Curtain': function (line: Line, file: ProcessFile): Promise<WindowTableEntry[]> {
+  'Lined Curtain': function (lineList: Line[], file: ProcessFile): Promise<WindowTableEntry[]> {
     throw new Error('Function not implemented.')
   },
-  'Sheer Curtain': function (line: Line, file: ProcessFile): Promise<WindowTableEntry[]> {
+  'Sheer Curtain': function (lineList: Line[], file: ProcessFile): Promise<WindowTableEntry[]> {
     throw new Error('Function not implemented.')
   },
-  'Interlined Curtain': function (line: Line, file: ProcessFile): Promise<WindowTableEntry[]> {
+  'Interlined Curtain': function (
+    lineList: Line[],
+    file: ProcessFile
+  ): Promise<WindowTableEntry[]> {
     throw new Error('Function not implemented.')
   }
 }
