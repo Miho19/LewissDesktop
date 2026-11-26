@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'vitest'
 import { getExamplePricingSchedule } from '../utility'
 import { getKineticsMikronwoodControlCost } from '@/utility/process/tableEntry/kineticsMikronwood'
+import { WHOLESALE_RATE_MAIN, WHOLESALE_RATE_MOTOR } from '@/utility/process/tableEntry'
 
 const controlInput: { control: string; expected: number | undefined }[] = [
   { control: '', expected: undefined },
@@ -21,9 +22,16 @@ describe('getKineticsMikronwoodDimensionCost', () => {
 
       if (typeof expected === 'undefined') {
         expect(result).toBeUndefined()
-      } else {
-        expect(result).toBeCloseTo(expected)
+        return
       }
+
+      if (control.toLocaleLowerCase().includes('cord')) {
+        expect(result).toBeCloseTo(expected * WHOLESALE_RATE_MAIN)
+
+        return
+      }
+
+      expect(result).toBeCloseTo(expected * WHOLESALE_RATE_MOTOR)
     }
   )
 })

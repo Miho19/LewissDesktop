@@ -2,6 +2,7 @@ import { describe, it, expect } from 'vitest'
 import { getExamplePricingSchedule } from '../utility'
 import { Blind } from '@shared/types/blind/blind.types'
 import { getLewissFauxwoodDimensionCost } from '@/utility/process/tableEntry/lewissFauxwood'
+import { WHOLESALE_RATE_MAIN } from '@/utility/process/tableEntry'
 
 type TestInput = {
   blindType: Blind
@@ -321,7 +322,7 @@ describe('getLewissFauxwoodDimensionCost', () => {
       if (typeof expected === 'undefined') {
         expect(result).toBeUndefined()
       } else {
-        expect(result).toBeCloseTo(expected)
+        expect(result).toBeCloseTo(expected * WHOLESALE_RATE_MAIN)
       }
     }
   )

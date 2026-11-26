@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'vitest'
 import { getExamplePricingSchedule } from '../utility'
 import { getKineticsMikronwoodHoldDownBracketCost } from '@/utility/process/tableEntry/kineticsMikronwood'
+import { WHOLESALE_RATE_MAIN } from '@/utility/process/tableEntry'
 
 const fasciaInput: { holdDownBracket: string; expected: number | undefined }[] = [
   { holdDownBracket: '', expected: undefined },
@@ -21,7 +22,7 @@ describe('getKineticsMikronwoodHoldDownBracketCost', () => {
       if (typeof expected === 'undefined') {
         expect(result).toBeUndefined()
       } else {
-        expect(result).toBeCloseTo(expected)
+        expect(result).toBeCloseTo(expected * WHOLESALE_RATE_MAIN)
       }
     }
   )

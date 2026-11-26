@@ -3,6 +3,7 @@ import { getExamplePricingSchedule } from '../utility'
 
 import { Blind } from '@shared/types/blind/blind.types'
 import { getLewissFauxwoodFasciaCost } from '@/utility/process/tableEntry/lewissFauxwood'
+import { WHOLESALE_RATE_MAIN } from '@/utility/process/tableEntry'
 
 type Input = {
   blindType: Blind
@@ -69,7 +70,7 @@ describe('getLewissFauxwoodFasciaCost', () => {
       if (typeof expected === 'undefined') {
         expect(result).toBeUndefined()
       } else {
-        expect(result).toBeCloseTo(expected)
+        expect(result).toBeCloseTo(expected * WHOLESALE_RATE_MAIN)
       }
     }
   )

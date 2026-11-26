@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'vitest'
 import { getExamplePricingSchedule } from '../utility'
 import { getKineticsCellularDimensionCost } from '@renderer/utility/process/tableEntry/kineticsCellular'
+import { WHOLESALE_RATE_MAIN } from '@/utility/process/tableEntry'
 
 const dimensionInput: [number, number, string, number | undefined][] = [
   [1200, 900, 'Translucent', 387.11],
@@ -34,7 +35,7 @@ describe('getKineticsCellularDimensionCost', () => {
       if (typeof expected === 'undefined') {
         expect(result).toBeUndefined()
       } else {
-        expect(result).toBeCloseTo(expected)
+        expect(result).toBeCloseTo(expected * WHOLESALE_RATE_MAIN)
       }
     }
   )

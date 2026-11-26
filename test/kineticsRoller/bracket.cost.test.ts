@@ -8,6 +8,7 @@ import {
   KineticsRollerConnectedBracketColourOption,
   KineticsRollerConnectedBracketOption
 } from '@shared/types/spec/kineticsRoller.types'
+import { WHOLESALE_RATE_MAIN } from '@/utility/process/tableEntry'
 
 const bracketInput: {
   colour: (typeof KineticsRollerBracketColourOption)[number]
@@ -79,7 +80,7 @@ describe('getKineticsRollerBracketCost', () => {
         expect(() => getKineticsRollerBracketCost(bracket, butting, pricingSchedule)).toThrow()
       } else {
         expect(getKineticsRollerBracketCost(bracket, butting, pricingSchedule)).toBeCloseTo(
-          expected
+          expected * WHOLESALE_RATE_MAIN
         )
       }
     }
@@ -94,7 +95,7 @@ describe('getKineticsRollerBracketCost', () => {
         expect(() => getKineticsRollerBracketCost(bracket, butting, pricingSchedule)).toThrow()
       } else {
         expect(getKineticsRollerBracketCost(bracket, butting, pricingSchedule)).toBeCloseTo(
-          expected
+          expected * WHOLESALE_RATE_MAIN
         )
       }
     }

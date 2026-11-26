@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'vitest'
 import { getExamplePricingSchedule } from '../utility'
 import { getKineticsCellularSideChannelCost } from '@renderer/utility/process/tableEntry/kineticsCellular'
+import { WHOLESALE_RATE_MAIN } from '@/utility/process/tableEntry'
 
 const sideChannelInput: [number, string, number | undefined][] = [
   [0, 'None', undefined],
@@ -25,7 +26,7 @@ describe('getKineticsCellularSideChannelCost', () => {
       if (typeof expected === 'undefined') {
         expect(result).toBeUndefined()
       } else {
-        expect(result).toBeCloseTo(expected)
+        expect(result).toBeCloseTo(expected * WHOLESALE_RATE_MAIN)
       }
     }
   )

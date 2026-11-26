@@ -3,6 +3,7 @@ import { getExampleAccessorySchedule } from '../utility'
 
 import { Blind } from '@shared/types/blind/blind.types'
 import { getLewissVenetianSpacerBlockCost } from '@/utility/process/tableEntry/shared/venetian'
+import { WHOLESALE_RATE_MAIN } from '@/utility/process/tableEntry'
 
 type SpacerBlockInput = {
   blindType: Blind
@@ -47,7 +48,7 @@ describe('getLewissAluminiumSpacerBlockCost', () => {
       if (typeof expected === 'undefined') {
         expect(result).toBeUndefined()
       } else {
-        expect(result).toBeCloseTo(expected)
+        expect(result).toBeCloseTo(expected * WHOLESALE_RATE_MAIN)
       }
     }
   )
