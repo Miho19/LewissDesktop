@@ -1,3 +1,4 @@
+import { WHOLESALE_RATE_MAIN } from '@/utility/process/tableEntry'
 import { isKineticsCellularPricingSchedule } from '@shared/types/pricing/kineticsCellular.types'
 import { PricingSchedule } from '@shared/types/pricing/pricingSchedule.types'
 
@@ -10,7 +11,7 @@ export function getKineticsCellularHeadrailCost(
 
   const { headRailCustomColourSurcharge } = pricingSchedule
 
-  if (isCustom(headrailColour)) return headRailCustomColourSurcharge
+  if (isCustom(headrailColour)) return headRailCustomColourSurcharge * WHOLESALE_RATE_MAIN
 
   return 0
 }

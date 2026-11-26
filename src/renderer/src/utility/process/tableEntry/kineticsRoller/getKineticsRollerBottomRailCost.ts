@@ -5,6 +5,7 @@ import {
 } from '@shared/types/pricing/kineticsRoller.types'
 import { roundMeasurementUp } from '@renderer/utility/process/tableEntry/shared/roundMeasurementUp'
 import { KineticsRollerSpec } from '@shared/types/spec/kineticsRoller.types'
+import { WHOLESALE_RATE_MAIN } from '@/utility/process/tableEntry'
 
 export function getKineticsRollerBottomRailCost(
   width: number,
@@ -23,7 +24,7 @@ export function getKineticsRollerBottomRailCost(
 
   const colourCost = getColourCost(colour, pricingSchedule)
 
-  return baseCost + colourCost
+  return (baseCost + colourCost) * WHOLESALE_RATE_MAIN
 }
 
 function destructureBottomRail(bottomRail: string): { type: string; colour: string } | undefined {

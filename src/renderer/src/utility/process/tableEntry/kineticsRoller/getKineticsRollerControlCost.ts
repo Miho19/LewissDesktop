@@ -1,3 +1,4 @@
+import { WHOLESALE_RATE_MAIN, WHOLESALE_RATE_MOTOR } from '@/utility/process/tableEntry'
 import {
   isKineticsRollerPricingSchedule,
   KineticsRollerPricingSchedule
@@ -85,7 +86,7 @@ function getChainCost(control: string, pricingSchedule: KineticsRollerPricingSch
 
   const lengthParsed = parseInt(length)
 
-  return foundColour.cost * (lengthParsed / 1000) + baseCost
+  return (foundColour.cost * (lengthParsed / 1000) + baseCost) * WHOLESALE_RATE_MAIN
 }
 
 export function kineticsRollerDestructureControlString(control: string):
@@ -116,7 +117,7 @@ function getMotorisationCost(control: string, pricingSchedule: KineticsRollerPri
 
   const [_, motor] = foundMotor
 
-  return motor.cost
+  return motor.cost * WHOLESALE_RATE_MOTOR
 }
 
 export function getKineticsRollerControl(

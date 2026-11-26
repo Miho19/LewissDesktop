@@ -1,3 +1,4 @@
+import { WHOLESALE_RATE_MOTOR } from '@/utility/process/tableEntry'
 import {
   isKineticsMikronwoodPricingSchedule,
   KineticsMikronwoodPricingSchedule
@@ -18,8 +19,9 @@ export function getKineticsMikronwoodControlCost(
   if (!isMotorised(control)) return undefined
 
   const motorisationCost = getMotorisationCost(pricingSchedule)
+  if (typeof motorisationCost === 'undefined') return undefined
 
-  return motorisationCost
+  return motorisationCost * WHOLESALE_RATE_MOTOR
 }
 
 function isInputValid(control: string) {
