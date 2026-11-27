@@ -34,7 +34,11 @@ function ProcessPageForm(props: Props) {
 
   const tableList = getTableList(map, file, tableRefList)
 
-  return <form onSubmit={onSubmitHandler}>{tableList}</form>
+  return (
+    <form onSubmit={onSubmitHandler} className="flex flex-col gap-16 w-full">
+      {tableList}
+    </form>
+  )
 }
 
 function getTableList(
@@ -80,34 +84,3 @@ function TableFallBack(blindType: Blind) {
 }
 
 export default ProcessPageForm
-
-// const {
-//   data: initialTableData,
-//   error,
-//   isFetching
-// } = useSuspenseQuery<WindowTableEntry[]>({
-//   queryKey: [`${blindType}`, `${file.reference}`],
-//   queryFn: async () => await getWindowTableEntryList(blindType, windowDisplayList, file)
-// })
-
-// const [data, setData] = useState(initialTableData)
-
-//   function getWindowTableFormList(
-//   map: Map<Blind, WindowDisplay[]>,
-//   file: ProjectFile,
-//   openSheet: (WindowTableEntryList: WindowTableEntry[]) => void
-// ) {
-//   return [...map.entries()].map(([key, value]) => {
-//     return (
-//       <Suspense fallback={<WindowTableLoading />} key={`${key}${file.id}`}>
-//         <WindowFormTable
-//           blindType={key}
-//           windowDisplayList={value}
-//           file={file}
-//           openSheet={openSheet}
-//           toastMessage={toastWindowTableForm}
-//         />
-//       </Suspense>
-//     )
-//   })
-// }

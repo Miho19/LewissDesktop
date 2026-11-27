@@ -1,6 +1,13 @@
-import { columnResizingFeature, columnSizingFeature, tableFeatures } from '@tanstack/react-table'
+import { WindowTableMeta } from '@shared/types/WindowTableEntry.types'
+import {
+  columnResizingFeature,
+  columnSizingFeature,
+  metaHelper,
+  tableFeatures
+} from '@tanstack/react-table'
 
 export const ProcessPageTableFeatures = tableFeatures({
   columnSizingFeature,
-  columnResizingFeature
+  columnResizingFeature,
+  tableMeta: metaHelper<WindowTableMeta>()
 })
