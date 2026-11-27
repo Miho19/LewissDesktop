@@ -1,11 +1,11 @@
 import ProcessPageHeader from '@/components/processPageHeader/processPageHeader'
-import ProcessPageWindowList from '@/components/processPageWindowList/ProcessPageWindowList'
 import { Sheet } from '@/components/ui/sheet'
 import { Spinner } from '@/components/ui/spinner'
 import useProcessFile from '@/hook/useProcessFile'
 import { WindowTableEntry } from '@shared/types/WindowTableEntry.types'
 import { useParams } from '@tanstack/react-router'
 import { useState } from 'react'
+import ProcessPageForm from '@/components/processPageForm/ProcessPageForm'
 
 /**
  *
@@ -51,7 +51,7 @@ function ProcessPage() {
     <div className="w-full h-full flex flex-col p-6 gap-8 items-center">
       <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
         <ProcessPageHeader file={data} />
-        <ProcessPageWindowList file={data} startProcess={startProcess} />
+        <ProcessPageForm file={data} startProcess={startProcess} />
       </Sheet>
     </div>
   )

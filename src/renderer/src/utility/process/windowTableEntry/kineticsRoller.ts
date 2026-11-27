@@ -10,6 +10,7 @@ import { getKineticsRollerBracket } from '@/utility/process/tableEntry/kineticsR
 import { getBlindCountDisplay } from '@/utility/process/windowDisplay/getBlindCountDisplay'
 import { getBlindTypeFromSpec } from '@/utility/process/windowDisplay/getBlindTypeFromSpec'
 import { windowTableEntryThrowError } from '@/utility/process/windowTableEntry/getWindowTableEntryList'
+import { Blind } from '@shared/types/blind/blind.types'
 import { Cover, ProcessFile } from '@shared/types/process/Process.types'
 import { WindowMeasurement } from '@shared/types/Project.types'
 import { isKineticsRollerSpec, KineticsRollerSpec } from '@shared/types/spec/kineticsRoller.types'
@@ -19,6 +20,7 @@ import { Fit } from '@shared/types/WindowDisplay.types'
 import { WindowTableEntry } from '@shared/types/WindowTableEntry.types'
 
 export async function getKineticsRollerWindowTableEntryListAsync(
+  blindType: Blind,
   index: number,
   roomName: string,
   spec: Spec,
@@ -26,10 +28,6 @@ export async function getKineticsRollerWindowTableEntryListAsync(
   window: WindowMeasurement,
   _file: ProcessFile
 ) {
-  const blindType = getBlindTypeFromSpec(spec)
-  if (typeof blindType === 'undefined')
-    throw windowTableEntryThrowError('Kinetics Sunscreen Roller Blind', 'Malformed spec')
-
   if (!isKineticsRollerSpec(spec))
     throw windowTableEntryThrowError(blindType, 'Incorrect spec type')
 

@@ -5,7 +5,10 @@ import {
   getExampleProcessFile
 } from '../utility'
 import { vi, describe, it, expect, afterAll } from 'vitest'
-import { getWindowTableEntryListAsync } from '@/utility/process/windowTableEntry/getWindowTableEntryList'
+import {
+  getWindowTableEntryListAsync,
+  mapProcessFileLineListToBlindType
+} from '@/utility/process/windowTableEntry/getWindowTableEntryList'
 import { isKineticsCellularTableEntryList } from '@shared/types/tableEntry/kineticsCellular.types'
 import { isKineticsRollerTableEntryList } from '@shared/types/tableEntry/kineticsRoller.types'
 
@@ -34,8 +37,14 @@ describe('Window Table Entry List Kinetics', () => {
   it('should return a list of window table entry for Kinetics Cellular', async () => {
     const blindType: Blind = 'Kinetics 10mm Cellular Blind'
     const processFile = getExampleProcessFile(blindType)
+    const map = mapProcessFileLineListToBlindType(processFile)
+    const lineList = map.get(blindType)
+    if (typeof lineList === 'undefined') {
+      expect.fail('line list is undefined')
+      return
+    }
 
-    const result = await getWindowTableEntryListAsync(processFile)
+    const result = await getWindowTableEntryListAsync(blindType, lineList, processFile)
 
     const tableEntryList = result.filter((w) => w.blindType === blindType).map((w) => w.tableEntry)
     expect(tableEntryList.length).toBeGreaterThan(0)

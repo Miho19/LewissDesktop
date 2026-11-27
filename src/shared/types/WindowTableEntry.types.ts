@@ -30,6 +30,7 @@ export type UpdateWindowTableEntryFn = (
 ) => WindowTableEntry
 
 export type CreateWindowTableEntryListFn = (
+  blindType: Blind,
   index: number,
   roomName: string,
   spec: Spec,

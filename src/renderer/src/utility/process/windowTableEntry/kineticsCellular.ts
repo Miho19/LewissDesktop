@@ -11,6 +11,7 @@ import {
 import { getBlindCountDisplay } from '@/utility/process/windowDisplay/getBlindCountDisplay'
 import { getBlindTypeFromSpec } from '@/utility/process/windowDisplay/getBlindTypeFromSpec'
 import { windowTableEntryThrowError } from '@/utility/process/windowTableEntry/getWindowTableEntryList'
+import { Blind } from '@shared/types/blind/blind.types'
 import { Cover, ProcessFile } from '@shared/types/process/Process.types'
 import { WindowMeasurement } from '@shared/types/Project.types'
 import { isKineticsCellularSpec } from '@shared/types/spec/kineticsCellular.types'
@@ -20,6 +21,7 @@ import { Fit } from '@shared/types/WindowDisplay.types'
 import { WindowTableEntry } from '@shared/types/WindowTableEntry.types'
 
 export async function getKineticsCellularWindowTableEntryListAsync(
+  blindType: Blind,
   index: number,
   roomName: string,
   spec: Spec,
@@ -27,10 +29,6 @@ export async function getKineticsCellularWindowTableEntryListAsync(
   window: WindowMeasurement,
   _file: ProcessFile
 ) {
-  const blindType = getBlindTypeFromSpec(spec)
-  if (typeof blindType === 'undefined')
-    throw windowTableEntryThrowError('Kinetics 10mm Cellular Blind', 'Malformed spec')
-
   if (!isKineticsCellularSpec(spec))
     throw windowTableEntryThrowError(blindType, 'Incorrect spec type')
 

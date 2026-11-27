@@ -18,29 +18,24 @@ import {
  *
  * take file --> map into
  */
-export async function getWindowTableEntryListAsync(file: ProcessFile) {
-  const { lines } = file
-
-  const map = mapLinesIntoBlindType(lines)
-
-  const output: WindowTableEntry[] = []
+export async function getWindowTableEntryListAsync(
+  blindType: Blind,
+  lineList: Line[],
+  file: ProcessFile
+) {
+  const createFn = createFnMap[blindType]
+  if (typeof createFn === 'undefined')
+    throw new Error(`${blindType} does not have a creation function`) // not sure if I should be throwing here
 
   try {
-    for (const [key, value] of map) {
-      const createFn = createFnMap[key]
-      if (typeof createFn === 'undefined') continue
-
-      const result = await applyCreateFnToLineList(value, file, createFn)
-      output.push(...result)
-    }
+    return await applyCreateFnToLineList(blindType, lineList, file, createFn)
   } catch (error) {
     console.error(`${error}`)
   }
-
-  return output
 }
 
 async function applyCreateFnToLineList(
+  blindType: Blind,
   lineList: Line[],
   file: ProcessFile,
   createFn: CreateWindowTableEntryListFn
@@ -53,7 +48,7 @@ async function applyCreateFnToLineList(
     for (const cover of covers) {
       const index = getCurrentIndex(output)
       const window = getWindowFromProcessFile(cover, file)
-      const result = await createFn(index, room, spec, cover, window, file)
+      const result = await createFn(blindType, index, room, spec, cover, window, file)
       output.push(...result)
     }
   }
@@ -70,10 +65,12 @@ function getCurrentIndex(windowTableEntryList: WindowTableEntry[]) {
   return currentMax + 1
 }
 
-function mapLinesIntoBlindType(lineList: Line[]) {
+export function mapProcessFileLineListToBlindType(file: ProcessFile) {
+  const { lines } = file
+
   const map = new Map<Blind, Line[]>()
 
-  for (const line of lineList) {
+  for (const line of lines) {
     const blindType = getBlindTypeFromLine(line)
     if (typeof blindType === 'undefined') continue
 
@@ -100,6 +97,7 @@ const createFnMap: Record<Blind, CreateWindowTableEntryListFn> = {
   'Kinetics Blockout Roller Blind': getKineticsRollerWindowTableEntryListAsync,
   'Kinetics Light Filtering Roller Blind': getKineticsRollerWindowTableEntryListAsync,
   "Lewis's 25mm Aluminium Venetian": function (
+    blindType: Blind,
     index: number,
     roomName: string,
     spec: Spec,
@@ -110,6 +108,7 @@ const createFnMap: Record<Blind, CreateWindowTableEntryListFn> = {
     throw new Error('Function not implemented.')
   },
   "Lewis's 50mm Aluminium Venetian": function (
+    blindType: Blind,
     index: number,
     roomName: string,
     spec: Spec,
@@ -120,6 +119,7 @@ const createFnMap: Record<Blind, CreateWindowTableEntryListFn> = {
     throw new Error('Function not implemented.')
   },
   "Lewis's 50mm Fauxwood Venetian": function (
+    blindType: Blind,
     index: number,
     roomName: string,
     spec: Spec,
@@ -130,6 +130,7 @@ const createFnMap: Record<Blind, CreateWindowTableEntryListFn> = {
     throw new Error('Function not implemented.')
   },
   "Lewis's 63mm Fauxwood Venetian": function (
+    blindType: Blind,
     index: number,
     roomName: string,
     spec: Spec,
@@ -140,6 +141,7 @@ const createFnMap: Record<Blind, CreateWindowTableEntryListFn> = {
     throw new Error('Function not implemented.')
   },
   "Lewis's 50mm Phoenixwood Venetian": function (
+    blindType: Blind,
     index: number,
     roomName: string,
     spec: Spec,
@@ -150,6 +152,7 @@ const createFnMap: Record<Blind, CreateWindowTableEntryListFn> = {
     throw new Error('Function not implemented.')
   },
   "Lewis's 63mm Phoenixwood Venetian": function (
+    blindType: Blind,
     index: number,
     roomName: string,
     spec: Spec,
@@ -160,6 +163,7 @@ const createFnMap: Record<Blind, CreateWindowTableEntryListFn> = {
     throw new Error('Function not implemented.')
   },
   'Kinetics Mikronwood 50mm Venetian': function (
+    blindType: Blind,
     index: number,
     roomName: string,
     spec: Spec,
@@ -170,6 +174,7 @@ const createFnMap: Record<Blind, CreateWindowTableEntryListFn> = {
     throw new Error('Function not implemented.')
   },
   'Santa Fe Woodlore Shutter': function (
+    blindType: Blind,
     index: number,
     roomName: string,
     spec: Spec,
@@ -180,6 +185,7 @@ const createFnMap: Record<Blind, CreateWindowTableEntryListFn> = {
     throw new Error('Function not implemented.')
   },
   'Santa Fe Woodlore Plus Shutter': function (
+    blindType: Blind,
     index: number,
     roomName: string,
     spec: Spec,
@@ -190,6 +196,7 @@ const createFnMap: Record<Blind, CreateWindowTableEntryListFn> = {
     throw new Error('Function not implemented.')
   },
   'Santa Fe Waterproof Woodlore Plus Shutter': function (
+    blindType: Blind,
     index: number,
     roomName: string,
     spec: Spec,
@@ -200,6 +207,7 @@ const createFnMap: Record<Blind, CreateWindowTableEntryListFn> = {
     throw new Error('Function not implemented.')
   },
   'Santa Fe Normandy Shutter': function (
+    blindType: Blind,
     index: number,
     roomName: string,
     spec: Spec,
@@ -210,6 +218,7 @@ const createFnMap: Record<Blind, CreateWindowTableEntryListFn> = {
     throw new Error('Function not implemented.')
   },
   'Roman Blind': function (
+    blindType: Blind,
     index: number,
     roomName: string,
     spec: Spec,
@@ -220,6 +229,7 @@ const createFnMap: Record<Blind, CreateWindowTableEntryListFn> = {
     throw new Error('Function not implemented.')
   },
   'Separate Lining': function (
+    blindType: Blind,
     index: number,
     roomName: string,
     spec: Spec,
@@ -230,6 +240,7 @@ const createFnMap: Record<Blind, CreateWindowTableEntryListFn> = {
     throw new Error('Function not implemented.')
   },
   'Unlined Curtain': function (
+    blindType: Blind,
     index: number,
     roomName: string,
     spec: Spec,
@@ -240,6 +251,7 @@ const createFnMap: Record<Blind, CreateWindowTableEntryListFn> = {
     throw new Error('Function not implemented.')
   },
   'Lined Curtain': function (
+    blindType: Blind,
     index: number,
     roomName: string,
     spec: Spec,
@@ -250,6 +262,7 @@ const createFnMap: Record<Blind, CreateWindowTableEntryListFn> = {
     throw new Error('Function not implemented.')
   },
   'Sheer Curtain': function (
+    blindType: Blind,
     index: number,
     roomName: string,
     spec: Spec,
@@ -260,6 +273,7 @@ const createFnMap: Record<Blind, CreateWindowTableEntryListFn> = {
     throw new Error('Function not implemented.')
   },
   'Interlined Curtain': function (
+    blindType: Blind,
     index: number,
     roomName: string,
     spec: Spec,
