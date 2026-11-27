@@ -1,4 +1,5 @@
 import ProcessPageTable from '@/components/processPageForm/ProcessPageTable'
+import { Button } from '@/components/ui/button'
 import { Spinner } from '@/components/ui/spinner'
 import { mapProcessFileLineListToBlindType } from '@/utility/process/windowTableEntry/getWindowTableEntryList'
 import { Blind } from '@shared/types/blind/blind.types'
@@ -37,6 +38,15 @@ function ProcessPageForm(props: Props) {
   return (
     <form onSubmit={onSubmitHandler} className="flex flex-col gap-16 w-full">
       {tableList}
+      <div className="flex w-full justify-end">
+        <Button
+          type="submit"
+          variant="default"
+          className="group cursor-pointer transition-all duration-200 hover:bg-primary/90 hover:shadow-md active:scale-[0.98]"
+        >
+          Submit
+        </Button>
+      </div>
     </form>
   )
 }
