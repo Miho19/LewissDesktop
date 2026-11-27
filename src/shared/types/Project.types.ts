@@ -181,4 +181,6 @@ export type WindowMeasurement = {
   blindRight: number
   existingTrackIsMotorised?: boolean
   blindUnderhang: number
+
+  rollerRollRequired: string
 }

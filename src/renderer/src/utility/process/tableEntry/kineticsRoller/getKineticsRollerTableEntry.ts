@@ -114,7 +114,11 @@ export async function getKineticsRollerTableEntryAsync(
   return [leftEntry, rightEntry]
 }
 
-function getKineticsRollerButting(blindCount: BlindCount, side: 'LHS' | 'RHS', index: number) {
+export function getKineticsRollerButting(
+  blindCount: BlindCount,
+  side: 'LHS' | 'RHS',
+  index: number
+) {
   if (blindCount !== 'butting') return ''
 
   return `${side} / ${index}`

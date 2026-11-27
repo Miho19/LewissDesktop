@@ -7,6 +7,7 @@ import {
 import { vi, describe, it, expect, afterAll } from 'vitest'
 import { getWindowTableEntryListAsync } from '@/utility/process/windowTableEntry/getWindowTableEntryList'
 import { isKineticsCellularTableEntryList } from '@shared/types/tableEntry/kineticsCellular.types'
+import { isKineticsRollerTableEntryList } from '@shared/types/tableEntry/kineticsRoller.types'
 
 vi.mock(
   '@renderer/utility/process/pricingSchedule/retrievePricingSchedule',
@@ -39,5 +40,17 @@ describe('Window Table Entry List Kinetics', () => {
     const tableEntryList = result.filter((w) => w.blindType === blindType).map((w) => w.tableEntry)
     expect(tableEntryList.length).toBeGreaterThan(0)
     expect(isKineticsCellularTableEntryList(tableEntryList)).toBeTruthy()
+  })
+
+  it('should return a list of window table entry for Kinetics Roller', async () => {
+    const blindType: Blind = 'Kinetics Sunscreen Roller Blind'
+    const processFile = getExampleProcessFile(blindType)
+
+    const result = await getWindowTableEntryListAsync(processFile)
+    console.log(result)
+
+    const tableEntryList = result.filter((w) => w.blindType === blindType).map((w) => w.tableEntry)
+    expect(tableEntryList.length).toBeGreaterThan(0)
+    expect(isKineticsRollerTableEntryList(tableEntryList)).toBeTruthy()
   })
 })
