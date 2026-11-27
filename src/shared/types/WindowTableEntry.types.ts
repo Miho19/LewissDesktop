@@ -1,6 +1,6 @@
 import { Blind } from '@shared/types/blind/blind.types'
 import { Cover, Line, ProcessFile } from '@shared/types/process/Process.types'
-import { ProjectFile } from '@shared/types/Project.types'
+import { ProjectFile, WindowMeasurement } from '@shared/types/Project.types'
 import { Spec } from '@shared/types/spec/Spec.types'
 import { TableEntry } from '@shared/types/tableEntry/TableEntry.types'
 
@@ -34,5 +34,6 @@ export type CreateWindowTableEntryListFn = (
   roomName: string,
   spec: Spec,
   cover: Cover,
+  window: WindowMeasurement,
   file: ProcessFile
 ) => Promise<WindowTableEntry[]>

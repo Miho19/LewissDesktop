@@ -44,7 +44,7 @@ export async function getKineticsCellularTableEntryAsync(
 
   const sideChannelColour = getKineticsCellularSideChannelColour(spec)
 
-  const leftBlindButting = getButtingString(windowDisplay.blindCount, index, 'LHS')
+  const leftBlindButting = getKineticsCellularButtingString(windowDisplay.blindCount, index, 'LHS')
 
   const { remote, channel } = getRemoteAndChannel(location, control, entries)
 
@@ -98,7 +98,7 @@ export async function getKineticsCellularTableEntryAsync(
   if (typeof rightBlindCost === 'undefined')
     throw new Error(`${blindType} right blind cost is undefined`)
 
-  const rightBlindButting = getButtingString(blindCount, index, 'RHS')
+  const rightBlindButting = getKineticsCellularButtingString(blindCount, index, 'RHS')
   const rightBlindChannel = leftEntry.channel > 0 ? leftEntry.channel + 1 : 0
 
   const rightEntry: KineticsCellularTableEntry = {
@@ -152,7 +152,11 @@ export function getFabricOpacity(fabricName: string) {
   return capitalise(opacityFound)
 }
 
-function getButtingString(blindCountString: BlindCount, index: number, side: 'LHS' | 'RHS') {
+export function getKineticsCellularButtingString(
+  blindCountString: BlindCount,
+  index: number,
+  side: 'LHS' | 'RHS'
+) {
   if (blindCountString !== 'butting') return ''
 
   return `${side} / ${index}`
