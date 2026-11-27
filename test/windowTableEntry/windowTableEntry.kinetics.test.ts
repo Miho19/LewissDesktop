@@ -40,6 +40,8 @@ describe('Window Table Entry List Kinetics', () => {
     const tableEntryList = result.filter((w) => w.blindType === blindType).map((w) => w.tableEntry)
     expect(tableEntryList.length).toBeGreaterThan(0)
     expect(isKineticsCellularTableEntryList(tableEntryList)).toBeTruthy()
+
+    expect(tableEntryList.every((t) => parseInt(t.price) > 0)).toBeTruthy()
   })
 
   it('should return a list of window table entry for Kinetics Roller', async () => {
@@ -47,10 +49,10 @@ describe('Window Table Entry List Kinetics', () => {
     const processFile = getExampleProcessFile(blindType)
 
     const result = await getWindowTableEntryListAsync(processFile)
-    console.log(result)
 
     const tableEntryList = result.filter((w) => w.blindType === blindType).map((w) => w.tableEntry)
     expect(tableEntryList.length).toBeGreaterThan(0)
     expect(isKineticsRollerTableEntryList(tableEntryList)).toBeTruthy()
+    expect(tableEntryList.every((t) => parseInt(t.price) > 0)).toBeTruthy()
   })
 })
