@@ -8,7 +8,6 @@ import {
 } from '@/utility/process/tableEntry/kineticsRoller'
 import { getKineticsRollerBracket } from '@/utility/process/tableEntry/kineticsRoller/getKineticsBracketCost'
 import { getBlindCountDisplay } from '@/utility/process/windowDisplay/getBlindCountDisplay'
-import { getBlindTypeFromSpec } from '@/utility/process/windowDisplay/getBlindTypeFromSpec'
 import { windowTableEntryThrowError } from '@/utility/process/windowTableEntry/getWindowTableEntryList'
 import { Blind } from '@shared/types/blind/blind.types'
 import { Cover, ProcessFile } from '@shared/types/process/Process.types'
@@ -73,7 +72,7 @@ export async function getKineticsRollerWindowTableEntryListAsync(
   const leftEntry: KineticsRollerTableEntry = {
     index,
     location,
-    width: width[0],
+    width: width,
     height: height,
     fit: fit,
     roll,

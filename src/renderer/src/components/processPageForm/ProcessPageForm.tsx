@@ -32,7 +32,9 @@ function ProcessPageForm(props: Props) {
     console.log(data)
   }
 
-  return <form onSubmit={onSubmitHandler}>{getTableList(map, file, tableRefList)}</form>
+  const tableList = getTableList(map, file, tableRefList)
+
+  return <form onSubmit={onSubmitHandler}>{tableList}</form>
 }
 
 function getTableList(

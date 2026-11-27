@@ -9,7 +9,6 @@ import {
   getKineticsCellularSideChannelColour
 } from '@/utility/process/tableEntry/kineticsCellular'
 import { getBlindCountDisplay } from '@/utility/process/windowDisplay/getBlindCountDisplay'
-import { getBlindTypeFromSpec } from '@/utility/process/windowDisplay/getBlindTypeFromSpec'
 import { windowTableEntryThrowError } from '@/utility/process/windowTableEntry/getWindowTableEntryList'
 import { Blind } from '@shared/types/blind/blind.types'
 import { Cover, ProcessFile } from '@shared/types/process/Process.types'

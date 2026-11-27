@@ -1,3 +1,4 @@
+import { getProcessPageTableColumnDef } from '@/components/processPageForm/columnDef'
 import { ProcessTableRefHandler } from '@/components/processPageForm/ProcessPageForm'
 import {
   ProcessPageTableColumn,
@@ -50,7 +51,7 @@ function ProcessPageTable(props: Props) {
 
   const table = useTable({
     features: ProcessPageTableFeatures,
-    columns: ProcessPageTableColumn,
+    columns: getProcessPageTableColumnDef(blindType),
     data: data,
     columnResizeMode: 'onChange',
     defaultColumn: {
@@ -66,6 +67,8 @@ function ProcessPageTable(props: Props) {
 
   const headerList = getTableHeader(table)
   const bodyList = getTableBody(table)
+
+  console.log(headerList)
 
   return (
     <div className="flex flex-col w-full gap-8">
