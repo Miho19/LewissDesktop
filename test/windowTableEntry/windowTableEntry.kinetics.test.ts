@@ -56,8 +56,13 @@ describe('Window Table Entry List Kinetics', () => {
   it('should return a list of window table entry for Kinetics Roller', async () => {
     const blindType: Blind = 'Kinetics Sunscreen Roller Blind'
     const processFile = getExampleProcessFile(blindType)
-
-    const result = await getWindowTableEntryListAsync(processFile)
+    const map = mapProcessFileLineListToBlindType(processFile)
+    const lineList = map.get(blindType)
+    if (typeof lineList === 'undefined') {
+      expect.fail('line list is undefined')
+      return
+    }
+    const result = await getWindowTableEntryListAsync(blindType, lineList, processFile)
 
     const tableEntryList = result.filter((w) => w.blindType === blindType).map((w) => w.tableEntry)
     expect(tableEntryList.length).toBeGreaterThan(0)

@@ -31,6 +31,7 @@ export async function getWindowTableEntryListAsync(
     return await applyCreateFnToLineList(blindType, lineList, file, createFn)
   } catch (error) {
     console.error(`${error}`)
+    throw error
   }
 }
 
